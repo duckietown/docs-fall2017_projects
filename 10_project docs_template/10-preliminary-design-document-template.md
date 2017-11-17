@@ -22,11 +22,13 @@ Your rallying cry into battle. Traditionally, Duckietown uses Latin mottos.
 
 <div class='check' markdown="1">
 
-Per aspera sic itur ad astra
+Quidquid latine dictum sit, altum videtur
 
 </div>
 
 ### Project scope
+
+
 
 Are you going to rewrite Duckietown from scratch? Probably not. You need to decide what are the boundaries in which you want to move.
 
@@ -86,12 +88,20 @@ We need to understand what will be the trade-offs.
 How do you measure the functionality (what this module provides)?
 What are the "metrics"?
 
-Example: numbers of dragons killed per hour
+<div class="example-usage" markdown="1">
+numbers of dragons killed per hour
+</div>
+
 
 Note that this is already tricky. In fact, the above is not a good metric. Maybe we kill the dragon with an explosion, and also the prince/princess is killed. A better one might be:
 
-Example: numbers of royals freed per hour
-Example: probability of freeing a royal per attempt
+<div class="example-usage" markdown="1">
+numbers of royals freed per hour
+</div>
+
+<div class="example-usage" markdown="1">
+probability of freeing a royal per attempt
+</div>
 
 It works better if you can choose the quantities so that functionality is something that you maximize to maximize. (so that you can "maximize performance", and "minimize resources").
 
@@ -99,10 +109,18 @@ It works better if you can choose the quantities so that functionality is someth
 
 How do you measure the resources (what this module requires)?
 
-Example: numbers of knights to hire
-Example: total salary for the mercenaries.
-Example: liters of poison to buy.
-Example: average duration of the battle.
+<div class="example-usage" markdown="1">
+numbers of knights to hire
+</div>
+<div class="example-usage" markdown="1">
+total salary for the mercenaries.
+</div>
+<div class="example-usage" markdown="1">
+liters of poison to buy.
+</div>
+<div class="example-usage" markdown="1">
+average duration of the battle.
+</div>
 
 It works better if you think of these resources as something to minimize.
 
@@ -110,4 +128,70 @@ It works better if you think of these resources as something to minimize.
 
 How would you measure the performance/resources above? If you don't know how to measure it, it is not a good quantity to choose.
 
-Example: we dress up Brian as a Dragon and see how long it takes to kill him.
+<div class="example-usage" markdown="1">
+we dress up Brian as a Dragon and see how long it takes to kill him.
+</div>
+
+## Part 3: Preliminary design
+
+### Modules
+
+Can we decompose the problem?
+
+Can you break up the solution in modules?
+
+Note here we talk about logical modules, not the physical architecture (ROS nodes).
+
+### Interfaces
+
+For each module, what is the input, and what is the output?
+
+How is the data represented?
+
+Note we are not talking about ROS messages vs services vs UDP vs TCP etc.
+
+### Preliminary plan of deliverables
+
+What needs to be designed?
+
+What needs to be implemented?
+
+What already exists and needs to be revised?
+
+### Specifications
+
+Do you need to revise the Duckietown specification?
+
+### Software modules
+
+Here, be specific about the software:is it a ROS node, a Python library, a cloud service, a batch script?
+
+### Infrastructure modules
+
+Some of the modules have been designated as infrastructure
+
+## Part 4: Project planning
+
+Now, make a plan for the next phase.
+
+### Data collection
+
+What data do you need to collect?
+
+### Data annotation
+
+Do you have data that needs to be annotated? What would the annotations be?
+
+#### Relevant Duckietown resources to investigate
+
+List here Duckietown packages, slides, previous projects that are relevant to your quest
+
+#### Other relevant resources to investigate
+
+List papers, open source code, software libraries, that could be relevant in your quest.
+
+### Risk analysis
+
+What could go wrong?
+
+How to mitigate the risks?
