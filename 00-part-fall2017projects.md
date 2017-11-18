@@ -1,4 +1,4 @@
-# Fall 2017 projects {#part:fall-2017-projects}
+# Fall 2017 projects {#part:fall-2017-projects status=beta}
 
 Welcome to the Fall 2017 projects.
 
