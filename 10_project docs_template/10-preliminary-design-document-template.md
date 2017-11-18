@@ -1,12 +1,14 @@
 #  Group name: preliminary design document {#project-name-preliminary-design-doc status=draft}
 
+<!--
 <div class='requirements' markdown="1">
-
 Requires: Group Name
-
 Result: Group-Name-preliminary-design-document
-
 </div>
+-->
+
+<!-- EXAMPLE COMMENT
+-->
 
 ## Part 1: Mission and scope
 
