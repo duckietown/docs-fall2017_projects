@@ -2,11 +2,8 @@
 
 <!--
 <div class='requirements' markdown="1">
-
 Requires: Group Name
-
 Result: Group-Name-preliminary-design-document
-
 </div>
 -->
 
