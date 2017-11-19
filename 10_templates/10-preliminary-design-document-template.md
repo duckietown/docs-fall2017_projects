@@ -47,15 +47,18 @@ List here the teams, and a possible contact person for each team.
 Time to define the particular problem that you choose to solve.
 
 Suppose that we need to free our prince/princess from a dragon. So the mission is clear:
-Mission = we must recover the prince/princess.
+
+> Mission = we must recover the prince/princess.
 
 Now, are we going to battle the dragon, or use diplomacy?
 
 If the first, then the problem statement becomes:
-Problem statement = We need to slain a dragon.
+
+> Problem statement = We need to slain a dragon.
 
 Otherwise:
-    Problem statement = We need to convince the dragon to give us the prince/princess.
+
+> Problem statement = We need to convince the dragon to give us the prince/princess.
 
 Suppose we choose to slain the dragon.
 
@@ -63,9 +66,9 @@ Suppose we choose to slain the dragon.
 
 At this point, you might need to make some assumptions before proceeding.
 
-Does the dragon breath fire?
-What color is the dragon? Does the color matter?
-How big is this dragon, exactly?
+* Does the dragon breath fire?
+* What color is the dragon? Does the color matter?
+* How big is this dragon, exactly?
 
 ### Approach
 
@@ -105,12 +108,15 @@ How do you measure the resources (what this module requires)?
 <div class="example-usage" markdown="1">
 numbers of knights to hire
 </div>
+
 <div class="example-usage" markdown="1">
 total salary for the mercenaries.
 </div>
+
 <div class="example-usage" markdown="1">
 liters of poison to buy.
 </div>
+
 <div class="example-usage" markdown="1">
 average duration of the battle.
 </div>
