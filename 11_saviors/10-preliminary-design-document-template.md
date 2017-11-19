@@ -1,6 +1,6 @@
-#  Group name: preliminary design document {#project-name-preliminary-design-doc status=ready}
+#  Saviors: preliminary design document {#project-name-preliminary-design-doc status=ready}
 
-<!-- EXAMPLE COMMENT
+<!-- Preliminary design document of the group saviors as of 19.11.2017
 -->
 
 ## Part 1: Mission and scope
