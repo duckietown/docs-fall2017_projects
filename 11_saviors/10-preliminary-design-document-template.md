@@ -35,7 +35,7 @@ No obstacles in crossings, obstacles on the middle line
 
 #### Stakeholders
 
-<b>Controllers (Lane following, adaptive curvature control)</b> - Marco Stalder, Simon Muntwiler, Anna Dai, Manuel Breitenstein, Andreas Aumiller
+<b>Controllers (Lane following, adaptive curvature control)</b> - Marco Stalder, Simon Muntwiler, Anna Dai, Manuel Breitenstein, Andreas Aumiller<br>
 <b>Vehicle detection</b> - tbd
 
 
@@ -60,16 +60,16 @@ Detect and avoid obstacles.
 
 ### Approach
 
-Stage 0: Obstacle detection and full stop
-Stage 1: 1 obstacle, no crossing of lines (2 cases: drive by or stop)
-→ simple logical conditions
-Stage 2: 1 obstacle, crossing line if needed (1 case: should always be possible to drive by)
-→ Either with grid map or obstacle coordinates
-Stage 3: Multiple obstacles, crossing line if needed 
+Stage 0: Obstacle detection and full stop<br>
+Stage 1: 1 obstacle, no crossing of lines (2 cases: drive by or stop)<br>
+→ simple logical conditions<br>
+Stage 2: 1 obstacle, crossing line if needed (1 case: should always be possible to drive by)<br>
+→ Either with grid map or obstacle coordinates<br>
+Stage 3: Multiple obstacles, crossing line if needed <br>
 
 ### Functionality-resources trade-offs
 
-The space of possible implementations / battle plans is infinite.
+The space of possible implementations / battle plans is infinite.<br>
 We need to understand what will be the trade-offs.
 
 ### Functionality provided
@@ -77,10 +77,11 @@ We need to understand what will be the trade-offs.
 Avoid duckies, measured in avoid/hit-percentage. Maximise avoid/hit ratio. 
 
 ### Resources required / dependencies / costs
-
-Calibrated camera.
-Position estimate and position uncertainty.
-No costs involved.
+<ul>
+	<li>Calibrated camera.</li>
+	<li>Position estimate and position uncertainty.</li>
+	<li>No costs involved.</li>
+</ul>
 
 
 ### Performance measurement
@@ -173,9 +174,9 @@ In a first phase, the controller project group needs to be contacted to identify
 
 ### Data collection
 
-Images of duckies on the road.
-Video of a duckiebot in duckietown with recordings of the different stages.
-To log:
+Images of duckies on the road.<br>
+Video of a duckiebot in duckietown with recordings of the different stages.<br>
+To log:<br>
 <ul>
 	<li>Distance to middle</li>
 	<li>Theta</li>
@@ -189,16 +190,16 @@ To log:
 tbd
 
 #### Relevant Duckietown resources to investigate
-Image processing, feature extraction
-MIT2016 object detection
-Lane detection
-Anti instagram
+Image processing, feature extraction<br>
+MIT2016 object detection<br>
+Lane detection<br>
+Anti instagram<br>
 
 
 #### Other relevant resources to investigate
 OpenCV
 
 ### Risk analysis
-Interfaces (control approach of trajectory)
-Computation power
+Interfaces (control approach of trajectory)<br>
+Computation power<br>
 
