@@ -15,7 +15,7 @@ Make Duckietown a safer place.
 
 <div class='check' markdown="1">
 
-Insert Latin translation here.
+<b>Insert Latin translation here.</b>
 
 </div>
 
@@ -23,10 +23,10 @@ Insert Latin translation here.
 
 #### What is in scope
 
-Detecting cones and duckies of different sizes (obstacles). 
-Stage 1: 1 obstacle, no crossing of lines (2 cases: drive by or stop)
-Stage 2: 1 obstacle, crossing line if needed (1 case: should always be possible to drive by)
-Stage 3: Multiple obstacles, crossing line if needed 
+Detecting cones and duckies of different sizes (obstacles). <br>
+Stage 1: 1 obstacle, no crossing of lines (2 cases: drive by or stop)<br>
+Stage 2: 1 obstacle, crossing line if needed (1 case: should always be possible to drive by)<br>
+Stage 3: Multiple obstacles, crossing line if needed <br>
 
 
 #### What is out of scope
