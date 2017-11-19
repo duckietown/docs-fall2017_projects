@@ -15,7 +15,7 @@ Make Duckietown a safer place.
 
 <div class='check' markdown="1">
 
-<b>Insert Latin translation here.</b>
+<b><i>Insert Latin translation here.</i></b>
 
 </div>
 
