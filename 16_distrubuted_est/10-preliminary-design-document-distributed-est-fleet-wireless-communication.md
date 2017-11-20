@@ -185,9 +185,9 @@ Here, be specific about the software:is it a ROS node, a Python library, a cloud
 
 Some of the modules have been designated as infrastructure
 
-# Part 4: Project planning
+## Part 4: Project planning
 
-## Project plan
+### Project plan
 
 #### Week 9: 13/11/2017
 **Task:**
@@ -257,23 +257,23 @@ Some of the modules have been designated as infrastructure
     * Communicating Duckiebots over ad-hoc network
   
 #### Week "16" : 01/01/2018
-* **Task:**
+* **Tasks:**
     * Duckumentation and Buffer
    
 * **Deliverables:** 
     * Duckumentation
 
-## Task distribution
+### Task distribution
 * Libraries (incl. Testing): Luca and Antoine
 * ROS node (incl. Testing): Leonie
 * Testing of the framework: Pat and Francesco
 * Redundant centralized network: Pat and Francesco
 * Ad-hoc networking: Leonie, Luca and Francesco
 
-## Data collection
+### Data collection
 TBD --> other groups
 
-## Data annotation
+### Data annotation
 
 No data to be annotated.
 
