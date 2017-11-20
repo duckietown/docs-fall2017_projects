@@ -145,7 +145,7 @@ Formation keeping and intersection coordination
 * Multiple duckiebots
 * Duckietown
 * April tags
-* Annotated data set
+
 
 
 #### Performance measurement
@@ -154,19 +154,14 @@ Formation keeping and intersection coordination
  * Number of duckiebots in the “Follow the leader” demo
  * Duration of the demo [time]
  * Transient error of distance and perpendicular offset
- * Vehicle Detection ROC-Curve
- * Uncertainty in pose estimation
- * Tracking Error / Prediction Accuracy
- * Robustness to data annotation errors
-* Intersection coordination
+
+* Implicit coordination
+ * **Detection**: bounding-box (intersection over union, precision + recall), uncertainty in pose estimation
  * Throughput rate of duckiebots through intersection
  * Waiting time at intersection
  * Number of successful crossings at intersection before a collision happens
- * Vehicle Detection ROC-Curve
- * Uncertainty in pose estimation
- * Tracking Error / Prediction Accuracy
- * Robustness to data annotation errors
- * Robustness to duckiebot pose, appearance, scale, orientation ambiguity and LED-light
+ * Robustness to duckiebot pose, appearance, scale, orientation ambiguity and LED-lightning
+
 
 
 ## Part 3: Preliminary design
@@ -201,7 +196,7 @@ Formation keeping and intersection coordination
 
 #### Specifications
 
-T-intersection in Duckietown?
+(Special T-intersection with only one stop in Duckietown)
 
 #### Software modules
 
@@ -218,14 +213,45 @@ None
 
 ## Part 4: Project planning
 
+Date
+Task Name
+Target Deliverables
+17/11/2017
+Kick-Off
+Preliminary Design Document
+24/11/2017
+Review state of the art, theoretical formalisation
+List of what has to be implemented and how and what can be reused from last year.
+Benchmarking current state
+1/12/2017
+Implementation
+
+
+8/12/2017
+Implementation and Testing
+Code
+15/12/2017
+Evaluation, Optimization
+Performance measurement
+22/12/2017
+Buffer
+
+
+29/12/2017
+Duckumentation
+Duckuments
+05/01/2018
+
+
+End of project
+
 
 
 ### Data collection
 
-
-
+Annotated images
 ### Data annotation
-
+Duckiebots in bounded boxes under different conditions (Illumination, LEDs on/off, Duckiebot configurations, ...)
 
 
 #### Relevant Duckietown resources to investigate
