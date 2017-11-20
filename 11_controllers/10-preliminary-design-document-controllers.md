@@ -1,4 +1,4 @@
-#  Group name: preliminary design document {#project-name-preliminary-design-doc status=ready}
+#  The Controllers: preliminary design document {#project-name-preliminary-design-doc status=ready}
 
 <!-- EXAMPLE COMMENT
 -->
@@ -21,224 +21,281 @@ IMPERIUM ET POTESTAS EST (with control comes power)
 ### Project scope
 
 
-#### What is in scope
+#### What is in scope  
 
-Control Duckiebot on straight lane segments and curved lane segments.
+* Control Duckiebot on straight lane segments and curved lane segments.
 
-Robustness to geometry (width of lane, width of lines)
+* Robustness to geometry (width of lane, width of lines)
 
-Detection and stopping at red (stop) lines
+* Detection and stopping at red (stop) lines
 
-Providing control for a given reference **d** for avoidance and intersections (but for intersections, we additionally need the pose estimation and a curvature from the navigators team)
+* Providing control for a given reference **d** for avoidance and intersections (but for intersections, we additionally need the pose estimation and a curvature from the navigators team)  
 
-#### What is out of scope
+#### What is out of scope  
 
-Pose estimation and curvature on Intersections (plus navigation / coordination)
+* Pose estimation and curvature on Intersections (plus navigation / coordination)
 
-Model of Duckiebot and uncertainty quantification of parameters (System Identification) 
+* Model of Duckiebot and uncertainty quantification of parameters (System Identification) 
 
-Object avoidance involving going to the left lane
+* Object avoidance involving going to the left lane
 
-Extraction and classification of edges from images (anti-instagram)
+* Extraction and classification of edges from images (anti-instagram)
 
-Any hardware design
+* Any hardware design
 
-Controller for Custom maneuvers (e.g. Parking)
+* Controller for Custom maneuvers (e.g. Parking, Special intersection control)
 
-Robustness to non existing line
-
-
-#### Stakeholders
-
-**System Architect**
-She helps us to interact with other groups. We talk with her if we change our project. 
-
-**Software Architect**
-They give us Software guidelines to follow
-They give a message definition.
-
-**Knowledge Tzarina**
-Duckiebook
-
-**Anti-Instagram**
-They provide classified edges (differentiation of centerline, outer lines and stop lines
-
-Direction of the edges (background to line vs. line to background))
-
-**Intersection Coordination (Navigators)** 
-They tell where to stop at red line.
-We give a message once stopped.
-They give pose estimation and curvature (constant) to navigate on intersection.
-
-We provide controller for straight line or standard curves. 
-
-**Parking**
-They tell where to stop at red line
-We give a message once stopped
-System Identification
-Romeo?
-They provide model of Duckiebot
-Obstacle Avoidance Pipelines (Saviors)
-Fabio Meier, Fabrice Oehler, Julian Nubert, Niklas Funk?
-They provide reference d
-SLAM
+* Robustness to non existing line  
 
 
-They might want to know some information from our pose estimation (e.g. lane width or theta)
 
+#### Stakeholders  
+
+**System Architect**  
+
+She helps us to interact with other groups. We talk with her if we change our project.   
+  
+**Software Architect**  
+
+They give us Software guidelines to follow.   
+They give a message definition.  
+  
+**Knowledge Tzarina**  
+Duckiebook  
+  
+**Anti-Instagram**  
+They provide classified edges (differentiation of centerline, outer lines and stop lines)  
+
+Direction of the edges (background to line vs. line to background)  
+  
+**Intersection Coordination (Navigators)**   
+They tell where to stop at red line.  
+We give a message once stopped.  
+They give pose estimation and curvature (constant) to navigate on intersection.  
+We provide controller for straight line or standard curves.   
+  
+**Parking**  
+They tell where to stop at red line.  
+We give a message once stopped  
+  
+**System Identification**  
+They provide model of Duckiebot.  
+  
+**Obstacle Avoidance Pipelines (Saviors)**  
+They provide reference **d**.  
+  
+**SLAM**  
+They might want to know some information from our pose estimation (e.g. lane width or theta).  
+  
 
 
 ## Part 2: Definition of the problem
 
-### Problem statement
+### Problem statement  
 
-Time to define the particular problem that you choose to solve.
+We must keep the Duckiebots at a given distance d from center of the lane, on straight and curved roads, under bounded variations of the city geometric specifications.    
+    
+Geometric specifications:   
 
-Suppose that we need to free our prince/princess from a dragon. So the mission is clear:
+* Nominal lane width
+* Tape width (white, yellow, red)
+* Spacing between yellow dashed line
+* Curvature of the curves  
 
-> Mission = we must recover the prince/princess.
+Given at every time step a reference **d** (the reference $\theta$ gets choosen in a way to match the reference d):  
+\begin{equation}
+    q_r(t)=[x_r(t),y_r(t),\theta_r(t)]^t \rightarrow [d_r(t),\theta_r(t)]
+\end{equation}
 
-Now, are we going to battle the dragon, or use diplomacy?
+(: distance perpendicular to the lane. 0 is defined in the center of the lane (see definition in duckumentation))  
 
-If the first, then the problem statement becomes:
+(: angle between the lane and the robot body frame. )     
+  
+and given a **model of the system**,  
+  
+define a control action:  
+  
+* the heading and velocity of the center between the wheels of robot, leading to a sequence of motor commands
+  
+at every time step, such that the pose (estimate of the pose) converges to the target.  
+  
+**Performance:**  
 
-> Problem statement = We need to slain a dragon.
+* Steady state within a tile
+* Never leaves the lane
+* Small steady state error  
+  
+**Robustness to slight changes in:**  
 
-Otherwise:
-
-> Problem statement = We need to convince the dragon to give us the prince/princess.
-
-Suppose we choose to slain the dragon.
+* Model parameters
+* Width of the lane
+* Width of the lines
+* Curvature of the road  
+  
 
 ### Assumptions
 
-At this point, you might need to make some assumptions before proceeding.
+* There is a reason for the caster wheel
+* A system model of the Duckiebot is provided
+* The system model parameters for every duckiebot are given
+* A set of classified lane edges are given with a certain frequency, latency, resolution and a maximum number of false positives and maximum number of misclassifications.
+* Anti-instagram people do low level vision -> extract lines in image space
+* Only small deviation from the specified geometric values
+* Surface properties of Duckietown tiles are similar in each Duckietown
+* Bounded initial pose, when driving straight no wheel of the Duckiebot should touch any line within 25cm
 
-* Does the dragon breath fire?
-* What color is the dragon? Does the color matter?
-* How big is this dragon, exactly?
 
 ### Approach
 
-All right. We are going to kill the dragon. How? Are we going to battle the dragon? Are we trying to poison him? Are we going to hire an army of mercenaries to kill the dragon for us?
+* Benchmark actual system → identify bottlenecks (in estimation and control)
+- Identify bottlenecks by modifying different parts of the system and adding them each at a time and have a look at how much is the improvement
+→ Make new branches for each of those modifications
+* We want to improve the pose estimation by applying a particle filter. To measure the impact of the improved pose estimation, we will design a test procedure.
+* One possible test procedure: Set a calibrated duckiebot to many known points on straight lanes and curved lanes. Save the information of these actual poses (measured by hand) together with the images taken by the Duckiebot’s camera in the respective poses. On this data, different anti-instagram methods and different pose estimations can be run and evaluated directly, without any physical duckiebot nor Duckietown.
+* We want to improve the parameters of the current controller by tuning it experimentally.
+* We want to increase the frequency of the controller update.
+* We want to handle actuator saturation, if we adding an I part to the controller.  
 
-### Functionality-resources trade-offs
 
-The space of possible implementations / battle plans is infinite.
-We need to understand what will be the trade-offs.
+### Functionality-resources trade-offs  
+
 
 ### Functionality provided
 
-How do you measure the functionality (what this module provides)?
-What are the "metrics"?
-
-<div class="example-usage" markdown="1">
-numbers of dragons killed per hour
-</div>
-
-
-Note that this is already tricky. In fact, the above is not a good metric. Maybe we kill the dragon with an explosion, and also the prince/princess is killed. A better one might be:
-
-<div class="example-usage" markdown="1">
-numbers of royals freed per hour
-</div>
-
-<div class="example-usage" markdown="1">
-probability of freeing a royal per attempt
-</div>
-
-It works better if you can choose the quantities so that functionality is something that you maximize to maximize. (so that you can "maximize performance", and "minimize resources").
+Drive on straight lane and curves without large deviations from the center of the lane.  
 
 ### Resources required / dependencies / costs
 
-How do you measure the resources (what this module requires)?
+Hardware resources:  
 
-<div class="example-usage" markdown="1">
-numbers of knights to hire
-</div>
+* Tapes for lanes 
+* Tiles to make different straight lanes and curved lanes
+* Timer 
+* Functional Duckiebot
+  
+Dependencies: see assumptions  
 
-<div class="example-usage" markdown="1">
-total salary for the mercenaries.
-</div>
+We assume to have image space line segments extracted and classified from images.
 
-<div class="example-usage" markdown="1">
-liters of poison to buy.
-</div>
+* frequency
+* latency
+* accuracy (resolution)
+* maximum false positives
+* maximum misclassification error (confusion matrix)
 
-<div class="example-usage" markdown="1">
-average duration of the battle.
-</div>
-
-It works better if you think of these resources as something to minimize.
 
 ### Performance measurement
 
-How would you measure the performance/resources above? If you don't know how to measure it, it is not a good quantity to choose.
+Drive on the track for one minute and count the number of times the bot touches the side or center line. Repeat this 5 times.   
 
-<div class="example-usage" markdown="1">
-we dress up Brian as a Dragon and see how long it takes to kill him.
-</div>
+**Metrics**  
+Error from the reference distance d when driving straight.  
+- Mean and variance of 5 experiments 
+Estimate of lane width.  
+- Estimate lane width and compare to measurement
+Estimate road curvature.  
+- Estimate curvature and compare to measured radius of curve
+Speed - make is a control variable.  
+Robustness to initial pose.  
+- Run lane following using 5 different initial poses
+Transient error after curved section (e.g. dies in one tile length).  
+- 5 experiments of measuring the error d when driving straight after a curved segment $\rightarrow$ Did the transient error die?  
+Robustness to the curvature.  
+- Run curve following on 5 lanes made of different combinations of curve tiles (left-left-right, left-right-left, … )
+Robustness to lane specifications   
+- Run lane following on 5 lanes with different lane width when driving straight
+
 
 ## Part 3: Preliminary design
 
 ### Modules
 
-Can we decompose the problem?
+Estimation of Position:
 
-Can you break up the solution in modules?
+* Input: segments detected by Anti-Instagram-Filter
+* Output: 
+- Distance from center of lane, 
+- Heading angle, 
+- Curve or straight lane
+- Curvature 
 
-Note here we talk about logical modules, not the physical architecture (ROS nodes).
+Controller:   
+
+* Input: state (Distance from center of lane, heading angle, other) by an Estimator
+* Output: Control Output to motors
+
 
 ### Interfaces
 
-For each module, what is the input, and what is the output?
+* Anti-instagram: Labelled (centerline, outer line, stop line) edges with color and direction in image plane. The messages is defined already.
+* Odometry calibration: get the model parameters. Yaml file
+* Obstacle avoidance: get reference distance d from center of lane.. Zero assumed otherwise.
+* Estimator: state vector at regular intervals.
+* Control: Motor voltages at regular intervals
 
-How is the data represented?
-
-Note we are not talking about ROS messages vs services vs UDP vs TCP etc.
 
 ### Preliminary plan of deliverables
 
-What needs to be designed?
-
-What needs to be implemented?
-
-What already exists and needs to be revised?
 
 ### Specifications
 
-Do you need to revise the Duckietown specification?
+We do not need to change the Duckietown specifications.
 
 ### Software modules
 
-Here, be specific about the software:is it a ROS node, a Python library, a cloud service, a batch script?
+* Estimator: NODE. There is a markovian approach. A particle filter should be implemented
+* Controller: NODE. there is a P controller. A feedforward should be implemented. Pure-pursuit, or simple FeedForward.
+* Outlier rejection: NODE (or part of estimator). there is nothing. A system has to be designed to detect edges that clearly don’t belong to the line.
+* Automated testing: NODE. There is nothing. A system should be implemented to test estimation from recorded data. It should be easy to update this data.
 
-### Infrastructure modules
-
-Some of the modules have been designated as infrastructure
 
 ## Part 4: Project planning
 
-Now, make a plan for the next phase.
+### Timeline
+
+| Date | Task Name | Target Deliverables |
+|:-----------|:------------|:-------------|
+| 17/11/17 | Kick-Off | Preliminary Design Document |
+| 24/11/17 | Get familiar with state of the art | Benchmark state of the art, Identifiy bottlenecks |
+| 01/12/17 | Theoretical derivation of Controller and Estimator | |
+| 08/12/17 | Implementation of Controller and Estimator | |
+| 15/12/17 | Benchmark new implementation | Performance measure of new implementation |
+| 22/12/17 | Buffer | |
+| 29/12/17 | Documentation | Duckuments |
+| 05/01/18 | | End of Project |
+
 
 ### Data collection
 
-What data do you need to collect?
+Take rosbag logs every time.  
+
+Rosbag  
+
+- Image
+- Edges from Anti-Instagram
+- Motor control values
+
 
 ### Data annotation
 
-Do you have data that needs to be annotated? What would the annotations be?
+Curvature of road.
 
 #### Relevant Duckietown resources to investigate
 
-List here Duckietown packages, slides, previous projects that are relevant to your quest
+Vision odometry
+Lane detection
+Anti instagram
 
 #### Other relevant resources to investigate
 
-List papers, open source code, software libraries, that could be relevant in your quest.
+[Particle Filter coded in python and useful intro to the subject](https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/master/12-Particle-Filters.ipynb)  
+
 
 ### Risk analysis
 
-What could go wrong?
-
-How to mitigate the risks?
+| Risk | Likelihood | Impact | Risk response Strategy | Actions required |
+| :--- | :--- | :--- | :--- | :--- |
+| Cannot estimate curvature | 2 | 5 | mitigate | Start early with testing thresholds for curvature identification |
+| Cannot define distance to curve | 2 | 4 | mitigate | Try various methods to identify the distance to curve |
+| Duckiebot leaves the lane after curve (current situation) | 2 | 5 | mitigate | |
+| Cannot handle the inputs given by other teams | 4 | 4 | mitigate | Get more information from Sonja, Talk to other teams, Clear comments in the code for easier problem detection |
