@@ -189,69 +189,140 @@ Some of the modules have been designated as infrastructure
 
 ## Project plan
 
-<col3 figure-id="tab:environment-variables" class='labels-row1'>
-    <figcaption>Environment variables used by the software</figcaption>
+#### Week 9: 13/11/2017
+**Task:**
+    * Project kick-off and planning
+  
+**Deliverables:** 
+    * Preliminary Design Document
 
-    <s>variable</s>
-    <s>reasonable value</s>
-    <s>contains</s>
+#### Week 10: 20/11/2017
+* **Tasks:**
+    * Contract negotiation with the relevant groups
+    * Research on testing, redundant centralized and ad-hoc networking
+    * Design and implementation of Libraries
+    * Design and implementation of ROS node
+    * Configuration of centralized network
+  
+* **Deliverables:** 
+    * Contracts
 
-    <s><code>DUCKIETOWN_ROOT</code></s>
-    <s><code>~/duckietown</code></s>
-    <s><code>Software</code> repository</s>
+#### Week 11: 27/11/2017
+* **Tasks:**
+    * Find suitable tools for testing and test the ROS node (incl. libraries) using these tools
+    * Configuration of redundant centralized network
+    * Code reviews
+    * Duckumentation
 
-    <s><code>DUCKIEFLEET_ROOT</code></s>
-    <s><code>~/duckiefleet</code></s>
-    <s>Where to look for class-specific information (people DB, robots DB).</s>
+* **Deliverables:** 
+    * Network configuration working
+    * Libraries (tested)
+    * ROS node (tested)
+    * First test results
 
-    <s><code>DUCKIETOWN_DATA</code></s>
-    <s><code>~/duckietown-data</code></s>
-    <s>The place where to look for logs.</s>
+#### Week 12: 04/12/2017
+* **Tasks:**
+    * Ad-hoc networking
+    * Duckumentation
 
-    <s><code>DUCKIETOWN_TMP</code></s>
-    <s></s>
-    <s>If set, directory to use for temporary files. If not set, we use the default ( <code>/tmp</code>).</s>
+* **Deliverables:** 
+    * Redundant centralized network working
 
-    <s><code>DUCKIETOWN_CONFIG_SEQUENCE</code></s>
-    <s><code>defaults:baseline:vehicle:user</code></s>
-    <s>The <a href="#easy_node">configuration sequence for EasyNode</a></s>
-</col3>
+#### Week 13: 11/12/2017
+* **Tasks:**
+    * Ad-hoc networking
+    * Duckumentation
+  
+* **Deliverables:** 
+    * Testing “framework” complete
 
-#### Week: 13/11/17
-  1. Task:
-  * Project kick-off and planning 
-  * Deliverables: 
+#### Week 14: 18/12/2017
+* **Tasks:**
+    * Ad-hoc networking
+    * Duckumentation
+    * Solve networking problems
+    * Testing
+
+* **Deliverables:** 
+    * None
+
+#### Week "15" : 25/12/2017
+* **Tasks:**
+    * Ad-hoc networking
+    * Duckumentation
+    * Solve networking problems
+    * Testing
+  
+* **Deliverables:** 
+    * Communicating Duckiebots over ad-hoc network
+  
+#### Week "16" : 01/01/2018
+* **Task:**
+    * Duckumentation and Buffer
+   
+* **Deliverables:** 
+    * Duckumentation
 
 ## Task distribution
-  * Libraries (incl. Testing): Luca and Antoine
-  * ROS node (incl. Testing): Leonie
-  * Testing of the framework: Pat and Francesco
-  * Redundant centralized network: Pat and Francesco
-  * Ad-hoc networking: Leonie, Luca and Francesco
+* Libraries (incl. Testing): Luca and Antoine
+* ROS node (incl. Testing): Leonie
+* Testing of the framework: Pat and Francesco
+* Redundant centralized network: Pat and Francesco
+* Ad-hoc networking: Leonie, Luca and Francesco
 
 ## Data collection
 TBD --> other groups
 
-## Relevant Duckietown resources to investigate
+## Data annotation
 
-### Data collection
+No data to be annotated.
 
-What data do you need to collect?
+### Relevant Duckietown resources to investigate
 
-### Data annotation
+WiFi specs (duckumentation)
 
-Do you have data that needs to be annotated? What would the annotations be?
+### Other relevant resources to investigate
 
-#### Relevant Duckietown resources to investigate
+**Suggestions on Slack channel:**
+1. [MAVLink (born for UAVs also used for other robots)](http://qgroundcontrol.org/mavlink/start)
+2. [ROMANO (not so good...)](https://arxiv.org/abs/1709.07555) 
+3. [DDS (standard for ROS 2.0)](http://portals.omg.org/dds/)
 
-List here Duckietown packages, slides, previous projects that are relevant to your quest
+**Computer Networks:**
 
-#### Other relevant resources to investigate
+Introduction to computer networks: http://intronetworks.cs.luc.edu/
 
-List papers, open source code, software libraries, that could be relevant in your quest.
+**Serialization and Messaging:**
+
+Protocol Buffers: https://developers.google.com/protocol-buffers/
+ZeroMQ: http://zeromq.org/ 
+
+**Google python coding style guide:**
+
+https://google.github.io/styleguide/pyguide.html 
+
+**Redundant routers (rollover, cascading):**
+
+http://www.tomshardware.co.uk/forum/21591-43-design-redundant-wireless-network 
+https://www.linksys.com/ca/support-article?articleNum=132275 (to be verified)
+
+**Static code analysis in python:**
+
+https://www.pylint.org/ 
+
+**Pylint configuration:**
+
+https://stackoverflow.com/questions/29597618/is-there-a-tool-to-lint-python-based-on-the-google-style-guide 
 
 ### Risk analysis
 
-What could go wrong?
+**Possible Risks?**
+* Network problems (ad-hoc: unstable network, low bandwidth, high latency, ...)
+* No ad-hoc network solution
+* Sizable amount of redundant data sent over wifi (chaos)
+* Synchronization
 
-How to mitigate the risks?
+**How to mitigate the risks?**
+* Synchronization not part of networking → contract
+* Contracts to prevent redundancy
+
