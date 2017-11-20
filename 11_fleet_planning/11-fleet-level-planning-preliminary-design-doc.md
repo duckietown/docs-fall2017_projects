@@ -11,11 +11,10 @@
 
 
 
-<div class='check' markdown="1">
 
 VICTORIA CONCORDIA CRESCIT (Victory through harmony)
 
-</div>
+
 
 ### Project scope
 
@@ -62,7 +61,7 @@ We need to combine parts of many different stakeholders to achieve planning for 
 
 ### Approach
 
-![alt text](git hub link to fleet-level_planning_diagram.png "Logo Title Text 1")
+![alt text](approach-diagram.png "Fleet-level Planning Diagram")
 
 Necessary steps:
 
@@ -100,17 +99,15 @@ Metrics:
 
 ### Performance measurement
 
-How would you measure the performance/resources above? If you don't know how to measure it, it is not a good quantity to choose.
+* Calculate time taken to complete request
+* Number of requests served per unit of time 
 
-<div class="example-usage" markdown="1">
-we dress up Brian as a Dragon and see how long it takes to kill him.
-</div>
 
 ## Part 3: Preliminary design
 
 ### Modules
 
-![alt text](git hub link to fleet-level_planning_diagram.png "Logo Title Text 1")
+![alt text](approach-diagram.png "Fleet-level Planning Diagram")
 
 ### Interfaces
 
@@ -155,30 +152,51 @@ Revisit visualization of Duckiebots on map and adapt it for visualization of N D
 
 None
 
+
+
 ## Part 4: Project planning
 
-| Week of | Task | Deliverable |
-|---------|------|-------------|
-| 13.11.2017 | Project kick-off and planning | Preliminary Design Document |
-| 20.11.2017 | Look at state of current infrastructure | Running visualization of 1 duckiebot on map as currently implemented |
-| 27.11.2017 | Visualization of n duckiebots |  |
-| 04.12.2017 | Mission planner, implement m-stochastic queue median policy (or similar, tbd with Claudio) |  |
-| 11.12.2017 | ...continued | Run test cases (e.g. send n reference locations to n duckiebots) |
-| 18.12.2017 | ...continued | Run test cases (e.g. send n reference locations to n duckiebots) |
-| 25.12.2017 | Implement customer request handling | Run test cases to establish reliable customer request handling routine |
-| 01.01.2018 | Physical visualization of status, ETH formation | Verify that it works |
 
-
-
+<col3 figure-id="tab:project-plan" figure-caption="Fleet-level Planning Project Plan" class="Labels-Row1">
+    <span>Week of</span>
+    <span>Task</span>
+    <span>Deliverable</span>
+    <span>13.11.2017</span>
+    <span>Project kick-off and planning</span>
+    <span>Preliminary Design Document</span>
+    <span>20.11.2017</span>
+    <span>Look at state of current infrastructure</span>
+    <span>Running visualization of 1 duckiebot on map as currently implemented</span>
+    <span>27.11.2017</span>
+    <span>Visualization of n duckiebots</span>
+    <span> </span>
+    <span>04.12.2017</span>
+    <span>Mission planner, implement m-stochastic queue median policy (or similar, tbd with Claudio) </span>
+    <span> </span>
+    <span>11.12.2017</span>
+    <span>...continued</span>
+    <span>Run test cases (e.g. send n reference locations to n duckiebots)</span>
+    <span>18.12.2017</span>
+    <span>...continued</span>
+    <span>Run test cases (e.g. send n reference locations to n duckiebots)</span>
+    <span>25.12.2017</span>
+    <span> Implement customer request handling </span>
+    <span>Run test cases to establish reliable customer request handling routine</span>
+    <span>01.01.2018</span>
+    <span>Physical visualization of status, ETH formation</span>
+    <span>Verify that it works</span>
+</col3>
 
 
 ### Data collection
 
 None
 
+
 ### Data annotation
 
 None
+
 
 #### Relevant Duckietown resources to investigate
 
@@ -195,11 +213,13 @@ According to meeting notes:
 * Look at code from Claudio re m-stochastic queue median policy + [paper](http://dx.doi.org/10.1109/CDC.2010.5717552)
 
 
+
 #### Other relevant resources to investigate
 
 Papers:
 
 “Fundamental performance limits and efficient polices for Transportation-On-Demand systems“ by  Marco Pavone,  Kyle Treleaven and  Emilio Frazzoli  [link](http://dx.doi.org/10.1109/CDC.2010.5717552)
+
 
 
 ### Risk analysis
