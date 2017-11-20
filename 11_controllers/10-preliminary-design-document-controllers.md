@@ -107,9 +107,14 @@ Given at every time step a reference **d** (the reference $\theta$ gets choosen 
     q_r(t)=[x_r(t),y_r(t),\theta_r(t)]^t \rightarrow [d_r(t),\theta_r(t)]
 \end{equation}
 
-(: distance perpendicular to the lane. 0 is defined in the center of the lane (see definition in duckumentation))  
+The following image shows the definition of the parameters $d$ and $\theta$.
 
-(: angle between the lane and the robot body frame. )     
+![image](problem_statement.svg)
+
+
+($d$: distance perpendicular to the lane. 0 is defined in the center of the lane (see definition in duckumentation))  
+
+($\theta$: angle between the lane and the robot body frame. )     
   
 and given a **model of the system**,  
   
@@ -269,7 +274,7 @@ We do not need to change the Duckietown specifications.
 
 Take rosbag logs every time.  
 
-Rosbag  
+Rosbag:  
 
 - Image
 - Edges from Anti-Instagram
