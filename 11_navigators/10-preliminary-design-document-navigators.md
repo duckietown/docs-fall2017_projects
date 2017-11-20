@@ -2,6 +2,9 @@
 
 <!-- EXAMPLE COMMENT
 -->
+<!--### Team Information
+
+![Team Information Table](teaminfo.png)-->
 
 ## Part 1: Mission and Scope
 
@@ -11,54 +14,55 @@ The objective of this project is to implement a method that allows Duckiebots to
 
 ### Motto
 
-<div class='check' markdown="1">
 
-TRANSIBITIS (you shall pass)
+**TRANSIBITIS** (you shall pass)
 
-</div>
 
 ### Project Scope
 
 #### What is in scope
 
--Navigating three- and four-way intersection of predetermined shape.
 
--(Absolute or relative) localization within the intersection.
+* Navigating three- and four-way intersection of predetermined shape.
 
--Computing a path or trajectory that guides the Duckiebots across the intersection to the desired lane.
+* (Absolute or relative) localization within the intersection.
 
--Computing control inputs to follow path / track trajectory.
+* Computing a path or trajectory that guides the Duckiebots across the intersection to the desired lane.
 
--Limiting travel time across intersection.
+* Computing control inputs to follow path / track trajectory.
 
--Detecting when the Duckiebot successfully navigated across an intersection and finds itself in a regular lane.
+* Limiting travel time across intersection.
 
--Proposing hardware modifications to the intersection (e.g. traffic lights, additional markers,...).
+* Detecting when the Duckiebot successfully navigated across an intersection and finds itself in a regular lane.
+
+* Proposing hardware modifications to the intersection (e.g. traffic lights, additional markers,...).
 
 
 #### What is out of scope
 
--Understanding that the Duckiebot is at an intersection.
+* Understanding that the Duckiebot is at an intersection.
 
--Deciding where to go at an intersection.
+* Deciding where to go at an intersection.
 
--Coordinating with other Duckiebots at an intersection (e.g. who drives first, …).
+* Coordinating with other Duckiebots at an intersection (e.g. who drives first, …).
 
--Object detection and collision avoidance.
+* Object detection and collision avoidance.
 
--Global localization.
+* Global localization.
 
 
 #### Stakeholders
 
--Smart Cities, Marco Erni
+* Smart Cities, Marco Erni
 
--The Controllers, Andreas Aumiller
+* The Controllers, Andreas Aumiller
 
--Anti-Instagram,  Milan Schilling
+* Anti-Instagram,  Milan Schilling
 
--The Identifiers, Manuel Dengel
+* The Identifiers, Manuel Dengel
 
+
+![Project Boundary](io2.png)
 
 
 ## Part 2: Definition of the Problem
@@ -69,19 +73,19 @@ We seek to find a method that allows a Duckiebot to safely navigate an intersect
 
 ### Assumptions
 
--Size, shape of intersections is given and fixed.
+* Size, shape of intersections is given and fixed.
 
--Color and size of lane markings are given and fixed.
+* Color and size of lane markings are given and fixed.
 
--The type of intersection (e.g. three-way or four-way intersection) as well as the desired exit (e.g. left turn, right turn or straight) are provided.
+* The type of intersection (e.g. three-way or four-way intersection) as well as the desired exit (e.g. left turn, right turn or straight) are provided.
 
--There are fiducial markers (e.g. April tags, stop signs, …) placed at the intersection at predetermined positions.
+* There are fiducial markers (e.g. April tags, stop signs, …) placed at the intersection at predetermined positions.
 
--The Duckiebots’ are initially at rest and their pose is within a certain range with respect to the intersection (distance to center of road, distance to stop line, orientation within the lane). 
+* The Duckiebots’ are initially at rest and their pose is within a certain range with respect to the intersection (distance to center of road, distance to stop line, orientation within the lane). 
 
--The intersection is free of obstacles.
+* The intersection is free of obstacles.
 
--Good light conditions (e.g. no illumination problems,...)
+* Good light conditions (e.g. no illumination problems,...)
 
 ### Approach
 
@@ -104,52 +108,52 @@ The above methods can also be combined, e.g. using visual odometry and if availa
 
 ### Functionality provided
 
--Localization within an intersection.
+* Localization within an intersection.
 
--Path/trajectory planning to navigate intersection.
+* Path/trajectory planning to navigate intersection.
 
--Possibly control strategy to track above.
+* Possibly control strategy to track above.
  
 ### Resources required / dependencies / costs
 
 The proposed method(s) can be evaluated using the following measures (in order of decreasing importance):
 
--Success rate, i.e. the percentage of trials for which the Duckiebot ends up in the desired lane and successfully hands over the control to the lane following controller.
+* Success rate, i.e. the percentage of trials for which the Duckiebot ends up in the desired lane and successfully hands over the control to the lane following controller.
 
--Accuracy and precision of  final state, i.e. how close is the Duckiebot’s state relative to the desired final state (e.g. distance relative to the center of the lane, orientation within lane, velocity) and how repeatable is this.
+* Accuracy and precision of  final state, i.e. how close is the Duckiebot’s state relative to the desired final state (e.g. distance relative to the center of the lane, orientation within lane, velocity) and how repeatable is this.
 
--Duration, i.e. the average time required for the Duckiebot to cross an intersection and if possible an upper limit (worst-case) on the time required.
+* Duration, i.e. the average time required for the Duckiebot to cross an intersection and if possible an upper limit (worst-case) on the time required.
 
--Robustness to changes in the size of the intersection (e.g. lane width, size of tiles, …), i.e. how do the above performance measures change with respect to changes of the size of intersection.
+* Robustness to changes in the size of the intersection (e.g. lane width, size of tiles, …), i.e. how do the above performance measures change with respect to changes of the size of intersection.
 
--Path following or trajectory tracking error, using for example the maximum absolute distance error from the desired path.
+* Path following or trajectory tracking error, using for example the maximum absolute distance error from the desired path.
 
 
 ### Performance measurement
 
--The success rate can evaluated by simply performing the intersection navigation tasks N times and counting the number of successful trials.
+* The success rate can evaluated by simply performing the intersection navigation tasks N times and counting the number of successful trials.
 
--The accuracy and precision of final state can be evaluated using the already existing lane detection method. 
+* The accuracy and precision of final state can be evaluated using the already existing lane detection method. 
 
--The average duration can simply be computed from N experiments. A (probabilistic) upper bound to navigating an intersection can be found likewise.
+* The average duration can simply be computed from N experiments. A (probabilistic) upper bound to navigating an intersection can be found likewise.
 
--Either experiments on the real system with slightly different intersections or a sensitivity analysis (analytically or numerically) with respect to parameters defining the size of the intersection can be carried to evaluate the system’s robustness.
+* Either experiments on the real system with slightly different intersections or a sensitivity analysis (analytically or numerically) with respect to parameters defining the size of the intersection can be carried to evaluate the system’s robustness.
 
--An absolute position system (e.g. an overhead motion capture system) can be used to evaluate the Duckiebot's trajectory tracking errors.
+* An absolute position system (e.g. an overhead motion capture system) can be used to evaluate the Duckiebot's trajectory tracking errors.
 
 ## Part 3: Preliminary Design
 
 ### Modules
 
--Initial position understanding
+* Initial position understanding
 
--Information processing (in which kind of intersection we are, where we want to go, ..)
+* Information processing (in which kind of intersection we are, where we want to go, ..)
 
--Trajectory generation
+* Trajectory generation
 
--Control loop
+* Control loop
 
--Conclusion 
+* Conclusion 
 
 
 ### Interfaces
@@ -160,11 +164,11 @@ FThe inputs and outputs are also shown on a very high level in the Stakeholders 
 
 ### Software modules
 
--Intersection Localization: ROS node
+* Intersection Localization: ROS node
 
--Path Planner / Trajectory Generator: Python library
+* Path Planner / Trajectory Generator: Python library
 
--Path Following / Trajectory Tracking Controller: ROS node.
+* Path Following / Trajectory Tracking Controller: ROS node.
 
 
 ### Infrastructure modules
@@ -186,35 +190,44 @@ No
 
 #### Relevant Duckietown resources to investigate
 
--Current (open-loop) solution
--April tag detector
--Control strategy
--Lane Detector
--Anti-Instagram
--State Machine (switch between lane-following and navigating intersection)
--Visual Odometry
--Duckiebot system dynamics and control input constraints
+* Current (open-loop) solution
+* April tag detector
+* Control strategy
+* Lane Detector
+* Anti-Instagram
+* State Machine (switch between lane-following and navigating intersection)
+* Visual Odometry
+* Duckiebot system dynamics and control input constraints
 
 
 #### Other relevant resources to investigate
 
-April Tags:
+* April Tags:
 https://april.eecs.umich.edu/software/apriltag.html
 
-Aruco Markers:
+* Aruco Markers:
 https://sourceforge.net/projects/aruco/files/
 
-Visual Odometry:
-D. Scaramuzza, F. Fraundorfer, “Visual odometry [tutorial]”, IEEE Robotics & Automation Magazine, 2011.
+* Visual Odometry:
+D. Scaramuzza, F. Fraundorfer, “Visual odometry [tutorial]”, IEEE Robotics &amp; Automation Magazine, 2011.
 
 D. Scaramuzza, F. Fraundorfer, R. Siegwart, “Real-time monocular visual odometry for on-road vehicles with 1-point RANSAC”, IEEE International Conference on Robotics and Automation, 2009.
 
-Localization using Line Detection: 
+* Localization using Line Detection: 
 J. Barandiaran, D.Borro, “Edge-Based Markerless 3D Tracking of Rigid Objects”, IEEE Conference on Artificial Reality and Telexistence, 2007.
 
 
 ### Risk Analysis
 
--Not enough distinct features for visual odometry (or similarly, not enough lane markings).
--Not sufficient computational power on board the Duckiebot.
+* Not enough distinct features for visual odometry.
+* Similarly, not enough lane markings.
+* Not sufficient computational power on board the Duckiebot.
 
+#### Mitigation strategies
+
+Mainly the mentioned risks will be related to a closed-loop implementation, which is a basic goal of the project. 
+However they should not affect the development of an improved open-loop solution, ex. using April Tags detection, so this may be a starting point to improve the current state and to start the  development of the closed-loop solution.
+
+For the application of a Visual Odometry algorithm, if features in the Duckietown will be not enough, we may plan to add/use additional hardware, which will be possibly developed in accord with the Smart CIties group.
+
+Moreover, the paper “Real-time monocular visual odometry for on-road vehicles with 1-point RANSAC” may be useful for addressing issues about computational constraints thanks to the implementation of the 1-point RANSAC algorithm.
