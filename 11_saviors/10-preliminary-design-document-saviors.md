@@ -90,32 +90,32 @@ Manual counting of the dead duckies to provide avoid/hit-ratio.
 ## Part 3: Preliminary design
 
 ### Modules
- * Detection 2D space
- * 3D obstacle coordinates and radius
- * Avoid obstacle
+ * **Detection 2D space**
+ * **3D obstacle coordinates and radius**
+ * **Avoid obstacle**
  * Stage 0: Stop
  * Stage 1: Stop, drive around single obstacle
  * Stage 2: drive around multiple obstacles
 
 
 ### Interfaces
- * Detection 2D space
- * Input:
+ * **Detection 2D space**
+ * *Input:*
  * Camera image
  * Current position and orientation
  * (Curvature of upcoming track)
- * Output:
- * Output:
- * 3D obstacle coordinates and radius
- * Input:
+ * *Output:*
  * 2D obstacle coordinates
- * Output:
+ * **3D obstacle coordinates and radius**
+ * *Input:*
+ * 2D obstacle coordinates
+ * *Output:*
  * 3D obstacle coordinates
- * Avoid obstacle
- * Input:
+ * **Avoid obstacle**
+ * *Input:*
  * 3D obstacle coordinates
  * Obstacle size
- * Output:
+ * *Output:*
  * Trajectory, form tbd
 
 ### Preliminary plan of deliverables
