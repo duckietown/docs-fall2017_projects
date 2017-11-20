@@ -70,61 +70,72 @@ Communication in a de-centralized network (ad-hoc)
 **Step 0:** Define contracts with distributed estimation / fleet planning teams
 
 **Step 1:** Create the communication framework for the duckiebots and test it on a centralized network
+
 * Create wifi communication network (physical hardware e.g. wifi router, configuration, etc.)
 * Create a software component that serializes data (create/format datapackets)
 * Create a software component to send and receive messages to/from other duckiebots
 * Integrate Serialization and Messaging software components into THE communication software component (e.g. into a ROS node)
 * Testing:
     * Live visualization of bandwidth (and/or latency, etc. → Network performance measures) of network
+    * Live visualization of network topology 
+    * Are any messages being dropped without arriving at their destination?
+    * Etc.
+
+**Step 2 (Optional):** Test the communication framework using a redundant centralized network
+
+* Same as step 1, except for the wifi network → redundant centralized network
+
+**Step 2 (Optional):** Test the communication framework using a de-centralized network
+
+* Same as step 1, except for the wifi network → AD-HOC network
 
 ### Functionality-resources trade-offs
 
-The space of possible implementations / battle plans is infinite.
-We need to understand what will be the trade-offs.
-
 ### Functionality provided
 
-How do you measure the functionality (what this module provides)?
-What are the "metrics"?
+* Enable duckiebots to join the network.
+* Enable duckiebots to pack data and send it to other duckiebots in the same network.
+* Enable duckiebots to receive and unpack data such that the data can be used in other software modules.
+* Other functionality TBD
 
 <div class="example-usage" markdown="1">
-numbers of dragons killed per hour
-</div>
 
-
-Note that this is already tricky. In fact, the above is not a good metric. Maybe we kill the dragon with an explosion, and also the prince/princess is killed. A better one might be:
-
-<div class="example-usage" markdown="1">
-numbers of royals freed per hour
 </div>
 
 <div class="example-usage" markdown="1">
-probability of freeing a royal per attempt
+
 </div>
 
-It works better if you can choose the quantities so that functionality is something that you maximize to maximize. (so that you can "maximize performance", and "minimize resources").
+<div class="example-usage" markdown="1">
+
+</div>
+
 
 ### Resources required / dependencies / costs
 
-How do you measure the resources (what this module requires)?
+**Bandwidth definition:**
+
+* Number of duckiebots in the network
+* Size of the messages
+* Sending frequency
+* Latency in message transmission
+* Extra computation on duckiebots
 
 <div class="example-usage" markdown="1">
-numbers of knights to hire
+pull 
 </div>
 
 <div class="example-usage" markdown="1">
-total salary for the mercenaries.
+
 </div>
 
 <div class="example-usage" markdown="1">
-liters of poison to buy.
+
 </div>
 
 <div class="example-usage" markdown="1">
-average duration of the battle.
-</div>
 
-It works better if you think of these resources as something to minimize.
+</div>
 
 ### Performance measurement
 
