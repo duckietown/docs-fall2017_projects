@@ -28,13 +28,13 @@ BI UNUM IBI OMNES (Where there is one, there is everybody)
 * One network for one Duckietown
 * TBD: does anything need to be synchronized?
 
+![System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png "System Layout")
+
 **Option 1:**
 Communication in a centralized network with a redundant centralized component (multiple routers)
 
 **Option 2:**
 Communication in a de-centralized network (ad-hoc)
-
-![System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png "System Layout")
 
 #### What is out of scope
 
