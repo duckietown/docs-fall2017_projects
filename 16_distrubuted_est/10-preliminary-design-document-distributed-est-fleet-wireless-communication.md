@@ -234,10 +234,10 @@ Communication in a de-centralized network (ad-hoc)
 ### Project plan
 
 #### Week 9: 13/11/2017
-**Task:**
+* **Tasks:**
     * Project kick-off and planning
   
-**Deliverables:** 
+* **Deliverables:** 
     * Preliminary Design Document
 
 #### Week 10: 20/11/2017
