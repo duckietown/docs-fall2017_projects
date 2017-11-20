@@ -38,48 +38,44 @@ Communication in a de-centralized network (ad-hoc)
 
 #### What is out of scope
 
-What do you consider out of scope? (e.g. hardware modifications)
+* Shared network communication between Duckietowns in case of a centralized network
+* Communication redundancy with another physical layer
+* Data processing → Message data is just de-serialized and provided to other components
+
 
 #### Stakeholders
 
-What other pieces of Duckietown interact with your piece?
-
-List here the teams, and a possible contact person for each team.
+* Distributed Estimation
+* Fleet planning
+* Integration Heroes
 
 
 ## Part 2: Definition of the problem
 
 ### Problem statement
 
-Time to define the particular problem that you choose to solve.
+**Mission = Enable Duckiebots to communicate wirelessly**
 
-Suppose that we need to free our prince/princess from a dragon. So the mission is clear:
-
-> Mission = we must recover the prince/princess.
-
-Now, are we going to battle the dragon, or use diplomacy?
-
-If the first, then the problem statement becomes:
-
-> Problem statement = We need to slain a dragon.
-
-Otherwise:
-
-> Problem statement = We need to convince the dragon to give us the prince/princess.
-
-Suppose we choose to slain the dragon.
+**Problem Statement = Create a  communication framework for the Duckiebots**
 
 ### Assumptions
 
-At this point, you might need to make some assumptions before proceeding.
-
-* Does the dragon breath fire?
-* What color is the dragon? Does the color matter?
-* How big is this dragon, exactly?
+* Duckiebots can connect to a wifi network
+* Data to be sent is already synchronized ???? TBD
+* Duckiebots leave network when they are out of range or switched off
+* If a Duckiebot is not connected to the communication network, it is not in Duckietown
 
 ### Approach
 
-All right. We are going to kill the dragon. How? Are we going to battle the dragon? Are we trying to poison him? Are we going to hire an army of mercenaries to kill the dragon for us?
+**Step 0:** Define contracts with distributed estimation / fleet planning teams
+
+**Step 1:** Create the communication framework for the duckiebots and test it on a centralized network
+* Create wifi communication network (physical hardware e.g. wifi router, configuration, etc.)
+* Create a software component that serializes data (create/format datapackets)
+* Create a software component to send and receive messages to/from other duckiebots
+* Integrate Serialization and Messaging software components into THE communication software component (e.g. into a ROS node)
+* Testing:
+..* Live visualization of bandwidth (and/or latency, etc. → Network performance measures) of network
 
 ### Functionality-resources trade-offs
 
