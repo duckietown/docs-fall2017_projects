@@ -185,15 +185,21 @@ Here, be specific about the software:is it a ROS node, a Python library, a cloud
 
 Some of the modules have been designated as infrastructure
 
-## Part 4: Project planning
-
 # Part 4: Project planning
 
 ## Project plan
-| Week of | Task | Deliverable |
-| --- | ---| --- | --- |
-| 13.11.2017 | * Contract negotiation with the relevant groups||
-Write the table down
+
+<col2 figure-id="tab:mytable" figure-caption="My table">
+    <span>A</span>
+    <span>B</span>
+    <span>C</span>
+    <span>D</span>
+</col2>
+
+#### Week: 13/11/17
+  1. Task:
+  * Project kick-off and planning 
+  * Deliverables: 
 
 ## Task distribution
   * Libraries (incl. Testing): Luca and Antoine
