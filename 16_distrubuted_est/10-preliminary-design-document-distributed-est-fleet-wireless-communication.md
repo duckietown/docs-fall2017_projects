@@ -75,7 +75,7 @@ Communication in a de-centralized network (ad-hoc)
 * Create a software component to send and receive messages to/from other duckiebots
 * Integrate Serialization and Messaging software components into THE communication software component (e.g. into a ROS node)
 * Testing:
-..* Live visualization of bandwidth (and/or latency, etc. → Network performance measures) of network
+... * Live visualization of bandwidth (and/or latency, etc. → Network performance measures) of network
 
 ### Functionality-resources trade-offs
 
