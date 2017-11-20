@@ -47,7 +47,9 @@ Ensure that the development and integration of the projects into the system goes
 
 Documentation regarding system architecture (including ownership of functional diagram of system)
 
-Kindly enforcing system architecture choices (@Andrea, do I posess this power?)
+Assisting in contract negotiation
+
+Giving advice to teams regarding functional layout and interfaces
 
 #### What is out of scope
 
