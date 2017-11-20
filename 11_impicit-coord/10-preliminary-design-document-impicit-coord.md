@@ -26,36 +26,23 @@ AlIIS VIVERE
 
 * Avoiding traffic waves
 
-* Intersection coordination logic
+* Intersection coordination
 
- * Implement traffic rules
+ * **Detection**: position (bounding box) + pose estimation per bot in FoV.
 
- * Intention of the other car has to be predicted
+ * **Tracking**: trajectory (sequence of pose) estimation per bot tracked, parametrized in time.
 
- * Priority traffic rule: First come first serve. Crossings possible without explicit communication
+ * **Prediction**: predict bots behavior through intersection by integrating tracking information and rules of the road (no explicit communication allowed).
 
- * Designing Fiducial markers (April tags)
+  * Implement traffic rules
 
-* Vehicle Detection
+  * Intention of the other car has to be predicted
 
- * 2D image space detections (appears and disappears)
+  * Priority traffic rule: First come first serve. Crossings possible without explicit communication
 
- * 3D Bounding box
+  * Designing Fiducial markers (April tags)
 
- * 3D bounding box + orientation (which way it goes)
-
- * 3D bounding box + orientation + velocity
-
-* Vehicle Tracking
-
- * 2D image space tracks (consistent in times)
-
-
-* Vehicle Prediction
-
- * 3D bounding box + orientation + velocity + Position prediction (1, 5, 20)
-
- * 3D bounding box + orientation + velocity + Position prediction (1, 5, 20) + estimating a policy ("behavior")
+* (Designing a special T intersection with only one stop)
 
 
 #### What is out of scope
@@ -111,12 +98,37 @@ AlIIS VIVERE
 
 ###### Implicit Coordination
 
-* Detect vehicle at intersection  
-* Apply coordination rules
+* Data Collection
 
-###### Data Annotation
+ * Annotation tool: if only detecting bots, any custom manual approach will work, if not, then we will use thehive.ai API.
 
-* Outsourcing to [thehive.ai](https://thehive.ai/)
+ * Types of intersections: 4-way, 3-way, 3-way with 1 stop sign.
+
+ * No pedestrians.
+
+ * Motions: moving vs. static traffic, moving vs. static self.
+
+ * Including “look-around” behavior.
+
+ * Illumination variances: add a predominant light to Duckietown so we can have strong shadows and different lighting conditions.
+
+ * Appearance variances: different bots configurations (e.g: with/without the shell, a duck, etc.)
+
+ * Frames will be extracted from videos at a 3 fps framerate.
+
+* Detection
+
+ * Instance-level 2D/3D Bounding box + pose estimation.
+ * Explore OpenCV built-in detection capabilities.
+
+ * Explore supervised learning methods for detection, including existing models (e.g: YOLO2, SDD, etc).
+* Tracking
+ * Estimate prior trajectory of each bot based on the instance level detection generated.
+ * Explore OpenCV tracking algorithms ([Doc](https://www.learnopencv.com/object-tracking-using-opencv-cpp-python/))
+ * Explore MOT algorithms based on Deep Learning ([Paper]( https://arxiv.org/pdf/1708.02843.pdf))
+* Prediction
+ * 3D bounding box + orientation + velocity + Position prediction (1, 5, 20) + estimating a policy ("behavior") applying rules of the road.
+ * APPROACH: TBD.
 
 ### Functionality-resources trade-offs
 
@@ -124,7 +136,7 @@ AlIIS VIVERE
 
 Formation keeping and intersection coordination
 
-* Detection of other duckiebots within field-of-view
+* Detection of other Duckiebots within field-of-view
 * Tracking
 * Prediction
 
@@ -225,3 +237,33 @@ Existing vehicle detection algorithm ([Code](https://github.com/duckietown/Softw
 Robotics Handbook: Ideas for controller for 'follow-the-leader' or driving in traffic on pg. 808
 
 ### Risk analysis
+
+Likelihood from 1-10, where 10 is very likely and 1 very unlikely.
+Impact from 1-10, where 10 is a huge negative impact and 1 not so bad.
+
+Event
+Likelihood
+Impact
+Risk response Strategy (avoid, transfer, mitigate, acceptance)
+Actions required
+False Negative in Vehicle detection can lead to crash
+4
+9
+mitigate
+The effect of FPs are less bad than those of FNs. Punish FNs more in an eventual cost function.
+False Positive in Vehicle detection makes bot stand still.
+4
+2
+accept
+
+
+Inaccurate estimation of distance between bots
+3
+7
+mitigate
+Early testing, big enough safety margin, improve controller
+Collision of 2 duckiebots in an intersection
+3+4
+9
+mitigate
+Combination of Risk 1 and 3
