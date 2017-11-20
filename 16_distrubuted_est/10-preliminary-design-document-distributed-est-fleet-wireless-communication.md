@@ -122,7 +122,7 @@ Communication in a de-centralized network (ad-hoc)
 * Extra computation on duckiebots
 
 <div class="example-usage" markdown="1">
-pull 
+
 </div>
 
 <div class="example-usage" markdown="1">
@@ -139,10 +139,12 @@ pull
 
 ### Performance measurement
 
-How would you measure the performance/resources above? If you don't know how to measure it, it is not a good quantity to choose.
+* Visualize the network topology → number of duckies
+* Visualize messages (wireshark) → message size, latency
+* Visualize HW resources → processor, memory, etc.
 
 <div class="example-usage" markdown="1">
-we dress up Brian as a Dragon and see how long it takes to kill him.
+
 </div>
 
 ## Part 3: Preliminary design
@@ -185,7 +187,25 @@ Some of the modules have been designated as infrastructure
 
 ## Part 4: Project planning
 
-Now, make a plan for the next phase.
+# Part 4: Project planning
+
+## Project plan
+| Week of | Task | Deliverable |
+| --- | ---| --- | --- |
+| 13.11.2017 | * Contract negotiation with the relevant groups||
+Write the table down
+
+## Task distribution
+  * Libraries (incl. Testing): Luca and Antoine
+  * ROS node (incl. Testing): Leonie
+  * Testing of the framework: Pat and Francesco
+  * Redundant centralized network: Pat and Francesco
+  * Ad-hoc networking: Leonie, Luca and Francesco
+
+## Data collection
+TBD --> other groups
+
+## Relevant Duckietown resources to investigate
 
 ### Data collection
 
