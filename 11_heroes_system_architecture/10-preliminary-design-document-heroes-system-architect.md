@@ -135,6 +135,17 @@ Balancing priorities of mission 1 and 2. Mission 1 is crucial, and takes priorit
 
 Where there is a system, there is a want (nay, need) for optimisation. Describing a system’s performance and resource requirements in a quantifiable way is a critical part of being able to benchmark modules and optimise the system.
 
+The different levels of Mission 2 are defined as follows: 
+
+* Bronze standard:
+    * Define a formal, qualitative language to describe constraints/requirements between modules.
+
+* Silver standard:
+    * Each module has table of performance. A tool is developed that can give a qualitative answer to the question: With given configuration x, is the cost/requirements possible with available resources? f(x) smaller equal to Rmax?
+
+* Gold standard:
+    * Optimization of the system is possible to find the best implementation (most functionality and performance), given the available resources. Given f(x) and Rmax, find the/an optimal configuration x.
+
 ## Part 1: Mission and scope
 
 ### Mission statement
@@ -143,8 +154,9 @@ Formalise the description of the system characteristics, so that eventually the 
 
 #### Stakeholders
 
-The Duckietown masters, for they have started me on this quest
-The future users of Duckietowns, as the Duckietown experience can be optimised for a user, given their available resources.
+The Duckietown masters, for they have started me on this quest.
+
+The future users of Duckietowns, as the Duckietown experience can be optimised per user, given their available resources.
 
 ## Part 2: Definition of the problem
 
@@ -170,11 +182,15 @@ The future users of Duckietowns, as the Duckietown experience can be optimised f
 
 ### Resources required / dependencies / costs
 
-Time is the main resource that needs to be divided between tasks
+Time is the main resource that needs to be divided between tasks.
+
+The current system's characteristics will need to be measured/evaluated somehow to create a database of all the modules' specifications.
 
 ### Performance measurement
 
-How effectively is the system described, and can the tool provide the answers we seek
+How effectively is the system described, and can the tool provide the answers we seek.
+
+Which level of funcitonality was provided? (bronze, silver, gold)
 
 ## Part 3: Preliminary design
 
@@ -200,11 +216,13 @@ Module descriptions can be collected from the respective groups (by asking nicel
 #### Relevant Duckietown resources to investigate
 
 * How the current system’s characteristics are defined
+* What are the dependencies/interfaces between modules
+* Which projects affect which modules
 * Which values/parameters are needed
 
 ### Risk analysis
 
-Mission 1 takes priority over Mission 2, since it is more crucial to the functioning of the system.
+Mission 1 takes priority over Mission 2, since it is more crucial to the functioning of the system. This means that Mission 2 may suffer if Mission 1 takes more time than expected.
 
 Mission 2 has a research/experimental aspect, which makes it both interesting and challenging. 
 
