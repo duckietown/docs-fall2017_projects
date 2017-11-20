@@ -15,7 +15,7 @@ Make Duckietown a safer place.
 
 <div class='check' markdown="1">
 
-<b><i>Insert Latin translation here.</i></b>
+*Insert Latin translation here.*
 
 </div>
 
@@ -23,10 +23,13 @@ Make Duckietown a safer place.
 
 #### What is in scope
 
-Detecting cones and duckies of different sizes (obstacles). <br>
-Stage 1: 1 obstacle, no crossing of lines (2 cases: drive by or stop)<br>
-Stage 2: 1 obstacle, crossing line if needed (1 case: should always be possible to drive by)<br>
-Stage 3: Multiple obstacles, crossing line if needed <br>
+Detecting cones and duckies of different sizes (obstacles).
+
+Stage 1: 1 obstacle, no crossing of lines (2 cases: drive by or stop)
+
+Stage 2: 1 obstacle, crossing line if needed (1 case: should always be possible to drive by)
+
+Stage 3: Multiple obstacles, crossing line if needed
 
 
 #### What is out of scope
@@ -35,8 +38,9 @@ No obstacles in crossings, obstacles on the middle line
 
 #### Stakeholders
 
-<b>Controllers (Lane following, adaptive curvature control)</b> - Marco Stalder, Simon Muntwiler, Anna Dai, Manuel Breitenstein, Andreas Aumiller<br>
-<b>Vehicle detection</b> - tbd
+**Controllers (Lane following, adaptive curvature control)** - Marco Stalder, Simon Muntwiler, Anna Dai, Manuel Breitenstein, Andreas Aumiller
+
+**Vehicle detection** - tbd
 
 
 
@@ -48,15 +52,13 @@ Detect and avoid obstacles.
 
 
 ### Assumptions
-<ul>
-	<li>Obstacles are only yellow duckies (different sizes) and orange cones. </li>
-	<li>No duckies on the middle line. </li>
-	<li>No obstacles on intersections.  </li>
-	<li>Heading and position relative to track given.  </li>
-	<li>Control responsible for following trajectory.  </li>
-	<li>Possibility to influence vehicle speed (slow down, stop). </li>
-	<li>Calibrated camera </li>
-</ul>
+ * Obstacles are only yellow duckies (different sizes) and orange cones.
+ * No duckies on the middle line.
+ * No obstacles on intersections.
+ * Heading and position relative to track given.
+ * Control responsible for following trajectory.
+ * Possibility to influence vehicle speed (slow down, stop).
+ * Calibrated camera
 
 ### Approach
 
@@ -77,12 +79,9 @@ We need to understand what will be the trade-offs.
 Avoid duckies, measured in avoid/hit-percentage. Maximise avoid/hit ratio. 
 
 ### Resources required / dependencies / costs
-<ul>
-	<li>Calibrated camera.</li>
-	<li>Position estimate and position uncertainty.</li>
-	<li>No costs involved.</li>
-</ul>
-
+ * Calibrated camera.
+ * Position estimate and position uncertainty.
+ * No costs involved.
 
 ### Performance measurement
 
@@ -91,67 +90,33 @@ Manual counting of the dead duckies to provide avoid/hit-ratio.
 ## Part 3: Preliminary design
 
 ### Modules
-<ul>
-	<li>Detection 2D space</li>
-	<li>3D obstacle coordinates and radius</li>
-	<li>Avoid obstacle
-		<ul>
-			<li>Stage 0: Stop</li>
-			<li>Stage 1: Stop, drive around single obstacle</li>
-			<li>Stage 2: drive around multiple obstacles</li>
-		</ul>
-	</li>
-</ul>
+ * Detection 2D space
+ * 3D obstacle coordinates and radius
+ * Avoid obstacle
+ * Stage 0: Stop
+ * Stage 1: Stop, drive around single obstacle
+ * Stage 2: drive around multiple obstacles
 
 
 ### Interfaces
-<ul>
-	<li>Detection 2D space
-		<ul>
-			<li>Input:
-				<ul>
-					<li>Camera image</li>
-					<li>Current position and orientation</li>
-					<li>(Curvature of upcoming track)</li>
-				</ul>
-			<li>
-			<li>Output:
-				<ul>
-					<li>Output: </li>
-				</ul>
-			</li>
-		</ul>
-	</li>
-	<li>3D obstacle coordinates and radius
-		<ul>
-			<li>Input:
-				<ul>
-					<li>2D obstacle coordinates</li>
-				</ul>
-			</li>
-			<li>Output:
-				<ul>
-					<li>3D obstacle coordinates</li>
-				</ul>
-			</li>
-		</ul>
-	</li>
-	<li>Avoid obstacle
-		<ul>
-			<li>Input:
-				<ul>
-					<li>3D obstacle coordinates</li>
-					<li>Obstacle size</li>
-				</ul>
-			</li>
-			<li>Output:
-				<ul>
-					<li>Trajectory, form tbd</li>
-				</ul>
-			</li>
-		</ul>
-	</li>
-</ul>
+ * Detection 2D space
+ * Input:
+ * Camera image
+ * Current position and orientation
+ * (Curvature of upcoming track)
+ * Output:
+ * Output:
+ * 3D obstacle coordinates and radius
+ * Input:
+ * 2D obstacle coordinates
+ * Output:
+ * 3D obstacle coordinates
+ * Avoid obstacle
+ * Input:
+ * 3D obstacle coordinates
+ * Obstacle size
+ * Output:
+ * Trajectory, form tbd
 
 ### Preliminary plan of deliverables
 
@@ -174,15 +139,15 @@ In a first phase, the controller project group needs to be contacted to identify
 
 ### Data collection
 
-Images of duckies on the road.<br>
-Video of a duckiebot in duckietown with recordings of the different stages.<br>
-To log:<br>
-<ul>
-	<li>Distance to middle</li>
-	<li>Theta</li>
-	<li>Images</li>
-	<li>Velocity</li>
-</ul>
+Images of duckies on the road.
+
+Video of a duckiebot in duckietown with recordings of the different stages.
+
+To log:
+ * Distance to middle
+ * Theta
+ * Images
+ * Velocity
 
 
 ### Data annotation
@@ -190,16 +155,19 @@ To log:<br>
 tbd
 
 #### Relevant Duckietown resources to investigate
-Image processing, feature extraction<br>
-MIT2016 object detection<br>
-Lane detection<br>
-Anti instagram<br>
+Image processing, feature extraction
+
+MIT2016 object detection
+
+Lane detection
+
+Anti instagram
 
 
 #### Other relevant resources to investigate
 OpenCV
 
 ### Risk analysis
-Interfaces (control approach of trajectory)<br>
-Computation power<br>
+Interfaces (control approach of trajectory)
 
+Computation power
