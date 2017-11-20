@@ -151,39 +151,83 @@ Communication in a de-centralized network (ad-hoc)
 
 ### Modules
 
-Can we decompose the problem?
+**Libraries:**
+* Serialization
+* Messaging
 
-Can you break up the solution in modules?
+**Integration:**
+* Libraries integration into component 
+* Communication framework into Duckietown (repository, duckumentation, etc. → contact Integration Heroes)
+* Creation of the WiFi network (centralized vs. decentralized)
 
-Note here we talk about logical modules, not the physical architecture (ROS nodes).
+**Testing:**
+* Measuring and visualization of performance metrics
+
 
 ### Interfaces
 
-For each module, what is the input, and what is the output?
+**Fleet planning**
+* Send data (SLAM, etc.)
+* Distribute data through the network 
 
-How is the data represented?
+**Distributed Estimation**
+* Receive data (local maps built from each Duckiebots)
+* Send data (local maps and/or global map)
 
-Note we are not talking about ROS messages vs services vs UDP vs TCP etc.
+**Integration Heroes**
+* Duckumentation 
+* Contract negotiation 
+* External libraries (Protocol buffers, ZMQ, etc.)
+
 
 ### Preliminary plan of deliverables
 
-What needs to be designed?
-
-What needs to be implemented?
-
-What already exists and needs to be revised?
-
 ### Specifications
 
-Do you need to revise the Duckietown specification?
+* WiFi specs
 
 ### Software modules
 
-Here, be specific about the software:is it a ROS node, a Python library, a cloud service, a batch script?
+* Library for Serialization
+   * Inputs:
+      * Data to be serialized
+      * Data to be de-serialized
+      * Type definitions for serialization → Contract with distributed-estimation and fleet-planning teams
+   * Outputs:
+      * Serialized data
+      * De-serialized data
+   * Functionality:
+      * Serialize data
+      * De-serialize data
+* Library for Messaging
+   * Inputs:
+      * Destination
+      * Port
+      * Type of socket
+      * Serialized data
+      * Optional: priority
+   * Outputs:
+      * Serialized data
+* ROS node for messaging
+   * Inputs:
+      * Messages from ROS topics
+      * Messages from other duckiebots
+   * Outputs:
+      * Messages to ROS topics
+      * Messages to other duckiebots
 
 ### Infrastructure modules
 
-Some of the modules have been designated as infrastructure
+* Wifi router for Duckietown
+   * Network configuration (centralized/decentralized)
+   
+* Testing
+   * Visualize the network topology → number of duckies
+   * Visualize messages (wireshark) → message size, latency
+   * Visualize HW resources → processor, memory, etc.
+   * ...
+
+
 
 ## Part 4: Project planning
 
