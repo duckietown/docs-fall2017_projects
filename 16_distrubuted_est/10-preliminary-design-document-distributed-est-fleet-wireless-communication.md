@@ -290,29 +290,29 @@ WiFi specs (duckumentation)
 
 **Computer Networks:**
 
-Introduction to computer networks: http://intronetworks.cs.luc.edu/
+* Introduction to computer networks: http://intronetworks.cs.luc.edu/
 
 **Serialization and Messaging:**
 
-Protocol Buffers: https://developers.google.com/protocol-buffers/
-ZeroMQ: http://zeromq.org/ 
+* Protocol Buffers: https://developers.google.com/protocol-buffers/
+* ZeroMQ: http://zeromq.org/ 
 
 **Google python coding style guide:**
 
-https://google.github.io/styleguide/pyguide.html 
+* https://google.github.io/styleguide/pyguide.html 
 
 **Redundant routers (rollover, cascading):**
 
-http://www.tomshardware.co.uk/forum/21591-43-design-redundant-wireless-network 
-https://www.linksys.com/ca/support-article?articleNum=132275 (to be verified)
+* http://www.tomshardware.co.uk/forum/21591-43-design-redundant-wireless-network 
+* https://www.linksys.com/ca/support-article?articleNum=132275 (to be verified)
 
 **Static code analysis in python:**
 
-https://www.pylint.org/ 
+* https://www.pylint.org/ 
 
 **Pylint configuration:**
 
-https://stackoverflow.com/questions/29597618/is-there-a-tool-to-lint-python-based-on-the-google-style-guide 
+* https://stackoverflow.com/questions/29597618/is-there-a-tool-to-lint-python-based-on-the-google-style-guide 
 
 ### Risk analysis
 
