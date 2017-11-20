@@ -22,11 +22,11 @@ BI UNUM IBI OMNES (Where there is one, there is everybody)
 #### What is in scope
 
 **Communication in a centralized network:**
---*Communication between Duckiebots in one Duckietown
---*Define interfaces for communication
---*Performance testing on the communication system
---*One network for one Duckietown
---*TBD: does anything need to be synchronized?
+--* Communication between Duckiebots in one Duckietown
+--* Define interfaces for communication
+--* Performance testing on the communication system
+--* One network for one Duckietown
+--* TBD: does anything need to be synchronized?
 
 **Option 1:**
 Communication in a centralized network with a redundant centralized component (multiple routers)
