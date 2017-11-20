@@ -19,23 +19,42 @@ AlIIS VIVERE
 
 
 * Relative pose estimation
+
 * Formation keeping: formalize controller that keeps constant distance from vehicle ahead
+
 * "Follow the leader demo"
+
 * Avoiding traffic waves
+
 * Intersection coordination logic
+
  * Implement traffic rules
+
  * Intention of the other car has to be predicted
+
  * Priority traffic rule: First come first serve. Crossings possible without explicit communication
+
  * Designing Fiducial markers (April tags)
+
 * Vehicle Detection
+
  * 2D image space detections (appears and disappears)
+
  * 3D Bounding box
+
  * 3D bounding box + orientation (which way it goes)
+
  * 3D bounding box + orientation + velocity
+
 * Vehicle Tracking
+
  * 2D image space tracks (consistent in times)
+
+
 * Vehicle Prediction
+
  * 3D bounding box + orientation + velocity + Position prediction (1, 5, 20)
+
  * 3D bounding box + orientation + velocity + Position prediction (1, 5, 20) + estimating a policy ("behavior")
 
 
@@ -104,6 +123,7 @@ AlIIS VIVERE
 #### Functionality provided
 
 Formation keeping and intersection coordination
+
 * Detection of other duckiebots within field-of-view
 * Tracking
 * Prediction
@@ -186,14 +206,6 @@ None
 
 ## Part 4: Project planning
 
-<col3 figure-id="tab:schedule" figure-caption="Schedule">
-    <span>Date</span>
-    <span>Task Name</span>
-    <span>Target Deliverables</span>
-    <span>17/11/2017</span>
-    <span>Kick-Off<span>
-    <span>Preliminary Design Document<span>    
-</col3>
 
 
 ### Data collection
