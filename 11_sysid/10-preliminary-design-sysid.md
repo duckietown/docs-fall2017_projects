@@ -1,4 +1,4 @@
-#  Group name: preliminary design document {#sysid-preliminary-design-doc status=ready}
+#  System Identification: preliminary design document {#sysid-preliminary-design-doc status=ready}
 
 <!-- EXAMPLE COMMENT
 -->
@@ -228,9 +228,11 @@ the above contains a number of interesting sections of relevance to the work of 
 - exact modeling of caster wheel and the kinematic constraints it introduces (pg. 395)
 
 - different system identification procedures: parametric or nonparametric (Chapter 14); in particular, a note on Observability (pg. 337) 
+
 - we want to maximize performance of control + localization. Control uses unicycle model in Frenet frame (pg. 803 of handbook of robotics)
 
 - We need to identify wheel radii (r_1, r_2: assume equal at start = r), semi-axle length L, and motors steady state parameters (mapping between voltage and angular rate, i.e. mapping between voltage and velocity once (a) wheel radius is known and no slipping hypothesis is made). 
+
 - Adaptive control (pg. 147): another approach is implementing an adaptive controller. It is  meant to work with plant uncertainty.
 
 [Caster wheel literature](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/0FB474602C01DDB0FAA1B5C68DB8245E/S026357470001883Xa.pdf/div-class-title-modeling-and-path-tracking-control-of-a-mobile-wheeled-robot-with-a-differential-drive-div.pdf)
@@ -241,8 +243,10 @@ the above contains a number of interesting sections of relevance to the work of 
 ### Risk analysis
 
 What could go wrong?
+
 - It could happen that we identify a model which is not useful for control. 
 - Perfect model will be useless if control is not improved
 
 Mitigation strategy: 
+
 - Early testing with control group
