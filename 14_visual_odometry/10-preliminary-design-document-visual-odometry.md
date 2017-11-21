@@ -64,28 +64,20 @@ Measuring performance here is tricky since there is no way to obtain ground trut
 ## Part 3: Preliminary design
 
 ### Modules
-
-Can we decompose the problem?
-
-Can you break up the solution in modules?
-
-Note here we talk about logical modules, not the physical architecture (ROS nodes).
+Since it's an end-to-end neural network it's all in one logical module, but we could split up the design of the architecture from the way we use the data (e.g. data augmentation)
 
 ### Interfaces
 
-For each module, what is the input, and what is the output?
-
-How is the data represented?
-
-Note we are not talking about ROS messages vs services vs UDP vs TCP etc.
+Input: RGB Image
+Output: Depth map (potentially relative depth, discretized)
 
 ### Preliminary plan of deliverables
 
-What needs to be designed?
+What needs to be designed? The architecture and the data collecation and augmentation schemes.
 
-What needs to be implemented?
+What needs to be implemented? Tensorflow implementation of architecture.
 
-What already exists and needs to be revised?
+What already exists and needs to be revised? Open source code for unsupervised learning of depth paper (linked below).
 
 ### Specifications
 Do you need to revise the Duckietown specification? N/A
