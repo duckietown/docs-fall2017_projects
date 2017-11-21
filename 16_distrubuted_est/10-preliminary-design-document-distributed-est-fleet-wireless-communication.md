@@ -1,8 +1,5 @@
 #  Distributed Estimation: preliminary design document {#fleet-wireless-communication-preliminary-design-doc status=ready}
 
-<!-- EXAMPLE COMMENT
--->
-
 ## Part 1: Mission and scope
 
 ### Mission statement
@@ -12,10 +9,6 @@ Enable Duckiebots to communicate with each other wirelessly
 ### Motto
 
 BI UNUM IBI OMNES (Where there is one, there is everybody)
-
-<div class='check' markdown="1">
-
-</div>
 
 ### Project scope
 
@@ -28,7 +21,7 @@ BI UNUM IBI OMNES (Where there is one, there is everybody)
 * One network for one Duckietown
 * TBD: does anything need to be synchronized?
 
-![System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png "System Layout")
+![System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png)[System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png)
 
 **Option 1:**
 Communication in a centralized network with a redundant centralized component (multiple routers)
@@ -98,19 +91,6 @@ Communication in a de-centralized network (ad-hoc)
 * Enable duckiebots to receive and unpack data such that the data can be used in other software modules.
 * Other functionality TBD
 
-<div class="example-usage" markdown="1">
-
-</div>
-
-<div class="example-usage" markdown="1">
-
-</div>
-
-<div class="example-usage" markdown="1">
-
-</div>
-
-
 ### Resources required / dependencies / costs
 
 **Bandwidth definition:**
@@ -121,31 +101,11 @@ Communication in a de-centralized network (ad-hoc)
 * Latency in message transmission
 * Extra computation on duckiebots
 
-<div class="example-usage" markdown="1">
-
-</div>
-
-<div class="example-usage" markdown="1">
-
-</div>
-
-<div class="example-usage" markdown="1">
-
-</div>
-
-<div class="example-usage" markdown="1">
-
-</div>
-
 ### Performance measurement
 
 * Visualize the network topology → number of duckies
 * Visualize messages (wireshark) → message size, latency
 * Visualize HW resources → processor, memory, etc.
-
-<div class="example-usage" markdown="1">
-
-</div>
 
 ## Part 3: Preliminary design
 
