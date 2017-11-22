@@ -76,7 +76,7 @@ There are several reasons why the current implementation fails:
     - Distinguish between dashed and non-dashed lane lines to simplify identification of colors.
 3. Use time information/parameters from earlier illumination corrections to improve robustness (Online learning)
     - In contrast to starting the color analysis from scratch every time, we could consider using the latest transformation parameters as an initial guess.
-We could consider to update the color analysis every x-th frame during a session, to be more robust to changing light conditions/shadows.
+    - We could consider to update the color analysis every x-th frame during a session, to be more robust to changing light conditions/shadows.
 4. Further improvements
     - We are using the color transformation to better estimate the lines. So we know after processing (color transformation, edge detection, …) where we can find the lines. With that information we could update the color transformation. The color transformation now should take into account only the “important” areas. As a result we should have a more accurate color transformation. We repeat until we converge to a minimum. 
 
