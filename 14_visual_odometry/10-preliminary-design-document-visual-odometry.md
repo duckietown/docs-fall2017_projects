@@ -1,4 +1,4 @@
-#  Group name: preliminary design document {#project-name-preliminary-design-doc status=ready}
+#  Group name: visual-odometry {#visual-odometry-preliminary-design-doc status=ready}
 
 <!-- EXAMPLE COMMENT
 -->
@@ -13,9 +13,7 @@ The application could be building a point cloud map for Duckietown for mapping--
 ### Motto
 
 <div class='check' markdown="1">
-
-Quidquid latine dictum sit, altum videtur
-
+Carpe diem.
 </div>
 
 ### Project scope
@@ -72,12 +70,9 @@ Input: RGB Image
 Output: Depth map (potentially relative depth, discretized)
 
 ### Preliminary plan of deliverables
-
-What needs to be designed? The architecture and the data collecation and augmentation schemes.
-
-What needs to be implemented? Tensorflow implementation of architecture.
-
-What already exists and needs to be revised? Open source code for unsupervised learning of depth paper (linked below).
+The architecture and the data collecation and augmentation schemes need to be designed.
+Tensorflow implementation of architecture is what needs to be implemented.
+There already exists open source code for unsupervised learning of depth paper (linked below).
 
 ### Specifications
 Do you need to revise the Duckietown specification? N/A
@@ -98,9 +93,8 @@ No data annotation necessary.
 All of the camera geometry and computer vision notes.
 
 #### Other relevant resources to investigate
-
-https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/
-https://github.com/tinghuiz/SfMLearner
+1. https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/
+2. https://github.com/tinghuiz/SfMLearner
 
 ### Risk analysis
 
