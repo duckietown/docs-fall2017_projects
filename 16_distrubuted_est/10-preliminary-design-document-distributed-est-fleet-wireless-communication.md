@@ -28,6 +28,7 @@ BI UNUM IBI OMNES (Where there is one, there is everybody)
     </figcaption>
 </div>
 
+
 **Option 1:**
 Communication in a centralized network with a redundant centralized component (multiple routers)
 
