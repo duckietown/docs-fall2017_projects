@@ -1,4 +1,4 @@
-#  Group name: visual-odometry {#visual-odometry-preliminary-design-doc status=ready}
+#  Visual Odometry: preliminary document {#visual-odometry-preliminary-design-doc status=ready}
 
 <!-- EXAMPLE COMMENT
 -->
