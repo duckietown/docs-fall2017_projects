@@ -1,12 +1,11 @@
-#  Heroes - System Architecture: preliminary design document {#heroes-system-architecture-preliminary-design-doc status=beta}
+#  PDD - Heroes - System Architecture {#heroes-pdd status=beta}
 
-<!-- EXAMPLE COMMENT
--->
+
 The “Heroes” team is a special task force with the responsibility to make sure that “everything works” and create a smooth experience for the rest of the teams, in terms of developing own projects, integration with other teams and documentation. Apart from that, each of the heroes will also have their own individual quest...
 
 ## Motto
 
-    ```E PLURIBUS UNUM (From many, one) ```
+> E PLURIBUS UNUM (From many, one)
 
 ## Overview
 
@@ -21,7 +20,7 @@ The system architect is ultimately responsible:
 
 ### Philosophy:
 
-* Look over Duckie teams and remind them of the greater goals of Duckietown. 
+* Look over Duckie teams and remind them of the greater goals of Duckietown.
 * Improve Duckietown by using a higher dimensional view.
 
 ### Missions
@@ -33,7 +32,7 @@ The system architect project can be split into two missions:
 
 The two missions and their respective descriptions will be explained separately in this document.
 
-# Mission 1 {#heroes-system-architecture-preliminary-design-doc-mission-1 status=beta}
+# Heroes Mission 1 {#heroes-pdd-mission-1 status=beta}
 
 ## Part 1: Mission and scope
 
@@ -74,7 +73,7 @@ The current system makes at least kind-of sense. The current system will be used
 ### Approach
 
 * Become one with the goals of Duckietown
-* In order to make Duckietown a better place, one has to keep in mind what “better” means in Duckie terms. 
+* In order to make Duckietown a better place, one has to keep in mind what “better” means in Duckie terms.
 * Be familiar with the current system architecture and track changes
     * This can include having to update the functional diagram, for instance.
     * This also means identifying which teams affect which modules in the diagram
@@ -84,7 +83,7 @@ The current system makes at least kind-of sense. The current system will be used
     * Controllers
     * Navigators
     * Explicit coordination
-    All teams will designate a contact person who can contact me whenever they change their project boundaries or have doubts/ need advice on their project’s boundaries/negotiating with other 
+    All teams will designate a contact person who can contact me whenever they change their project boundaries or have doubts/ need advice on their project’s boundaries/negotiating with other
 * Offer nudges in a different direction if needed
 * Acting as middleman/helper to facilitate negotiation of contracts between groups
 * Monitor status of projects to find possible problems
@@ -92,15 +91,18 @@ The current system makes at least kind-of sense. The current system will be used
 ### Functionality-resources trade-offs
 
 ### Functionality provided
- System integration of project modules
+
+System integration of project modules
 
 ### Resources required / dependencies / costs
- Biggest resource: Time
+
+Biggest resource: Time
 
 Finding out how to maximise usefulness while being efficient with time
 
 ### Performance measurement
- * Approval of Duckietown masters
+
+* Approval of Duckietown masters
 * Number of miscommunications about contracts between teams (measured in what-the-ducks per second)
 * How many things didn’t go wrong
     Some jobs are of the type where no one notices you until something doesn’t work. You should be the silent angel fixing all the problems that no one even noticed existed.
@@ -108,6 +110,7 @@ Finding out how to maximise usefulness while being efficient with time
 ## Part 3: Preliminary design
 
 ### Preliminary plan of deliverables
+
  * Functional diagram of the system
     The system functional diagram will be the main tool to visualise the system decomposition, and show the relationships between the different teams.
 * Documentation of system architecture
@@ -127,15 +130,15 @@ Other teams' preliminary design reports
 
 ### Risk analysis
 ** Challenges:**
-Maintaining the balance between project level scope and Duckietown level scope. For instance, teams are focused on completing their project, and might forget the greater vision of Duckietown. This might mean having to convince teams to do slightly more work, for it to be more useful to Duckietown. After all, what’s the point of doing a project if it does not contribute to Duckietown? 
+Maintaining the balance between project level scope and Duckietown level scope. For instance, teams are focused on completing their project, and might forget the greater vision of Duckietown. This might mean having to convince teams to do slightly more work, for it to be more useful to Duckietown. After all, what’s the point of doing a project if it does not contribute to Duckietown?
 
 Balancing priorities of mission 1 and 2. Mission 1 is crucial, and takes priority over Mission 2. Therefore it will be challenging to find time (main resource) to work on Mission 2.
 
-# Mission 2 {#heroes-system-architecture-preliminary-design-doc-mission-2 status=beta}
+# Heroes Mission 2 {#heroes-pdd-mission-2 status=beta}
 
 Where there is a system, there is a want (nay, need) for optimisation. Describing a system’s performance and resource requirements in a quantifiable way is a critical part of being able to benchmark modules and optimise the system.
 
-The different levels of Mission 2 are defined as follows: 
+The different levels of Mission 2 are defined as follows:
 
 * Bronze standard:
     * Define a formal, qualitative language to describe constraints/requirements between modules.
@@ -211,7 +214,7 @@ Which level of funcitonality was provided? (bronze, silver, gold)
 
 #### Data collection
 
-Module descriptions can be collected from the respective groups (by asking nicely) 
+Module descriptions can be collected from the respective groups (by asking nicely)
 
 #### Relevant Duckietown resources to investigate
 
@@ -224,6 +227,6 @@ Module descriptions can be collected from the respective groups (by asking nicel
 
 Mission 1 takes priority over Mission 2, since it is more crucial to the functioning of the system. This means that Mission 2 may suffer if Mission 1 takes more time than expected.
 
-Mission 2 has a research/experimental aspect, which makes it both interesting and challenging. 
+Mission 2 has a research/experimental aspect, which makes it both interesting and challenging.
 
 There is a chance that it might not be solved, as it is not a trivial problem.

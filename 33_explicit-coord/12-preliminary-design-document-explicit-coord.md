@@ -1,4 +1,4 @@
-#  Explicit Coordination: Preliminary Design Document {#explicit-coordination-preliminary-design-doc status=ready}
+# PDD - Explicit Coordination {#explicit-coordination-pdd status=beta}
 
 
 ## Part 1: Mission and scope
@@ -9,11 +9,11 @@ Coordinate intersection navigation safely through explicit communication.
 
 ### Motto
 
-<div class='check' markdown="1">
 
-IN HOC SIGNO VINCES 
 
-</div>
+> IN HOC SIGNO VINCES
+
+TODO: missing English translation
 
 ### Project scope
 
@@ -67,7 +67,7 @@ Duckiebots must be able to cross an intersection in the defined reasonable time 
 
 The following problems are to be tackled:
 
-* LED-based communication; 
+* LED-based communication;
 * Coordination at intersections.
 
 
@@ -77,7 +77,7 @@ The following assumptions are made for the LEDs communication:
 
 * The duckiebot is of type DB17-l.
 * One to four duckiebots are at the intersection with a certain position and orientation with respect to the stop line (projection of duckiebot on 2D lane):
-    * Min. 0 cm behind red line; 
+    * Min. 0 cm behind red line;
     * Max. 6 cm behind red line;
     * Max. +/- 2 cm from center of the line;
     * +/- 10° of rotation.
@@ -127,7 +127,7 @@ Possible approach for intersection coordination with traffic lights:
 
 #### ** Approaches for coordination without traffic lights **
 
-*Last year’s approach*: See last year’s documentation. 
+*Last year’s approach*: See last year’s documentation.
 
 
 *Alternative approach 1*:
@@ -177,13 +177,13 @@ In the following, let you be a duckiebot.
     * If there is at least one vehicle with yellow lights, you turn green (you need to negotiate with yellow), go to 2 b).
 
 
-2. 
+2.
     1. You are currently red. Wait until yellows and/or greens are gone (assuming we also know their spots: opposite, left, right), check if there are any other reds:
         * If no reds are present, turn yellow and enter the intersection (you can execute immediately because you were red in the beginning of this step so if there are no reds when you checked, duckiebots should be waiting for you o turn yellow or green so that they can turn red, therefore there cannot be a synchronization problem here).
         * If reds, turn green and go to 2 b) (if some reds turned green too quickly so that one red was unable to catch the red color, it still knew the spots of greens/yellow that existed in the beginning of 2 a), so if you see greens in the new spots can, you can still turn green and go to 2b).
     2. You are currently green. Wait for random (0.2, 1) seconds:
         * If there exists a yellow negotiator wait for t seconds and repeat 2 b).
-        * Else (if all negotiators show green), turn yellow, wait for t seconds. 
+        * Else (if all negotiators show green), turn yellow, wait for t seconds.
         * If still all negotiators show green, enter the intersection.
         * If there is a yellow negotiator wait for t seconds and repeat 2 b).
 
@@ -197,7 +197,7 @@ Duckiebots behind a duckiebot that stopped: If see a green back light, get ready
 
 Improvements: We could possibly give frequency to back lights to let more than 2 duckiebots enter the intersection, such that the first duckiebot that is about to enter the intersection has constant green lights on the back, 2nd one behind it has green back lights with frequency x, and 3rd behind 2nd one knows it is the 3rd since it sees green light with frequency so it also enters the intersection immediately (and has lights off on the back so that 4th has to stop at the red line and execute the default intersection algorithm).
 
-Therefore, this alternative needs 3 different signals, such as green, red, yellow and it will also use the no color case as a 4th signal. 
+Therefore, this alternative needs 3 different signals, such as green, red, yellow and it will also use the no color case as a 4th signal.
 
 *Alternative approach 3*:
 
@@ -209,7 +209,7 @@ This approach consists of is an exponential backoff model (assuming that two oth
 The intersection policy works as follows:
 
 START:
- 
+
 * go to CHECKING (blue)
 
 CHECKING:
@@ -250,8 +250,8 @@ Metrics for coordination:
 
 The following resources are needed in order to test the behaviour:
 
-* Four duckiebots are needed to test the coordination. 
-* A Duckietown intersection. 
+* Four duckiebots are needed to test the coordination.
+* A Duckietown intersection.
 * Traffic lights.
 
 
@@ -282,7 +282,7 @@ Following subprojects are detected:
 
     1. Duckiebot A emits a signal encoded in LED;
     2. Duckiebot B detects the signal from duckiebot A;
-    3. Duckiebot B interpret signal from duckiebot A. 
+    3. Duckiebot B interpret signal from duckiebot A.
 
 2. Coordination at intersection
     1. Each single duckie computes “the plan” to clear the intersection;
@@ -291,7 +291,7 @@ Following subprojects are detected:
 #### Interfaces
 
 1. For the LED communication:
-    1. Led_emitter: Input for the emission is the state of duckiebot A (waiting, entering, or navigating the intersection). The output is the corresponding LED signal. 
+    1. Led_emitter: Input for the emission is the state of duckiebot A (waiting, entering, or navigating the intersection). The output is the corresponding LED signal.
     2. Led_detection: Input is the image of the camera. The output is the frequency/color/etc of the detected LED(s).
     3. Led_interpreter: Input is the frequency/color/etc of the detected LED. The output is the corresponding message.
 2. For the coordination:
@@ -303,23 +303,23 @@ The inputs are the type of intersection (with or without traffic light and numbe
 
 
 #### Specifications
-The Duckietown specification do not need to be revisited. 
+The Duckietown specification do not need to be revisited.
 
 #### Software modules
 
-The software will be organized as follows: 
+The software will be organized as follows:
 
 * One ROS node for the emission.
 * One ROS node for the detection.
 * One ROS node for the interpretation.
 * One ROS node for the coordination.
 
-The existing code has already a similar structure, meaning that part of the code might be reused. 
+The existing code has already a similar structure, meaning that part of the code might be reused.
 
 
 #### Infrastructure modules
 
-No infrastructure modules are needed. 
+No infrastructure modules are needed.
 
 ## Part 4: Project planning
 
@@ -347,7 +347,7 @@ Implementing new algorithms</span>
 First implementation</span>
 <span>27.11.17-
 03.12.17</span>
-<span>Implementing new algorithms continues 
+<span>Implementing new algorithms continues
 Benchmark the new algorithms</span>
 <span>Performance of the new algorithmsDeadline for Chicago</span>
 <span>04.12.17-
@@ -380,7 +380,7 @@ Benchmark the new algorithms</span>
 
 #### Data annotation
 
-No data needs to be annotated. 
+No data needs to be annotated.
 
 #### Relevant Duckietown resources to investigate
 
@@ -388,11 +388,11 @@ These are some of the important features used in the past course:
 
 * Produce LED signal (protocol for emitting signal) - led_emitter.
 * Detect LED blinking signal from camera - led_detection.
-* Interpreting signaling data includes - led_interpreter. 
+* Interpreting signaling data includes - led_interpreter.
     1. Determining what kind of signal we have (is it a duckiebot? A traffic light? Something unwanted?).
     2. knowing how many other cars at intersection (A, B, C) and if there is a traffic light up (present/ absent).
 * Coordination policy and ros node from last year.
-* MIT 2016 presentation. 
+* MIT 2016 presentation.
 
 
 #### Other relevant resources to investigate
@@ -410,7 +410,7 @@ The following risks for LEDs communication are identified:
 
 The following risks for coordination are identified:
 
-* Synchronization problems when duckiebots arrive at the intersection at different times and when they detect signals from other duckiebots while duckiebots are changing signals. 
+* Synchronization problems when duckiebots arrive at the intersection at different times and when they detect signals from other duckiebots while duckiebots are changing signals.
 
 We can summarize the risks in the following table.
 

@@ -1,23 +1,20 @@
-#  Saviors: preliminary design document {#project-name-preliminary-design-doc status=ready}
+#  PDD - Saviors  {#saviors-pdd status=beta}
 
-<!-- Preliminary design document of the group saviors as of 19.11.2017
--->
 
 ## Part 1: Mission and scope
 
 ### Mission statement
 
-Detect obstacles, plan a route and drive around them.  
+Detect obstacles, plan a route and drive around them.
 
 ### Motto
 
-Make Duckietown a safer place.
+> Make Duckietown a safer place.
 
-<div class='check' markdown="1">
 
-*Please insert Latin translation here.*
 
-</div>
+TODO: Please insert Latin translation here.
+
 
 ### Project scope
 
@@ -27,9 +24,9 @@ Detecting cones and duckies of different sizes (obstacles) and plan a reasonable
 
 Stage 1: 1 obstacle and simply stop no crossing of lines (2 cases: drive by or stop)
 
-Stage 2: 1 obstacle, drive by without crossing of line 
+Stage 2: 1 obstacle, drive by without crossing of line
 
-Stage 3: 1 obstacle, potentially cross the line 
+Stage 3: 1 obstacle, potentially cross the line
 
 Stage 3: Multiple obstacles, crossing line if needed
 
@@ -40,12 +37,12 @@ No obstacles in crossings
 
 Obstacles on the middle line
 
-Complicated situations with oncoming traffic 
+Complicated situations with oncoming traffic
 
 **Stakeholders**
 
 *Controllers (Lane following, adaptive curvature control)*
-Marco Stalder, Simon Muntwiler, Anna Dai, Manuel Breitenstein, Andreas Aumiller
+
 
 They ensure following our desired trajectory and we can tell them to stop or reduce the speed.
 They provide the heading and position relative to track (for path planning)
@@ -69,7 +66,7 @@ Robustness to changes in:
 
  * Obstacle size
  * Obstacle color (but only slight changes in yellow/orange)
- * Illumination 
+ * Illumination
 
 
 ### Assumptions
@@ -99,12 +96,12 @@ Stage 5: handle the case(s) involving: 1 obstacle, crossing line if needed (1 ca
 
 Stage 6: handle the case(s) involving: Multiple obstacles, crossing line if needed
 
-Stage 7: verify the whole system 
+Stage 7: verify the whole system
 
 ### Functionality provided
 
  * Detect Obstacles
- * Plan path around them or decide to stop 
+ * Plan path around them or decide to stop
 
 ### Resources required / dependencies / costs
  * Calibrated camera.
@@ -235,10 +232,9 @@ Computation power
 ### Risk analysis
 
 | Risk | Likelihood (1-10) | Impact | Actions required |
-| :--- | :--- | :--- | :--- | 
+| :--- | :--- | :--- | :--- |
 | Non robust State Estimation | tbd | very high | Communication/Collaboration with controlling subteam |
 | Failure of following our desired control commands | tbd | very high | Communication/Collaboration with controlling subteam |
 | Lack in computation power | 5 | high | early testing of whole system on duckiebot |
 | Failure in duckie detection | 4 | extremely high | thorough testing on bags |
 | Erroneously detecting the middle lane as duckie | 7 | middle | more sophisticated detection algorithm |
-

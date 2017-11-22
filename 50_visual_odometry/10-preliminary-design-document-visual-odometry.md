@@ -1,20 +1,16 @@
-#  Visual Odometry: preliminary document {#visual-odometry-preliminary-design-doc status=ready}
+#  PDD - Visual Odometry {#visual-odometry-pdd status=beta}
 
-<!-- EXAMPLE COMMENT
--->
 
 ## Part 1: Mission and scope
 
 ### Mission statement
 
-We will use unsupervised learning to build a depth estimation system for Duckietown.  
+We will use unsupervised learning to build a depth estimation system for Duckietown.
 The application could be building a point cloud map for Duckietown for mapping--our overall plan is to have a serviceable deep network that is trained end-to-end with no ground truth data.  We will also be using the Movidius chip, hopefully learning to how integrate it well into the current system for future users.
 
 ### Motto
 
-<div class='check' markdown="1">
-Carpe diem.
-</div>
+> CARPE DIEM (Seize the day)
 
 ### Project scope
 
@@ -93,6 +89,7 @@ No data annotation necessary.
 All of the camera geometry and computer vision notes.
 
 #### Other relevant resources to investigate
+
 1. https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/
 2. https://github.com/tinghuiz/SfMLearner
 

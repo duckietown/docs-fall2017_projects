@@ -1,10 +1,5 @@
-#  Group name: Navigators {#navigators-preliminary-design-doc status=ready}
+#  PDD - Navigators {#navigators-pdd status=beta}
 
-<!-- EXAMPLE COMMENT
--->
-<!--### Team Information
-
-![Team Information Table](teaminfo.png)-->
 
 ## Part 1: Mission and Scope
 
@@ -15,7 +10,7 @@ The objective of this project is to implement a method that allows Duckiebots to
 ### Motto
 
 
-**TRANSIBITIS** (you shall pass)
+> **TRANSIBITIS** (you shall pass)
 
 
 ### Project Scope
@@ -53,13 +48,13 @@ The objective of this project is to implement a method that allows Duckiebots to
 
 #### Stakeholders
 
-* Smart Cities, Marco Erni
+* Smart Cities
 
-* The Controllers, Andreas Aumiller
+* The Controllers
 
-* Anti-Instagram,  Milan Schilling
+* Anti-Instagram
 
-* The Identifiers, Manuel Dengel
+* The Identifiers
 
 
 ![Project Boundary](io2.png)
@@ -81,7 +76,7 @@ We seek to find a method that allows a Duckiebot to safely navigate an intersect
 
 * There are fiducial markers (e.g. April tags, stop signs, …) placed at the intersection at predetermined positions.
 
-* The Duckiebots’ are initially at rest and their pose is within a certain range with respect to the intersection (distance to center of road, distance to stop line, orientation within the lane). 
+* The Duckiebots’ are initially at rest and their pose is within a certain range with respect to the intersection (distance to center of road, distance to stop line, orientation within the lane).
 
 * The intersection is free of obstacles.
 
@@ -113,7 +108,7 @@ The above methods can also be combined, e.g. using visual odometry and if availa
 * Path/trajectory planning to navigate intersection.
 
 * Possibly control strategy to track above.
- 
+
 ### Resources required / dependencies / costs
 
 The proposed method(s) can be evaluated using the following measures (in order of decreasing importance):
@@ -133,7 +128,7 @@ The proposed method(s) can be evaluated using the following measures (in order o
 
 * The success rate can evaluated by simply performing the intersection navigation tasks N times and counting the number of successful trials.
 
-* The accuracy and precision of final state can be evaluated using the already existing lane detection method. 
+* The accuracy and precision of final state can be evaluated using the already existing lane detection method.
 
 * The average duration can simply be computed from N experiments. A (probabilistic) upper bound to navigating an intersection can be found likewise.
 
@@ -153,12 +148,12 @@ The proposed method(s) can be evaluated using the following measures (in order o
 
 * Control loop
 
-* Conclusion 
+* Conclusion
 
 
 ### Interfaces
 
-FThe inputs and outputs are also shown on a very high level in the Stakeholders Graph.
+The inputs and outputs are also shown on a very high level in the Stakeholders Graph.
 
 ### Preliminary plan of deliverables
 
@@ -178,7 +173,7 @@ None (assuming that no hardware changes are required).
 
 ## Part 4: Project Planning
 
-### First Steps for the Next Phase 
+### First Steps for the Next Phase
 
 ### Data collection
 
@@ -213,7 +208,7 @@ D. Scaramuzza, F. Fraundorfer, “Visual odometry [tutorial]”, IEEE Robotics &
 
 D. Scaramuzza, F. Fraundorfer, R. Siegwart, “Real-time monocular visual odometry for on-road vehicles with 1-point RANSAC”, IEEE International Conference on Robotics and Automation, 2009.
 
-* Localization using Line Detection: 
+* Localization using Line Detection:
 J. Barandiaran, D.Borro, “Edge-Based Markerless 3D Tracking of Rigid Objects”, IEEE Conference on Artificial Reality and Telexistence, 2007.
 
 
@@ -225,7 +220,7 @@ J. Barandiaran, D.Borro, “Edge-Based Markerless 3D Tracking of Rigid Objects�
 
 #### Mitigation strategies
 
-Mainly the mentioned risks will be related to a closed-loop implementation, which is a basic goal of the project. 
+Mainly the mentioned risks will be related to a closed-loop implementation, which is a basic goal of the project.
 However they should not affect the development of an improved open-loop solution, ex. using April Tags detection, so this may be a starting point to improve the current state and to start the  development of the closed-loop solution.
 
 For the application of a Visual Odometry algorithm, if features in the Duckietown will be not enough, we may plan to add/use additional hardware, which will be possibly developed in accord with the Smart CIties group.

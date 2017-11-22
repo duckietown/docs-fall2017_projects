@@ -1,7 +1,5 @@
-#  System Identification: preliminary design document {#sysid-preliminary-design-doc status=ready}
+# PDD - System Identification {#sysid-pdd status=beta}
 
-<!-- EXAMPLE COMMENT
--->
 
 ## Part 1: Mission and scope
 
@@ -12,7 +10,7 @@ Estimate better models to make localization and control more efficient and robus
 
 ### Motto
 
-**NOSCE TE IPSUM (Know thyself)**
+> NOSCE TE IPSUM (Know thyself)
 
 
 
@@ -64,7 +62,7 @@ Every Duckiebot is different in configuration.
 
 ### Approach
 
-* Simplified kinematic model will be used to estimate parameters for each duckiebot : 
+* Simplified kinematic model will be used to estimate parameters for each duckiebot :
     - Semi axis length l
     - Mapping : voltage → velocity
 
@@ -80,7 +78,7 @@ We make use of the no lateral slipping motion hypothesis and the pure rolling co
 \left\{  \begin{array}{l} \dot x_A^R &= R (\dot \varphi_R +\dot \varphi_L)/2  \\
                           \dot y_A^R &= 0 \\
                           \dot \theta &= \omega = R(\dot \varphi_R - \dot \varphi_L)/(2L) \end{array} \right.,
-\end{align}  
+\end{align}
 
 
 Further we make the assumption that for steady state that there is a linear relationship between the input voltage and the velociy of the wheel:
@@ -96,7 +94,7 @@ This lets us rewrite equation \eqref{eq:mod-kin-3}:
 \left\{  \begin{array}{l} \dot x_A^R &= (c_r V_r+c_l V_l)/2  \\
                           \dot y_A^R &= 0 \\
                           \dot \theta &= \omega = (c_r V_r+c_l V_l)/(2L) \end{array} \right.,
-\end{align} 
+\end{align}
 
 Using the assumption that we can measure $v_A$  we can determine $c_r$ by setting the voltage $V_l=0$.
 The same procedure can be done to get $c_l$.
@@ -137,7 +135,7 @@ Run lane follower with old version and new version with kinematic model. Drive o
 **Metrics**
 
 - Robustness to different duckies
-    - Control can handle different duckiebot configurations based on our models- 
+    - Control can handle different duckiebot configurations based on our models-
 - Robustness to different wheels
     - Omnidirectional wheel, caster wheel
 - Robustness to initial pose
@@ -152,18 +150,18 @@ We will use the performance measurement setup of the devel-control group
 ### Modules and interfaces
 
 Parameter estimation
- 
-- Input : 
+
+- Input :
     - State estimation
     - Specific voltage to each wheel
-- Output : 
+- Output :
     - semi axis length and wheel radii
-    
+
 Mapping voltage → velocity
 
-- Input : 
+- Input :
     - Specific velocity to each wheel
-- Output : 
+- Output :
     - Voltage
 
 
@@ -180,7 +178,7 @@ Duckiebots with different hardware configurations for testing
 
 - Parameter estimation:
     - runs calibration protocol
-- Velocity translation: (Node) 
+- Velocity translation: (Node)
     - get velocity as input and translate it to voltage as output
 
 
@@ -227,11 +225,11 @@ the above contains a number of interesting sections of relevance to the work of 
 
 - exact modeling of caster wheel and the kinematic constraints it introduces (pg. 395)
 
-- different system identification procedures: parametric or nonparametric (Chapter 14); in particular, a note on Observability (pg. 337) 
+- different system identification procedures: parametric or nonparametric (Chapter 14); in particular, a note on Observability (pg. 337)
 
 - we want to maximize performance of control + localization. Control uses unicycle model in Frenet frame (pg. 803 of handbook of robotics)
 
-- We need to identify wheel radii (r_1, r_2: assume equal at start = r), semi-axle length L, and motors steady state parameters (mapping between voltage and angular rate, i.e. mapping between voltage and velocity once (a) wheel radius is known and no slipping hypothesis is made). 
+- We need to identify wheel radii (r_1, r_2: assume equal at start = r), semi-axle length L, and motors steady state parameters (mapping between voltage and angular rate, i.e. mapping between voltage and velocity once (a) wheel radius is known and no slipping hypothesis is made).
 
 - Adaptive control (pg. 147): another approach is implementing an adaptive controller. It is  meant to work with plant uncertainty.
 
@@ -244,9 +242,9 @@ the above contains a number of interesting sections of relevance to the work of 
 
 What could go wrong?
 
-- It could happen that we identify a model which is not useful for control. 
+- It could happen that we identify a model which is not useful for control.
 - Perfect model will be useless if control is not improved
 
-Mitigation strategy: 
+Mitigation strategy:
 
 - Early testing with control group
