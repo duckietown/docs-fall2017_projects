@@ -45,9 +45,9 @@ Implement parking feature and design specifications (feature and physical)
 #### Stakeholders
 
 * Single SLAM or distributed-est: person
-* Controls: Manuel Breitenstein (Nils)
-* Smart City: Sam Nickolay (Brett)
-* Anti Instagram: Christoph Zuidema (Sam)
+* Controls:
+* Smart City: 
+* Anti Instagram:
 
 
 ## Part 2: Definition of the problem
