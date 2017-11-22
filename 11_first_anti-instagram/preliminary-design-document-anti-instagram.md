@@ -1,4 +1,4 @@
-#  Anti-Instagram: preliminary design document (#devel-anti-instagram)
+# PDD - Anti-Instagram {#devel-anti-instagram status=beta}
 
 ## Part 1: Mission and scope
 
@@ -10,7 +10,7 @@ Line detection includes different colors of lines, we need to be able to detect 
 
 ### Motto
 
-SEMPER VIGILANS (Always vigilant)
+> SEMPER VIGILANS (Always vigilant)
 
 ### Project scope
 
@@ -42,10 +42,10 @@ SEMPER VIGILANS (Always vigilant)
 One of the central problems in autonomous mode of the duckiebot is the line detection. Line detection though is very sensitive to illumination variation. This problem has been solved by a color transformation called “Anti-Instagram”. The current illumination correction algorithm, however, is not working well enough. This affects the extraction of the line segments since the extract-line-segments algorithm is very sensitive to illumination changes (e.g. shadow, bright light, specular reflections).
 There are several reasons why the current implementation fails:
 
-1. Illumination correction is done only once by user input. So we don’t do any online/automatic correction. This will obviously fail in an environment where illumination is changing frequently.
-2. The algorithm works by detecting different clusters in RGB space for the colors of lines, thus it fails when it’s not able to differentiate adequately. (e.g. in certain lighting conditions yellow and white look quite similar, in addition specular reflections distort all of the colors)
-3. The color space is fixed to RGB, but it’s unclear that this is best.
-4. No geometric information is considered in differentiating colors of lines. The color information is completely decoupled from the place it’s actually coming from, thus a red Duckiebot may be detected like a stop line, even though their shapes are quite different. (We also don’t know whether a pixel is coming from the “street level” or the “sky level”)
+1. Illumination correction is done only once by user input. So we don't do any online/automatic correction. This will obviously fail in an environment where illumination is changing frequently.
+2. The algorithm works by detecting different clusters in RGB space for the colors of lines, thus it fails when it's not able to differentiate adequately. (e.g. in certain lighting conditions yellow and white look quite similar, in addition specular reflections distort all of the colors)
+3. The color space is fixed to RGB, but it's unclear that this is best.
+4. No geometric information is considered in differentiating colors of lines. The color information is completely decoupled from the place it's actually coming from, thus a red Duckiebot may be detected like a stop line, even though their shapes are quite different. (We also don't know whether a pixel is coming from the “street level” or the “sky level”)
 5. It is a linear transformation (shift, scale) instead of a possible non-linear transformation, but there is nothing indicating this should be true.
 6. Any previous anti-instagram transformation parameters are not taken into account when a new transformation is performed, thus no prior knowledge is leveraged.
 
@@ -53,7 +53,7 @@ There are several reasons why the current implementation fails:
 ### Assumptions
 1. Lighting
     1. We assume normal office lighting, including any shadows that may occur because of occlusions, or spatial variance.
-    2. We don’t consider outdoor illumination (e.g. sunlight)
+    2. We don't consider outdoor illumination (e.g. sunlight)
     3. We assume having illumination (no pitch black scenario)
 2. Duckietown Condition
     1. We assume the normal colors of lane lines, plus one or two more (for the parking lot).
@@ -90,16 +90,19 @@ We are going to consider true positives, true negatives, false positives and fal
 ### Resources required / dependencies / costs
 
 Costs:
+
 1. Computational cost
-    - If the processing is done online we have to take care that it doesn’t take too long.
+    - If the processing is done online we have to take care that it doesn't take too long.
 2. Cost of producing ground truth pictures
     - Will be determined when we have some examples done by hand. (Week of 20th of November)
 Resources:
+
 1. Functional Duckiebot
     - Getting sample data for ground truth pictures
     - Try out the algorithm in real conditions
 
 Dependencies:
+
 1. Ground truth images
 2. Lane pose estimator
 
@@ -155,7 +158,7 @@ None.
 |11/27/2017|Investigate why current algorithm fails.|Milan, Christoph|Create detailed description when the algorithm fails and when it works. Make it understandable why for everyone|
 |11/27/2017|Create data annotation, check how website works|David, Shengjie|Get 1000 annotated pictures or have a specific date when these images are delivered.|
 |12/1/2017|Find out what colorspace is the best for the current algorithm||best color space, performance analysis|
-|12/4/2017|Find out what’s the best clustering method based on best color space, is the best color space still the best?||Best clustering method, best color space, performance analysis|
+|12/4/2017|Find out what's the best clustering method based on best color space, is the best color space still the best?||Best clustering method, best color space, performance analysis|
 |12/4/2017|Include geometry in the current color transformation algorithm||Performance analysis|
 |1/8/2018|Implement an online system||Performance analysis of supervised system|
 
@@ -175,7 +178,7 @@ The data collected above has to be annotated. The annotations should state what 
 
 #### Relevant Duckietown resources to investigate
 
-The whole sum of nodes within the ‘10-lane-control’ folder will be within the scope of this project. This is:
+The whole sum of nodes within the ‘10-lane-control' folder will be within the scope of this project. They are:
 
 - Anti_instagram
 - Ground_projection
