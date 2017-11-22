@@ -57,7 +57,9 @@ We need to combine parts of many different stakeholders to achieve planning for 
 
 ### Approach
 
-![alt text](approach-diagram.png "Fleet-level Planning Diagram")
+<div figure-id="fig:approach-diagram" figure-caption="Fleet-level planning diagram">
+    <img style="width: 80%" src="approach-diagram.png" alt="Fleet-level Planning Diagram"/>
+</div>
 
 Necessary steps:
 
@@ -103,7 +105,9 @@ Metrics:
 
 ### Modules
 
-![alt text](approach-diagram.png "Fleet-level Planning Diagram")
+<div figure-id="fig:approach-diagram" figure-caption="Fleet-level planning diagram">
+    <img style="width: 80%" src="approach-diagram.png" alt="Fleet-level Planning Diagram"/>
+</div>
 
 ### Interfaces
 
