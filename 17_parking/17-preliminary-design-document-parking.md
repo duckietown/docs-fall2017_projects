@@ -106,64 +106,64 @@ We need to park N duckiebots in a designated area in which they are able enter a
 
 ### Modules
 
-* Perception
-	* Lane filtering
-	* April tag detection 
-	* “Fleet communication”: detecting
-* Localization and parking map generation
-	* Ego localization
-	* Localization other duckiebots
-	* Parking map design
-* Planning
-	* Parking space allocation 
-	* Path planning
-* Control
-	* “Fleet communication”: publishing
+#### Perception
+* Lane filtering
+* April tag detection 
+* “Fleet communication”: detecting
+#### Localization and parking map generation
+* Ego localization
+* Localization other duckiebots
+* Parking map design
+#### Planning
+* Parking space allocation 
+* Path planning
+#### Control
+* “Fleet communication”: publishing
 
 
 ### Interfaces
 
 #### Perception
 
-* Lane filtering
-	* Used for pose estimation at entrance and exit of parking lot and maybe at parking space
-	* Input: camera image
-	* Output: location lanes
-* April tags detection and triangulation
-	* Use for pose estimation while driving on the parking lot when no lanes can be identified, every parking space has its own april tag, relative duckiebot-tag pose is extracted using computer vision
+##### Lane filtering
+* Used for pose estimation at entrance and exit of parking lot and maybe at parking space
+* Input: camera image
+* Output: location lanes
+##### April tags detection and triangulation
+* Use for pose estimation while driving on the parking lot when no lanes can be identified, every parking space has its own april tag, relative duckiebot-tag pose is extracted using computer vision
 * Input: camera image
 * Output: location of april tag, relative position duckiebot-tag
 
-* “Fleet communication”: detecting
-	* Blinking LEDs are used for communication: while parking signal who is driving (one at the time), while parked signal which parking lot is taken (duckiebot on parking space 2, blink led in parking space 2 specific frequency)
-	* Input: camera image
-	* Output: other occupied signals (other means blinking signals is not from own duckiebot)
+##### “Fleet communication”: detecting
+* Blinking LEDs are used for communication: while parking signal who is driving (one at the time), while parked signal which parking lot is taken (duckiebot on parking space 2, blink led in parking space 2 specific frequency)
+* Input: camera image
+* Output: other occupied signals (other means blinking signals is not from own duckiebot)
 
 #### Localization and parking map generation
 
-* Localization other duckiebots
-	* Determines the pose of other duckiebots using specific blinking LEDs 
-	* Input: other occupied signal(s)
-	* Output: pose other duckiebot(s)
-* Parking map design
-	* Static map (physical known map with defined parking spaces and areas to move to them, without duckiebots) is merged with pose of other duckiebots to generate a {occupied, free} map of the parking lot
-	* Input: static map (has to be defined offline), pose other duckiebots
-	* Output: parking map
-* Ego localization
-	* State estimation of position (x, y) and heading (theta) of own duckiebot using lanes (at entrance/exit of parking lot) and april tags
-	* Input: parking map, relative position duckiebot-tag(s), localization april tag(s), location lane(s)
-	* Output: pose duckiebot 
+##### Localization other duckiebots
+* Determines the pose of other duckiebots using specific blinking LEDs 
+* Input: other occupied signal(s)
+* Output: pose other duckiebot(s)
+##### Parking map design
+* Static map (physical known map with defined parking spaces and areas to move to them, without duckiebots) is merged with pose of other duckiebots to generate a {occupied, free} map of the parking lot
+* Input: static map (has to be defined offline), pose other duckiebots
+* Output: parking map
+##### Ego localization
+* State estimation of position (x, y) and heading (theta) of own duckiebot using lanes (at entrance/exit of parking lot) and april tags
+* Input: parking map, relative position duckiebot-tag(s), localization april tag(s), location lane(s)
+* Output: pose duckiebot 
 
 #### Path planning
 
-* Parking space allocation
-	* Allocates a parking space to the duckiebot given the parking map and the authority to move, executed once per duckiebot 
-	* Input: parking map, pose duckiebot
-	* Output: pose parking space (x, y, theta)
-* Path planning
-	* The actual path planning module
-	* Input: pose parking space, pose duckiebot, parking map
-	* Output: reference path or reference trajectory
+##### Parking space allocation
+* Allocates a parking space to the duckiebot given the parking map and the authority to move, executed once per duckiebot 
+* Input: parking map, pose duckiebot
+* Output: pose parking space (x, y, theta)
+##### Path planning
+* The actual path planning module
+* Input: pose parking space, pose duckiebot, parking map
+* Output: reference path or reference trajectory
 
 #### Control
 
