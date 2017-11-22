@@ -1,4 +1,4 @@
-#  Distributed Estimation: preliminary design document {#fleet-wireless-communication-preliminary-design-doc status=ready}
+#  PDD - Distributed Estimation {#fleetcomms-PDD status=beta}
 
 ## Part 1: Mission and scope
 
@@ -21,9 +21,9 @@ BI UNUM IBI OMNES (Where there is one, there is everybody)
 * One network for one Duckietown
 * TBD: does anything need to be synchronized?
 
-<div figure-id="fig:figure 1">
+<div figure-id="fig:fleetcomm-figure1">
     ![System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png)
-    <figcaption id='fig:figure 1:caption'>
+    <figcaption id='fig:fleetcomm-figure1:caption'>
         This the caption figure.
     </figcaption>
 </div>
@@ -75,7 +75,7 @@ Communication in a de-centralized network (ad-hoc)
 * Integrate Serialization and Messaging software components into THE communication software component (e.g. into a ROS node)
 * Testing:
     * Live visualization of bandwidth (and/or latency, etc. → Network performance measures) of network
-    * Live visualization of network topology 
+    * Live visualization of network topology
     * Are any messages being dropped without arriving at their destination?
     * Etc.
 
@@ -121,7 +121,7 @@ Communication in a de-centralized network (ad-hoc)
 * Messaging
 
 **Integration:**
-* Libraries integration into component 
+* Libraries integration into component
 * Communication framework into Duckietown (repository, duckumentation, etc. → contact Integration Heroes)
 * Creation of the WiFi network (centralized vs. decentralized)
 
@@ -133,15 +133,15 @@ Communication in a de-centralized network (ad-hoc)
 
 **Fleet planning**
 * Send data (SLAM, etc.)
-* Distribute data through the network 
+* Distribute data through the network
 
 **Distributed Estimation**
 * Receive data (local maps built from each Duckiebots)
 * Send data (local maps and/or global map)
 
 **Integration Heroes**
-* Duckumentation 
-* Contract negotiation 
+* Duckumentation
+* Contract negotiation
 * External libraries (Protocol buffers, ZMQ, etc.)
 
 
@@ -185,7 +185,7 @@ Communication in a de-centralized network (ad-hoc)
 
 * Wifi router for Duckietown
    * Network configuration (centralized/decentralized)
-   
+
 * Testing
    * Visualize the network topology → number of duckies
    * Visualize messages (wireshark) → message size, latency
@@ -201,8 +201,8 @@ Communication in a de-centralized network (ad-hoc)
 #### Week 9: 13/11/2017
 * **Tasks:**
     * Project kick-off and planning
-  
-* **Deliverables:** 
+
+* **Deliverables:**
     * Preliminary Design Document
 
 #### Week 10: 20/11/2017
@@ -212,8 +212,8 @@ Communication in a de-centralized network (ad-hoc)
     * Design and implementation of Libraries
     * Design and implementation of ROS node
     * Configuration of centralized network
-  
-* **Deliverables:** 
+
+* **Deliverables:**
     * Contracts
 
 #### Week 11: 27/11/2017
@@ -223,7 +223,7 @@ Communication in a de-centralized network (ad-hoc)
     * Code reviews
     * Duckumentation
 
-* **Deliverables:** 
+* **Deliverables:**
     * Network configuration working
     * Libraries (tested)
     * ROS node (tested)
@@ -234,15 +234,15 @@ Communication in a de-centralized network (ad-hoc)
     * Ad-hoc networking
     * Duckumentation
 
-* **Deliverables:** 
+* **Deliverables:**
     * Redundant centralized network working
 
 #### Week 13: 11/12/2017
 * **Tasks:**
     * Ad-hoc networking
     * Duckumentation
-  
-* **Deliverables:** 
+
+* **Deliverables:**
     * Testing “framework” complete
 
 #### Week 14: 18/12/2017
@@ -252,7 +252,7 @@ Communication in a de-centralized network (ad-hoc)
     * Solve networking problems
     * Testing
 
-* **Deliverables:** 
+* **Deliverables:**
     * None
 
 #### Week "15" : 25/12/2017
@@ -261,15 +261,15 @@ Communication in a de-centralized network (ad-hoc)
     * Duckumentation
     * Solve networking problems
     * Testing
-  
-* **Deliverables:** 
+
+* **Deliverables:**
     * Communicating Duckiebots over ad-hoc network
-  
+
 #### Week "16" : 01/01/2018
 * **Tasks:**
     * Duckumentation and Buffer
-   
-* **Deliverables:** 
+
+* **Deliverables:**
     * Duckumentation
 
 ### Task distribution
@@ -294,7 +294,7 @@ WiFi specs (duckumentation)
 
 **Suggestions on Slack channel:**
 1. [MAVLink (born for UAVs also used for other robots)](http://qgroundcontrol.org/mavlink/start)
-2. [ROMANO (not so good...)](https://arxiv.org/abs/1709.07555) 
+2. [ROMANO (not so good...)](https://arxiv.org/abs/1709.07555)
 3. [DDS (standard for ROS 2.0)](http://portals.omg.org/dds/)
 
 **Computer Networks:**
@@ -304,24 +304,24 @@ WiFi specs (duckumentation)
 **Serialization and Messaging:**
 
 * Protocol Buffers: https://developers.google.com/protocol-buffers/
-* ZeroMQ: http://zeromq.org/ 
+* ZeroMQ: http://zeromq.org/
 
 **Google python coding style guide:**
 
-* https://google.github.io/styleguide/pyguide.html 
+* https://google.github.io/styleguide/pyguide.html
 
 **Redundant routers (rollover, cascading):**
 
-* http://www.tomshardware.co.uk/forum/21591-43-design-redundant-wireless-network 
+* http://www.tomshardware.co.uk/forum/21591-43-design-redundant-wireless-network
 * https://www.linksys.com/ca/support-article?articleNum=132275 (to be verified)
 
 **Static code analysis in python:**
 
-* https://www.pylint.org/ 
+* https://www.pylint.org/
 
 **Pylint configuration:**
 
-* https://stackoverflow.com/questions/29597618/is-there-a-tool-to-lint-python-based-on-the-google-style-guide 
+* https://stackoverflow.com/questions/29597618/is-there-a-tool-to-lint-python-based-on-the-google-style-guide
 
 ### Risk analysis
 
@@ -334,4 +334,3 @@ WiFi specs (duckumentation)
 **How to mitigate the risks?**
 * Synchronization not part of networking → contract
 * Contracts to prevent redundancy
-
