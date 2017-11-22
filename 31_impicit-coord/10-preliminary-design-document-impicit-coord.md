@@ -1,7 +1,5 @@
-#  Implicit Coordination: preliminary design document {#Formation-and-Implicit-Control-preliminary-design-doc status=draft}
+# PDD - Implicit Coordination  {#Formation-and-Implicit-Control-pdd status=beta}
 
-<!-- EXAMPLE COMMENT
--->
 
 ## Part 1: Mission and scope
 
@@ -11,7 +9,9 @@ Formation keeping and collision avoidance using implicit communication
 
 ### Motto
 
-AlIIS VIVERE
+> ALIIS VIVERE
+
+TODO: translation by Jacopo
 
 ### Project scope
 
@@ -41,15 +41,13 @@ AlIIS VIVERE
 
 #### Stakeholders
 
-- System Architect: Sonja Brits
-- Software Architect: Breandan Considine
-- Knowledge: Tzarina Lucy
-- Anti-Instagram: Christoph Zuidema, Milan Schilling, David Yunis, Shenjie Lin?
-- Controllers: Marco Stalder, Simon Muntwiler, Anna Dai, Manuel Breitenstein, Andreas Aumiller?
-- Navigators: Theodore Koutros, Flin Höpflinger, Giavanni Cioffi, Dario Brescianini?
-- Explicit Coordinators: Robin Deuber, Valentina Cavinato, Nicolas Lanzetti, Giulia Zobrist, Gioele Zardini?
-
-
+- System Architect
+- Software Architect
+- Knowledge Tzarina
+- Anti-Instagram
+- Controllers
+- Navigators
+- Explicit Coordinators
 
 ## Part 2: Definition of the problem
 
@@ -75,7 +73,7 @@ Formation:
     - April tags
         - Analyze already existing code for vehicle detection ([Software](https://github.com/duckietown/Software/tree/UROP_Perception_Chandan/catkin_ws/src/vehicle_detection_tracking), [Duckumentation](https://docs.google.com/document/d/1enqjECNa-1_OZIZvHZekZ1tp872uYohSdGUyRf0s9BA/edit))
     - CNN-based
-        - Image annotation        
+        - Image annotation
 - Tracking
      - model based
      - learning based
@@ -131,7 +129,7 @@ Formation keeping and intersection coordination
 Robustness of Formation keeping and Vehicle Detection
 
 - Number of duckiebots in the “Follow the leader” demo
-- Duration of the demo [time]
+- Duration of the demo (time)
 - Transient error of distance and perpendicular offset
 
 Implicit coordination
@@ -158,24 +156,23 @@ Number of successful crossings at intersection before a collision happens
 
 Detection of Duckiebot
 
-    - Input: April tag
-    - Output: Position in formation and duckiebot parameters
+- Input: April tag
+- Output: Position in formation and duckiebot parameters
 
 Estimation of relative pose
 
-    - Input: Camera image
-    - Output: Estimate of
-    Relative pose between bots
+- Input: Camera image
+- Output: Estimate of Relative pose between bots
 
 Controller
 
-    - Input: Estimated pose
-    - Output: Command to motors
+- Input: Estimated pose
+- Output: Command to motors
 
 Intersection behavior
 
-    - Input: State at stopping line
-    - Output: Preferences at intersection
+- Input: State at stopping line
+- Output: Preferences at intersection
 
 
 ### Preliminary plan of deliverables
@@ -240,12 +237,15 @@ End of project
 ### Data collection
 
 Annotated images
+
 ### Data annotation
 Duckiebots in bounded boxes under different conditions (Illumination, LEDs on/off, Duckiebot configurations, ...)
 
 
 #### Relevant Duckietown resources to investigate
-Exisiting intersection safty rules ([Duckumentation](https://docs.google.com/document/d/1lNTIPN5HFunX06IU5tAq_964eOHSSKyTbdd9nVGhb-A/edit#heading=h.gjdgxs))  
+
+Exisiting intersection safty rules ([Duckumentation](https://docs.google.com/document/d/1lNTIPN5HFunX06IU5tAq_964eOHSSKyTbdd9nVGhb-A/edit#heading=h.gjdgxs))
+
 Existing vehicle detection algorithm ([Code](https://github.com/duckietown/Software/tree/UROP_Perception_Chandan/catkin_ws/src/vehicle_detection_tracking), [Duckumentation](https://docs.google.com/document/d/1enqjECNa-1_OZIZvHZekZ1tp872uYohSdGUyRf0s9BA/edit))
 
 

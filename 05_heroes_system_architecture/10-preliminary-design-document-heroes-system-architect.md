@@ -1,12 +1,19 @@
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 # Heroes - System Architecture: preliminary design document {#heroes-system-architecture-preliminary-design-doc status=beta}
+=======
+#  PDD - Heroes - System Architecture {#heroes-pdd status=beta}
 
-<!-- EXAMPLE COMMENT
--->
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
+
 The “Heroes” team is a special task force with the responsibility to make sure that “everything works” and create a smooth experience for the rest of the teams, in terms of developing own projects, integration with other teams and documentation. Apart from that, each of the heroes will also have their own individual quest...
 
 ## Motto
 
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
     ```E pluribus unum (From many, one) ```
+=======
+> E PLURIBUS UNUM (From many, one)
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 
 ## Overview
 
@@ -23,7 +30,7 @@ The system architect is ultimately responsible:
 
 ### Philosophy
 
-* Look over Duckie teams and remind them of the greater goals of Duckietown. 
+* Look over Duckie teams and remind them of the greater goals of Duckietown.
 * Improve Duckietown by using a higher dimensional view.
 
 ### Quests
@@ -37,7 +44,11 @@ The two quests and their respective descriptions will be explained separately in
 
 ## Quest 1
 
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 With many teams working on many different parts of the system, chaos is inevitable (without divine intervention). Quest 1 is to minimise the chaos by acting as system-level wactchdog; spotting and addressing interface, contract and dependency issues between the teams. 
+=======
+# Heroes Mission 1 {#heroes-pdd-mission-1 status=beta}
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 
 ## Quest 1, Part 1: Mission and scope
 
@@ -76,33 +87,60 @@ The current system makes at least kind-of sense. The current system will be used
 ### Approach
 
 * Become one with the goals of Duckietown
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
     * In order to make Duckietown a better place, one has to keep in mind what “better” means in Duckie terms. 
+=======
+* In order to make Duckietown a better place, one has to keep in mind what “better” means in Duckie terms.
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 * Be familiar with the current system architecture and track changes
     * This can include having to update the functional diagram, for instance.
     * This also means identifying which teams affect which modules in the diagram
 * Keep in close contact with teams
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
     * All teams will designate a contact person who can contact me whenever they change their project boundaries or have doubts/ need advice on their project’s boundaries/negotiating with other 
     * The meetings of some of the other teams will be attended(especially early meetings). Some teams’ meetings have been prioritized since many parts of the system are dependant on their work, namely:
         * Anti-instagram
         * Controllers
         * Navigators
         * Explicit coordination
+=======
+    This will be done by attending the meetings of some of the other teams (especially early meetings). Some teams’ meetings have been prioritized since many parts of the system are dependant on their work, namely:
+    * Anti-instagram
+    * Controllers
+    * Navigators
+    * Explicit coordination
+    All teams will designate a contact person who can contact me whenever they change their project boundaries or have doubts/ need advice on their project’s boundaries/negotiating with other
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 * Offer nudges in a different direction if needed
 * Acting as middleman/helper to facilitate negotiation of contracts between groups
 * Monitor status of projects to find possible problems
 
 ### Functionality-resources trade-offs
 
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 #### Functionality provided
 
 * System integration of project modules
+=======
+### Functionality provided
+
+System integration of project modules
+
+### Resources required / dependencies / costs
+
+Biggest resource: Time
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 
 #### Resources required / dependencies / costs
 
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 * Biggest resource: Time
 * Finding out how to maximise usefulness while being efficient with time
 
 #### Performance measurement
+=======
+### Performance measurement
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 
 * Approval of Duckietown masters
 * Number of miscommunications about contracts between teams (measured in what-the-ducks per second)
@@ -112,8 +150,14 @@ The current system makes at least kind-of sense. The current system will be used
 ## Quest 1, Part 3: Preliminary design
 
 ### Preliminary plan of deliverables
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 * Functional diagram of the system
     * The system functional diagram will be the main tool to visualise the system decomposition, and show the relationships between the different teams.
+=======
+
+ * Functional diagram of the system
+    The system functional diagram will be the main tool to visualise the system decomposition, and show the relationships between the different teams.
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 * Documentation of system architecture
 
 ## Quest 1, Part 4: Project planning
@@ -132,9 +176,14 @@ The current system makes at least kind-of sense. The current system will be used
 ### Risk analysis
 
 ** Challenges:**
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
+=======
+Maintaining the balance between project level scope and Duckietown level scope. For instance, teams are focused on completing their project, and might forget the greater vision of Duckietown. This might mean having to convince teams to do slightly more work, for it to be more useful to Duckietown. After all, what’s the point of doing a project if it does not contribute to Duckietown?
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 
 * Maintaining the balance between project level scope and Duckietown level scope. For instance, teams are focused on completing their project, and might forget the greater vision of Duckietown. This might mean having to convince teams to do slightly more work, for it to be more useful to Duckietown. After all, what’s the point of doing a project if it does not contribute to Duckietown? 
 
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 * Balancing priorities of quest 1 and 2. Quest 1 is crucial, and takes priority over quest 2. Therefore it will be challenging to find time (main resource) to work on quest 2.
 
 ## Quest 2
@@ -142,6 +191,13 @@ The current system makes at least kind-of sense. The current system will be used
 Where there is a system, there is a want (nay, need) for optimisation. Describing a system’s performance and resource requirements in a quantifiable way is a critical part of being able to benchmark modules and optimise the system.
 
 The different levels of quest 2 are defined as follows: 
+=======
+# Heroes Mission 2 {#heroes-pdd-mission-2 status=beta}
+
+Where there is a system, there is a want (nay, need) for optimisation. Describing a system’s performance and resource requirements in a quantifiable way is a critical part of being able to benchmark modules and optimise the system.
+
+The different levels of Mission 2 are defined as follows:
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 
 * **Bronze standard:**
     * Define a formal, qualitative language to describe constraints/requirements between modules.
@@ -215,7 +271,11 @@ Formalise the description of the system characteristics, so that eventually the 
 
 #### Data collection
 
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 * Module descriptions can be collected from the respective groups (by asking nicely) 
+=======
+Module descriptions can be collected from the respective groups (by asking nicely)
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 
 #### Relevant Duckietown resources to investigate
 
@@ -227,6 +287,14 @@ Formalise the description of the system characteristics, so that eventually the 
 
 ### Risk analysis
 
+<<<<<<< HEAD:docs/atoms_85_fall2017_projects/11_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md
 * Quest 1 takes priority over quest 2, since it is more crucial to the functioning of the system. This means that quest 2 may suffer if quest 1 takes more time than expected.
 * Quest 2 has a research/experimental aspect, which makes it both interesting and challenging. 
 * There is a chance that it might not be solved, as it is not a trivial problem.
+=======
+Mission 1 takes priority over Mission 2, since it is more crucial to the functioning of the system. This means that Mission 2 may suffer if Mission 1 takes more time than expected.
+
+Mission 2 has a research/experimental aspect, which makes it both interesting and challenging.
+
+There is a chance that it might not be solved, as it is not a trivial problem.
+>>>>>>> master:docs/atoms_85_fall2017_projects/05_heroes_system_architecture/10-preliminary-design-document-heroes-system-architect.md

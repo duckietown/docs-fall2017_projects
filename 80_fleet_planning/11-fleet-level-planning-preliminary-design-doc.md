@@ -1,24 +1,20 @@
-#  Fleet-level Planning: preliminary design document {#fleet-level-planning-preliminary-design-doc status=ready}
+#  PDD - Fleet-level Planning {#fleet-level-planning-pdd status=beta}
 
 
 ## Part 1: Mission and scope
 
 ### Mission statement
 
-“Create the mobility-on-demand service for Duckietown.”
+> "Create the mobility-on-demand service for Duckietown."
 
 ### Motto
 
 
-
-
-VICTORIA CONCORDIA CRESCIT (Victory through harmony)
-
+> VICTORIA CONCORDIA CRESCIT (Victory through harmony)
 
 
 ### Project scope
 
-Are you going to rewrite Duckietown from scratch? Probably not. You need to decide what are the boundaries in which you want to move.
 
 #### What is in scope
 
@@ -41,7 +37,7 @@ Are you going to rewrite Duckietown from scratch? Probably not. You need to deci
 #### Stakeholders
 
 * Fleet-comms: for querying their API (contact: )
-* Devel-coordination and multi-slam: 
+* Devel-coordination and multi-slam:
 * The Architects (smart city): accurate map of city, sufficiently big map to accommodate ~25 duckiebots at once
 
 
@@ -50,18 +46,20 @@ Are you going to rewrite Duckietown from scratch? Probably not. You need to deci
 
 ### Problem statement
 
-We need to combine parts of many different stakeholders to achieve planning for a fleet of duckiebots. 
+We need to combine parts of many different stakeholders to achieve planning for a fleet of duckiebots.
 
 ### Assumptions
 
 * Sufficiently large duckietown to accommodate all duckiebots
 * Collision avoidance and navigation works well to allow duckiebots to reach target destination
-* Duckiebots can never park (i.e. stop still anywhere, unless waiting for other duckiebot at intersections etc.). 
+* Duckiebots can never park (i.e. stop still anywhere, unless waiting for other duckiebot at intersections etc.).
 
 
 ### Approach
 
-![alt text](approach-diagram.png "Fleet-level Planning Diagram")
+<div figure-id="fig:approach-diagram" figure-caption="Fleet-level planning diagram">
+    <img style="width: 80%" src="approach-diagram.png" alt="Fleet-level Planning Diagram"/>
+</div>
 
 Necessary steps:
 
@@ -76,7 +74,7 @@ Functionality includes:
 * Visualization of N duckiebots
 * Pick up and drop-off on request
 * Functional standby distribution of duckiebots waiting for a pickup/ drop-off request
-* Ability to arrange duckiebots in formations related to christmas videos 
+* Ability to arrange duckiebots in formations related to christmas videos
 * Taxi status lamps
 
 Metrics:
@@ -100,38 +98,35 @@ Metrics:
 ### Performance measurement
 
 * Calculate time taken to complete request
-* Number of requests served per unit of time 
+* Number of requests served per unit of time
 
 
 ## Part 3: Preliminary design
 
 ### Modules
 
-![alt text](approach-diagram.png "Fleet-level Planning Diagram")
+<div figure-id="fig:approach-diagram" figure-caption="Fleet-level planning diagram">
+    <img style="width: 80%" src="approach-diagram.png" alt="Fleet-level Planning Diagram"/>
+</div>
 
 ### Interfaces
 
-Duckiefleet -  request handling server: 
+Duckiefleet -  request handling server:
 
 * List of duckiebots and corresponding locations and statuses - will be sorted with the fleet-wireless-communications team, see Resources required / dependencies / costs
 
-Customer - request handling server: 
+Customer - request handling server:
 
 * Pickup location and desired target location via clicking on map
 
 Request handling server - Duckiefleet:
 
-* List of target locations for each duckiebot such that request is completed 
+* List of target locations for each duckiebot such that request is completed
 * Each duckiebot displays its status via its LEDs
 
 
 ### Preliminary plan of deliverables
 
-What needs to be designed?
-
-What needs to be implemented?
-
-What already exists and needs to be revised?
 
 ### Specifications
 
@@ -151,7 +146,6 @@ Revisit visualization of Duckiebots on map and adapt it for visualization of N D
 ### Infrastructure modules
 
 None
-
 
 
 ## Part 4: Project planning
@@ -224,6 +218,5 @@ Papers:
 
 ### Risk analysis
 
-* Dependency on the Fleet-communications project. Closely work together with that team to get notified early about any upcoming problems that could delay the delivery of the needed parts for this project. 
+* Dependency on the Fleet-communications project. Closely work together with that team to get notified early about any upcoming problems that could delay the delivery of the needed parts for this project.
 * See Part 4: Project planning
-
