@@ -21,7 +21,14 @@ BI UNUM IBI OMNES (Where there is one, there is everybody)
 * One network for one Duckietown
 * TBD: does anything need to be synchronized?
 
-![System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png)[System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png)
+
+<element figure-id="fig:figure ID">
+![System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png)
+</element>
+
+<figcaption id='fig:figure ID:caption'>
+[System Layout](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Duckietown_Project_Image.png)
+</figcaption>
 
 **Option 1:**
 Communication in a centralized network with a redundant centralized component (multiple routers)
