@@ -49,8 +49,8 @@ There are several reasons why the current implementation fails:
 5. It is a linear transformation (shift, scale) instead of a possible non-linear transformation, but there is nothing indicating this should be true.
 6. Any previous anti-instagram transformation parameters are not taken into account when a new transformation is performed, thus no prior knowledge is leveraged.
 
-
 ### Assumptions
+
 1. Lighting
     1. We assume normal office lighting, including any shadows that may occur because of occlusions, or spatial variance.
     2. We don't consider outdoor illumination (e.g. sunlight)
@@ -65,6 +65,7 @@ There are several reasons why the current implementation fails:
 
 
 ### Approach
+
 1. Understand current system
     - Determine false positives, false negatives, true positives, true negatives of current line detection
     - Determine latency
@@ -119,7 +120,7 @@ The performance measurement procedure for the algorithm is described in the sect
 ### Modules
 
 1. Anti-Instagram module: Takes raw picture from camera and estimates a color transformation. The transformation details are returned.
-2. Module to classify geometries (e.g., distinguish between dashed lines, continuous lines and stop lines): This could be a standalone routine, which gets called by the Anti-Instagram, we could also combine this with the anti-instagram as described in Approach point 4. 
+2. Module to classify geometries (e.g., distinguish between dashed lines, continuous lines and stop lines): This could be a standalone routine, which gets called by the Anti-Instagram, we could also combine this with the anti-instagram as described in Approach point 4.
 3. Online learning: Takes picture from camera, does Anti-Instagram procedure and transformation. The error (e.g. cluster error of k-means) is estimated and the procedure is repeated until the optimal transformation parameters are found (transformation with the lowest error). The procedure returns the optimal parameters. They are saved and used for the future image processing.
 
 ### Interfaces
@@ -188,6 +189,7 @@ The whole sum of nodes within the ‘10-lane-control' folder will be within the 
 - complete_image_pipeline
 
 #### Other relevant resources to investigate
+
 1. Color differentiation, like this https://arxiv.org/pdf/1506.01472.pdf
 2. Properties of different color spaces
 3. OpenCV
