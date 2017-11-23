@@ -1,4 +1,4 @@
-#  Group name: preliminary design document {#project-name-preliminary-design-doc status=ready}
+#  Group name: preliminary design document {#parking-pdd status=ready}
 
 <!-- EXAMPLE COMMENT
 -->
@@ -11,13 +11,12 @@ Implement parking feature and design specifications (feature and physical)
 
 ### Motto
 
-Duck Ex Machina
-
-<div class='check' markdown="1">
+<!-- Duck Ex Machina -->
 
 Quidquid latine dictum sit, altum videtur
 
-</div>
+TODO: What is the translation?
+
 
 ### Project scope
 
@@ -28,26 +27,26 @@ Implement parking feature and design specifications (feature and physical)
 
 * forward parking
 * bot localization with april tags
-* open spot localization 
+* open spot localization
 * path generation (coming in and out of parking space)
 * how to drive backwards
 * parking lot full signal
-* physical parking lot design specification 
+* physical parking lot design specification
 
 
 #### What is out of scope
 
 * Develop new algorithms to filter new lane line colors
-* Fleet level coordination 
-* Handle multiple parking events at once 
+* Fleet level coordination
+* Handle multiple parking events at once
 
 
 #### Stakeholders
 
-* Single SLAM or distributed-est: person
-* Controls:
-* Smart City: 
-* Anti Instagram:
+* Single SLAM or distributed-est
+* Controls
+* Smart City
+* Anti Instagram
 
 
 ## Part 2: Definition of the problem
@@ -68,7 +67,7 @@ We need to park N duckiebots in a designated area in which they are able enter a
 
 * Enter parking lot in designated inlet lane
 * Localize based on april tags within field of view with known locations
-* Control with feedback along predetermined path 
+* Control with feedback along predetermined path
 * Detect parking space status (full/free) of each parking space in sequential manner
 * Locate a free parking space
 * Paths generated for maneuvering into parking space
@@ -92,9 +91,9 @@ We need to park N duckiebots in a designated area in which they are able enter a
 
 ### Resources required / dependencies / costs
 
-* Size of parking space 
-* Resources required to develop duckiebot trajectory 
-* Number of april tags and infrastructure to support april tags 
+* Size of parking space
+* Resources required to develop duckiebot trajectory
+* Number of april tags and infrastructure to support april tags
 
 ### Performance measurement
 
@@ -108,14 +107,14 @@ We need to park N duckiebots in a designated area in which they are able enter a
 
 #### Perception
 * Lane filtering
-* April tag detection 
+* April tag detection
 * “Fleet communication”: detecting
 #### Localization and parking map generation
 * Ego localization
 * Localization other duckiebots
 * Parking map design
 #### Planning
-* Parking space allocation 
+* Parking space allocation
 * Path planning
 #### Control
 * “Fleet communication”: publishing
@@ -142,7 +141,7 @@ We need to park N duckiebots in a designated area in which they are able enter a
 #### Localization and parking map generation
 
 ##### Localization other duckiebots
-* Determines the pose of other duckiebots using specific blinking LEDs 
+* Determines the pose of other duckiebots using specific blinking LEDs
 * Input: other occupied signal(s)
 * Output: pose other duckiebot(s)
 ##### Parking map design
@@ -152,12 +151,12 @@ We need to park N duckiebots in a designated area in which they are able enter a
 ##### Ego localization
 * State estimation of position (x, y) and heading (theta) of own duckiebot using lanes (at entrance/exit of parking lot) and april tags
 * Input: parking map, relative position duckiebot-tag(s), localization april tag(s), location lane(s)
-* Output: pose duckiebot 
+* Output: pose duckiebot
 
 #### Path planning
 
 ##### Parking space allocation
-* Allocates a parking space to the duckiebot given the parking map and the authority to move, executed once per duckiebot 
+* Allocates a parking space to the duckiebot given the parking map and the authority to move, executed once per duckiebot
 * Input: parking map, pose duckiebot
 * Output: pose parking space (x, y, theta)
 ##### Path planning
@@ -180,13 +179,13 @@ We need to park N duckiebots in a designated area in which they are able enter a
 ### Preliminary plan of deliverables
 
 * Need: infrastructure, localization algorithm using april tags (maybe fusion with lane detection), high fidelity control algorithm, map generation algorithm, localization (ego and other duckiebots), parking space allocation, path planning algorithm
-* Exists: Lane detection, color filters, lane control, LED communication, april tag detection, control algorithm (maybe has to be improved), 
+* Exists: Lane detection, color filters, lane control, LED communication, april tag detection, control algorithm (maybe has to be improved),
 
 
 
 ### Specifications
 
-Yes, we need to add parking lot specifications. 
+Yes, we need to add parking lot specifications.
 
 ### Software modules
 
@@ -233,5 +232,4 @@ No
 * Detection of april tags and extracting pose of the robot
 * Map generation is wrong if duckiebot is not parked to specification
 * Control: level of precision adequate for parking
-* Exit parking maneuver conflicts: who can drive first (duckiebot which is exiting does probably not see anything) 
-
+* Exit parking maneuver conflicts: who can drive first (duckiebot which is exiting does probably not see anything)
