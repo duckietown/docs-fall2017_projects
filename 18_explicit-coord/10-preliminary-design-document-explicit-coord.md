@@ -9,11 +9,9 @@ Coordinate intersection navigation safely through explicit communication.
 
 ### Motto
 
+Motto: IN HOC SIGNO VINCES <br/> (with this sign, you will win)
 
 
-Motto: IN HOC SIGNO VINCES <br/> (???)
-
-TODO: missing English translation
 
 ### Project scope
 

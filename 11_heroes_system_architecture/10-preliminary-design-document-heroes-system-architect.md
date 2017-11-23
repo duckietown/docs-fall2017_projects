@@ -4,7 +4,8 @@ The “Heroes” team is a special task force with the responsibility to make su
 
 ## Motto
 
-Motto: E PLURIBUS UNUM <br/>(From many, one)
+Motto: E PLURIBUS UNUM <br/>(From many, unity)
+
 
 ## Overview
 

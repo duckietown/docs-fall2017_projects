@@ -9,8 +9,12 @@ Implement parking feature and design specifications (feature and physical)
 
 ### Motto
 
-Motto: ??? (???)
 
+<!-- Duck Ex Machina -->
+
+Motto: Quidquid latine dictum sit, altum videtur (anything that is said in Latin sounds important)
+
+TODO: Change template motto to group motto.
 
 ### Project scope
 

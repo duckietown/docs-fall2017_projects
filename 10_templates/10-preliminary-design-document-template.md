@@ -12,8 +12,7 @@ Instructions: What is the need that is being addressed? Do not focus on technica
 
 Instructions: Your rallying cry into battle. Traditionally, Duckietown uses Latin mottos. If you don't speak Latin, please contact Jacopo Tani to have your motto translated into latin.
 
-Motto: QUIDQUID LATINE DICTUM SIT, ALTUM VIDETUR <br/> (Whatever is written in Latin sounds wise)
-
+Motto: QUIDQUID LATINE DICTUM SIT, ALTUM VIDETUR <br/> (Anything that is said in Latin sounds important)
 
 ### Project scope
 
