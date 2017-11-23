@@ -9,9 +9,8 @@ Formation keeping and collision avoidance using implicit communication
 
 ### Motto
 
-> ALIIS VIVERE
+> ALIIS VIVERE (live for others)
 
-TODO: translation by Jacopo
 
 ### Project scope
 

@@ -11,9 +11,8 @@ Coordinate intersection navigation safely through explicit communication.
 
 
 
-> IN HOC SIGNO VINCES
+> IN HOC SIGNO VINCES (with this sign, you will win)
 
-TODO: missing English translation
 
 ### Project scope
 

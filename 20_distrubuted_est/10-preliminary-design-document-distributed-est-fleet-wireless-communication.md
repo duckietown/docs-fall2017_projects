@@ -8,7 +8,7 @@ Enable Duckiebots to communicate with each other wirelessly
 
 ### Motto
 
-BI UNUM IBI OMNES (Where there is one, there is everybody)
+> UBI UNUM IBI OMNES (Where there is one, there is unity)
 
 ### Project scope
 

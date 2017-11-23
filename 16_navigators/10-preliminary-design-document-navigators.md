@@ -10,7 +10,7 @@ The objective of this project is to implement a method that allows Duckiebots to
 ### Motto
 
 
-> **TRANSIBITIS** (you shall pass)
+> TRANSIBITIS (you shall pass)
 
 
 ### Project Scope

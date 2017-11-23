@@ -19,6 +19,8 @@ Your rallying cry into battle. Traditionally, Duckietown uses Latin mottos.
 
 Quidquid latine dictum sit, altum videtur
 
+(Anything that is said in Latin sounds important)
+
 </div>
 
 ### Project scope

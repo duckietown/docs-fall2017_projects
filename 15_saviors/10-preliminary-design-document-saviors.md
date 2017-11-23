@@ -9,12 +9,7 @@ Detect obstacles, plan a route and drive around them.
 
 ### Motto
 
-> Make Duckietown a safer place.
-
-
-
-TODO: Please insert Latin translation here.
-
+> URBEM ANATUM TUTIOS FACENDA (Duckietown is to be made safer)
 
 ### Project scope
 
@@ -60,7 +55,7 @@ They provide classified edges to limit the area where we have to find obstacles.
 
 ### Problem statement
 
-Relialby detect and avoid obstacles, plan a meaningful path around them or simply stop if nothing else is possible.
+Reliably detect and avoid obstacles, plan a meaningful path around them or simply stop if nothing else is possible.
 
 Robustness to changes in:
 
@@ -70,6 +65,7 @@ Robustness to changes in:
 
 
 ### Assumptions
+
  * Obstacles are only yellow duckies (different sizes) and orange cones.
  * No duckies on the middle line.
  * No obstacles on intersections.
@@ -123,12 +119,14 @@ Stage 7: verify the whole system
 ## Part 3: Preliminary design
 
 ### Modules
+
  * **Obstacle Detection in 2D space**
  * **Reconstruct 3D obstacle coordinates and radius**
  * **Path planning/ Decision making**
 
 
 ### Interfaces
+
  **Detection 2D space**
 
  * *Input:*
@@ -222,9 +220,11 @@ Anti instagram
 
 
 #### Other relevant resources to investigate
+
 OpenCV (filtering, color and edge detection)
 
 ### Risk analysis
+
 Interfaces (control approach of trajectory)
 
 Computation power

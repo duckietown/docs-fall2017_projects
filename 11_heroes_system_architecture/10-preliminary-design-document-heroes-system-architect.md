@@ -4,7 +4,7 @@ The “Heroes” team is a special task force with the responsibility to make su
 
 ## Motto
 
-    ```E pluribus unum (From many, one) ```
+> E PLURIBUS UNUM (From many, unity)
 
 ## Overview
 
@@ -35,7 +35,7 @@ The two quests and their respective descriptions will be explained separately in
 
 ## Quest 1
 
-With many teams working on many different parts of the system, chaos is inevitable (without divine intervention). Quest 1 is to minimise the chaos by acting as system-level wactchdog; spotting and addressing interface, contract and dependency issues between the teams. 
+With many teams working on many different parts of the system, chaos is inevitable (without divine intervention). Quest 1 is to minimise the chaos by acting as system-level wactchdog; spotting and addressing interface, contract and dependency issues between the teams.
 
 ## Quest 1, Part 1: Mission and scope
 
@@ -74,12 +74,12 @@ The current system makes at least kind-of sense. The current system will be used
 ### Approach
 
 * Become one with the goals of Duckietown
-    * In order to make Duckietown a better place, one has to keep in mind what “better” means in Duckie terms. 
+    * In order to make Duckietown a better place, one has to keep in mind what “better” means in Duckie terms.
 * Be familiar with the current system architecture and track changes
     * This can include having to update the functional diagram, for instance.
     * This also means identifying which teams affect which modules in the diagram
 * Keep in close contact with teams
-    * All teams will designate a contact person who can contact me whenever they change their project boundaries or have doubts/ need advice on their project’s boundaries/negotiating with other 
+    * All teams will designate a contact person who can contact me whenever they change their project boundaries or have doubts/ need advice on their project’s boundaries/negotiating with other
     * The meetings of some of the other teams will be attended(especially early meetings). Some teams’ meetings have been prioritized since many parts of the system are dependant on their work, namely:
         * Anti-instagram
         * Controllers
@@ -131,7 +131,7 @@ The current system makes at least kind-of sense. The current system will be used
 
 ** Challenges:**
 
-* Maintaining the balance between project level scope and Duckietown level scope. For instance, teams are focused on completing their project, and might forget the greater vision of Duckietown. This might mean having to convince teams to do slightly more work, for it to be more useful to Duckietown. After all, what’s the point of doing a project if it does not contribute to Duckietown? 
+* Maintaining the balance between project level scope and Duckietown level scope. For instance, teams are focused on completing their project, and might forget the greater vision of Duckietown. This might mean having to convince teams to do slightly more work, for it to be more useful to Duckietown. After all, what’s the point of doing a project if it does not contribute to Duckietown?
 
 * Balancing priorities of quest 1 and 2. Quest 1 is crucial, and takes priority over quest 2. Therefore it will be challenging to find time (main resource) to work on quest 2.
 
@@ -139,7 +139,7 @@ The current system makes at least kind-of sense. The current system will be used
 
 Where there is a system, there is a want (nay, need) for optimisation. Describing a system’s performance and resource requirements in a quantifiable way is a critical part of being able to benchmark modules and optimise the system.
 
-The different levels of quest 2 are defined as follows: 
+The different levels of quest 2 are defined as follows:
 
 * **Bronze standard:**
     * Define a formal, qualitative language to describe constraints/requirements between modules.
@@ -213,7 +213,7 @@ Formalise the description of the system characteristics, so that eventually the 
 
 #### Data collection
 
-* Module descriptions can be collected from the respective groups (by asking nicely) 
+* Module descriptions can be collected from the respective groups (by asking nicely)
 
 #### Relevant Duckietown resources to investigate
 
@@ -226,5 +226,5 @@ Formalise the description of the system characteristics, so that eventually the 
 ### Risk analysis
 
 * Quest 1 takes priority over quest 2, since it is more crucial to the functioning of the system. This means that quest 2 may suffer if quest 1 takes more time than expected.
-* Quest 2 has a research/experimental aspect, which makes it both interesting and challenging. 
+* Quest 2 has a research/experimental aspect, which makes it both interesting and challenging.
 * There is a chance that it might not be solved, as it is not a trivial problem.
