@@ -1,24 +1,20 @@
-#  Transfer: preliminary design document {#transfer-preliminary-design-doc status=ready}
-
-<!-- EXAMPLE COMMENT
--->
+#  Transfer: preliminary design document {#transfer-pdd status=beta}
 
 ## Part 1: Mission and scope
 
 ### Mission statement
 
-The goal is to test transfer learning algorithms trained on simulator and test on the real duckietown. 
+The goal is to test transfer learning algorithms trained on simulator and test on the real duckietown.
 
 Solving control problems in reality is hard due to sparse reward signals, expensive data acquisition and the danger of breaking the robot during exploration. It is comparatively easier to train the policy in a simulator as we can “speed up” the reality, and there are no inherent dangers of running arbitrary policies. But policies trained on simulator do not necessarily transfer directly onto the real world, and our goal is try and bridge this gap
 
 ### Motto
 
-Ipsa scientia potestas est, ut transire callidus est
-(Knowledge is power, transferring that is clever)
+Motto: IPSA SCIENTIA POTESTAS EST, <br/>UT TRANSIRE CALLIDUS EST <br/>(Knowledge is power, transferring that is clever)
 
 ### Project scope
 
-Final goal: Implement [DARLA](https://arxiv.org/abs/1707.08475) or [https://arxiv.org/pdf/1703.06907.pdf](https://arxiv.org/pdf/1703.06907.pdf) or [https://arxiv.org/pdf/1710.06537.pdf](https://arxiv.org/pdf/1710.06537.pdf) 
+Final goal: Implement [DARLA](https://arxiv.org/abs/1707.08475) or [https://arxiv.org/pdf/1703.06907.pdf](https://arxiv.org/pdf/1703.06907.pdf) or [https://arxiv.org/pdf/1710.06537.pdf](https://arxiv.org/pdf/1710.06537.pdf)
 
 #### What is in scope
 
@@ -55,9 +51,9 @@ We will replace the part of the pipeline that uses raw images and give motor con
 Mission: Efficient transfer of algos trained on simulators
 
 
-Problem statement: 
+Problem statement:
 
-- Implement [DARLA](https://arxiv.org/abs/1707.08475) or 
+- Implement [DARLA](https://arxiv.org/abs/1707.08475) or
 - [Domain Randomization Paper](https://arxiv.org/pdf/1703.06907.pdf) or
 - [Dynamics Randomization Paper](https://arxiv.org/pdf/1710.06537.pdf )
 - Apply the algorithms for tasks like, navigation.
@@ -74,7 +70,7 @@ Maybe allow for fine-tuning in the real world (on a small dataset)
 ### Approach
 
 - Get the simulator up and running
-- Start with the most basic lane following environment: A straight lane… 
+- Start with the most basic lane following environment: A straight lane…
 - Train a model to control the duckiebot in the simulator
 - Transfer the policy to the real world
 - Move onto slightly more complicated scenario … repeat (curriculum learning setting)
@@ -89,7 +85,7 @@ Metrics:
 
 - Quality of navigation (as defined by a reward/loss function)
 - Quality of transfer defined by the above reward function, computed automatically or by hand
-- Finetuning needed for transfer? 
+- Finetuning needed for transfer?
 
 Reward function description (probable):
 
@@ -111,7 +107,7 @@ Reward function description (probable):
 - In simulation, use access to the true state to compute the reward function
 - In duckietown, compute the reward function by hand (or develop a heuristic for computing it)
 - Qualitative comparison to current control pipeline
-- Baseline wrt other RL algos 
+- Baseline wrt other RL algos
 - Compare with #devel-super-learning for performance wrt imitation learning policies
 
 
@@ -119,10 +115,10 @@ Reward function description (probable):
 
 ### Modules
 
-Module 1: Policy mapping raw images <pre>-></pre> actions
-(or Module 1a: policy -> disentangled representation <pre>-></pre> actions)
+Module 1: Policy mapping raw images ⟶ actions
+(or Module 1a: policy ⟶ disentangled representation ⟶ actions)
 
-Module 2: Actions <pre>-></pre> motor voltages (Joy Mapper node)
+Module 2: Actions ⟶ motor voltages (Joy Mapper node)
 
 Module 3: Training module  (Also introduces domain/dynamics randomization in the simulator)
 
@@ -146,7 +142,7 @@ See Modules and Interfaces above.
 
 ### Software modules
 
-During training, the modules will be written in Python. 
+During training, the modules will be written in Python.
 
 At test time, modules 1,2 will be deployed as a ROS node during test.
 
@@ -165,7 +161,7 @@ Simulator
 
 The simulator will annotate data automatically by providing ground truth information about the duckiebot and the environment
 
-<i>(To be confirmed… We probably need to implement a module that does that)</i>
+Comment: To be confirmed… We probably need to implement a module that does that.
 
 If needed, then semantically segmented images would useful
 
@@ -177,14 +173,14 @@ Simulator
 
 PyTorch rl codebase, OpenAI Gym, OpenAI Baselines
 
-DARLA: https://arxiv.org/abs/1707.08475 
+DARLA: https://arxiv.org/abs/1707.08475
 
 Transfer by randomization/generalization:
 
-- https://arxiv.org/abs/1703.06907 
-- https://arxiv.org/abs/1710.06537 
+- https://arxiv.org/abs/1703.06907
+- https://arxiv.org/abs/1710.06537
 
-UNREAL: https://arxiv.org/abs/1611.05397 
+UNREAL: https://arxiv.org/abs/1611.05397
 
 Socially Aware Motion planning: https://arxiv.org/abs/1703.08862
 
@@ -194,8 +190,7 @@ Deploying the policy trained in simulator will break the bots in real duckietown
 
 Risk mitigation:
 
-- Train it properly :P
+- Train it properly
 - Curriculum learning setting to gradually increase difficulty
 - Safety on/off switch
 - Cushion the sides of the lane
-

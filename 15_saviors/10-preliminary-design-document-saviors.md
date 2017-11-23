@@ -9,7 +9,7 @@ Detect obstacles, plan a route and drive around them.
 
 ### Motto
 
-> Make Duckietown a safer place.
+Motto: ??? <br/>(Make Duckietown a safer place).
 
 
 

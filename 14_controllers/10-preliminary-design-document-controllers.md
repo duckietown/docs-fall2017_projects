@@ -9,12 +9,8 @@ Make lane following more robust to model assumptions and Duckietown geometric sp
 
 ### Motto
 
-<div class='check' markdown="1">
+Motto: IMPERIUM ET POTESTAS EST <br/> (With control comes power)
 
-IMPERIUM ET POTESTAS EST (with control comes power)
-
-
-</div>
 
 ### Project scope
 

@@ -1,48 +1,44 @@
-#  Group name: preliminary design document {#project-name-preliminary-design-doc status=ready}
-
-<!-- EXAMPLE COMMENT
--->
+#  Group name: preliminary design document {#template-pdd status=ready}
 
 ## Part 1: Mission and scope
 
 ### Mission statement
 
-What is the overarching mission of this team? You should write in one sentence.
+Instructions: What is the overarching mission of this team? You should write in one sentence.
 
-What is the need that is being addressed? Do not focus on technical specifics yet.
+Instructions: What is the need that is being addressed? Do not focus on technical specifics yet.
 
 ### Motto
 
-Your rallying cry into battle. Traditionally, Duckietown uses Latin mottos.
+Instructions: Your rallying cry into battle. Traditionally, Duckietown uses Latin mottos. If you don't speak Latin, please contact Jacopo Tani to have your motto translated into latin.
 
-<div class='check' markdown="1">
+Motto: QUIDQUID LATINE DICTUM SIT, ALTUM VIDETUR <br/> (Whatever is written in Latin sounds wise)
 
-Quidquid latine dictum sit, altum videtur
-
-</div>
 
 ### Project scope
 
-Are you going to rewrite Duckietown from scratch? Probably not. You need to decide what are the boundaries in which you want to move.
+Instructions:  Are you going to rewrite Duckietown from scratch? Probably not. You need to decide what are the boundaries in which you want to move.
 
 #### What is in scope
 
-What do you consider in scope? (e.g. having a different calibration pattern)
+Instructions: What do you consider in scope? (e.g. having a different calibration pattern)
 
 #### What is out of scope
 
-What do you consider out of scope? (e.g. hardware modifications)
+Instructions: What do you consider out of scope? (e.g. hardware modifications)
 
 #### Stakeholders
 
-What other pieces of Duckietown interact with your piece?
+Instructions: What other pieces of Duckietown interact with your piece?
 
-List here the teams, and a possible contact person for each team.
+Instructions:  List here the teams.
 
 
 ## Part 2: Definition of the problem
 
 ### Problem statement
+
+<div class='instructions' markdown="1">
 
 Time to define the particular problem that you choose to solve.
 
@@ -61,6 +57,8 @@ Otherwise:
 > Problem statement = We need to convince the dragon to give us the prince/princess.
 
 Suppose we choose to slain the dragon.
+
+</div>
 
 ### Assumptions
 
@@ -87,7 +85,6 @@ What are the "metrics"?
 <div class="example-usage" markdown="1">
 numbers of dragons killed per hour
 </div>
-
 
 Note that this is already tricky. In fact, the above is not a good metric. Maybe we kill the dragon with an explosion, and also the prince/princess is killed. A better one might be:
 

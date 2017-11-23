@@ -11,7 +11,7 @@ Coordinate intersection navigation safely through explicit communication.
 
 
 
-> IN HOC SIGNO VINCES
+Motto: IN HOC SIGNO VINCES <br/> (???)
 
 TODO: missing English translation
 

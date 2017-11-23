@@ -1,7 +1,5 @@
 #  PDD - Parking {#parking-pdd status=ready}
 
-<!-- EXAMPLE COMMENT
--->
 
 ## Part 1: Mission and scope
 
@@ -11,11 +9,7 @@ Implement parking feature and design specifications (feature and physical)
 
 ### Motto
 
-<!-- Duck Ex Machina -->
-
-Quidquid latine dictum sit, altum videtur
-
-TODO: What is the translation?
+Motto: ??? (???)
 
 
 ### Project scope

@@ -9,7 +9,7 @@ Make Duckietown a smarter city.
 
 ### Motto
 
-> OMNES VIAE ANATENSEM URBEM DUCUNT (All roads lead to Duckietown)
+Motto: OMNES VIAE ANATENSEM URBEM DUCUNT <br/>(All roads lead to Duckietown)
 
 
 
