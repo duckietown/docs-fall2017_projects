@@ -1,4 +1,4 @@
-#  Group name: preliminary design document {#parking-pdd status=ready}
+#  PDD - Parking {#parking-pdd status=ready}
 
 <!-- EXAMPLE COMMENT
 -->
