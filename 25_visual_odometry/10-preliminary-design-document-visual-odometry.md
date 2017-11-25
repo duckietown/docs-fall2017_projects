@@ -10,7 +10,7 @@ The application could be building a point cloud map for Duckietown for mapping--
 
 ### Motto
 
-> CARPE DIEM (Seize the day)
+Motto: CARPE DIEM <br/> (Seize the day)
 
 ### Project scope
 

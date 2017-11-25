@@ -10,7 +10,7 @@ Estimate better models to make localization and control more efficient and robus
 
 ### Motto
 
-> NOSCE TE IPSUM (Know thyself)
+Motto: NOSCE TE IPSUM <br/> (Know thyself)
 
 
 

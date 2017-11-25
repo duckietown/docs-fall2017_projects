@@ -10,8 +10,7 @@
 ### Motto
 
 
-> VICTORIA CONCORDIA CRESCIT (Victory through harmony)
-
+Motto: VICTORIA CONCORDIA CRESCIT <br/> (Victory through harmony)
 
 ### Project scope
 
@@ -105,9 +104,7 @@ Metrics:
 
 ### Modules
 
-<div figure-id="fig:approach-diagram" figure-caption="Fleet-level planning diagram">
-    <img style="width: 80%" src="approach-diagram.png" alt="Fleet-level Planning Diagram"/>
-</div>
+See [](#fig:approach-diagram).
 
 ### Interfaces
 

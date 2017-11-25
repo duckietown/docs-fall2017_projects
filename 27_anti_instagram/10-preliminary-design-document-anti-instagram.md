@@ -10,7 +10,7 @@ Line detection includes different colors of lines, we need to be able to detect 
 
 ### Motto
 
-> SEMPER VIGILANS (Always vigilant)
+Motto: SEMPER VIGILANS <br/> (Always vigilant)
 
 ### Project scope
 
@@ -23,17 +23,33 @@ Line detection includes different colors of lines, we need to be able to detect 
 #### What is out of scope
 
 * Geometric interpretation of the line detection (e.g. where is the middle of the road, distance to certain objects, …)
-* Hardware modifications of the duckiebot
+* Hardware modifications of the Duckiebot
 * Hardware modifications of the current Duckietown set up (colors of lanes, stop line, …)
 
 #### Stakeholders
 
-|  Team |  Reference Person | Interaction  |
-|---|---|---|
-| The heroes  | Sonja Brits  |  She helps us to interact with other groups. We talk with her if we change our project. |
-|  The controllers | Andreas Aumiller  | He is the interaction person to confirm that we fulfil their requests regarding: frequency, latency, accuracy (resolution), maximum false positives, maximum misclassification error (confusion matrix). |
-| The Parking  | Samuel Nyffenegger  |  We will determine together the best color for the parking lot lines if needed. |
-| The Navigators  | Theodore Koutros  |  At the moment the duckiebot is controlled open loop at intersections. This should be improved. Probably they need line detection in a certain way. We can help and figure together out what procedure would be the best. |
+<col2 id="anti-instagram-stakeholders">
+    <s>System architect</s>
+    <s>She helps us to interact with other groups. We talk with her if we change our project.</s>
+
+    <s>The controllers</s>
+    <s>A.A. is the interaction person to confirm that we fulfil their requests regarding: frequency, latency, accuracy (resolution), maximum false positives, maximum misclassification error (confusion matrix).</s>
+
+    <s>The Parking</s>
+    <s>We will determine together the best color for the parking lot lines if needed.</s>
+
+    <s>The Navigators</s>
+    <s>At the moment the Duckiebot is controlled open loop at intersections. This should be improved. Probably they need line detection in a certain way. We can help and figure together out what procedure would be the best</s>
+</col2>
+
+<style>
+table#anti-instagram-stakeholders td:first-child{
+    width: 12em;
+}
+table#anti-instagram-stakeholders td {
+    text-align: left;
+}
+</style>
 
 ## Part 2: Definition of the problem
 
@@ -51,38 +67,52 @@ There are several reasons why the current implementation fails:
 
 ### Assumptions
 
-1. Lighting
-    1. We assume normal office lighting, including any shadows that may occur because of occlusions, or spatial variance.
-    2. We don't consider outdoor illumination (e.g. sunlight)
-    3. We assume having illumination (no pitch black scenario)
-2. Duckietown Condition
-    1. We assume the normal colors of lane lines, plus one or two more (for the parking lot).
-    2. We assume no variation in the shapes of the lines besides what is already constructed.
-3. Training data
-    1. We expect to have some pictures in different scenarios with correctly labeled segmentation (lines, street, …), where a polygon is drawn around each region.
-    2. The pictures will be captured from a Duckiebot camera.
-4. We also assume the current method of extracting lane pose from segments is accurate.
+1. Lighting:
 
+    * We assume normal office lighting, including any shadows that may occur because of occlusions, or spatial variance.
+    * We don't consider outdoor illumination (e.g. sunlight).
+    * We assume having illumination (no pitch black scenario).
+
+2. Duckietown Condition:
+
+    * We assume the normal colors of lane lines, plus one or two more (for the parking lot).
+    * We assume no variation in the shapes of the lines besides what is already constructed.
+
+3. Training data:
+
+    * We expect to have some pictures in different scenarios with correctly labeled segmentation (lines, street, …), where a polygon is drawn around each region.
+    * The pictures will be captured from a Duckiebot camera.
+
+4. We also assume the current method of extracting lane pose from segments is accurate.
 
 ### Approach
 
 1. Understand current system
+
     - Determine false positives, false negatives, true positives, true negatives of current line detection
     - Determine latency
     - Compare other color spaces than RGB to see how it affects performance (e.g. HSV or LAB).
+
 2. Use geometric information to better determine the actual existing colors.
+
     - The optimal case would be that the system already knows beforehand which areas it should take into account. The relevant color areas are only the dashed lines area, the continuous line area, the stop line area, the parking line area and the street area. Everything else should not taken into account since we have no reference color for the other areas.
     - It should be possible to define a region in the picture where we can find these specific areas. For example the dashed line starts lower left and goes to direction top middle but it should stop at the “line of horizon” (= middle of the vertical length)
     - Distinguish between dashed and non-dashed lane lines to simplify identification of colors.
-3. Use time information/parameters from earlier illumination corrections to improve robustness (Online learning)
+
+3. Use time information/parameters from earlier illumination corrections to improve robustness (Online learning).
+
     - In contrast to starting the color analysis from scratch every time, we could consider using the latest transformation parameters as an initial guess.
-    - We could consider to update the color analysis every x-th frame during a session, to be more robust to changing light conditions/shadows.
-4. Further improvements
-    - We are using the color transformation to better estimate the lines. So we know after processing (color transformation, edge detection, …) where we can find the lines. With that information we could update the color transformation. The color transformation now should take into account only the “important” areas. As a result we should have a more accurate color transformation. We repeat until we converge to a minimum. 
+    We could consider to update the color analysis every x-th frame during a session, to be more robust to changing light conditions/shadows.
+
+4. Further improvements:
+
+    - We are using the color transformation to better estimate the lines. So we know after processing (color transformation, edge detection, …) where we can find the lines. With that information we could update the color transformation. The color transformation now should take into account only the “important” areas. As a result we should have a more accurate color transformation. We repeat until we converge to a minimum.
 
 ### Functionality-resources trade-offs
 
 ### Functionality provided
+
+We are assuming to have ground truth pictures. Then it is possible by processing the same picture with our algorithm and compare it to the ground truth to calculate an error.
 
 We are assuming to have ground truth pictures. Then it is possible by processing the same picture with our algorithm and compare it to the ground truth to calculate an error. 
 
@@ -96,6 +126,7 @@ Costs:
     - If the processing is done online we have to take care that it doesn't take too long.
 2. Cost of producing ground truth pictures
     - Will be determined when we have some examples done by hand. (Week of 20th of November)
+
 Resources:
 
 1. Functional Duckiebot
@@ -153,19 +184,19 @@ None.
 
 ## Part 4: Project planning
 
-|  Date [MM/DD/YYYY] |  Task | Who | Target Deliverables |
-|---|:--|---|:--|
-|11/20/2017|Finish the Preliminary Document, Peer Reading of other team members |Milan, Christoph|Preliminary Document|
-|11/27/2017|Investigate why current algorithm fails.|Milan, Christoph|Create detailed description when the algorithm fails and when it works. Make it understandable why for everyone|
-|11/27/2017|Create data annotation, check how website works|David, Shengjie|Get 1000 annotated pictures or have a specific date when these images are delivered.|
-|12/1/2017|Find out what colorspace is the best for the current algorithm||best color space, performance analysis|
-|12/4/2017|Find out what's the best clustering method based on best color space, is the best color space still the best?||Best clustering method, best color space, performance analysis|
-|12/4/2017|Include geometry in the current color transformation algorithm||Performance analysis|
-|1/8/2018|Implement an online system||Performance analysis of supervised system|
+|Date [MM/DD/YYYY]|Task|Target Deliverables|
+|-|-|-|
+|11/20/2017|Finish the Preliminary Document, Peer Reading of other team members|Preliminary Document|
+|11/27/2017|Investigate why current algorithm fails.|Create detailed description when the algorithm fails and when it works. Make it understandable why for everyone|
+|11/27/2017|Create data annotation, check how website works|Get 1000 annotated pictures or have a specific date when these images are delivered.|
+|12/1/2017|Find out what colorspace is the best for the current algorithm|best color space, performance analysis|
+|12/4/2017|Find out what's the best clustering method based on best color space, is the best color space still the best?|Best clustering method, best color space, performance analysis|
+|12/4/2017|Include geometry in the current color transformation algorithm|Performance analysis|
+|1/8/2018|Implement an online system|Performance analysis of supervised system|
 
 ### Data collection
 
-Around 1000 pictures with the duckiebot camera from a duckiebot perspective in Duckietown. The pictures have to be from different environment conditions (illumination, specular light)
+Around 1000 pictures with the Duckiebot camera from a Duckiebot perspective in Duckietown. The pictures have to be from different environment conditions (illumination, specular light)
 
 ### Data annotation
 
@@ -181,16 +212,16 @@ The data collected above has to be annotated. The annotations should state what 
 
 The whole sum of nodes within the ‘10-lane-control' folder will be within the scope of this project. They are:
 
-- Anti_instagram
-- Ground_projection
-- Lane_control
-- Lane_filter
-- Line_detector
-- complete_image_pipeline
+- `anti_instagram`
+- `ground_projection`
+- `lane_control`
+- `lane_filter`
+- `line_detector`
+- `complete_image_pipeline`
 
 #### Other relevant resources to investigate
 
-1. Color differentiation, like this https://arxiv.org/pdf/1506.01472.pdf
+1. Color differentiation, [like this](https://arxiv.org/pdf/1506.01472.pdf).
 2. Properties of different color spaces
 3. OpenCV
 
