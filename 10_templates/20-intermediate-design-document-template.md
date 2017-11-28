@@ -66,7 +66,7 @@ The demo is a short activity that is used to show the desired functionality, and
 
 It should take a few minutes maximum for setup and running the demo.
 
-How do you envision the demo?
+- How do you envision the demo?
 
 - What hardware components do you need?
 
