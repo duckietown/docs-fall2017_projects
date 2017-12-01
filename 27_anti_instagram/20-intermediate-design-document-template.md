@@ -110,29 +110,40 @@ Duckietown Vice-President of Safety: I, (believe / do not believe) that the perf
 
 _Please note that for this part it is necessary for the Data Czars to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time._
 
+In order to be able to evaluate our algorithm, we need a metric which gives us an estimation of the quality of the color transformation. As a metric we chose the distances between the color centers of every of the four possible colors for the lines in the duckietown after the transformation and the 'true' colors. To obtain the average color centers for these colors, we need annotated images, which give us the location of the different lines on the street.
+
+
+
 ### Collection
 
-- How much data do you need?
+- (How much data do you need?)
+- We want to run a broad analysis to be able to calculate average distances and the corresponding variance. Thus, we need as many test images as we can collect. For a number, we aim to have one thousand test images to run our analysis.
 
-- How are the logs to be taken? (Manually, autonomously, etc.)
+- (How are the logs to be taken? (Manually, autonomously, etc.))
+- To obtain the test images, we wrote a script to extract single images from a bag file. Thus, we are able to collect a proper amount of data without large effort.
 
-Describe any other special arrangements.
+(Describe any other special arrangements.)
 
-- Do you need extra help in collecting the data from the other teams?
+- (Do you need extra help in collecting the data from the other teams?)
+
+- We need the line following demo in order to collect the needed bag files. To obtain a variety of the lightning, we will experiment with different light sources as well as different directions from which we illuminate the duckietown.
 
 ### Annotation
 
-- Do you need to annotate the data?
+- (Do you need to annotate the data?)
+- As we have to know where the different lines are in the image, we need annotated images. The images should be annotated with at least one polygon per color, i.e. for the 'street black', the 'white outer line', the 'yellow center line' and the 'red stop line'. We would prefer multiple polygons per color.
 
-- At this point, you should have you tried using [thehive.ai](https://thehive.ai/) to do it. Did you?
+- (At this point, you should have you tried using [thehive.ai](https://thehive.ai/) to do it. Did you?)
 
-- Are you sure they can do the annotations that you want?
+- (Are you sure they can do the annotations that you want?)
 
 ### Analysis
 
-- Do you need to write some software to analyze the annotations?
+- (Do you need to write some software to analyze the annotations?)
+- We wrote a function which analyses the color transformation. This function calculates the distances described above. Currently, it works for a single image, but we plan to implement this function for a batch of images, to be able to analyze a large amount of images with minimal effort.
 
-- Are you planning for it?
+
+- (Are you planning for it?)
 
 <!--
 Check-off by Data Zars:
