@@ -1,27 +1,21 @@
-#  The Controllers: preliminary design document {#project-name-preliminary-design-doc status=ready}
+#  PDD - The Controllers {#controllers-pdd status=ready}
 
-<!-- EXAMPLE COMMENT
--->
 
 ## Part 1: Mission and scope
 
 ### Mission statement
 
-Make lane following more robust to model assumptions and Duckietown geometric specification violations and provide control for a different reference control. 
+Make lane following more robust to model assumptions and Duckietown geometric specification violations and provide control for a different reference control.
 
 ### Motto
 
-<div class='check' markdown="1">
+Motto: IMPERIUM ET POTESTAS EST <br/> (With control comes power)
 
-IMPERIUM ET POTESTAS EST (with control comes power)
-
-
-</div>
 
 ### Project scope
 
 
-#### What is in scope  
+#### What is in scope
 
 * Control Duckiebot on straight lane segments and curved lane segments.
 
@@ -29,13 +23,13 @@ IMPERIUM ET POTESTAS EST (with control comes power)
 
 * Detection and stopping at red (stop) lines
 
-* Providing control for a given reference **d** for avoidance and intersections (but for intersections, we additionally need the pose estimation and a curvature from the navigators team)  
+* Providing control for a given reference **d** for avoidance and intersections (but for intersections, we additionally need the pose estimation and a curvature from the navigators team)
 
-#### What is out of scope  
+#### What is out of scope
 
 * Pose estimation and curvature on Intersections (plus navigation / coordination)
 
-* Model of Duckiebot and uncertainty quantification of parameters (System Identification) 
+* Model of Duckiebot and uncertainty quantification of parameters (System Identification)
 
 * Object avoidance involving going to the left lane
 
@@ -45,64 +39,64 @@ IMPERIUM ET POTESTAS EST (with control comes power)
 
 * Controller for Custom maneuvers (e.g. Parking, Special intersection control)
 
-* Robustness to non existing line  
+* Robustness to non existing line
 
 
 
-#### Stakeholders  
+#### Stakeholders
 
-**System Architect**  
+**System Architect**
 
-She helps us to interact with other groups. We talk with her if we change our project.   
-  
-**Software Architect**  
+She helps us to interact with other groups. We talk with her if we change our project.
 
-They give us Software guidelines to follow.   
-They give a message definition.  
-  
-**Knowledge Tzarina**  
-Duckiebook  
-  
-**Anti-Instagram**  
-They provide classified edges (differentiation of centerline, outer lines and stop lines)  
+**Software Architect**
 
-Direction of the edges (background to line vs. line to background)  
-  
-**Intersection Coordination (Navigators)**   
-They tell where to stop at red line.  
-We give a message once stopped.  
-They give pose estimation and curvature (constant) to navigate on intersection.  
-We provide controller for straight line or standard curves.   
-  
-**Parking**  
-They tell where to stop at red line.  
-We give a message once stopped  
-  
-**System Identification**  
-They provide model of Duckiebot.  
-  
-**Obstacle Avoidance Pipelines (Saviors)**  
-They provide reference **d**.  
-  
-**SLAM**  
-They might want to know some information from our pose estimation (e.g. lane width or theta).  
-  
+They give us Software guidelines to follow.
+They give a message definition.
+
+**Knowledge Tzarina**
+Duckiebook
+
+**Anti-Instagram**
+They provide classified edges (differentiation of centerline, outer lines and stop lines)
+
+Direction of the edges (background to line vs. line to background)
+
+**Intersection Coordination (Navigators)**
+They tell where to stop at red line.
+We give a message once stopped.
+They give pose estimation and curvature (constant) to navigate on intersection.
+We provide controller for straight line or standard curves.
+
+**Parking**
+They tell where to stop at red line.
+We give a message once stopped
+
+**System Identification**
+They provide model of Duckiebot.
+
+**Obstacle Avoidance Pipelines (Saviors)**
+They provide reference **d**.
+
+**SLAM**
+They might want to know some information from our pose estimation (e.g. lane width or theta).
+
 
 
 ## Part 2: Definition of the problem
 
-### Problem statement  
+### Problem statement
 
-We must keep the Duckiebots at a given distance d from center of the lane, on straight and curved roads, under bounded variations of the city geometric specifications.    
-    
-Geometric specifications:   
+We must keep the Duckiebots at a given distance d from center of the lane, on straight and curved roads, under bounded variations of the city geometric specifications.
+
+Geometric specifications:
 
 * Nominal lane width
 * Tape width (white, yellow, red)
 * Spacing between yellow dashed line
-* Curvature of the curves  
+* Curvature of the curves
 
-Given at every time step a reference **d** (the reference $\theta$ gets choosen in a way to match the reference d):  
+Given at every time step a reference **d** (the reference $\theta$ gets choosen in a way to match the reference d):
 \begin{equation}
     q_r(t)=[x_r(t),y_r(t),\theta_r(t)]^t \rightarrow [d_r(t),\theta_r(t)]
 \end{equation}
@@ -112,31 +106,31 @@ The following image shows the definition of the parameters $d$ and $\theta$.
 ![image](problem_statement.svg)
 
 
-($d$: distance perpendicular to the lane. 0 is defined in the center of the lane (see definition in duckumentation))  
+($d$: distance perpendicular to the lane. 0 is defined in the center of the lane (see definition in duckumentation))
 
-($\theta$: angle between the lane and the robot body frame. )     
-  
-and given a **model of the system**,  
-  
-define a control action:  
-  
+($\theta$: angle between the lane and the robot body frame. )
+
+and given a **model of the system**,
+
+define a control action:
+
 * the heading and velocity of the center between the wheels of robot, leading to a sequence of motor commands
-  
-at every time step, such that the pose (estimate of the pose) converges to the target.  
-  
-**Performance:**  
+
+at every time step, such that the pose (estimate of the pose) converges to the target.
+
+**Performance:**
 
 * Steady state within a tile
 * Never leaves the lane
-* Small steady state error  
-  
-**Robustness to slight changes in:**  
+* Small steady state error
+
+**Robustness to slight changes in:**
 
 * Model parameters
 * Width of the lane
 * Width of the lines
-* Curvature of the road  
-  
+* Curvature of the road
+
 
 ### Assumptions
 
@@ -159,26 +153,26 @@ at every time step, such that the pose (estimate of the pose) converges to the t
 * One possible test procedure: Set a calibrated duckiebot to many known points on straight lanes and curved lanes. Save the information of these actual poses (measured by hand) together with the images taken by the Duckiebot’s camera in the respective poses. On this data, different anti-instagram methods and different pose estimations can be run and evaluated directly, without any physical duckiebot nor Duckietown.
 * We want to improve the parameters of the current controller by tuning it experimentally.
 * We want to increase the frequency of the controller update.
-* We want to handle actuator saturation, if we adding an I part to the controller.  
+* We want to handle actuator saturation, if we adding an I part to the controller.
 
 
-### Functionality-resources trade-offs  
+### Functionality-resources trade-offs
 
 
 ### Functionality provided
 
-Drive on straight lane and curves without large deviations from the center of the lane.  
+Drive on straight lane and curves without large deviations from the center of the lane.
 
 ### Resources required / dependencies / costs
 
-Hardware resources:  
+Hardware resources:
 
-* Tapes for lanes 
+* Tapes for lanes
 * Tiles to make different straight lanes and curved lanes
-* Timer 
+* Timer
 * Functional Duckiebot
-  
-Dependencies: see assumptions  
+
+Dependencies: see assumptions
 
 We assume to have image space line segments extracted and classified from images.
 
@@ -191,24 +185,24 @@ We assume to have image space line segments extracted and classified from images
 
 ### Performance measurement
 
-Drive on the track for one minute and count the number of times the bot touches the side or center line. Repeat this 5 times.   
+Drive on the track for one minute and count the number of times the bot touches the side or center line. Repeat this 5 times.
 
-**Metrics**  
-Error from the reference distance d when driving straight.  
-- Mean and variance of 5 experiments 
-Estimate of lane width.  
-- Estimate lane width and compare to measurement
-Estimate road curvature.  
-- Estimate curvature and compare to measured radius of curve
-Speed - make is a control variable.  
-Robustness to initial pose.  
-- Run lane following using 5 different initial poses
-Transient error after curved section (e.g. dies in one tile length).  
-- 5 experiments of measuring the error d when driving straight after a curved segment $\rightarrow$ Did the transient error die?  
-Robustness to the curvature.  
-- Run curve following on 5 lanes made of different combinations of curve tiles (left-left-right, left-right-left, … )
-Robustness to lane specifications   
-- Run lane following on 5 lanes with different lane width when driving straight
+**Metrics**
+* Error from the reference distance d when driving straight.
+  - Mean and variance of 5 experiments
+* Estimate of lane width.
+  - Estimate lane width and compare to measurement
+* Estimate road curvature.
+  - Estimate curvature and compare to measured radius of curve
+* Speed - is a control variable.
+* Robustness to initial pose.
+  - Run lane following using 5 different initial poses
+* Transient error after curved section (e.g. dies in one tile length).
+  - 5 experiments of measuring the error d when driving straight after a curved segment $\rightarrow$ Did the transient error die?
+* Robustness to the curvature.
+  - Run curve following on 5 lanes made of different combinations of curve tiles (left-left-right, left-right-left, … )
+* Robustness to lane specifications
+  - Run lane following on 5 lanes with different lane width when driving straight
 
 
 ## Part 3: Preliminary design
@@ -218,13 +212,13 @@ Robustness to lane specifications
 Estimation of Position:
 
 * Input: segments detected by Anti-Instagram-Filter
-* Output: 
-- Distance from center of lane, 
-- Heading angle, 
+* Output:
+- Distance from center of lane,
+- Heading angle,
 - Curve or straight lane
-- Curvature 
+- Curvature
 
-Controller:   
+Controller:
 
 * Input: state (Distance from center of lane, heading angle, other) by an Estimator
 * Output: Control Output to motors
@@ -272,9 +266,9 @@ We do not need to change the Duckietown specifications.
 
 ### Data collection
 
-Take rosbag logs every time.  
+Take rosbag logs every time.
 
-Rosbag:  
+Rosbag:
 
 - Image
 - Edges from Anti-Instagram
@@ -293,7 +287,7 @@ Anti instagram
 
 #### Other relevant resources to investigate
 
-[Particle Filter coded in python and useful intro to the subject](https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/master/12-Particle-Filters.ipynb)  
+[Particle Filter coded in python and useful intro to the subject](https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/master/12-Particle-Filters.ipynb)
 
 
 ### Risk analysis
