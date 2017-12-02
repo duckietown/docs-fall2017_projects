@@ -3,21 +3,35 @@
 
 ## Part 1: System interfaces
 
-Please note that for this part it is necessary for the system architect and software architect to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time.
-
 ### Logical architecture
-
 - Please describe in detail what the desired functionality will be. What will happen when we click "start"?
 
 - Please describe for each quantity, what are reasonable target values. (The system architect will verify that these need to be coherent with others.)
 
 - Please describe any assumption you might have about the other modules, that must be verified for you to provide the functionality above.
 
-<!--
-The above must have a check-off by the software architect:
+#### Color correction
 
-System architect check-off: I, XXX, (agree / do not agree) that the above is compatible with system-level constraints.
--->
+To ensure to have the best line detection possible the system uses a so called Anit-Instagram algorithm. This algorithm determines a color transformation such that the input for the line detector has no color variation. This is important because based on color the Duckiebot knows whether it is a middle, a side or a stopping line. The algorithm tries to minimize the influence of external illumination variation (scattered sunlight, different colors of light sources, ...).
+
+##### Online Calculation
+Our task is to improve the color correction algorithm. Our algortihm should run in parallel to the whole system. So there should be no more "start" button as there was in the older system. Approximately every 10 seconds a new color transformation should be calculated. The interval time still should be determined but it will be definitively in order of 10 seconds. This is because the calculation needs more than 1.5 seconds on the Raspberry Pi. It has to be investigated whether a proper parallelization can be achieved such that no other process is disturbed through this computationally expensive process.
+The computation of this transformation is done using image data. The current algorithm is implemented using the whole picture. This includes potential artifacts!
+
+
+##### Use geometrical information
+To remove potential artifacts is would be valuable to use geometrical information. For example since we know that the camera is fixed on the Duckiebot (Same orientation, same field of view, ... over time) we could determine the "road area". Considering only the relevant area we should be able to get a more accurate color transformation.
+
+###### Self improving system
+
+An idea to push the accuracy even more is to determine first a color transformation and afterwards detect the lines. By that we know where the relevant colors for the transformation are. Afterwards we do another color transformation based on the relevant colors detected by the line detector. This should improve the color transformation.
+
+##### Comparison Old vs. New
+| Old Anti-Instagram  | New Anti-Instagram  |
+| :------------: | :------------: |
+| Press a button to start a new color correction  | Do color correction automatically. Around every 10 seconds there should happen a new color correction  |
+| No use of old transformation parameters  |  Use the old parameters as input for the new transformation |
+| No use of geometrical values | Use geometric information, publish this information for other systems to use |
 
 ### Software architecture
 
@@ -29,11 +43,36 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 - For each published topic, describe the maximum latency that you will introduce.
 
-<!--
-The above must have a check-off by the software architect:
+#### Anti instagram node
 
-Software architect check-off: I, XXX, (agree / do not agree) that the above is compatible with system-level constraints.
--->
+We are improving the Anti-Instagram algorithm. So the Anti-Instagram node should stay the same as it was.
+
+##### Topics
+| Published topics  | Explanation  |
+| :------------: | :------------: |
+| corrected image  |  This is the image after the color transformation. It should serve for example as an input for the line detector.  |
+|  health | This is a parameter which should indicate how successful the transformation was. Based on that parameter other nodes could decide whether to use the new correction or not. An idea could be to generate a new "decision node"/"decision topic" which decides whether this correction is useful or not.   |
+|  transform |  This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  |
+
+| Subscribed topics  | Explanation  |
+| :------------: | :------------: |
+|  uncorrected image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.   |
+
+#### Considerable area node
+
+During our research and investigation for the Anti-Instagram algorithm we came up with an idea to only consider the relevant areas of the picture. This would improve the accuracy of the color transfomation. E.g. only the black area of the street, the white, red and yellow line markings on the street are relevant inputs for the color transformation. Knowing the location of these features would definitively improve the color correction algorithm.
+
+##### topics
+
+| Published topics  | Explanation  |
+| :------------: | :------------: |
+| corrected image  |  This is the image after the color transformation. It should serve for example as an input for the line detector.  |
+|  health | This is a parameter which should indicate how successful the transformation was. Based on that parameter other nodes could decide whether to use the new correction or not. An idea could be to generate a new "decision node"/"decision topic" which decides whether this correction is useful or not.   |
+|  transform |  This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  |
+
+| Subscribed topics  | Explanation  |
+| :------------: | :------------: |
+|  uncorrected image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.   |
 
 ## Part 2: Demo and evaluation plan
 
