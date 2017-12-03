@@ -151,8 +151,8 @@ _Please note that for this part it is necessary for the Data Czars to check off 
 
 In order to be able to evaluate our algorithm, we need a metric which gives us an estimation of the quality of the color transformation. As a metric we chose the distances between the color centers of every of the four possible colors for the lines in the duckietown after the transformation and the 'true' colors. In the image shown below you can see a vizualisation of the color distances. To obtain the average color centers for these colors, we need annotated images, which give us the location of the different lines on the street.
 
-![Image](docs/atoms_85_fall2017_projects/27_anti_instagram/images/
-	duckietown2?raw=true)
+![Image](https://github.com/duckietown/duckuments/blob/devel-anti-instagram/docs/atoms_85_fall2017_projects/27_anti_instagram/images/distance.svg?raw=true)
+*Color distances: In this schematic you can see the clusters of the four colored lines in the RGB space how they were captured from the camera. Each cluster is assigned to the appropriate 'true' color. The distances from the cluster centers to their correspondent 'true' colors (shown as arrows) are defined by the Euclidean distance.*
 
 
 
