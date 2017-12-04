@@ -73,8 +73,8 @@ This node transforms the raw image with the parameters from the Anti-Instagram n
 
 #### Considerable area node
 
-During our research and investigation for the Anti-Instagram algorithm we came up with an idea to only consider the relevant areas of the picture. This would improve the accuracy of the color transfomation. E.g. only the black area of the street, the white, red and yellow line markings on the street are relevant inputs for the color transformation. Knowing the location of these features would definitively improve the color correction algorithm.
-But the feasability of this is very unclear yet. We don't know either whether we really implement that. It is definitively worth mentioning the idea and seeing if other people are interested in it as well!
+During our research and investigation for the Anti-Instagram algorithm we came up with an idea to only consider the relevant areas of the picture. This would improve the accuracy of the color transformation. E.g. only the black area of the street, the white, red and yellow line markings on the street are relevant inputs for the color transformation. Knowing the location of these features would definitively improve the color correction algorithm.
+But the feasibility of this is very unclear yet. We don't know either whether we really implement that. It is definitively worth mentioning the idea and seeing if other people are interested in it as well!
 
 ##### Topics
 
@@ -153,9 +153,9 @@ The visitors can filter a static image interactively with pre-defined color filt
 3. Camera which films image
 4. Second screen (?) with output image
 
-##### Visualisation of the kMeans algorithm
+##### Visualization of the kMeans algorithm
 
-We want to show on a screen a visualisation of the kMeans algorithm.
+We want to show on a screen a visualization of the kMeans algorithm.
 
 | **+**  | **-**  |
 | :------------: | :------------: |
@@ -164,10 +164,10 @@ We want to show on a screen a visualisation of the kMeans algorithm.
 
 *Material needed:*
 1. Screen with computer attached.
-2. Visualisation of the kMeans algorithm
+2. Visualization of the kMeans algorithm
 
 
-By turns we want to show on the same screen the video output of the general demo described above. It should take a few minutes maximum for setup and running the demos. 
+By turns we want to show on the same screen the video output of the general demo described above. It should take a few minutes maximum for setup and running the demos.
 
 
 ### Plan for formal performance evaluation
