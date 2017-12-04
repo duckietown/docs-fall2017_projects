@@ -53,14 +53,11 @@ We are improving the Anti-Instagram algorithm. So the Anti-Instagram node should
 
 
 #### Image Transformer node
-This node transforms the raw image with the parameters from the Anti-Instagram node.
+This node transforms the raw image with the parameters from the Anti-Instagram node. This is going to be a newly created node.
 ##### Topics
 | Published topics  | Explanation | Latency |
 | :------------: | :------------: |  :------------: |
 | ~transformed_image  |  The transformed image with the color correction parameters.  | TBD  |
-
-
-
 
 | Subscribed topics  | Explanation  |
 | :------------: | :------------: |
@@ -70,13 +67,12 @@ This node transforms the raw image with the parameters from the Anti-Instagram n
 #### Considerable area node
 
 During our research and investigation for the Anti-Instagram algorithm we came up with an idea to only consider the relevant areas of the picture. This would improve the accuracy of the color transformation. E.g. only the black area of the street, the white, red and yellow line markings on the street are relevant inputs for the color transformation. Knowing the location of these features would definitively improve the color correction algorithm.
-But the feasibility of this is very unclear yet. We don't know either whether we really implement that. It is definitively worth mentioning the idea and seeing if other people are interested in it as well!
 
 ##### Topics
 
-| Published topics  | Explanation  |
-| :------------: | :------------: |
-| ~mask_image  |  A pixel by pixel indication whether the information of the image is relevant or not should be the output. With this binary matrix one could mask the camera picture and do for example line detection only on the relevant area. This would improve the computation speed a lot. The Anti-Instagram algorithm would profit for sure from that as well!  |
+| Published topics  | Explanation  | Latency |
+| :------------: | :------------: | :------------: |
+| ~mask_image  |  A pixel by pixel indication whether the information of the image is relevant or not should be the output. With this binary matrix one could mask the camera picture and do for example line detection only on the relevant area. This would improve the computation speed a lot. The Anti-Instagram algorithm would profit for sure from that as well!  | TBD  |
 
 
 | Subscribed topics  | Explanation  |
@@ -86,7 +82,7 @@ But the feasibility of this is very unclear yet. We don't know either whether we
 | ~segment_list | The list of detected segments could be for use as well. |
 
 #### Line detector 2 node
-The line detector node publishes all the relevant data after detecting the dashed yellow line, the white side line and the potential red stopping line.
+The line detector node publishes all the relevant data after detecting the dashed yellow line, the white side line and the potential red stopping line. The latencies are determined as soon as possible. Experiments could not have been done yet since the line detection resposibility has been officially assigned to us a few hours before the deadline.
 ##### Topics
 | Published topics  | Explanation | Latency |
 | :------------: | :------------: |  :------------: |
