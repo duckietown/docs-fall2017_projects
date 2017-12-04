@@ -54,6 +54,22 @@ We are improving the Anti-Instagram algorithm. So the Anti-Instagram node should
 | :------------: | :------------: |
 |  ~uncorrected_image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.  |
 
+
+#### Image Transformer node
+This node transforms the raw image with the parameters from the Anti Instagram node.
+##### Topics
+| Published topics  | Explanation | Latency |
+| :------------: | :------------: |  :------------: |
+| ~transformed_image  |  The transformed image with the color correction parameters.  | TBD  |
+
+
+
+
+| Subscribed topics  | Explanation  |
+| :------------: | :------------: |
+|  ~uncorrected_image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.  |
+| ~transform | This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  |
+
 #### Considerable area node
 
 During our research and investigation for the Anti-Instagram algorithm we came up with an idea to only consider the relevant areas of the picture. This would improve the accuracy of the color transfomation. E.g. only the black area of the street, the white, red and yellow line markings on the street are relevant inputs for the color transformation. Knowing the location of these features would definitively improve the color correction algorithm.
@@ -77,17 +93,17 @@ The line detector
 ##### Topics
 | Published topics  | Explanation | Latency |
 | :------------: | :------------: |  :------------: |
-| ~edge  |  ??  | << 1 s  |
-|  ~colorSegment | ??   | << 1 s |
-|  ~segment_list |  ??  | 1.5 seconds |
-|  ~image_with_lines |  ??.  | 1.5 seconds |
+| ~edge  |  Returns Image with edges on it. It's the output of the OpenCV Canny() function converted to a ROS message.  | TBD  |
+|  ~colorSegment | ??   | TBD |
+|  ~segment_list |  ??  | TBD |
+|  ~image_with_lines |  Image with the detected lines drawn on the image.   | TBD |
 
 
 | Subscribed topics  | Explanation  |
 | :------------: | :------------: |
-| ~image | ??  |
+| ~image | This is the compressed image to read.  |
 | ~transform | This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  |
-| ~switch | ??  |
+| ~switch | This is a switch that allows to control the activity of this node. If the message is true, the node becomes active. If false, it switches off. The node starts as active.  |
 
 
 ## Part 2: Demo and evaluation plan
