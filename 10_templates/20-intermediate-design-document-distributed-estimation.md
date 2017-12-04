@@ -34,6 +34,16 @@ Optimizing for latency will be of low priority, since the primary single goal is
 
 We’re going to try and make the node configurable such that the code will not needed to be changed in the future (maybe just optimized, since it is quite complex and we do not have much time to implement it). If not, we will hard code the message conversion (ROS message ←→ ZMQ message).
 
+How does this work?
+
+Team A wants to communicate between bots
+Team A tells us their message structure
+We build serialization
+We define ROS topics: teamAout, teamAin
+Team A bot A posts message to teamAout
+Team A other bots can retrieve message from teamAin
+
+
 <!--
 The above must have a check-off by the software architect:
 
