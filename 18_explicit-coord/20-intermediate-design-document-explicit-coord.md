@@ -33,7 +33,7 @@ Afterwards, the LED-detector-node will check for each Duckiebot if other LEDs ar
 
 The LED-coordination-node will for each Duckiebot estimate the coordination move (either “hold on” or “go”). The final output will be this signal that will be used by the Navigators to start the procedure to clear the intersection.  After that we are not going to intervene until the Duckiebot finds itself at another intersection.
  
-Our led-detection, led-emission and led-coordination nodes will affect only the Duckiebots behaviour at intersection. Surely, our LED-signal could be seen from other Duckiebots in Duckietown but for now no group need LEDs to communicate in other situations. 
+Our led-detection, led-emission, and led-coordination nodes will affect only the Duckiebots behaviour at intersection. Surely, our LED-signal could be seen from other Duckiebots in Duckietown but for now no group need LEDs to communicate in other situations. 
 
 However, a LED-signal will be used by fleet-planning to indicate the status of each vehicle (free, occupied, waiting,..). Fleet planning will use one LED for implementing this functionality (back-right one) while the other LEDs remain available for coordination purposes.
 
