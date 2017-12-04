@@ -33,8 +33,8 @@ messaging node:
 These teams publish their data to be sent to these topics.
 
 **published topics:** individual incoming communication (and by incoming communication, we mean messages we get over wifi) topics subscribed to by:
-- fleet planning (fleet_planning_inbox)
-- distributed estimation (multi_slam_inbox)
+- fleet planning (flag_fleet_planning_inbox)
+- distributed estimation (flag_multi_slam_inbox)
 - maybe other groups, since anyone can subscribe to these topics
 
 Outwards (wifi) communication is realized with protobuffs and zmq
