@@ -10,12 +10,12 @@ It is worth mentioning that our main task will be to improve the color correctio
 To ensure to have the best line detection possible the system uses a so called Anit-Instagram algorithm. This algorithm determines a color transformation such that the input for the line detector has no color variation. This is important because based on color the Duckiebot knows whether it is a middle, a side or a stopping line. The algorithm tries to minimize the influence of external illumination variation (scattered sunlight, different colors of light sources, ...).
 
 ##### Online Calculation
-Our task is to improve the color correction algorithm. Our algortihm should run in parallel to the whole system. So there should be no more "start" button as there was in the older system. Approximately every 10 seconds a new color transformation should be calculated. The interval time still should be determined but it will be definitively in order of 10 seconds. This is because the calculation needs more than 1.5 seconds on the Raspberry Pi. It has to be investigated whether a proper parallelization can be achieved such that no other process is disturbed through this computationally expensive process.
+Our task is to improve the color correction algorithm. Our algortihm should run in parallel to the whole system. So there will be no more "start" button as there was in the older system. Approximately every 10 seconds a new color transformation should be calculated. The interval time still should be determined but it will be definitively in order of 10 seconds. This is because the calculation needs more than 1.5 seconds on the Raspberry Pi. It has to be investigated whether a proper parallelization can be achieved such that no other process is disturbed through this computationally expensive process.
 The computation of this transformation is done using image data. The current algorithm is implemented using the whole picture. This includes potential artifacts!
 
 
 ##### Use geometrical information
-To remove potential artifacts is would be valuable to use geometrical information. For example since we know that the camera is fixed on the Duckiebot (Same orientation, same field of view, ... over time) we could determine the "road area". Considering only the relevant area we should be able to get a more accurate color transformation.
+To remove potential artifacts it is valuable to use geometrical information. For example since we know that the camera is fixed on the Duckiebot (Same orientation, same field of view, ... over time) we could determine the "road area". Considering only the relevant area we will be able to get a more accurate color transformation.
 
 ###### Self improving system
 
@@ -38,7 +38,7 @@ An idea to push the accuracy even more is to determine first a color transformat
 
 - For each published topic, describe the maximum latency that you will introduce.
 
-#### Anti instagram node
+#### Anti-Instagram node
 
 We are improving the Anti-Instagram algorithm. So the Anti-Instagram node should stay the same as it was.
 
@@ -57,7 +57,7 @@ We are improving the Anti-Instagram algorithm. So the Anti-Instagram node should
 
 
 #### Image Transformer node
-This node transforms the raw image with the parameters from the Anti Instagram node.
+This node transforms the raw image with the parameters from the Anti-Instagram node.
 ##### Topics
 | Published topics  | Explanation | Latency |
 | :------------: | :------------: |  :------------: |
@@ -114,7 +114,7 @@ The line detector
 
 Our demo plan consists of several different sub demos:
 ##### 2 duckiebots doing the lane-following demo
-One of the duckiebots has the improved anti-instagram algorithm on it and the other duckiebot will run on the old version. With different light conditions in different parts of duckietown we try to show that the improved version performs better than the old version. [Scenario I]
+One of the Duckiebots has the improved Anti-Instagram algorithm on it and the other Duckiebot will run on the old version. With different light conditions in different parts of Duckietown we try to show that the improved version performs better than the old version. [Scenario I]
 
 | **+**  | **-**  |
 | :------------: | :------------: |
@@ -122,12 +122,12 @@ One of the duckiebots has the improved anti-instagram algorithm on it and the ot
 | It is very easy to understand  | One does not understand why the newer system works better.  |
 
 *Important notes:*
-- The two duckiebots only differ by the anti instagram algorithm. Everything else stays the same!
-- If we don't have enough space we could run two similar videos in parallel. One of the old-version-duckiebot and one of the new-version-duckiebot. [Scenario II]
+- The two Duckiebots only differ by the Anti-Instagram algorithm. Everything else stays the same!
+- If we don't have enough space we could run two similar videos in parallel. One of the old-version-Duckiebot and one of the new-version-Duckiebot. [Scenario II]
 
 *Material needed [Scenario I]:*
-1. Full version of duckietown
-2. 2 Full working duckiebots
+1. Full version of Duckietown
+2. 2 Full working Duckiebots
 3. A table to cover a part of the Duckietown to produce shadows
 4. Dimmable light sources, in order to create a various lightning settings.
 
@@ -135,7 +135,7 @@ One of the duckiebots has the improved anti-instagram algorithm on it and the ot
 1. Big video screen and computer attached
 
 ##### Interactive Live-Application of Anti-Instagram filtering.
-The visitors can filter a static image with color filters and see an instant output image of the anti-instagram filter. This demo should show how accurate and powerful the anti-instagram algorithm is.
+The visitors can filter a static image with color filters and see an instant output image of the Anti-Instagram filter. This demo should show how accurate and powerful the Anti-Instagram algorithm is.
 
 | **+**  | **-**  |
 | :------------: | :------------: |
@@ -197,7 +197,7 @@ _Please note that for this part it is necessary for the Data Czars to check off 
 We want to run a broad analysis to be able to calculate average distances and the corresponding variance. Thus, we need as many test images as we can collect. For a number, we aim to have from a few hundred up to one thousand test images to run our analysis. To obtain the test images, we wrote a script to extract single images from a bag file. Thus, we are able to collect a proper amount of data without large effort.
 
 
-We need the line following demo in order to collect the needed bag files. To obtain a variety of the lightning, we will experiment with different light sources as well as different directions from which we illuminate the duckietown.
+We need the line following demo in order to collect the needed bag files. To obtain a variety of the lightning, we will experiment with different light sources as well as different directions from which we illuminate the Duckietown.
 
 ### Annotation
 
