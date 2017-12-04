@@ -135,6 +135,7 @@ One of the Duckiebots has the improved Anti-Instagram algorithm on it and the ot
 *Material needed [Scenario II]:*
 1. Big video screen and computer attached
 
+It should take a few minutes maximum for setup and running the demo.
 
 ### Demo Day in January
 
@@ -166,7 +167,7 @@ We want to show on a screen a visualisation of the kMeans algorithm.
 2. Visualisation of the kMeans algorithm
 
 
-It should take a few minutes maximum for setup and running the demo.
+By turns we want to show on the same screen the video output of the general demo described above. It should take a few minutes maximum for setup and running the demos. 
 
 
 ### Plan for formal performance evaluation
