@@ -15,14 +15,34 @@ This consists of 3 parts:
 
 <div markdown="1">
 
- <col2 id='checkoff-people-intermediate-report' figure-id="tab:checkoff-people-intermediate-report" figure-caption="Intermediate Report Supervisors">
-    <s>System Architects</s>                         <s>Sonja Brits, Andrea Censi</s>
-    <s>Software Architects</s>                       <s>Breandan Considine, Liam Paull</s>
-    <s>Vice President of Safety</s>                  <s>Miguel de la Iglesia, Jacopo Tani</s>
-    <s>Data Czars</s>                                <s>Manfred Diaz, Jonathan Aresenault</s>
+ <col2 align='center' style="text-align:left" id='checkoff-people-intermediate-report' figure-id="tab:checkoff-people-intermediate-report" figure-caption="Intermediate Report Supervisors">
+    <td>System Architects</td>                         <td>Sonja Brits, Andrea Censi</td>
+    <td>Software Architects</td>                       <td>Breandan Considine, Liam Paull</td>
+    <td>Vice President of Safety</td>                  <td>Miguel de la Iglesia, Jacopo Tani</td>
+    <td>Data Czars</td>                                <td>Manfred Diaz, Jonathan Aresenault</td>
  </col2>
 
 </div>
+
+<div markdown="1">
+
+ <col2 align='center' style="text-align:left" id='conventions' figure-id="tab:conventions" figure-caption="Conventions used in the following document">
+    <th>Variable</th>                        <th>Description</th>
+    <td>$d_{ref}$</td>                         <td>Reference distance from center of lane</td>
+    <td>$d_{act}$</td>                       <td>Actual distance from center of lane</td>
+    <td>$d_{est}$</td>                  <td>Estimated distance from center of lane</td>
+    <td>$\theta_{act}$</td>           <td>Actual angle between robot and center of lane</td>
+    <td>$\theta_{est}$</td>           <td>Estimated angle between robot and center of lane</td>
+    <td>$c_{act}$</td>          <td>Actual curvature of lane</td>
+    <td>$c_{est}$</td>                  <td>Estimated curvature of lane</td>
+    <td>$c_{ref}$</td>                   <td>Reference curvature of the path to follow </td>
+    <td>$v_{ref}$</td>                   <td>Reference velocity</td>
+ </col2>
+</div>
+
+![image](problem_statement.svg)
+
+
 
 ## Part 1: System interfaces
 
@@ -35,75 +55,72 @@ Please note that for this part it is necessary for the system architect and soft
 <!--
 - Please describe in detail what the desired functionality will be. What will happen when we click "start"?
 -->
-<div markdown="1">
 
- <col2 id='conventions' figure-id="tab:conventions" figure-caption="Conventions used in the following document">
-    <s>$d_ref$</s>                         <s>Reference distance from center of lane</s>
-    <s>$d_act$</s>                       <s>Actual distance from center of lane</s>
-    <s>$d_est$</s>                  <s>Estimated distance from center of lane</s>
-    <s>$\theta_act$</s>           <s>Actual angle between robot and center of lane</s>
-    <s>$\theta_est$</s>           <s>Estimated angle between robot and center of lane</s>
- </col2>
+**Desired functionality**    
 
-</div>
+We assume that the Duckiebot is placed on the right lane of the road within a defined boundary for the initial pose. By starting the lane following module it should begin to follow the lane, whether it is straight or curved, until we stop the lane following module. The module consists of two parts, a pose-estimator part and a lane-controller part. We will briefly describe these two modules:
 
-We assume that the Duckiebot is placed on the right lane of the road within a defined boundary for the initial pose. By starting the lane-follower it should begin to follow the lane, whether it is straight or curved, until we stop the lane following module. The module consists of two parts, an pose-estimator part and a lane-controller part. We will briefly describe these two modules:
+<center><img src="curve_plot.png" alt="Drawing" style="width: 200px;"/></center>
 
-**pose-estimator**: Estimates distance $\d_act$ from the center of the lane and the angle $\theta_act$ with respect to the center of the lane. In a curve this angle should be with respect to the the tangent of this curve at the actual position. Additionally the estimator estimates the curvature of the lane.
 
-**lane-controller**: Given the pose and curvature estimation and a reference **d** the lane-controller will control the Duckiebot along this reference. 
+* **Pose-estimator**: Estimates distance $d_{est}$ from the center of the lane and the angle $\theta_{est}$ with respect to the center of the lane as near as possible to the actual values $d_{act}$ and $\theta_{act}$. In a curve, $\theta_{act}$ is the angle between the centerline of the Duckiebot and the tangent to the centerline of the lane at the corresponding position (where the origin of the robot frame (center of the wheel axis) is closest to the centerline of the lane). Additionally, the estimator estimates the curvature $c_{est}$ of the lane. Further if possible, the estimator will approximate the lane width and the width of the side lines to be robust with respect to the geometric specifications of Duckietown. (The curvature $c_{est}$ was not estimated in the previous estimator.)
+
+* **Lane-controller**: Given the pose ($d_{est}$, $\theta_{est}$) and curvature ($c_{est}$) estimation and a reference $d_{ref}$, the lane-controller will control the Duckiebot along this reference. The controller only accepts $d_{ref}$ which allow the Duckiebot to stay in the right lane. In other cases, the Duckiebot will be stopped to avoid accidents and a corresponding flag (...........) is set. The lane-controller further strictly limits the velocity of the Duckiebot, for values see next section. The lane-controller takes the velocity at all time from implicit coordination except when another team demands a lower value. In case no velocity is received, we set a default constant velocity by ourselves.
+
+The following diagram shows the input the controller node needs to control for other teams. 
+
+<center><img src="node_IO.png" alt="Drawing" style="width: 350px;"/></center>
+
 
 Special events:
 
-**detection of red line**: After the stop line detection node detects a stop line message, the controller will continually slow down the velocity of the Duckiebot and stop between 6 to 0 cm and an angle of +-10 degree (requirements given by Explicit Coordination Team). 
+* **Detection of red line**: After the stop line has been detected by the stop_line_filter_node, it sends an at_stop_line message (flag_at_stop_line), the controller will continually slow down the velocity of the Duckiebot and stop between 16 to 10 cm from the center of the red line and with an angle $\theta_{act}$ of +-10° (requirements given by Explicit Coordination Team). Furthermore the Duckiebot will stop in the center of the lane within a range of +- 5 cm.
 
-**intersection**: The Duckiebot will stop between 6 to 0 cm (given by the Explicit Coordination Team) from the red line in order to enable the navigation through the intersection. They will give us the tracking deviation **d_err** and tracking angle **$\theta$_err**, curvature **c**, reference distance **d** (mainly = 0), velocity **v**. The navigation through an intersection is out of scope. The lane-following module will start again after the intersection, triggered by the finite state machine.
+<center><img src="red_line_stop.png" alt="Drawing" style="width: 300px;"/></center>
 
-**obstacle avoidance**: We are receiving a d (distance to the middle of the right lane) from the Saviors Team, in case there is an obstacle on the lane. The Saviors Team will compensate the delay and send us the d 30-40 cm from obstacle in advance. Out of scope is the controlled obstacle avoidance involving leaving the right lane. This case is determined by a flag sent from the Saviors module and the Duckiebot will stop. There is also a stop flag received from the stop_line_filter_node. We will introduce priorities to the several flags received to decide how to duckiebot should behave. We also need the velocity of the obstacle avoidance group.
+* **Intersection**: When the Parking team set the flag_at_intersection _true_ (because the Duckiebot is at a stop line and there is no april tag for a parking lot), we will stop the pose_estimator of the lane-following module and listen to data provided by the Navigators. It consists of the curvature $c_{ref}$ the Duckiebot needs to follow, as well as a reference $d_{ref}$ (which should be zero in case the Duckiebot needs to drive on the path with given curvature), the estimates of our distance $d_{est}$ and angle $\theta_{est}$ with respect to the path and a desired velocity $v_ref$. Everything on the intersection except of using our standard lane following controller is out of our scope. The pose_estimator of the lane-following module will start again after the intersection, triggered when the flag flag_at_intersection is turned _false_.
 
 
+* **Obstacle avoidance**: Once flag_obstacle_detected is set _true_ by the Savior Team, they will continuously send us references $d_{ref}$ to follow and drive around the obstacle, as well as a desired velocity $v_ref$. For security reasons this velocity can be set smaller than the usual velocity. The Saviors will start to send references when the Duckiebot still has a distance to the obstacle of at least 20-30cm to make sure the controller is able to react enough in advance. Out of scope is the controlled obstacle avoidance involving leaving the right lane. This case is determined by a stop flag (flag_obstacle_emergency_stop) sent from the Saviors module and the Duckiebot will stop. There is also a stop flag received from the stop_line_filter_node. We will introduce priorities to the several flags received to decide how the Duckiebot should behave.
 
-We get the at_stop_line flag, stop_line_filter_node.py defined. 
-It has a state process part 
+* **Parking**: At a stop line, if a parking-lot april tag is detected (by the Parking team), the parking flag flag_at_parking_lot will be set _true_ (otherwise the flag_at_parking_lot would be set _false_ and the flag_at_intersection would be set _true_). After this the Parking team will take over responsibility. The will first calculate a path using RRT. In case they set the flag_parking_stop to _false_, the lane controller will take over the control along this precalculated path. For this, the parking team needs to send the curvature $c_{ref}$ the Duckiebot needs to follow, as well as a reference $d_{ref}$ (which should be zero in case the Duckiebot needs to drive on the path with given curvature), the estimates of our distance $d_{est}$ and angle $\theta_{est}$ with respect to the path and a desired velocity $v_{ref}$. In case we need to stop, the Parking team will set the flag_parking_stop _true_ again. Driving backwards is not in our scope. After leaving the parking lot, we will take over estimation and control again, unless directly after the parking lot is an intersection, which would be handled by the Navigators (after Explicit and/or Implicit Coordination). 
 
-Intersection: 
-Additionally, the Duckiebot will stop between 6 to 0 cm (given by the Explicit Coordination Team) from the red line in order to enable the navigation through the intersection. The navigation through an intersection is out of scope. The Lane Following module will start again after the intersection, triggered by the Finite state machine.  They will give us the estimated d and theta. Curvature, reference d (prly 0), velocity, 
-
-Obstacle avoidance:
-We are receiving a d (distance to the middle of the right lane) from the Saviors Team, in case there is an obstacle on the lane. The Saviors Team will compensate the delay and send us the d 30-40 cm from obstacle in advance. Out of scope is the controlled obstacle avoidance involving leaving the right lane. This case is determined by a flag sent from the Saviors module and the Duckiebot will stop. 
-There is also a stop flag received from the stop_line_filter_node. We will introduce priorities to the several flags received to decide how to duckiebot should behave.
-We also need the velocity of the obstacle avoidance group.
-
-Parking
-At a stop line, if a parking-lot april tag is detected (by the parking team), the parking flag will be activated. As soon as we enter the parking lot space, they will take over control. We will get a pose_estimation_msg from the parking group, as well as a velocity, distance from middle of the “lane” and a theta. The middle of the lane will be a path calculated by RRT* from the parking group as well. They will just use our lane controller to make the bot move and follow their trajectory. When we leave the parking lot, our controller will take over estimation and control again (when the bot gets to the red stop line from the intersection outside of the parking lot). They will give us an estimation (whenever calculated) and a d. When the parking flag is active, the controller node stops running until the flag is inactive
-
+* **Implicit Coordination**: If Implicit Coordination is running, they send to us the desired reference velocity $v_{ref}$ at all time and set a flag defined in the table below.
 <!--
 - Please describe for each quantity, what are reasonable target values. (The system architect will verify that these need to be coherent with others.)
 -->
 
-The Duckiebot should only run at a maximum velocity of x m/s for optimal controllability. The reason for the limited velocity is the low image update frequency which limits our pose estimation update. Hence a lower velocity enhances the performance of our controlled lane following. Image update too slow hence pose estimation limited=> Slower velocity better pose trajectory. Since not every Duckiebot has the same gain set, we will pass the desired velocity to team System Identification. Their module will convert the demanded velocity to the according input voltage for the motor.  
+**Target values**
 
-Our goal is to control the deviation from the middle of the lane d smaller than +- 2cm: 
+The Duckiebot should run at a reduced velocity of 0.2 m/s for optimal controllability. The reason for the limited velocity is the low image update frequency which limits our pose estimation update, hence a lower velocity enhances the performance of our lane-follower module. Since not every Duckiebot has the same gain set, we will pass the desired velocity to team System Identification. Their module will convert the demanded velocity to the according input voltages for the motors.
 
-Whenever we detect a red line, we will slow down the duckiebot. 
+Our goal is to control the deviation from the middle of the lane $d_{act}$ smaller than +- 2cm. The estimator should estimate our pose with $d_{est}$ and $\theta_{est}$ with an accuracy of +- 1cm. Further, the Duckiebot will stop in the center of the lane within a range of +- 2 cm.
 
-Intersection 0-6cm , +-10° , we can request to still see the red line when we will stop for the red line
+Whenever we detect a red line, we will slow down the Duckiebot and stop between 16 to 10 cm from the center of the red line and with an angle $\theta_{act}$ of +-10°. 
 
-Savior: not leaving lane, if obstacle flag is active , then we will receive a d and a v. 
-Emergency stop flag active, we will need to slow down and stop. 
+In case the obstacle flag is activated by the Saviors, they will provide us with the input described above to avoid the obstacle without leaving the lane. Otherwise they activate the emergency stop flag and we will need to stop the Duckiebot within 5 cm from the position at which the stop flag is received (requirement by Saviors).
 
 <!--
 - Please describe any assumption you might have about the other modules, that must be verified for you to provide the functionality above.
 -->
 
-Savior:
- d enough in advance They will set the obstacle detected flag 20-30cm in front of the obstacle, so we have enough time to avoid the obstacle.
+**Assumptions**
 
+We assume the following modules will behave in the described manner:
 
+* **Savior**: They will detect obstacles on the road and are able to generate $d_{ref}$ that allows to avoid the object without leaving the lane or touching any object (safety for the Duckies!). They will set the obstacle detected flag 20-30cm in front of the obstacle, so we have enough time to avoid the obstacle. They are able to decide if avoidance of an obstacle is feasible or they have to set the flag_obstacle_emergency_stop.
 
-Anti-instagram : has tuned bla very good. Edges superb
-Idea: Introducing area of interest of the image to process. Filter out unrelevant image data to speed up the image processing pipeline. If Anti-Instagram could publish area of interest as a node, we could use it in the estimation part to remove all visual clutter in the line segments.
+* **Anti-instagram**: They can compensate the colors for different ambient light conditions and allow for good edge detection robust to changing light conditions. In future, they could optionally help by introducing an area of interest of the image to process. Irrelevant image data could be filtered out to speed up the image processing pipeline. If Anti-Instagram could publish the area of interest as a node, we could use it in the estimation part to remove all visual clutter in the line segments.
 
+* **Line detection**: Relevant line segments of the side, center and stop line are detected without introducing an exceeding amount of false detections and passed on in a SegmentList, classified including direction (from background do line or vice versa).
+
+* **Navigators**: They are able to generate a path along the intersection and deliver accurate pose estimates which allow for proper working of the lane controller.
+
+* **Parking**: They are able to generate a path from the parking entrance to a free parking space and deliver accurate pose estimates which allow for proper working of the lane controller. They take care of any backward driving without using the lane controller.
+
+* **Implicit Coordination**: They are able to generate a reference velocity that will not result in a crash with another Duckiebot. They will provide enough distance to the Duckiebot in front, to allow the pose_estimator of the lane-following module and the stop_line_filter_node to work properly.
+
+* **Fleet-level Planning**: They provide a profile of reference distance from the center of the lane $d_{ref}$ and velocity $v_{ref}$, such that they stop at their desired location to pick-up / drop-off their customer.
 
 <!--
 The above must have a check-off by the system architect:
@@ -112,37 +129,6 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 -->
 
 ### Software architecture
-
-- _Lane Filter Node_ :
-  - Published topics:
-    - lane_pose
-      - Maximum latency to be introduced: ??
-    - belief_img
-      - Maximum latency to be introduced: ??
-    - entropy
-      - Maximum latency to be introduced: ??
-    - in_lane
-      - Maximum latency to be introduced: ??
-    - switch
-      - Maximum latency to be introduced: ??
-  - Subscribed topics:
-    - segment_list
-      - Latency expected: 143 ms
-    - velocity
-      - Latency expected: 0 ms
-    - car_cmd (not yet)
-      - Latency expected: [runtime of Lane Controller node]
-    - flags_from_other_teams
-
-Total latency from image taken processed through anti-instagram etc to us  70ms (source?)
-
-- _Lane Controller Node_ :
-  - Published topic:
-    - car_cmd
-      - Maximum latency to be introduced: ??
-  - Subscribed topic: 
-    - lane_pose
-      - Latency expected: [runtime of Lane Filter Node]
 
 <!--
 - Please describe the list of nodes that you are developing or modifying.
@@ -154,6 +140,149 @@ Total latency from image taken processed through anti-instagram etc to us  70ms 
 - For each published topic, describe the maximum latency that you will introduce.
 -->
 
+_Lane Filter Node_    
+
+The Lane Filter Node will, in addition to the existing fields, also estimate the curvature.    
+
+In the following table, published topics are listed:
+
+<div markdown="1">
+<col2 align='center' style="text-align:left" id='lane_filter_published_topics' figure-id="tab:lane_filter_published_topics" figure-caption="Published topics by Lane Filter Node">
+    <th>Topic</th>                                <th>Max Latency</th>
+    <td>lane_pose</td>                         <td>15 ms </td>
+    <td>belief_img</td>                       <td>2 ms </td>
+    <td>entropy</td>                      <td>negligible</td>
+    <td>in_lane</td>                  <td>negligible</td>
+    <td>switch</td>               <td>negligible </td>
+</col2>
+</div>
+
+In the following table, subscribed topics are listed:
+
+<div markdown="1">
+<col2 align='center' style="text-align:left" id='lane_filter_subscribed_topics' figure-id="tab:lane_filter_subscribed_topics" figure-caption="Published topics by Lane Filter Node">
+    <th>Topic</th>                                    <th>Max Latency</th>
+    <td>segment_list</td>                         <td>25 ms</td>
+    <td>velocity</td>                               <td>egligible</td>
+    <td>car_cmd (not yet)</td>                      <td>negligible</td>
+</col2>
+</div>
+
+Total latency from image taken, processed through anti-instagram, up until setting the motor control command is on average 140 ms.    
+
+_Lane Controller Node_
+
+In the following table, published topics are listed:
+
+<div markdown="1">
+<col3 align='center' style="text-align:left" id='lane_controller_published_topics' figure-id="tab:lane_controller_published_topics" figure-caption="Published topics by Lane Controller Node">
+<th>Topic</th> <th>Type</th> <th>Max Latency</th>
+<td>car_cmd</td> <td>duckietown_msgs/Twist2DStamped</td>  <td>negligible</td> </col3>
+</div>
+
+In the following table, subscribed topics are listed:
+
+<div markdown="1">
+<col3 align='center' style="text-align:left" id='lane_controller_subscribed_topics' figure-id="tab:lane_controller_subscribed_topics" figure-caption="Subscribed topics by Lane Controller Node">
+  <th>Topic</th>             <th>Type</th>            <th>Max Latency</th>
+ <td>lane_pose</td>                  <td>duckietown_msgs/LanePose</td>       <td>15 ms</td> 
+ <td>lane_pose_intersection_navigation</td>          <td>duckietown_msgs/ControlMessage_</td>       <td>20 ms</td>
+<td>lane_pose_obstacle_avoidance</td>        <td>duckietown_msgs/ControlMessage_</td>                 <td>20 ms </td>
+ <td>lane_pose_parking</td>                  <td>duckietown_msgs/ControlMessage_</td>       <td>25 ms </td>
+<td>stop_line_reading</td>      <td>duckietown_msgs/StopLineReading</td>       <td> negligible </td>
+<td>implicit_coordination_velocity</td> <td>duckietown_msgs/ControlVelocity</td> <td>negligible </td> 
+    <td>Flags defined in table below</td>              <td>BoolStamped</td>            <td>negligible </td></col3>
+
+</div>
+
+
+**Flags received by other nodes**
+
+These following flags are received from other modules. While one of these flags is _true_, the Duckiebot will behave according to the descriptions in the system architecture section.
+
+<div markdown="1">
+ <col2 align='center' style="text-align:left" id='flags' figure-id="tab:flags" figure-caption="Flags received by other modules">
+    <td>flag_at_stop_line</td>                         <td>_True_ when a red stop line is detected.</td>
+    <td>flag_at_intersection</td>                       <td>_True_ when at intersection. This flag is passed to us by the Parking team.</td>
+    <td>flag_obstacle_detected</td>                  <td>_True_ when obstacle is in the lane. This flag is passed to us by the Saviors. </td>
+    <td>flag_obstacle_emergency_stop</td>           <td>_True_ when it is not possible to avoid the obstacle without leaving the right lane. </td>
+    <td>flag_at_parking_lot</td>           <td>_True_ when stopping at an intersection and the april tag for the parking lot is detected by the Parking team. </td>
+    <td>flag_parking_stop</td>        <td>Per default = _true_. If _false_, the lane-follower will move along the given trajectory on the parking lot.</td>
+    <td>flag_implicit_coordination</td>        <td>_True_ when implicit coordination is running in this case we listen to the velocity published by them.</td>
+ </col2>
+</div>
+
+
+**Structure of the received messages with type _duckietown_msgs/LanePose_**
+
+The following table defines the structure of the pose messages the Lane Controller Node receives.
+
+<div markdown="1">
+<col4 align='center' style="text-align:left" id='posemessage' figure-id="tab:posemessage" figure-caption="Structure of pose message to be used.">
+<th>Field</th>      <th>Abstract Data Type</th>     <th>SI Units</th> <th>Description</th>
+<td>header</td>     <td>Header</td>     <td>-</td>         <td>Header</td>
+<td>d</td>         <td>float32</td>     <td>$m$</td>        <td>Estimated lateral offset</td>
+<td>sigma_d</td>     <td>float32</td>     <td>$m$</td>        <td>Variance of lateral offset</td>
+<td>phi</td>         <td>float32</td>     <td>$rad$</td>        <td>Heading error</td>
+<td>sigma_phi</td>     <td>float32</td>     <td>$rad$</td>        <td>Variance of heading error</td>
+<td>c</td>         <td>float32</td>     <td>$1/m$</td>        <td>Reference curvature</td>
+<td>status</td>     <td>int32</td>         <td>-</td>        <td>Status of Duckiebot 0 if normal, 1 if error is encountered</td>
+<td>in_lane</td>     <td>bool</td>         <td>-</td>    <td>In lane status</td>
+ </col4>
+</div>
+
+**Structure of the received messages with type _duckietown_msgs/ControlMessage_**
+
+The following table defines the structure of the control messages the Lane Controller Node receives from all the teams who want to send commands to our controller .
+
+<div markdown="1">
+<col4 align='center' style="text-align:left" id='controlmessage' figure-id="tab:controlmessage" figure-caption="Structure of control message to be used.">
+<th>Field</th>      <th>Abstract Data Type</th> <th>SI Units</th> <th>Description</th>
+<td>header</td>   <td>Header</td>     <td>-</td>   <td>Header</td>
+<td>d_est</td>   <td>float32</td>  <td>$m$</td>   <td>Estimated lateral offset</td>
+<td>d_ref</td>   <td>float32</td> <td>$m$</td> <td>Reference lateral offset</td>
+<td>phi_est</td> <td>float32</td> <td>$rad$</td> <td>Heading error</td>
+<td>phi_ref</td> <td>float32</td> <td>$rad$</td>  <td>Reference heading</td>
+<td>c_ref </td>  <td>float32</td> <td>$1/m$</td>  <td>Reference curvature</td>
+<td>v_ref</td>  <td>float32</td>  <td>$m/s$</td>  <td>Referenece Velocity</td>
+</col4>
+</div>
+
+**Structure of the received messages with type _duckietown_msgs/ControlVelocity**
+
+The following table defines the structure of the control messages the mostly the implicit coordination group will send us to control the velocity.
+
+<div markdown="1">
+<col4 align='center' style="text-align:left" id='ControlVelocity' figure-id="tab:ControlVelocity" figure-caption="Structure of pose message to be used.">
+<th>Field</th> <th>Abstract Data Type</th> <th>SI Units</th> <th>Description</th>
+<td>header</td> <td>Header</td>     <td>-</td> <td>Header</td>
+<td>v_ref</td> <td>float32</td> <td>$m/s$</td><td>Referenece Velocity</td>
+ </col4>
+</div>
+
+_Stop Line Filter Node_
+
+In the following table published topics are listed:
+
+<div markdown="1">
+<col2 align='center' style="text-align:left" id='stop_line_filter_node_published_topics' figure-id="tab:stop_line_filter_node_published_topics " figure-caption="Published topics by stop line filter node">
+  <th>Topic</th> <th>Max Latency</th>
+    <td>stop_line_reading</td>                         <td>negligible</td>
+    <td>flag_at_stop_line</td>                       <td>negligible </td>
+</col2>
+</div>
+
+In the following table subscribed topics are listed:
+
+<div markdown="1">
+<col2 align='center' style="text-align:left" id='stop_line_filter_node_subscribed_topics' figure-id="tab:stop_line_filter_noder_subscribed_topics" figure-caption="Published topics by stop line filter node"> 
+<th>Topic</th> <th>Max Latency</th>
+ <td>segment_list</td>  <td>25 ms</td>
+ <td>lane_pose</td>  <td>15 ms</td>
+</col2>
+</div>
+
+
 <!--
 The above must have a check-off by the software architect:
 
@@ -162,123 +291,112 @@ Software architect check-off: I, XXX, (agree / do not agree) that the above is c
 
 ## Part 2: Demo and evaluation plan
 
-
-_Please note that for this part it is necessary for the VPs for Safety to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time._
+<!--Please note that for this part it is necessary for the VPs for Safety to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time.-->
 
 ### Demo plan
-
+<!--
 The demo is a short activity that is used to show the desired functionality, and in particular the difference between how it worked before (or not worked) and how it works now after you have done your development.
 
 It should take a few minutes maximum for setup and running the demo.
-
-Proposition 1:
-Use 2 duckiebots, one with old lane following code and one with the new one to show performance improvement.
-
-Use hard to follow curvature in which the current implementation struggles to follow the lane.
-
-
-
-Proposition 2:
-Show it is able to follow the lane even when width is changing or sometimes the white line is missing (is our estimator able to get the correct position?)
-Maybe special demo tiles?
-
-INPUT: Use rviz on notebook to show improved lane estimator, maybe outputs from lane controller.
-Visualize on notebook average tracking error from old and new estimator and controller.
-Write own tests.
-
-
 - How do you envision the demo?
-  - We want to make a demo in which we let two duckiebot run simultaneously on test track (closed loop track) “chasing each other”.
-    - Point out faster decay of transient error
-    - Point out smaller steady state error
 
-- What hardware components do you need?
-    - We need to build a small Duckietown test track: thus we need about 15 tiles, DUCKIEtape and the usual Duckietown decoration.
+Our demos should show that the implemented lane following module provides a better performance not only driving on straight and curved lanes but is in addition also more robust to geometric inconsistency such as lane width and line width.    
+--> 
+
+The main goal is to demonstrate the improved curve driving. For this purpose, we will run two Duckiebots with different versions of Estimator and Controller running on the same test track, see picture. With the old lane following module, the Duckiebot corrected its position when it was not parallel to the white lines and the correction caused an overshoot. The new module allows the Duckiebot to detect an upcoming curve early and the controller will be adjusted to the curve. Our module also improves the execution of other tasks such as stopping at an intersection or in front of a Duckie. Further, the Duckiebot will drive with an offset of at most 2 cm. While running in an endless loop, we can also show that the steady state error has been minimized.
+ 
+<center><img src="demo_map.png" alt="Drawing" style="width: 400px;"/></center>
+
+
+
+
+
+_What hardware components do you need?_    
+For our demo we want to build a small Duckietown test track, see picture. Thus we need about 20 tiles, DUCKIEtape and the usual Duckietown decoration.
 
 ### Plan for formal performance evaluation
 
-- How do you envision the performance evaluation? Is it experiments? Log analysis?
+<!--
+- How do you envision the performance evaluation? Is it experiments? Log analysis?    
 
 In contrast with the demo, the formal performance evaluation can take more than a few minutes.
 
 Ideally it should be possible to do this without human intervention, or with minimal human intervention, for both running the demo and checking the results.
+-->
 
-Performance evaluation by several benchmarking tests tbd yet.
-Suggestions:
+We will run all of the tests **5 times**. 
 
-Performance: average or median deviation from middle of the lane (or given d) to follow. Summed up error must be as small as possible → maybe add graphic to show how we are going to measure it.
+* **Stopping in front of red line**: in the demo mode, we will let the Duckiebot drive to a red line and measure the distance between the centre of the stop line to the axis of the Duckiebot after it stopped. 
 
-Use same estimator and implement old and new controller to see performance difference.
-Use same controller but different estimator to evaluate performance gain.
+* **Pose Estimation**: We will manually drive the Duckiebot along a pre-taped route in the Duckietown, of which the **d** is equal to zero, and collect multiple sets of data with the old pose estimator running and then with the new pose estimator running. From the bag data, we can analyse the estimation deviation from both estimators.
 
-Count amount of times hitting white or yellow lines (ideal case should be 0).
+* **Offset minimization in straight lanes**: In the demo mode, we will let the Duckiebot drive down a straight lane. At the end of the straight lane, we will fix two laser pointers pointing to a wall and count how many times we can’t see the light point on the wall while driving. In the case, a light dot disappears, the Duckiebot has left the target range. The distance between the laser pointers will be one Duckiebot and 4 cm. 
 
-Count amount of times getting onto the wrong lane.
+* **Performance of the controller on curvy roads**: For curvy roads we will check the visual performance of the line following by counting how many times the Duckiebot touches a line on the S-curve section of the Zurich Duckietown. Additionally we want to compare the control motor commands in the curve section with the commands of the old controller and verify their smoothness.
+
+* **Performance of the controller on lanes with dynamic width**: If we altered the controller to be more robust for non nominal appearance, we eventually check if the Duckiebot is robust to changes in lane specifications like narrower lanes or different width of lane tapes we will let the Duckiebot drive on modified tiles and check the performance of estimation and lane following.
 
 <!--
 Check-off by Duckietown Vice-President of Safety:
 
 Duckietown Vice-President of Safety: I, (believe / do not believe) that the performance evaluation above is
 -->
-
-**Flags received by others**
-
-These following flags are received by other modules. While one of these flags is true, the duckiebot will behave according to the descriptions in system architecture.
-
- <col2 id='flags' figure-id="tab:flags" figure-caption="Flags received by other modules">
-    <s>flag_at_stop_line</s>                         <s>True when a red stop line is detected.</s>
-    <s>flag_at_intersection</s>                       <s>True when at intersection. This flag is passed to us by the Navigators.</s>
-    <s>flag_obstacle_detected</s>                  <s>True when obstacle is in the lane. This flag is passed to us by the Saviours. </s>
-    <s>flag_obstacle_emergency_stop</s>           <s>True when it is not possible to avoid the obstacle and it is necessary to leave the right lane. </s>
-    <s>flag_at_parking_lot</s>           <s>True when stopping at an intersection and the april tag for the parking lot is detected. </s>
-    <s>flag_parking_stop</s>        <s>Per default = true. If false, the lane-follower will move along the given trajectory on the parking lot.</s>
- </col2>
-
-
 ## Part 3: Data collection, annotation, and analysis
 
-_Please note that for this part it is necessary for the Data Czars to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time._
+<!--Please note that for this part it is necessary for the Data Czars to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time.-->
 
 ### Collection
 
-- How much data do you need?
-For every feature step we need fixed logs and logs from driving. Baseline has been set and logs have been taken with the current implementation of the code to evaluate current performance.
+_How much data do you need?_    
+For every future step we need fixed logs and logs from driving. Baseline has been set and logs have been taken with the current implementation of the code to evaluate current performance.    
 
-- How are the logs to be taken? (Manually, autonomously, etc.)
-Manually
-Andy and simon have already recorded some logs
-Table with log specification d , theta, curve on line
+_How are the logs to be taken? (Manually, autonomously, etc.)_
 
-Autonomous
-Logs should also be taken during lane-following-demo to evaluate the estimator and control performance → see performance evaluation
+* **Manually**: Static logs with different values for $d_{act}$ and $\theta_{act}$ have been taken. These can be used for a unit test of the estimator.
 
-Describe any other special arrangements.
 
-- Do you need extra help in collecting the data from the other teams?
+
+
+<center><img src="log_table.png" alt="Drawing" style="width: 400px;"/></center>
+
+* **Autonomous**: Logs should also be taken during lane-following-demo to evaluate the estimator and control performance (see performance evaluation).
+
+
+
+
+
+
+_Do you need extra help in collecting the data from the other teams?_    
+We do not need data from other teams and therefore do not need help.
 
 
 
 ### Annotation
 
-- Do you need to annotate the data?
+_Do you need to annotate the data?_    
 No, because we will receive the needed edges from the Anti-Instagram group. 
 
-- At this point, you should have you tried using [thehive.ai](https://thehive.ai/) to do it. Did you?
-Check out thehive.ai and write down why we don’t need to use it.
+_At this point, you should have you tried using [thehive.ai](https://thehive.ai/) to do it. Did you?_    
+In autonomous driving thehive.ai is mostly used to annotate images in order to detect and recognize obstacles and for semantic segmentation. As our project does not rely on these information, we don’t not need it.
 
-- Are you sure they can do the annotations that you want?
-Probably they could, but so do we with our estimator. There are no obstacles or duckies to annotate.
+_Are you sure they can do the annotations that you want?_    
+Probably they could, but so do we with our estimator. There are no obstacles or Duckies to annotate.
 
 ### Analysis
 
-We don’t need data annotation since we can all the benchmarking by our own. We are not involved in any obstacle detection so we do not need any obstacles annotated.
-- Do you need to write some software to analyze the annotations?
+We don’t need data annotation since we can do all the benchmarking by our own. We are not involved in any obstacle detection so we do not need any obstacles annotated.    
 
-- Are you planning for it?
+_Do you need to write some software to analyze the annotations?_    
+No, because we do not use the annotations of thehive.ai.
+
+_Are you planning for it?_    
+No
 
 <!--
 Check-off by Data Zars:
 
 Data czars check-off: We, XXX and YYY, (believe / do not believe) that the plan above is well structured, and that we can provide the level of support requested.
 -->
+
+
 
