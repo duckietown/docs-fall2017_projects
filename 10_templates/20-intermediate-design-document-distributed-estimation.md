@@ -24,7 +24,7 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 ### Software architecture
 
-4. messaging node:
+messaging node:
 -	subscribed topics: individual outgoing communication (and by outgoing communication, we mean messages we send over wifi) topics published by fleet planning and distributed estimation
 -	published topics: individual incoming communication (and by incoming communication, we mean messages we get over wifi) topics subscribed to by fleet planning and distributed estimation, and maybe other groups, since anyone can subscribe to these topics.
 
