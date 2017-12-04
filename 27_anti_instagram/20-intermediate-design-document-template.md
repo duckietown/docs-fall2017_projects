@@ -95,9 +95,9 @@ The line detector
 | Published topics  | Explanation | Latency |
 | :------------: | :------------: |  :------------: |
 | ~edge  |  Returns Image with edges on it. It's the output of the OpenCV Canny() function converted to a ROS message.  | TBD  |
-|  ~colorSegment | ??   | TBD |
-|  ~segment_list |  ??  | TBD |
-|  ~image_with_lines |  Image with the detected lines drawn on the image.   | TBD |
+|  ~color_segment |  Color segmentation for each channel (B,G,R). Same size as image.  | TBD |
+|  ~segment_list |  List of line segments with lines sorted by color.  | TBD |
+|  ~image_with_lines |  Corrected image with the detected lines drawn on the image.   | TBD |
 
 
 | Subscribed topics  | Explanation  |
@@ -145,6 +145,7 @@ The visitors can filter a static image with color filters and see an instant out
 2. Program with ability to filter an image
 3. Camera which films image
 4. Second screen (?) with output image
+
 ##### Visualisation of the kMeans algorithm
 
 We want to show on a screen
