@@ -34,14 +34,6 @@ An idea to push the accuracy even more is to determine first a color transformat
 
 ### Software architecture
 
-- Please describe the list of nodes that you are developing or modifying.
-
-- For each node, list the published and subscribed topics.
-
-- For each subscribed topic, describe the assumption about the latency introduced by the previous modules.
-
-- For each published topic, describe the maximum latency that you will introduce.
-
 #### Anti-Instagram node
 
 We are improving the Anti-Instagram algorithm. So the Anti-Instagram node should stay the same as it was.
@@ -94,7 +86,7 @@ But the feasibility of this is very unclear yet. We don't know either whether we
 | ~segment_list | The list of detected segments could be for use as well. |
 
 #### Line detector 2 node
-The line detector
+The line detector node publishes all the relevant data after detecting the dashed yellow line, the white side line and the potential red stopping line.
 ##### Topics
 | Published topics  | Explanation | Latency |
 | :------------: | :------------: |  :------------: |
