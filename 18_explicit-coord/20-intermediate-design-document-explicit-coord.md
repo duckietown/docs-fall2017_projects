@@ -55,6 +55,7 @@ Nodes:
     * Published topics: None.
     
 3. LED_detection
+
 Depending on the algorithm implemented:
     * Input: camera_image (possibly after anti-instagram) and message indicating whether detection is needed
     * Output: LED detected/ LED not detected
@@ -63,7 +64,9 @@ Depending on the algorithm implemented:
         * camera_image from anti-instragram, CompressedImage
     * Published topic:
         * string message: LED_detected/ no_LED_detected
+
 or
+
     * Input: camera_image (possibly after anti-instagram)
     * Output: LED detected/ LED not detected with position and/or color and/or frequency
     * Subscribed topic: from LED-coordination
