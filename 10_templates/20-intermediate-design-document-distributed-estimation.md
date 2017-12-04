@@ -1,17 +1,17 @@
-#  Distributed Estimation: intermediate report {#template-int-report status=ready}
+#  Distributed Estimation: intermediate report
 
 ## Part 1: System interfaces
 
 ### Logical architecture
 
-Robots can broadcast messages to every other duckiebot in the network (centralized network for sure, and we’ll try to make ad-hoc networking work (as ad-hoc or mesh network)). Robots will post the received message data to the corresponding ros topic.
+Robots can broadcast messages to every other Duckiebot in the network (centralized network for sure, and we’ll try to make ad-hoc networking work (as ad-hoc or mesh network)). Robots will post the received message data to the corresponding ROS topic.
 
 Ideally the network should scale from 2 to a town of Duckiebots. The network should also be robust to Duckiebots actively leaving and entering the network.
 
 We will measure the latencies and other performance metrics but do not plan on optimizing the performance in regards of it. This can be improved over the next iteration.
 
 Fleet communication:
-1. Assume modules that need to use the communication capabilities e.g. multi-robot SLAM, fleet planning are able to send and retrieve ros messages.
+1. Assume modules that need to use the communication capabilities e.g. multi-robot SLAM, fleet planning are able to publish and subscribe to ROS topics.
 2. Assume modules sends data of serializable type and reasonable size 
 3. Assume communication is not time critical on sub second scale
 4. Assume modules self synchronize  (if applicable)
@@ -25,8 +25,10 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 ### Software architecture
 
 messaging node:
--	subscribed topics: individual outgoing communication (and by outgoing communication, we mean messages we send over wifi) topics published by fleet planning and distributed estimation
+-	subscribed topics: individual outgoing communication (and by outgoing communication, we mean messages we send over wifi) topics published by fleet planning and distributed estimation. These teams publish their data to be sent to these topics.
 -	published topics: individual incoming communication (and by incoming communication, we mean messages we get over wifi) topics subscribed to by fleet planning and distributed estimation, and maybe other groups, since anyone can subscribe to these topics.
+
+Outwards (wifi) communication is realized with protobuffs and zmq
 
 Optimizing for latency will be of low priority, since the primary single goal is to pipe through the data. If the data comes in faster that in goes back out from the ROS node, it shall be solved in a next iteration.
 
