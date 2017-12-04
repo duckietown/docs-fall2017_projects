@@ -99,6 +99,7 @@ We have recorded data of the lane following algorithm running smoothly in the du
 ### Resources required / dependencies / costs
 
 * Requires neural compute stick on the duckiebot to run. (already got it)
+![Plug 1](preliminary_plug1.png)
 
 * GPUs for training models (available through MILA and IDSC in ETH). 
 
