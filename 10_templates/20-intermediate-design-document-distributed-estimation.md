@@ -37,10 +37,15 @@ We’re going to try and make the node configurable such that the code will not 
 How does this work?
 
 Team A wants to communicate between bots
+
 Team A tells us their message structure
+
 We build serialization
+
 We define ROS topics: teamAout, teamAin
+
 Team A bot A posts message to teamAout
+
 Team A other bots can retrieve message from teamAin
 
 
