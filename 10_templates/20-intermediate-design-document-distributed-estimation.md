@@ -50,7 +50,7 @@ We serialize messagw
 
 We send on bot A
 
-We recieve on all othee bots
+We recieve on all other bots
 
 We deserialize and post to teamAin
 
