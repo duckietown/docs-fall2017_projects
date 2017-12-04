@@ -4,12 +4,7 @@
 ## Part 1: System interfaces
 
 ### Logical architecture
-- Please describe in detail what the desired functionality will be. What will happen when we click "start"?
-
-- Please describe for each quantity, what are reasonable target values. (The system architect will verify that these need to be coherent with others.)
-
-- Please describe any assumption you might have about the other modules, that must be verified for you to provide the functionality above.
-
+It is worth mentioning that our main task will be to improve the color correction. But many groups have declared us to be the experts for line detection. So we'll include that in our document as well even though we don't plan to change anything in that line detection algorithm.
 #### Color correction
 
 To ensure to have the best line detection possible the system uses a so called Anit-Instagram algorithm. This algorithm determines a color transformation such that the input for the line detector has no color variation. This is important because based on color the Duckiebot knows whether it is a middle, a side or a stopping line. The algorithm tries to minimize the influence of external illumination variation (scattered sunlight, different colors of light sources, ...).
@@ -50,14 +45,14 @@ We are improving the Anti-Instagram algorithm. So the Anti-Instagram node should
 ##### Topics
 | Published topics  | Explanation | Latency |
 | :------------: | :------------: |  :------------: |
-| corrected image  |  This is the image after the color transformation. It should serve for example as an input for the line detector.  | << 1 s  |
-|  health | This is a parameter which should indicate how successful the transformation was. Based on that parameter other nodes could decide whether to use the new correction or not. An idea could be to generate a new "decision node"/"decision topic" which decides whether this correction is useful or not.   | << 1 s |
-|  transform |  This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  | 1.5 seconds |
+| ~corrected_image  |  This is the image after the color transformation. It should serve for example as an input for the line detector.  | << 1 s  |
+|  ~health | This is a parameter which should indicate how successful the transformation was. Based on that parameter other nodes could decide whether to use the new correction or not. An idea could be to generate a new "decision node"/"decision topic" which decides whether this correction is useful or not.   | << 1 s |
+|  ~transform |  This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  | 1.5 seconds |
 *Regarding the latency from the published topics: Since we are publishing everything at once/the health and the corrected image depend on the transform these times are not considerable. The transforming time is so high that all the topics need "special treatment". This means we have to find a way to run that online. E.g. running the algorithm only all 10 seconds.*
 
 | Subscribed topics  | Explanation  |
 | :------------: | :------------: |
-|  uncorrected image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.  |
+|  ~uncorrected_image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.  |
 
 #### Considerable area node
 
@@ -68,14 +63,31 @@ But the feasability of this is very unclear yet. We don't know either whether we
 
 | Published topics  | Explanation  |
 | :------------: | :------------: |
-| mask image  |  A pixel by pixel indication whether the information of the image is relevant or not should be the output. With this binary matrix one could mask the camera picture and do for example line detection only on the relevant area. This would improve the computation speed a lot. The Anti-Instagram algorithm would profit for sure from that as well!  |
+| ~mask_image  |  A pixel by pixel indication whether the information of the image is relevant or not should be the output. With this binary matrix one could mask the camera picture and do for example line detection only on the relevant area. This would improve the computation speed a lot. The Anti-Instagram algorithm would profit for sure from that as well!  |
 
 
 | Subscribed topics  | Explanation  |
 | :------------: | :------------: |
-|  uncorrected image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.   |
+|  ~uncorrected_image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.   |
 | ~colorSegment | The color segments would be probably useful. |
 | ~segment_list | The list of detected segments could be for use as well. |
+
+#### Line detector 2 node
+The line detector 
+##### Topics
+| Published topics  | Explanation | Latency |
+| :------------: | :------------: |  :------------: |
+| ~edge  |  ??  | << 1 s  |
+|  ~colorSegment | ??   | << 1 s |
+|  ~segment_list |  ??  | 1.5 seconds |
+|  ~image_with_lines |  ??.  | 1.5 seconds |
+
+
+| Subscribed topics  | Explanation  |
+| :------------: | :------------: |
+| ~image | ??  |
+| ~transform | This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  |
+| ~switch | ??  |
 
 
 ## Part 2: Demo and evaluation plan
