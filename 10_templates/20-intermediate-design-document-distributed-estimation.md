@@ -27,13 +27,15 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 messaging node:
 
 **subscribed topics:** individual outgoing communication (and by outgoing communication, we mean messages we send over wifi) topics published by: 
-- fleet planning (fleet_planning_active)
+- fleet planning (TBD)
 - Multi-Robot SLAM (TBD).
 
 These teams publish their data to be sent to these topics.
 
-**published topics:** individual incoming communication (and by incoming communication, we mean messages we get over wifi) topics subscribed to by fleet planning and distributed estimation, and maybe other groups, since anyone can subscribe to these topics.
-)
+**published topics:** individual incoming communication (and by incoming communication, we mean messages we get over wifi) topics subscribed to by:
+- fleet planning (fleet_planning_inbox)
+- distributed estimation (multi_slam_inbox)
+- maybe other groups, since anyone can subscribe to these topics
 
 Outwards (wifi) communication is realized with protobuffs and zmq
 
