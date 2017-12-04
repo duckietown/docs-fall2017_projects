@@ -79,10 +79,12 @@ A diagram of our nodes is shown below.
 
 
 We subscribe to the following topics:
+
 * Corrected image with maximum assumed latency 1s;
 * Flag at intersection with maximum assumed latency 1s.
 
 The following topics are published:
+
 * Flag go/no_go with maximum latency 60s (this is the time needed to make sure that the intersection can be navigated safely).
 
 
@@ -99,7 +101,7 @@ Software architect check-off: I, XXX, (agree / do not agree) that the above is c
 
 ### Demo plan
 
-Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year <if you mention this demo, you need to link it. This means you will want to bring the documentation to the Duckiebook first (do not link google drive docs from teh Duckiebook please>. The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
+Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year. The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
 
 From testing last year’s code we realized that the coordination does not seem to work with the mentioned demo. Duckiebots stop at the red line but they do not communicate so that they never leave the intersection or decide to go independently of the presence and decision of the other Duckiebots. Although we investigated the problem by looking at separate nodes, no solution has been found yet. 
 
