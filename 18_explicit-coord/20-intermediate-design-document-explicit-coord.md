@@ -9,9 +9,9 @@
 Our job starts when Duckiebots are stationary at the red-line of the intersection (this is communicated to us via controllers/ parking).
 By clicking “start” the LED-coordination-node tells the LED-emitter-node to turn the LEDs white for all Duckiebots.
 Afterwards, the LED-detector-node checks for each Duckiebot if other LEDs are seen  and tells it to the LED-coordination-node. Note that here there is, at least in a first approach to the problem, no turning, i.e., LEDs of Duckiebots on the left are not identified.
-The LED-coordination-node estimates the coordination move (either “hold on” or “go”) for each Duckiebot. The final output is a signal that will be used by the Navigators to start the procedure to navigate the intersection. Thereafter, we are not going to intervene until the Duckiebot finds itself at another intersection.
+The LED-coordination-node estimates the coordination move (either “hold on” or “go”) for each Duckiebot. The final output is a signal, named move_intersection, that will be used by the Navigators to start the procedure to navigate the intersection. Thereafter, we are not going to intervene until the Duckiebot finds itself at another intersection. Should the explicit coordination fail (for instance, because of Duckiebots not equipped with LEDs), the task of coordinating the intersection is given to the implicit coordination.
  
-Our led-detection, led-emission and led-coordination nodes affect only the Duckiebots behavior at intersection. Surely, our LED-signal could be seen from other Duckiebots in Duckietown but, at least for now, no group (except for the fleet planning group, see below) needs LEDs-based communication in other situations. A LED-signal will be used by fleet-planning to indicate the status of each vehicle (free, occupied, waiting, etc.). The Fleet planning will be using one LED for implementing this functionality (back-right one) while the other LEDs remain available for coordination purposes.
+Our LED-detection, LED-emission and LED-coordination nodes affect only the Duckiebots behavior at intersection. Surely, our LED-signal could be seen from other Duckiebots in Duckietown but, at least for now, no group (except for the fleet planning group, see below) needs LEDs-based communication in other situations. A LED-signal will be used by fleet-planning to indicate the status of each vehicle (free, occupied, waiting, etc.). The Fleet planning will be using one LED for implementing this functionality (back-right one) while the other LEDs remain available for coordination purposes.
 
 The following assumptions are made about other modules:
 
@@ -39,35 +39,38 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 Nodes:
 
-1. LED-coordination
+1. LED_coordination
     * Input: From Parking group “you are at an intersection” (additionally there is a parameter that indicates whether intersections are cleared with explicit or implicit coordination)
     * Output: Duckiebot move (“go”/ ”not go”)
-    * Subscribed topic: from Parking group 
-        *string message: inters_yes/ inters_no
-    * Published topic: 
+    * Subscribed topic:
+	    * flag_at_intersection from Parking group, bool message: true/false
+    * Published topic: move_intersection
         * string message: go/ no_go
 
-2. LED-emitter
+2. LED_emitter
     * Input: Communication is needed
-    * Output: LED turn on
-    * Subscribed topic: from LED-coordination
-        * string message: on/ off
+    * Output: LED turn on or stay off
+    * Subscribed topic:
+	    * LED_switch from LED-coordination, string message: on/ off
+    * Published topics: None.
     
-3. LED-detection
+3. LED_detection
 Depending on the algorithm implemented:
-    * Input: camera_image (possibly after anti-instagram)
+    * Input: camera_image (possibly after anti-instagram) and message indicating whether detection is needed
     * Output: LED detected/ LED not detected
-    * Subscribed topic: from LED-coordination
-        * string message: detect/ no_detect
-    * Published topic: to LED-coordination
-        * string message: LED_detected/ no_LED_detected
+    * Subscribed topic:
+        * LED_to_detect from LED_coordination, string message: yes/ no
+        * camera_image from anti-instragram, CompressedImage
+    * Published topic:
+        * string message: LED_detected/ no_LED_detected
 or
     * Input: camera_image (possibly after anti-instagram)
-    * Output: LED detected right/ LED detected front / LED not detected
+    * Output: LED detected/ LED not detected with position and/or color and/or frequency
     * Subscribed topic: from LED-coordination
-        * string message: detect/ no_detect
+        * LED_to_detect from LED_coordination, string message: yes/ no
+        * camera_image from anti-instragram, CompressedImage
     * Published topic: to LED-coordination
-        * string message: LED_detected/ no_LED_detected
+        * string message: LED_detected/ no_LED_detected with position and/or color and/or frequency
 
 
 A diagram of our nodes is shown below.
