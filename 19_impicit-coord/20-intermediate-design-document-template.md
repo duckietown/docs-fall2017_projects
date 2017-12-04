@@ -39,20 +39,15 @@ Follow-controller
 - Controller gives wheel velocity commands to follow a detected/tracked Duckiebot to keep a constant distance behind the Duckiebot in front.
 - For centering the Duckiebot behind the one in front of him we will use the lane controller from the “Controllers”.
 - Velocity control fells into the scope of our tasks.
-<div figure-class="flow-subfigures" figure-id="fig:modules">
-    <figcaption>The Modules</figcaption>
 
-    <div figure-id="subfig:CoordinationModule" figure-caption="The Coordination Module">
-     <p style='width: 5em'>
-     <img src="CoordinationModule.png"/> </p>
-    </div>
-
-    <div figure-id="fig:FormationKeepingModule" figure-caption="The Formation Keeping Module">
-     <p style='width: 15em'>
-     <img src="FormationModule.png"/>
-     </p>
-    </div>
+<div figure-id="fig:CoordinationModule" figure-caption="The Coordination Module">
+     <img src="CoordinationModule.png" style='width: 15em'/>
 </div>
+
+<div figure-id="fig:FormationKeepingModule" figure-caption="The Formation Keeping Module">
+<img src="FormationModule.png" style='width: 15em'/>
+</div>
+
 Easy: Own robot is not moving
 
 Hard : Own robot is moving
