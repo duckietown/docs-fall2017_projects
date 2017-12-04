@@ -7,7 +7,7 @@
 It is worth mentioning that our main task will be to improve the color correction. But many groups have declared us to be the experts for line detection. So we'll include that in our document as well even though we don't plan to change anything in that line detection algorithm.
 #### Color correction
 
-To ensure to have the best line detection possible the system uses a so called Anit-Instagram algorithm. This algorithm determines a color transformation such that the input for the line detector has no color variation. This is important because based on color the Duckiebot knows whether it is a middle, a side or a stopping line. The algorithm tries to minimize the influence of external illumination variation (scattered sunlight, different colors of light sources, ...).
+To ensure to have the best line detection possible the system uses a so called Anti-Instagram algorithm. This algorithm determines a color transformation such that the input for the line detector has no color variation. This is important because based on color the Duckiebot knows whether it is a middle, a side or a stopping line. The algorithm tries to minimize the influence of external illumination variation (scattered sunlight, different colors of light sources, ...).
 
 ##### Online Calculation
 Our task is to improve the color correction algorithm. Our algortihm should run in parallel to the whole system. So there will be no more "start" button as there was in the older system. Approximately every 10 seconds a new color transformation should be calculated. The interval time still should be determined but it will be definitively in order of 10 seconds. This is because the calculation needs more than 1.5 seconds on the Raspberry Pi. It has to be investigated whether a proper parallelization can be achieved such that no other process is disturbed through this computationally expensive process.
@@ -114,7 +114,7 @@ We plan two different demos, one for the general demo and another for the demo d
 ### General Demo
 
 ##### 2 Duckiebots doing the lane-following demo
-One of the Duckiebots has the improved Anti-Instagram algorithm on it and the other Duckiebot will run on the old version. With different light conditions in different parts of Duckietown we try to show that the improved version performs better than the old version. On a screen near by the demo, we want to show the output of each of the Duckiebots, so that the viewer can see the result of the Anti-Instagram algorithm visually. The output can be live from the Duckiebots or recorded and played back from a bagfile.[Scenario I]
+One of the Duckiebots has the improved Anti-Instagram algorithm on it and the other Duckiebot will run on the old version. With different light conditions in different parts of Duckietown we try to show that the improved version performs better than the old version, i.e. we want to show that the Duckiebot with the new Anti-Instagram algorithm will be able to follow the line without being disturbed by the change of the lightning conditions. On a screen near by the demo, we want to show the output of each of the Duckiebots, so that the viewer can see the result of the Anti-Instagram algorithm visually. The output can be live from the Duckiebots or recorded and played back from a bagfile.[Scenario I]
 
 | **+**  | **-**  |
 | :------------: | :------------: |
@@ -140,7 +140,7 @@ It should take a few minutes maximum for setup and running the demo.
 ### Demo Day in January
 
 ##### Interactive Live-Application of Anti-Instagram filtering.
-The visitors can filter a static image interactively with pre-defined color filters and see an instant output image of the Anti-Instagram algorithm. This demo should show how accurate and powerful the Anti-Instagram algorithm is.
+The visitors can filter a random static image from the Duckiebot interactively with pre-defined color filters and see an instant output image of the Anti-Instagram algorithm. This demo should show how accurate and powerful the Anti-Instagram algorithm is.
 
 | **+**  | **-**  |
 | :------------: | :------------: |
