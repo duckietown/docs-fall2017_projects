@@ -1,4 +1,4 @@
-#  Group name: intermediate report {#template-int-report status=ready}
+#  The Saviors: intermediate report {#template-int-report status=ready}
 
 _It's time to commit on what you are building, and to make sure that it fits with everything else._
 
