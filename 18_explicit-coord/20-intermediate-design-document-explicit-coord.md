@@ -40,9 +40,9 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 Nodes:
 
 1. LED-coordination
-    * Input:     From group ? ”Red line is intersection”     
+    * Input: From Parking group “you are at an intersection” (additionally there is a parameter that indicates whether intersections are cleared with explicit or implicit coordination)
     * Output: Duckiebot move (“go”/ ”not go”)
-    * Subscribed topic: from group ? 
+    * Subscribed topic: from Parking group 
         *string message: inters_yes/ inters_no
     * Published topic: 
         * string message: go/ no_go
@@ -54,26 +54,37 @@ Nodes:
         * string message: on/ off
     
 3. LED-detection
-    * Input: camera_image
+Depending on the algorithm implemented:
+    * Input: camera_image (possibly after anti-instagram)
     * Output: LED detected/ LED not detected
     * Subscribed topic: from LED-coordination
         * string message: detect/ no_detect
     * Published topic: to LED-coordination
         * string message: LED_detected/ no_LED_detected
+or
+    * Input: camera_image (possibly after anti-instagram)
+    * Output: LED detected right/ LED detected front / LED not detected
+    * Subscribed topic: from LED-coordination
+        * string message: detect/ no_detect
+    * Published topic: to LED-coordination
+        * string message: LED_detected/ no_LED_detected
 
-A diagram of our nodes is shown below:
+
+A diagram of our nodes is shown below.
 
 
 <div figure-id="fig:Nodes" figure-caption="Nodes">
      <img src="nodes.png" style='width: 80ex; height: auto'/>
 </div>
 
-The initial pose of Duckiebot have to fulfill following requirements (given to The Controllers):
 
-* Min. 10cm behind center of red line;
-* Max. 16cm behind center of red line;
-* +/- 10° of rotation;
-* +/- 5 cm offset from center of the driving lane. 
+We subscribe to the following topics:
+* Corrected image with maximum assumed latency 1s;
+* Flag at intersection with maximum assumed latency 1s.
+
+The following topics are published:
+* Flag go/no_go with maximum latency 60s (this is the time needed to make sure that the intersection can be navigated safely).
+
 
 
 
@@ -88,15 +99,16 @@ Software architect check-off: I, XXX, (agree / do not agree) that the above is c
 
 ### Demo plan
 
-Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year. The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
+Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year <if you mention this demo, you need to link it. This means you will want to bring the documentation to the Duckiebook first (do not link google drive docs from teh Duckiebook please>. The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
 
-From testing last years’ code we realized that the coordination does not seem to work with the mentioned demo. Duckiebots stop at the red line but they do not communicate so that they never leave the intersection or decide to go independently of the presence and decision of the other Duckiebots. 
+From testing last year’s code we realized that the coordination does not seem to work with the mentioned demo. Duckiebots stop at the red line but they do not communicate so that they never leave the intersection or decide to go independently of the presence and decision of the other Duckiebots. Although we investigated the problem by looking at separate nodes, no solution has been found yet. 
 
 We aim to have a working demo that will show an effective clearing of an intersection with a variable number of Duckiebots (1 to 4) regardless of the type of intersection (3-way or 4-way, with or without traffic lights). The intersection should be cleared in a reasonable amount of time (less than 1 min) and be robust to different initial conditions (within the specified tolerances on the pose of the robots). 
 The setup will be easy and quick: with a small Duckietown as shown in the figure below, up to four Duckiebots will be put on the road and the demo will be started from a laptop with no further interventions required. 
 
 The required hardware will therefore be:
 A four way intersection tile (see image below, center), four three-way intersections tiles, twelve tiles with straight lines,four tiles with curved lines and four empty tiles. In total, twentyeight tiles, red, yellow and white tape as indicated in the figure below. Apriltags and all other required signals at the intersection will also be needed (standard type of Duckietown intersection) as well as a traffic light to illustrate the behaviour in a traffic light type of intersection.
+
 
 
 <div figure-id="fig:town" figure-caption="Duckietown">
