@@ -36,6 +36,8 @@ We’re going to try and make the node configurable such that the code will not 
 
 How does this work?
 
+Once:
+
 - Team A wants to communicate between bots
 
 - Team A tells us their message structure
@@ -43,6 +45,8 @@ How does this work?
 - We build serialization
 
 - We define ROS topics: teamAout, teamAin
+
+Perpetually (as long as message structure doesn't change:
 
 - Team A bot A posts message to teamAout
 
