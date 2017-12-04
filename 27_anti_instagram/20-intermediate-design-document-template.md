@@ -5,6 +5,10 @@
 
 ### Logical architecture
 It is worth mentioning that our main task will be to improve the color correction. But many groups have declared us to be the experts for line detection. So we'll include that in our document as well even though we don't plan to change anything in that line detection algorithm.
+
+![Image](https://github.com/duckietown/duckuments/blob/devel-anti-instagram/docs/atoms_85_fall2017_projects/27_anti_instagram/images/flow.svg?raw=true)
+*In this schematic you can see the flow of topics in relation to the Anti-Instagram algorithm.*
+
 #### Color correction
 
 To ensure to have the best line detection possible the system uses a so called Anti-Instagram algorithm. This algorithm determines a color transformation such that the input for the line detector has no color variation. This is important because based on color the Duckiebot knows whether it is a middle, a side or a stopping line. The algorithm tries to minimize the influence of external illumination variation (scattered sunlight, different colors of light sources, ...).
