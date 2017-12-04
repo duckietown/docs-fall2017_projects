@@ -39,23 +39,22 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 Nodes:
 
-1. LED_coordination
+1. LED_coordination:
     * Input: From Parking group “you are at an intersection” (additionally there is a parameter that indicates whether intersections are cleared with explicit or implicit coordination)
     * Output: Duckiebot move (“go”/ ”not go”)
     * Subscribed topic:
-	    * flag_at_intersection from Parking group, bool message: true/false
+	    * flag_at_intersection from Parking group, bool message: true/ false
     * Published topic: move_intersection
         * string message: go/ no_go
 
-2. LED_emitter
+2. LED_emitter:
     * Input: Communication is needed
     * Output: LED turn on or stay off
     * Subscribed topic:
 	    * LED_switch from LED-coordination, string message: on/ off
-    * Published topics: None.
+    * Published topics: None
     
-3. LED_detection
-
+3. LED_detection:
 Depending on the algorithm implemented:
     * Input: camera_image (possibly after anti-instagram) and message indicating whether detection is needed
     * Output: LED detected/ LED not detected
@@ -64,15 +63,13 @@ Depending on the algorithm implemented:
         * camera_image from anti-instragram, CompressedImage
     * Published topic:
         * string message: LED_detected/ no_LED_detected
-
 or
-
     * Input: camera_image (possibly after anti-instagram)
-    * Output: LED detected/ LED not detected with position and/or color and/or frequency
-    * Subscribed topic: from LED-coordination
+    * Output: LED detected/LED not detected with position and/or color and/or frequency
+    * Subscribed topic:
         * LED_to_detect from LED_coordination, string message: yes/ no
         * camera_image from anti-instragram, CompressedImage
-    * Published topic: to LED-coordination
+    * Published topic:
         * string message: LED_detected/ no_LED_detected with position and/or color and/or frequency
 
 
