@@ -90,7 +90,7 @@ But the feasability of this is very unclear yet. We don't know either whether we
 | ~segment_list | The list of detected segments could be for use as well. |
 
 #### Line detector 2 node
-The line detector 
+The line detector
 ##### Topics
 | Published topics  | Explanation | Latency |
 | :------------: | :------------: |  :------------: |
@@ -114,7 +114,7 @@ The line detector
 
 Our demo plan consists of several different sub demos:
 ##### 2 duckiebots doing the lane-following demo
-One of the duckiebots has the improved anti-instagram algorithm on it and the other duckiebot will run on the old version. With different light conditions in different parts of duckietown we try to show that the improved version performs better than the old version.
+One of the duckiebots has the improved anti-instagram algorithm on it and the other duckiebot will run on the old version. With different light conditions in different parts of duckietown we try to show that the improved version performs better than the old version. [Scenario I]
 
 | **+**  | **-**  |
 | :------------: | :------------: |
@@ -128,6 +128,8 @@ One of the duckiebots has the improved anti-instagram algorithm on it and the ot
 *Material needed [Scenario I]:*
 1. Full version of duckietown
 2. 2 Full working duckiebots
+3. A table to cover a part of the Duckietown to produce shadows
+4. Dimmable light sources, in order to create a various lightning settings.
 
 *Material needed [Scenario II]:*
 1. Big video screen and computer attached
@@ -152,7 +154,7 @@ We want to show on a screen
 
 | **+**  | **-**  |
 | :------------: | :------------: |
-| It described the algorithm very clear in a short way. For people with interest is should be very understandable. | It is not very attractable. |
+| It described the algorithm very clear in a short way. For people with interest is should be very understandable. | It is not very attractive. |
 | It shows all the technical details (# of clusters, # of iterations, ...) | It is difficult to know what happens. Only for experts valuable. |
 
 *Material needed:*
@@ -168,11 +170,16 @@ It should take a few minutes maximum for setup and running the demo.
 
 ### Plan for formal performance evaluation
 
-- How do you envision the performance evaluation? Is it experiments? Log analysis?
+In order to be able to evaluate our algorithm, we need a metric which gives us an estimation of the quality of the color transformation. As a metric we chose the distances between the color centers of every of the four possible colors for the lines in the duckietown after the transformation and the 'true' colors. In the image shown below you can see a vizualisation of the color distances. To obtain the average color centers for these colors, we need annotated images, which give us the location of the different lines on the street.
 
-In contrast with the demo, the formal performance evaluation can take more than a few minutes.
+![Image](https://github.com/duckietown/duckuments/blob/devel-anti-instagram/docs/atoms_85_fall2017_projects/27_anti_instagram/images/distance.svg?raw=true)
+*Color distances: In this schematic you can see the clusters of the four colored lines in the RGB space how they appear after the Anti Instagram algorithm. Each cluster is assigned to the appropriate 'true' color. The distances from the cluster centers to their correspondent 'true' colors (shown as arrows) are defined by the Euclidean distance.*
 
-Ideally it should be possible to do this without human intervention, or with minimal human intervention, for both running the demo and checking the results.
+
+#### Performance Evaluation
+
+We will deliver a routine which evaluates the color transformation of one or more images. This program takes a directory to the input images and calculates the distances from every cluster to the 'true' colors as shown above. If more than one image is passed, the routine calculates the average distance as well as the variance.
+
 
 <!--
 Check-off by Duckietown Vice-President of Safety:
@@ -183,49 +190,25 @@ Duckietown Vice-President of Safety: I, (believe / do not believe) that the perf
 
 _Please note that for this part it is necessary for the Data Czars to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time._
 
-In order to be able to evaluate our algorithm, we need a metric which gives us an estimation of the quality of the color transformation. As a metric we chose the distances between the color centers of every of the four possible colors for the lines in the duckietown after the transformation and the 'true' colors. In the image shown below you can see a vizualisation of the color distances. To obtain the average color centers for these colors, we need annotated images, which give us the location of the different lines on the street.
-
-![Image](https://github.com/duckietown/duckuments/blob/devel-anti-instagram/docs/atoms_85_fall2017_projects/27_anti_instagram/images/distance.svg?raw=true)
-*Color distances: In this schematic you can see the clusters of the four colored lines in the RGB space how they were captured from the camera. Each cluster is assigned to the appropriate 'true' color. The distances from the cluster centers to their correspondent 'true' colors (shown as arrows) are defined by the Euclidean distance.*
-
-
 
 ### Collection
 
-- (How much data do you need?)
 
-We want to run a broad analysis to be able to calculate average distances and the corresponding variance. Thus, we need as many test images as we can collect. For a number, we aim to have from a few hundred up to one thousand test images to run our analysis.
+We want to run a broad analysis to be able to calculate average distances and the corresponding variance. Thus, we need as many test images as we can collect. For a number, we aim to have from a few hundred up to one thousand test images to run our analysis. To obtain the test images, we wrote a script to extract single images from a bag file. Thus, we are able to collect a proper amount of data without large effort.
 
-- (How are the logs to be taken? (Manually, autonomously, etc.))
- 
-To obtain the test images, we wrote a script to extract single images from a bag file. Thus, we are able to collect a proper amount of data without large effort.
-
-(Describe any other special arrangements.)
-
-- (Do you need extra help in collecting the data from the other teams?)
 
 We need the line following demo in order to collect the needed bag files. To obtain a variety of the lightning, we will experiment with different light sources as well as different directions from which we illuminate the duckietown.
 
 ### Annotation
 
-- (Do you need to annotate the data?)
- 
-As we have to know where the different lines are in the image, we need annotated images. The images should be annotated with at least one polygon per color, i.e. for the 'street black', the 'white outer line', the 'yellow center line' and the 'red stop line'. We would prefer multiple polygons per color.
+As we have to know where the different lines are in the image, we need annotated images. The images should be annotated with at least one polygon per color, i.e. for the 'street black', the 'white outer line', the 'yellow center line' and the 'red stop line'. We would prefer multiple polygons per color. We have tried to use [thehive.ai](https://thehive.ai/) to obtain the annotaded images.
 
-We have tried to use [thehive.ai](https://thehive.ai/) to obtain the annotaded images. It seems that they can deliver the polygons around the lines on the street. However, it is not clear yet if it is possible to get the information of which polygon contains which color. If this is not the case, we will implement a simple routine which assigns every polygon to a color, based on the color distance described above.
 
-- (At this point, you should have you tried using [thehive.ai](https://thehive.ai/) to do it. Did you?)
 
-- (Are you sure they can do the annotations that you want?)
 
 ### Analysis
 
-- (Do you need to write some software to analyze the annotations?)
-
-We wrote a function which analyses the color transformation. This function calculates the distances described above. Currently, it works for a single image, but we plan to implement this function for a batch of images, to be able to analyze a large amount of images with minimal effort.
-
-
-- (Are you planning for it?)
+It seems that they can deliver the polygons around the lines on the street. However, it is not clear yet if it is possible to get the information of which polygon contains which color. If this is not the case, we will implement a simple routine which assigns every polygon to a color, based on the color distance described above.
 
 <!--
 Check-off by Data Zars:
