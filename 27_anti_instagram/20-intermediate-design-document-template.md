@@ -109,12 +109,12 @@ The line detector
 
 ## Part 2: Demo and evaluation plan
 
+We plan two different demos, one for the general demo and another for the demo day in January:
 
-### Demo plan
+### General Demo
 
-Our demo plan consists of several different sub demos:
-##### 2 duckiebots doing the lane-following demo
-One of the Duckiebots has the improved Anti-Instagram algorithm on it and the other Duckiebot will run on the old version. With different light conditions in different parts of Duckietown we try to show that the improved version performs better than the old version. [Scenario I]
+##### 2 Duckiebots doing the lane-following demo
+One of the Duckiebots has the improved Anti-Instagram algorithm on it and the other Duckiebot will run on the old version. With different light conditions in different parts of Duckietown we try to show that the improved version performs better than the old version. On a screen near by the demo, we want to show the output of each of the Duckiebots, so that the viewer can see the result of the Anti-Instagram algorithm visually. The output can be live from the Duckiebots or recorded and played back from a bagfile.[Scenario I]
 
 | **+**  | **-**  |
 | :------------: | :------------: |
@@ -130,12 +130,16 @@ One of the Duckiebots has the improved Anti-Instagram algorithm on it and the ot
 2. 2 Full working Duckiebots
 3. A table to cover a part of the Duckietown to produce shadows
 4. Dimmable light sources, in order to create a various lightning settings.
+5. Big video screen and computer attached
 
 *Material needed [Scenario II]:*
 1. Big video screen and computer attached
 
+
+### Demo Day in January
+
 ##### Interactive Live-Application of Anti-Instagram filtering.
-The visitors can filter a static image with color filters and see an instant output image of the Anti-Instagram filter. This demo should show how accurate and powerful the Anti-Instagram algorithm is.
+The visitors can filter a static image interactively with pre-defined color filters and see an instant output image of the Anti-Instagram algorithm. This demo should show how accurate and powerful the Anti-Instagram algorithm is.
 
 | **+**  | **-**  |
 | :------------: | :------------: |
@@ -150,7 +154,7 @@ The visitors can filter a static image with color filters and see an instant out
 
 ##### Visualisation of the kMeans algorithm
 
-We want to show on a screen
+We want to show on a screen a visualisation of the kMeans algorithm.
 
 | **+**  | **-**  |
 | :------------: | :------------: |
@@ -164,13 +168,10 @@ We want to show on a screen
 
 It should take a few minutes maximum for setup and running the demo.
 
-- How do you envision the demo?
-
-- What hardware components do you need?
 
 ### Plan for formal performance evaluation
 
-In order to be able to evaluate our algorithm, we need a metric which gives us an estimation of the quality of the color transformation. As a metric we chose the distances between the color centers of every of the four possible colors for the lines in the duckietown after the transformation and the 'true' colors. In the image shown below you can see a vizualisation of the color distances. To obtain the average color centers for these colors, we need annotated images, which give us the location of the different lines on the street.
+In order to be able to evaluate our algorithm, we need a metric which gives us an estimation of the quality of the color transformation. As a metric we chose the distances between the color centers of every of the four possible colors for the lines in the Duckietown after the transformation and the 'true' colors. In the image shown below you can see a vizualisation of the color distances. To obtain the average color centers for these colors, we need annotated images, which give us the location of the different lines on the street.
 
 ![Image](https://github.com/duckietown/duckuments/blob/devel-anti-instagram/docs/atoms_85_fall2017_projects/27_anti_instagram/images/distance.svg?raw=true)
 *Color distances: In this schematic you can see the clusters of the four colored lines in the RGB space how they appear after the Anti Instagram algorithm. Each cluster is assigned to the appropriate 'true' color. The distances from the cluster centers to their correspondent 'true' colors (shown as arrows) are defined by the Euclidean distance.*
