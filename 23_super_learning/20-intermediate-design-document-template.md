@@ -42,9 +42,9 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 - For each node, list the published and subscribed topics.
 
-* The deep imitation learning node subscribes to /$VEHICLE_NAME/camera_node/image/compressed. 
+* The deep imitation learning node subscribes to /VEHICLE_NAME/camera_node/image/compressed. 
 
-* The node publishes /$VEHICLE_NAME/car_cmd_switch_node/cmd
+* The node publishes /VEHICLE_NAME/car_cmd_switch_node/cmd
 
 - For each subscribed topic, describe the assumption about the latency introduced by the previous modules.
 
