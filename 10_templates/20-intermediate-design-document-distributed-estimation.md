@@ -36,25 +36,25 @@ We’re going to try and make the node configurable such that the code will not 
 
 How does this work?
 
-Team A wants to communicate between bots
+- Team A wants to communicate between bots
 
-Team A tells us their message structure
+- Team A tells us their message structure
 
-We build serialization
+- We build serialization
 
-We define ROS topics: teamAout, teamAin
+- We define ROS topics: teamAout, teamAin
 
-Team A bot A posts message to teamAout
+- Team A bot A posts message to teamAout
 
-We serialize messagw
+- We automatically serialize message with corresponding serialization
 
-We send on bot A
+- We send on bot A
 
-We recieve on all other bots
+- We recieve on all other bots
 
-We deserialize and post to teamAin
+- We deserialize and post to teamAin
 
-Team A other bots can retrieve message from teamAin
+- Team A other bots can retrieve message from teamAin
 
 
 <!--
