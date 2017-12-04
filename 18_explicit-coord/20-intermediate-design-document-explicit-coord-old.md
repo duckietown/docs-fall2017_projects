@@ -1,28 +1,51 @@
 #  Explicit Coordination: Intermediate Report {#template-int-report status=ready}
 
 
+This consists of 3 parts:
+
+- Part 1: System interfaces: Does your piece fit with everything else? You will have to convince both system architect and software architect and they must sign-off on this.
+
+- Part 2: Demo and evaluation plan: Do you have a credible plan for evaluating what you are building? You will have to convince the VPs of Safety and they must sign-off on this.
+
+- Part 3: Data collection, annotation, and analysis: Do you have a credible plan for collecting, annotating and analyzing the data? You will have to convince the data czars and they must sign-off on this.
+
+
+<div markdown="1">
+
+ <col2 id='checkoff-people-intermediate-report' figure-id="tab:checkoff-people-intermediate-report" figure-caption="Intermediate Report Supervisors">
+    <s>System Architects</s>                         <s>Sonja Brits, Andrea Censi</s>
+    <s>Software Architects</s>                       <s>Breandan Considine, Liam Paull</s>
+    <s>Vice President of Safety</s>                  <s>Miguel de la Iglesia, Jacopo Tani</s>
+    <s>Data Czars</s>                                <s>Manfred Diaz, Jonathan Aresenault</s>
+ </col2>
+
+</div>
+
 ## Part 1: System interfaces
 
 
 ### Logical architecture
 
-Our job starts when Duckiebots are stationary at the red-line of the intersection (this is communicated to us via controllers/ parking).
-By clicking “start” the LED-coordination-node tells the LED-emitter-node to turn the LEDs white for all Duckiebots.
-Afterwards, the LED-detector-node checks for each Duckiebot if other LEDs are seen  and tells it to the LED-coordination-node. Note that here there is, at least in a first approach to the problem, no turning, i.e., LEDs of Duckiebots on the left are not identified.
-The LED-coordination-node estimates the coordination move (either “hold on” or “go”) for each Duckiebot. The final output is a signal that will be used by the Navigators to start the procedure to navigate the intersection. Thereafter, we are not going to intervene until the Duckiebot finds itself at another intersection.
+Our job starts when Duckiebots are stationary at red-line of the intersection.
+By clicking “start” LED-coordination-node tells LED-emitter-node to turn LEDs white for all Duckiebots.
+
+Afterwards, the LED-detector-node will check for each Duckiebot if other LEDs are seen and tells it to the LED-coordination-node.
+
+The LED-coordination-node will for each Duckiebot estimate the coordination move (either “hold on” or “go”). The final output will be this signal that will be used by the Navigators to start the procedure to clear the intersection.  After that we are not going to intervene until the Duckiebot finds itself at another intersection.
  
-Our led-detection, led-emission and led-coordination nodes affect only the Duckiebots behavior at intersection. Surely, our LED-signal could be seen from other Duckiebots in Duckietown but, at least for now, no group (except for the fleet planning group, see below) needs LEDs-based communication in other situations. A LED-signal will be used by fleet-planning to indicate the status of each vehicle (free, occupied, waiting, etc.). The Fleet planning will be using one LED for implementing this functionality (back-right one) while the other LEDs remain available for coordination purposes.
+Our led-detection, led-emission, and led-coordination nodes will affect only the Duckiebots behaviour at intersection. Surely, our LED-signal could be seen from other Duckiebots in Duckietown but for now no group need LEDs to communicate in other situations. 
+
+However, a LED-signal will be used by fleet-planning to indicate the status of each vehicle (free, occupied, waiting,..). Fleet planning will use one LED for implementing this functionality (back-right one) while the other LEDs remain available for coordination purposes.
 
 The following assumptions are made about other modules:
 
+1. When the Duckiebot is made to stop at the red line by the Controllers at an intersection a flag “at_intersection” will be set and that is when the coordination will start.
 
-1. When the Duckiebot is made to stop at the red line by the Controllers at an intersection a flag “at_intersection” will be set and that is when the coordination will start. Most likely this flag will be sent out by the Parking group after it has been verified that after the intersection there is no parking.
+2. Controllers guarantee that the Duckiebots will stop at the red line within the agreed tolerances (i.e. Min. 10cm behind center of red line;  Max. 16cm behind center of red line; +/- 10° of rotation ; +/- 5 cm offset from center of the driving lane.).
 
-2. Controllers guarantee that the Duckiebots will stop at the red line within the agreed tolerances (i.e., Min. 10cm behind center of red line;  Max. 16cm behind center of red line; +/- 10° of rotation ; +/- 5 cm offset from center of the driving lane.).
+3. Fleet planning and neural-SLAM are the ones responsible to give information about where the Duckiebots should go at the intersection (information that will NOT be used in any case for determining how the intersection will be cleared);
 
-3. Fleet planning and neural-SLAM are the ones responsible to give information about where the Duckiebots should go at the intersection (information that will not be used in any case for determining how the intersection will be cleared).
-
-4. Navigators will take over once the Duckiebot has received the order that it can proceed to navigate the intersection (a signal “go”), moment from which our team, explicit-coordination, will no longer intervene.  
+4. Navigators will take over once the Duckiebot will receive the order that it can proceed to navigate the intersection (a signal “go”), moment from which our team, explicit-coordination, will no more intervene. 
 
 5. If the Fleet planning and neural-SLAM decision is not available, the Navigators are responsible to generate a random choice for the direction that each Duckiebot will have to follow in the intersection navigation, once again, the direction that the Duckiebot will take is not of interest for the coordination part that is performed regardless of this information.
 
