@@ -1,27 +1,5 @@
 #  Distributed Estimation: intermediate report {#template-int-report status=ready}
 
-_It's time to commit on what you are building, and to make sure that it fits with everything else._
-
-This consists of 3 parts:
-
-- Part 1: System interfaces: Does your piece fit with everything else? You will have to convince both system architect and software architect and they must sign-off on this.
-
-- Part 2: Demo and evaluation plan: Do you have a credible plan for evaluating what you are building? You will have to convince the VPs of Safety and they must sign-off on this.
-
-- Part 3: Data collection, annotation, and analysis: Do you have a credible plan for collecting, annotating and analyzing the data? You will have to convince the data czars and they must sign-off on this.
-
-
-<div markdown="1">
-
- <col2 id='checkoff-people-intermediate-report' figure-id="tab:checkoff-people-intermediate-report" figure-caption="Intermediate Report Supervisors">
-    <s>System Architects</s>                         <s>Sonja Brits, Andrea Censi</s>
-    <s>Software Architects</s>                       <s>Breandan Considine, Liam Paull</s>
-    <s>Vice President of Safety</s>                  <s>Miguel de la Iglesia, Jacopo Tani</s>
-    <s>Data Czars</s>                                <s>Manfred Diaz, Jonathan Aresenault</s>
- </col2>
-
-</div>
-
 ## Part 1: System interfaces
 
 ### Logical architecture
@@ -83,11 +61,12 @@ There are three main criterias that have to be evaluated:
 3. Network topology: visualize nodes entering and leaving the network reliably
 
 
-First Header       |        0      |
------------------- | -------------
-Message Transport  | Messages cannot be sent or received  |
-Network Traffic    | No traffic monitored |
-Network Topology (centralized and decentralized) | Network cannot be established |
+| |0|1|2|3|4|
+|---|---|---|---|---|---|
+|Message Transport  | Messages cannot be sent or received | Strings can be sent and received on tcp | Messages can be serialized and sent and received on tcp | Messages can be serialized and multicast and received on pgm |Messages can be serialized and multicast and received on pgm on a mesh network|
+|Network Traffic|No traffic monitored|Can see traffic on the network but no useful information extracted|Able to isolate duckiebot traffic|Able to identify specific packets|Able to visualize routing of specific packages|
+|Network Topology (centralized and decentralized)|Network cannot be established|Initial Network can be established, but no new nodes can connect to the network, not robust to connection loses|Initial Network can be established, new nodes can connect but not reliably, not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, but not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, and robust to connection loses|
+
 
 <!--
 Check-off by Duckietown Vice-President of Safety:
@@ -100,27 +79,14 @@ _Please note that for this part it is necessary for the Data Czars to check off 
 
 ### Collection
 
-- How much data do you need?
-
-- How are the logs to be taken? (Manually, autonomously, etc.)
-
-Describe any other special arrangements.
-
-- Do you need extra help in collecting the data from the other teams?
+Initially a set of compiled dummy messages is used to build the fleet-communication.
+For further implementation and evaluation one ROS-bag of broadcasted messages is needed from the fleet-planning team and from the multi-robot-SLAM product each. 
 
 ### Annotation
 
-- Do you need to annotate the data?
-
-- At this point, you should have you tried using [thehive.ai](https://thehive.ai/) to do it. Did you?
-
-- Are you sure they can do the annotations that you want?
+For the fleet-communication no data annotation is needed.
 
 ### Analysis
-
-- Do you need to write some software to analyze the annotations?
-
-- Are you planning for it?
 
 <!--
 Check-off by Data Zars:
