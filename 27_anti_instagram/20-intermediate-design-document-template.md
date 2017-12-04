@@ -190,7 +190,6 @@ Duckietown Vice-President of Safety: I, (believe / do not believe) that the perf
 -->
 ## Part 3: Data collection, annotation, and analysis
 
-_Please note that for this part it is necessary for the Data Czars to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time._
 
 
 ### Collection
