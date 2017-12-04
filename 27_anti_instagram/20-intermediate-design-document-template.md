@@ -48,6 +48,7 @@ We are improving the Anti-Instagram algorithm. So the Anti-Instagram node should
 | ~corrected_image  |  This is the image after the color transformation. It should serve for example as an input for the line detector.  | << 1 s  |
 |  ~health | This is a parameter which should indicate how successful the transformation was. Based on that parameter other nodes could decide whether to use the new correction or not. An idea could be to generate a new "decision node"/"decision topic" which decides whether this correction is useful or not.   | << 1 s |
 |  ~transform |  This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  | 1.5 seconds |
+
 *Regarding the latency from the published topics: Since we are publishing everything at once/the health and the corrected image depend on the transform these times are not considerable. The transforming time is so high that all the topics need "special treatment". This means we have to find a way to run that online. E.g. running the algorithm only all 10 seconds.*
 
 | Subscribed topics  | Explanation  |
