@@ -48,31 +48,35 @@ An idea to push the accuracy even more is to determine first a color transformat
 We are improving the Anti-Instagram algorithm. So the Anti-Instagram node should stay the same as it was.
 
 ##### Topics
-| Published topics  | Explanation  |
-| :------------: | :------------: |
-| corrected image  |  This is the image after the color transformation. It should serve for example as an input for the line detector.  |
-|  health | This is a parameter which should indicate how successful the transformation was. Based on that parameter other nodes could decide whether to use the new correction or not. An idea could be to generate a new "decision node"/"decision topic" which decides whether this correction is useful or not.   |
-|  transform |  This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  |
+| Published topics  | Explanation | Latency |
+| :------------: | :------------: |  :------------: |
+| corrected image  |  This is the image after the color transformation. It should serve for example as an input for the line detector.  | << 1 s  |
+|  health | This is a parameter which should indicate how successful the transformation was. Based on that parameter other nodes could decide whether to use the new correction or not. An idea could be to generate a new "decision node"/"decision topic" which decides whether this correction is useful or not.   | << 1 s |
+|  transform |  This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  | 1.5 seconds |
+*Regarding the latency from the published topics: Since we are publishing everything at once/the health and the corrected image depend on the transform these times are not considerable. The transforming time is so high that all the topics need "special treatment". This means we have to find a way to run that online. E.g. running the algorithm only all 10 seconds.*
 
 | Subscribed topics  | Explanation  |
 | :------------: | :------------: |
-|  uncorrected image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.   |
+|  uncorrected image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.  |
 
 #### Considerable area node
 
 During our research and investigation for the Anti-Instagram algorithm we came up with an idea to only consider the relevant areas of the picture. This would improve the accuracy of the color transfomation. E.g. only the black area of the street, the white, red and yellow line markings on the street are relevant inputs for the color transformation. Knowing the location of these features would definitively improve the color correction algorithm.
+But the feasability of this is very unclear yet. We don't know either whether we really implement that. It is definitively worth mentioning the idea and seeing if other people are interested in it as well!
 
-##### topics
+##### Topics
 
 | Published topics  | Explanation  |
 | :------------: | :------------: |
-| corrected image  |  This is the image after the color transformation. It should serve for example as an input for the line detector.  |
-|  health | This is a parameter which should indicate how successful the transformation was. Based on that parameter other nodes could decide whether to use the new correction or not. An idea could be to generate a new "decision node"/"decision topic" which decides whether this correction is useful or not.   |
-|  transform |  This published topic outputs the transformation parameters. For a linear transformation (which is the case up to now) is would be a *shift* and a *scale* parameter.  |
+| mask image  |  A pixel by pixel indication whether the information of the image is relevant or not should be the output. With this binary matrix one could mask the camera picture and do for example line detection only on the relevant area. This would improve the computation speed a lot. The Anti-Instagram algorithm would profit for sure from that as well!  |
+
 
 | Subscribed topics  | Explanation  |
 | :------------: | :------------: |
 |  uncorrected image | The input for the Anti-Instagram node is the uncorrected image directly from the camera in original resolution.   |
+| ~colorSegment | The color segments would be probably useful. |
+| ~segment_list | The list of detected segments could be for use as well. |
+
 
 ## Part 2: Demo and evaluation plan
 
