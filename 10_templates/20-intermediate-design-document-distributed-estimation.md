@@ -28,7 +28,7 @@ messaging node:
 
 **subscribed topics:** individual outgoing communication (and by outgoing communication, we mean messages we send over wifi) topics published by: 
 - fleet planning (fleet_planning_active)
-- distributed estimation (TBD).
+- Multi-Robot SLAM (TBD).
 
 These teams publish their data to be sent to these topics.
 
