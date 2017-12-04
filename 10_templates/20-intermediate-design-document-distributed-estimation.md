@@ -46,6 +46,14 @@ We define ROS topics: teamAout, teamAin
 
 Team A bot A posts message to teamAout
 
+We serialize messagw
+
+We send on bot A
+
+We reciwvw on all othee bots
+
+We deserialize and post to teamAin
+
 Team A other bots can retrieve message from teamAin
 
 
