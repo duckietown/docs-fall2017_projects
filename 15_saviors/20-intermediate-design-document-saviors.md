@@ -1,27 +1,5 @@
 #  The Saviors: intermediate report {#template-int-report status=ready}
 
-_It's time to commit on what you are building, and to make sure that it fits with everything else._
-
-This consists of 3 parts:
-
-- **Part 1: System interfaces:** Does your piece fit with everything else? You will have to convince both system architect and software architect and they must sign-off on this.
-
-- **Part 2: Demo and evaluation plan:** Do you have a credible plan for evaluating what you are building? You will have to convince the VPs of Safety and they must sign-off on this.
-
-- **Part 3: Data collection, annotation, and analysis:** Do you have a credible plan for collecting, annotating and analyzing the data? You will have to convince the data czars and they must sign-off on this.
-
-
-<div markdown="1">
-
- <col2 id='checkoff-people-intermediate-report' figure-id="tab:checkoff-people-intermediate-report" figure-caption="Intermediate Report Supervisors">
-    <s>System Architects</s>                         <s>Sonja Brits, Andrea Censi</s>
-    <s>Software Architects</s>                       <s>Breandan Considine, Liam Paull</s>
-    <s>Vice President of Safety</s>                  <s>Miguel de la Iglesia, Jacopo Tani</s>
-    <s>Data Czars</s>                                <s>Manfred Diaz, Jonathan Aresenault</s>
- </col2>
-
-</div>
-
 ## Part 1: System interfaces
 <!--
 Please note that for this part it is necessary for the system architect and software architect to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time. -->
