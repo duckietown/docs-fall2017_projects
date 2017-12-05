@@ -1,4 +1,4 @@
-#  Explicit Coordination: Intermediate Report {#template-int-report status=ready}
+#  Explicit Coordination: Intermediate Report {#Explicit Coordination: Intermediate Report status=ready}
 
 
 ## Part 1: System interfaces
@@ -10,7 +10,7 @@ Our job starts when Duckiebots are stationary at the red-line of the intersectio
 By clicking “start” the LED-coordination-node tells the LED-emitter-node to turn the LEDs white for all Duckiebots.
 Afterwards, the LED-detector-node checks for each Duckiebot if other LEDs are seen  and tells it to the LED-coordination-node. Note that here there is, at least in a first approach to the problem, no turning, i.e., LEDs of Duckiebots on the left are not identified.
 The LED-coordination-node estimates the coordination move (either “hold on” or “go”) for each Duckiebot. The final output is a signal, named move_intersection, that will be used by the Navigators to start the procedure to navigate the intersection. Thereafter, we are not going to intervene until the Duckiebot finds itself at another intersection. Should the explicit coordination fail (for instance, because of Duckiebots not equipped with LEDs), the task of coordinating the intersection is given to the implicit coordination.
- 
+
 Our LED-detection, LED-emission and LED-coordination nodes affect only the Duckiebots behavior at intersection. Surely, our LED-signal could be seen from other Duckiebots in Duckietown but, at least for now, no group (except for the fleet planning group, see below) needs LEDs-based communication in other situations. A LED-signal will be used by fleet-planning to indicate the status of each vehicle (free, occupied, waiting, etc.). The Fleet planning will be using one LED for implementing this functionality (back-right one) while the other LEDs remain available for coordination purposes.
 
 The following assumptions are made about other modules:
@@ -26,7 +26,7 @@ The following assumptions are made about other modules:
 
 5. If the Fleet planning and neural-SLAM decision is not available, the Navigators are responsible to generate a random choice for the direction that each Duckiebot will have to follow in the intersection navigation, once again, the direction that the Duckiebot will take is not of interest for the coordination part that is performed regardless of this information.
 
-6. Explicit coordination and implicit coordination will never run at the same time on a Duckiebot. 
+6. Explicit coordination and implicit coordination will never run at the same time on a Duckiebot.
 
 
 <!--
@@ -53,8 +53,8 @@ Nodes:
     * Subscribed topic:
         * LED_switch from LED-coordination, string message: on/ off
     * Published topics: None
-    
-3. 
+
+3.
     1. LED_detection: Depending on the algorithm implemented:
         * Input: camera_image (possibly after anti-instagram) and message indicating whether detection is needed
         * Output: LED detected/ LED not detected
@@ -105,12 +105,12 @@ Software architect check-off: I, XXX, (agree / do not agree) that the above is c
 
 ### Demo plan
 
-Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year (a link on the Duckiebook will be available soon). The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
+Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year [](#Openhouse). The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
 
-From testing last year’s code we realized that the coordination does not seem to work with the mentioned demo. Duckiebots stop at the red line but they do not communicate so that they never leave the intersection or decide to go independently of the presence and decision of the other Duckiebots. Although we investigated the problem by looking at separate nodes, no solution has been found yet. 
+From testing last year’s code we realized that the coordination does not seem to work with the mentioned demo. Duckiebots stop at the red line but they do not communicate so that they never leave the intersection or decide to go independently of the presence and decision of the other Duckiebots. Although we investigated the problem by looking at separate nodes, no solution has been found yet.
 
-We aim to have a working demo that will show an effective clearing of an intersection with a variable number of Duckiebots (1 to 4) regardless of the type of intersection (3-way or 4-way, with or without traffic lights). The intersection should be cleared in a reasonable amount of time (less than 1 min) and be robust to different initial conditions (within the specified tolerances on the pose of the robots). 
-The setup will be easy and quick: with a small Duckietown as shown in the figure below, up to four Duckiebots will be put on the road and the demo will be started from a laptop with no further interventions required. 
+We aim to have a working demo that will show an effective clearing of an intersection with a variable number of Duckiebots (1 to 4) regardless of the type of intersection (3-way or 4-way, with or without traffic lights). The intersection should be cleared in a reasonable amount of time (less than 1 min) and be robust to different initial conditions (within the specified tolerances on the pose of the robots).
+The setup will be easy and quick: with a small Duckietown as shown in the figure below, up to four Duckiebots will be put on the road and the demo will be started from a laptop with no further interventions required.
 
 The required hardware will therefore be:
 A four way intersection tile (see image below, center), four three-way intersections tiles, twelve tiles with straight lines,four tiles with curved lines and four empty tiles. In total, twentyeight tiles, red, yellow and white tape as indicated in the figure below. Apriltags and all other required signals at the intersection will also be needed (standard type of Duckietown intersection) as well as a traffic light to illustrate the behaviour in a traffic light type of intersection.
@@ -148,7 +148,7 @@ Success rate - For both LED emission and detection.</span>
 <span>LED detector</span>
 <span>Run the specific node</span>
 <span>Two to three Duckiebots in an intersection configuration (all relative positions have to be analyzed)</span>
-<span>Time required to perform the LED detection</span> 
+<span>Time required to perform the LED detection</span>
 <span>
 Mean detection time</span>
 </col5>
@@ -164,7 +164,7 @@ Duckietown Vice-President of Safety: I, (believe / do not believe) that the perf
 
 ### Collection
 
-No data is needed to develop the algorithm. Data might be needed to test the implementation of the detection. 
+No data is needed to develop the algorithm. Data might be needed to test the implementation of the detection.
 
 ### Annotation
 
