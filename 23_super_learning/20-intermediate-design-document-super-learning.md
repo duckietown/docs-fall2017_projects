@@ -1,14 +1,5 @@
 #  Supervised Learning: intermediate report {#devel-super-learning status=beta}
 
-This consists of 3 parts:
-
-- Part 1: System interfaces: Does your piece fit with everything else? You will have to convince both system architect and software architect and they must sign-off on this.
-
-- Part 2: Demo and evaluation plan: Do you have a credible plan for evaluating what you are building? You will have to convince the VPs of Safety and they must sign-off on this.
-
-- Part 3: Data collection, annotation, and analysis: Do you have a credible plan for collecting, annotating and analyzing the data? You will have to convince the data czars and they must sign-off on this.
-
-
 ## Part 1: System interfaces
 
 The system architecture is shown below. 
