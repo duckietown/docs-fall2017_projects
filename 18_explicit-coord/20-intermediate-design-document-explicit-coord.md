@@ -43,7 +43,7 @@ Nodes:
     * Input: From Parking group “you are at an intersection” (additionally there is a parameter that indicates whether intersections are cleared with explicit or implicit coordination)
     * Output: Duckiebot move (“go”/ ”not go”)
     * Subscribed topic:
-	    * flag_at_intersection from Parking group, bool message: true/ false
+        * flag_at_intersection from Parking group, bool message: true/ false
     * Published topic: move_intersection
         * string message: go/ no_go
 
@@ -51,26 +51,27 @@ Nodes:
     * Input: Communication is needed
     * Output: LED turn on or stay off
     * Subscribed topic:
-	    * LED_switch from LED-coordination, string message: on/ off
+        * LED_switch from LED-coordination, string message: on/ off
     * Published topics: None
     
-3. LED_detection:
-Depending on the algorithm implemented:
-    * Input: camera_image (possibly after anti-instagram) and message indicating whether detection is needed
-    * Output: LED detected/ LED not detected
-    * Subscribed topic:
-        * LED_to_detect from LED_coordination, string message: yes/ no
-        * camera_image from anti-instragram, CompressedImage
-    * Published topic:
-        * string message: LED_detected/ no_LED_detected
-or
-    * Input: camera_image (possibly after anti-instagram)
-    * Output: LED detected/LED not detected with position and/or color and/or frequency
-    * Subscribed topic:
-        * LED_to_detect from LED_coordination, string message: yes/ no
-        * camera_image from anti-instragram, CompressedImage
-    * Published topic:
-        * string message: LED_detected/ no_LED_detected with position and/or color and/or frequency
+3. 
+    1. LED_detection: Depending on the algorithm implemented:
+        * Input: camera_image (possibly after anti-instagram) and message indicating whether detection is needed
+        * Output: LED detected/ LED not detected
+        * Subscribed topic:
+            * LED_to_detect from LED_coordination, string message: yes/ no
+            * camera_image from anti-instragram, CompressedImage
+        * Published topic:
+            * string message: LED_detected/ no_LED_detected
+
+    2. LED_detection: second option:
+        * Input: camera_image (possibly after anti-instagram)
+        * Output: LED detected/LED not detected with position and/or color and/or frequency
+        * Subscribed topic:
+            * LED_to_detect from LED_coordination, string message: yes/ no
+            * camera_image from anti-instragram, CompressedImage
+        * Published topic:
+            * string message: LED_detected/ no_LED_detected with position and/or color and/or frequency
 
 
 A diagram of our nodes is shown below.
@@ -137,23 +138,19 @@ Performance will be evaluated with 3 tests:
 <span>One to four Duckiebots at an intersection, every case has to be analyzed (three or four way intersection, with or without traffic light)</span>
 <span>Time required to clear the intersection and binary variable that tells whether the intersection was effectively cleared without problems (collisions, lack of decision making, wrong detection of signals,etc.) or not.</span>
 <span>
-* Mean clearing time
-* Success rate 
-
-Both for each case separately and for all combined.</span>
+Mean clearing time or success rate - Both for each case separately and for all combined.</span>
 <span>LED emitter and LED detector</span>
 <span>Run the specific nodes</span>
 <span>Two to three Duckiebots in an intersection configuration (all relative positions have to be analyzed)</span>
 <span>Number of unsuccessful LED emissions (the output has not the desired colour and/or frequency) and number of unsuccessful LED detections: the output of the LED detector does not contain all the signals it should have detected or it contains more than the ones effectively present (false positives)</span>
 <span>
-* Success rate 
-For both LED emission and detection.</span>
+Success rate - For both LED emission and detection.</span>
 <span>LED detector</span>
 <span>Run the specific node</span>
 <span>Two to three Duckiebots in an intersection configuration (all relative positions have to be analyzed)</span>
 <span>Time required to perform the LED detection</span> 
 <span>
-* Mean detection time</span>
+Mean detection time</span>
 </col5>
 
 
