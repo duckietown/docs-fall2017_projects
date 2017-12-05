@@ -28,24 +28,24 @@ The intersection navigation is started as soon as the Duckiebot is told that it 
 
 * The Duckiebot localizes itself with respect to the intersection.
 
-* The Duckiebot waits until it receives a command telling it which exit of the intersection it should take.
+* The Duckiebot waits until it receives a message on the topic “turn_type” which exit of the intersection it should take.
 
 * A path is planned that guides the Duckiebot from its current location to the desired intersection exit.
 
 * A path following controller steers the Duckiebot to its final location, while the Duckiebot continuously localizes itself and feeds the estimated pose (i.e. the distance from the desired path and the relative orientation error) to the lane following controller to account for, for example, disturbances or modelling errors.
 
-* The Duckiebot detects when it traversed the intersection, i.e. when it finds itself again in a regular lane, and hands control back to the lane following controller.
+* The Duckiebot detects when it traversed the intersection, i.e. when it finds itself again in a regular lane, and hands control back to the lane following controller by publishing on the topic “intersection_done”.
 
 
 It is assumed that
 
-* the Duckiebot stops between 0.10m and 0.16m in front of the center of the red stop line, i.e. $f_x \in \lbrack 0.1m,0.16m\rbrack$, has an error of no more than 0.03m with respect to the center of its lane, i.e. $f_y \in \lbrack-0.03m,0.03m\rbrack$, and that the orientation error is smaller than 0.17rad, i.e. $\theta\in\lbrack-0.17rad,0.17rad\rbrack$ (see Fig. 2 for details, all values are with respect to the origin of the Duckiebot’s axle-fixed coordinate frame).
+* the Duckiebot stops between 0.10m and 0.16m in front of the center of the red stop line, i.e. $d_x \in \lbrack 0.1m,0.16m\rbrack$, has an error of no more than 0.03m with respect to the center of its lane, i.e. $d_y \in \lbrack-0.03m,0.03m\rbrack$, and that the orientation error is smaller than 0.17rad, i.e. $\theta\in\lbrack-0.17rad,0.17rad\rbrack$ (see Fig. 1.2 for details, all values are with respect to the origin of the Duckiebot’s axle-fixed coordinate frame).
 
-* a lane following controller exists that takes as inputs the distance from desired path $d$ and and the orientation error with respect to the path tangent $\theta$ (see Fig. 3 for details).
+* a lane following controller exists that takes as inputs the distance from desired path $d$ and and the orientation error with respect to the path tangent $\theta$ (see Fig. 1.3 for details).
 
 
 <div figure-id="fig:2" figure-caption="Pose of the duckiebot in front of an intersection">
-    <img src="duckiebot_red_line_1.png" style="width: 100%"/>
+    <img src="duckiebot_red_line.png" style="width: 100%"/>
 </div>
 
 
@@ -70,19 +70,21 @@ The *“intersection_navigation”*-node is responsible for the high level logic
 
 * “turn_type”: Tells the Duckiebot the type of turn it should take (e.g. left, right, straight, random). No assumption about the latency of this topic will be made. As soon as message is received, the maneuver will be executed.
 
-* “intersection_pose_meas_inertial”: Measured pose of the *“intersection_localization”*-node with respect to an inertial frame $\mathcal{I}$ (see Fig. 4). This message is used to estimate the pose of the Duckiebot at the intersection, which is then used by the controller to follow the desired pose. It is assumed that this message will have quite some delay (several 10ms), but the delay will be compensated by a state estimator using the timestamp of the message (i.e. camera frame) and using the past commands sent to the vehicle.
+* “intersection_pose_meas_inertial”: Measured pose of the *“intersection_localization”*-node with respect to an inertial frame $\mathcal{I}$ (see Fig. 1.4). This message is used to estimate the pose of the Duckiebot at the intersection, which is then used by the controller to follow the desired pose. It is assumed that this message will have quite some delay (several 10ms), but the delay will be compensated by a state estimator using the timestamp of the message (i.e. camera frame) and using the past commands sent to the vehicle.
 
 
 * “~image/compressed": Upon receiving such a message, the Duckiebot's pose at the time the image was taken will be estimated and sent to the *"intersection_localization"*-node to initialize the localization problem.
 
+* “~car_cmd”: The command published by the “lane_controller”-node used to track a desired path. These commands are stored in a queue inand will be used to compensate for delays and predict the Duckiebot’s pose. It is assumed this topic has no delay, i.e. that commands are immediately executed.
 
-The “intersection_navigation”-node publishes the following topics:
+
+The “intersection_navigation”-node publishes on the following topics:
 
 * “intersection_done”: A message on this topic will be broadcasted as soon as the Duckiebot finished traversing the intersection and is used to handback the control.
 
 * "intersection_pose":  Pose of the Duckiebot with respect to the desired path (see Fig. 3). This topic is basically identical to the “~lane_pose”-topic from the lane filter and will be used by the *“lane_controller”*-node in case “mode” is “INTERSECTION_CONTROL”.
 
-The “intersection_navigation”-node will be estimated to introduce no more than 500ns (it only does some logic) of delay in regular operation and hence an equal delay will be introduced to all the published topics. Initially, after the “intersection_localization”-node is initialized (see below), a path that guides the Duckiebot across the intersection will be planned. This task can be computationally expensive since it needs to be guaranteed that the path is feasible (e.g. not leaving the intersection, curvature constraints, …) and may take up to 500ms. However, since the Duckiebot is at rest at the intersection, this will not cause any issues.
+The “intersection_navigation”-node will be estimated to introduce no more than 500ns  of delay in regular operation (it only does some logic) and hence an equal delay will be introduced to all the published topics. Initially, after the “intersection_localization”-node is initialized (see below), a path that guides the Duckiebot across the intersection will be planned. This task can be computationally expensive since it needs to be guaranteed that the path is feasible (e.g. not leaving the intersection, curvature constraints, …) and may take up to 500ms. However, since the Duckiebot is at rest at the intersection, this will not cause any issues.
 
 
 
