@@ -1,17 +1,6 @@
 #  The Navigators: intermediate report {#navigators-int-report status=ready}
 
 
-<div markdown="1">
-
- <col2 id='checkoff-people-intermediate-report' figure-id="tab:checkoff-people-intermediate-report" figure-caption="Intermediate Report Supervisors">
-    <s>System Architects</s>                         <s>Sonja Brits, Andrea Censi</s>
-    <s>Software Architects</s>                       <s>Breandan Considine, Liam Paull</s>
-    <s>Vice President of Safety</s>                  <s>Miguel de la Iglesia, Jacopo Tani</s>
-    <s>Data Czars</s>                                <s>Manfred Diaz, Jonathan Aresenault</s>
- </col2>
-
-</div>
-
 ## Part 1: System interfaces
 
 
