@@ -1,4 +1,4 @@
-#  The Controllers: Intermediate Report {#template-int-report status=ready}
+#  The Controllers: Intermediate Report {#controllers-int-report status=ready}
 
 <!--
 _It's time to commit on what you are building, and to make sure that it fits with everything else._
