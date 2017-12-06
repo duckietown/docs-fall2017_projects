@@ -1,15 +1,15 @@
-#  Supervised Learning: intermediate report {#devel-super-learning status=beta}
+#  Supervised Learning: intermediate report {#super-learning-int-report status=beta}
 
 ## Part 1: System interfaces
 
-The system architecture is shown below. 
+The system architecture is shown below.
 ![Plug 1](intermediate_plug1.png)
 
 ### Logical architecture
 
 - Please describe in detail what the desired functionality will be. What will happen when we click "start"?
 
-* The desired functionality is the deep imitation learning network. How the function works is the following: the node of trained deep imitation learning network subscribes to the image published by compressed image node, does computation,  then publishes control commands(orientation and velocity) to the inverse kinematic node. 
+* The desired functionality is the deep imitation learning network. How the function works is the following: the node of trained deep imitation learning network subscribes to the image published by compressed image node, does computation,  then publishes control commands(orientation and velocity) to the inverse kinematic node.
 
 - Please describe for each quantity, what are reasonable target values. (The system architect will verify that these need to be coherent with others.)
 
@@ -29,11 +29,11 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 - Please describe the list of nodes that you are developing or modifying.
 
-* We will develop one node, the trained deep imitation learning model, that maps the compressed images to control commands(orientation and velocity). All other nodes will remain unchanged. 
+* We will develop one node, the trained deep imitation learning model, that maps the compressed images to control commands(orientation and velocity). All other nodes will remain unchanged.
 
 - For each node, list the published and subscribed topics.
 
-* The deep imitation learning node subscribes to /VEHICLE_NAME/camera_node/image/compressed. 
+* The deep imitation learning node subscribes to /VEHICLE_NAME/camera_node/image/compressed.
 
 * The node publishes /VEHICLE_NAME/car_cmd_switch_node/cmd
 
@@ -43,7 +43,7 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 - For each published topic, describe the maximum latency that you will introduce.
 
-* The latency that our node introduces will be settled by the computation capability of the Intel Neural Compute Stick and the scale our model. Tests are required before the latency can be finalized. 
+* The latency that our node introduces will be settled by the computation capability of the Intel Neural Compute Stick and the scale our model. Tests are required before the latency can be finalized.
 
 
 <!--
@@ -76,9 +76,9 @@ The demo is a short activity that is used to show the desired functionality, and
 * The performance can be first evaluated manually:
 
     1)Compare the time of lane following by traditional approach and the end-to-end deep imitation learning approach.
-    
-    2)Observe the deviation of lane following by deep imitation learning approach. 
-    
+
+    2)Observe the deviation of lane following by deep imitation learning approach.
+
 * Other formal evaluation approach will be updated.
 
 
@@ -98,21 +98,21 @@ Duckietown Vice-President of Safety: I, (believe / do not believe) that the perf
 
 - How are the logs to be taken? (Manually, autonomously, etc.)
 
-* The logs will be taken manually. The make log-minimal in branch ‘dev-eth-sup-learning’ will be enough for the data collection. 
+* The logs will be taken manually. The make log-minimal in branch ‘dev-eth-sup-learning’ will be enough for the data collection.
 
 - Describe any other special arrangements.
 
-* None. 
+* None.
 
 - Do you need extra help in collecting the data from the other teams?
 
-* None. 
+* None.
 
 ### Annotation
 
 - Do you need to annotate the data?
 
-* None, The data itself makes enough sense. 
+* None, The data itself makes enough sense.
 
 - At this point, you should have you tried using [thehive.ai](https://thehive.ai/) to do it. Did you?
 
@@ -127,7 +127,7 @@ Duckietown Vice-President of Safety: I, (believe / do not believe) that the perf
 
 - Are you planning for it?
 
-* None. 
+* None.
 
 <!--
 Check-off by Data Zars:

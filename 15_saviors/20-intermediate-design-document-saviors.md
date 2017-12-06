@@ -1,4 +1,4 @@
-#  The Saviors: intermediate report {#template-int-report status=ready}
+#  The Saviors: intermediate report {#saviors-int-report status=ready}
 
 ## Part 1: System interfaces
 <!--
@@ -6,7 +6,7 @@ Please note that for this part it is necessary for the system architect and soft
 
 ### Logical architecture
 
-**Description of the desired functionality:** 
+**Description of the desired functionality:**
 
 Detect duckies and cones during lane following. When the ducky/cone is not in the middle of the lane we try to avoid them, if avoidance is not possible, we simply stop. Our obstacle avoidance capability is limited due to the fact that the controllers cannot make our Duckiebot cross the lane. In a first step, if we are in an intersection, our node will stop performing its tasks. However, if we progress really fast we will also have a look at the case of obstacles in intersections.  
 
@@ -14,7 +14,7 @@ Detect duckies and cones during lane following. When the ducky/cone is not in th
 
 If you click start our nodes are launched and we will start to detect duckies.
 
-***In general our obstacle_detection_node is always active. The "flow" is as follows:*** 
+***In general our obstacle_detection_node is always active. The "flow" is as follows:***
 
 **1.** Our “obstacle_detection”-node is activated and runs continuously. This nodes creates an instance of the class “detector” at the very beginning.
 
@@ -22,7 +22,7 @@ If you click start our nodes are launched and we will start to detect duckies.
 
 **3.** For each frame the detector was called, the class function decides whether obstacles (duckies or traffic cones) are within the range of vision or not. Afterwards the “obstacle_detection”-node publishes an array containing all coordinates of the obstacles which is empty if there are none. The published topic is called “obstacle_coordinates”.
 
-**4.** The “obstacle_avoidance”-node takes this array as input and analyses it regarding which actions should be performed. The following scenarios are possible: 
+**4.** The “obstacle_avoidance”-node takes this array as input and analyses it regarding which actions should be performed. The following scenarios are possible:
 
 **4a)** The array is empty, therefore no action is performed and no flag will be published.
 
@@ -34,7 +34,7 @@ If you click start our nodes are launched and we will start to detect duckies.
 
 **6.** Additionally we are listening to the “lane_following_flag” which indicates, if true, that the lane following is active. This tells us to perform our tasks. Otherwise our module should be inactive as our commands wouldn’t have any effects anyway. In this way we can save computing resources and avoid misunderstandings.
 
-**7.** Additionally we implemented an additional file “obstacle_detection_visualizer” which can be used for visualization of the detected obstacles. It is thought to run on an laptop (which is connected to the same rosmaster) because it is only used for the evaluation of the quality of the detection as well as the 2D-3D projection. In principle it can run on the raspberry pi as well. It subscribes to “obstacle_coordinates”  and visualizes the obstacles in the 2D image by encircling the obstacles with a green rectangle (and publishing this modified image) as well as plotting them in the 3D coordinate frame (e.g. visualizable in RVIZ) as marker which shows the position as well as the size of the detected obstacles. With this additional software the optimization and the debugging are simplified significantly. 
+**7.** Additionally we implemented an additional file “obstacle_detection_visualizer” which can be used for visualization of the detected obstacles. It is thought to run on an laptop (which is connected to the same rosmaster) because it is only used for the evaluation of the quality of the detection as well as the 2D-3D projection. In principle it can run on the raspberry pi as well. It subscribes to “obstacle_coordinates”  and visualizes the obstacles in the 2D image by encircling the obstacles with a green rectangle (and publishing this modified image) as well as plotting them in the 3D coordinate frame (e.g. visualizable in RVIZ) as marker which shows the position as well as the size of the detected obstacles. With this additional software the optimization and the debugging are simplified significantly.
 
 **Expected target values for the following quantities:**
 
@@ -47,7 +47,7 @@ If you click start our nodes are launched and we will start to detect duckies.
 
 **Assumptions on other modules:**
 
-* Control reaches desired d at most 10cm after request. Our request is “continuous”. 
+* Control reaches desired d at most 10cm after request. Our request is “continuous”.
 * Steady state control error smaller than 2cm
 * d (perpendicular position to lane direction) Position estimate accuracy smaller than 2cm
 * when setting the emergency_flag, we stop within the next 5 cm
@@ -62,9 +62,9 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 ** List of nodes which are to be developped: **
 
-* obstacle_detection 
+* obstacle_detection
 * obstacle_detection_visualizer
-* obstacle_avoidance 
+* obstacle_avoidance
 
 ** Published and subscribed topics for each node, including an estimate of the introduced latency for the topics being published and an assumption on the latency for all subscribed topics: **
 
@@ -100,7 +100,7 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 * obstacle_avoidance_active_flag (max. 0.3s)
 
-* obstacle_emergency_stop_flag (max. 0.3s) 
+* obstacle_emergency_stop_flag (max. 0.3s)
 
 *subscribed topics:*
 
@@ -136,22 +136,22 @@ Duckiebot driving around Duckietown with duckies in the street (on straights, (i
 
 * Enough duckies and traffic cones for being able to perform the evaluation. Traffic cones are already ordered and will be shipped on Monday 11th of December at the latest.
 
-* The minimum city size to properly perform the demo is in our opinion an equivalent size as the one in the ML building. 
+* The minimum city size to properly perform the demo is in our opinion an equivalent size as the one in the ML building.
 
 ### Plan for formal performance evaluation
 
 **How do you envision the performance evaluation? Is it experiments? Log analysis?**
 
-**1. Performance evaluation of the Saviors only:** 
+**1. Performance evaluation of the Saviors only:**
 
-*This first evaluation will be a general evaluation based on logs. We basically want to check if obstacles are detected correctly, and if the avoidance reacted as expected to prevent crashes.* 
+*This first evaluation will be a general evaluation based on logs. We basically want to check if obstacles are detected correctly, and if the avoidance reacted as expected to prevent crashes.*
 
 **1a)** Detailed Evaluation Parameters:
 
 - compare the labelled data (= groundtruth) to the results when putting the same image into our pipeline
 - checking the acutal frequency of our node
 - test duckie recognition at different orientations and evaluate the maximum angle possible in which we still detect duckies
-- evaluate the precision when having duckies only on our lane and on both, our lane and the opposite lane!!! 
+- evaluate the precision when having duckies only on our lane and on both, our lane and the opposite lane!!!
 - evaluate the number of false positives in the 3 different situations: on straights, in “normal” curves, in the S-curve in duckietown
 - measure the accuracy in centimeters of the real position of a duckie and the position we estimate!!!
 
@@ -161,7 +161,7 @@ Duckiebot driving around Duckietown with duckies in the street (on straights, (i
 
 **2a)** Detailed evaluation Parameters:
 
-- percentage of correct decisions 
+- percentage of correct decisions
 
 *The second step will be with the real state estimation, lane following and obstacle detection. This evaluation will be based on experiments with our duckiebot driving around town with obstacles in the lane.*
 
@@ -175,7 +175,7 @@ Duckiebot driving around Duckietown with duckies in the street (on straights, (i
 
 1. only place duckies on straights
 
-2. only place duckies in turns 
+2. only place duckies in turns
 
 3. only place duckies in the S-Turns
 
@@ -227,7 +227,7 @@ Yes we already tried it and it worked quite well. We use this platform to label 
 
 **Do you need to write some software to analyze the annotations?**
 
-We plan to write some software which applies our algorithm on every image of the log and which will mark the duckies using a box around them. Afterwards it will use the annotated data to read out where they have drawn the box and calculate the distance as well as visualize these results and differences. We then try to calculate the percentage of reasonable results and the percentage of outliers. 
+We plan to write some software which applies our algorithm on every image of the log and which will mark the duckies using a box around them. Afterwards it will use the annotated data to read out where they have drawn the box and calculate the distance as well as visualize these results and differences. We then try to calculate the percentage of reasonable results and the percentage of outliers.
 
 **Are you planning for it?**
 
