@@ -13,32 +13,32 @@ This consists of 3 parts:
 -->
 
 
-<div markdown="1">
+
 
  <col2 align='center' style="text-align:left" id='checkoff-people-intermediate-report' figure-id="tab:checkoff-people-intermediate-report" figure-caption="Intermediate Report Supervisors">
-    <td>System Architects</td>                         <td>Sonja Brits, Andrea Censi</td>
-    <td>Software Architects</td>                       <td>Breandan Considine, Liam Paull</td>
-    <td>Vice President of Safety</td>                  <td>Miguel de la Iglesia, Jacopo Tani</td>
-    <td>Data Czars</td>                                <td>Manfred Diaz, Jonathan Aresenault</td>
+    <span>System Architects</span>                         <span>Sonja Brits, Andrea Censi</span>
+    <span>Software Architects</span>                       <span>Breandan Considine, Liam Paull</span>
+    <span>Vice President of Safety</span>                  <span>Miguel de la Iglesia, Jacopo Tani</span>
+    <span>Data Czars</span>                                <span>Manfred Diaz, Jonathan Aresenault</span>
  </col2>
 
-</div>
 
-<div markdown="1">
+
+
 
  <col2 align='center' style="text-align:left" id='conventions' figure-id="tab:conventions" figure-caption="Conventions used in the following document">
-    <th>Variable</th>                        <th>Description</th>
-    <td>$d_{ref}$</td>                         <td>Reference distance from center of lane</td>
-    <td>$d_{act}$</td>                       <td>Actual distance from center of lane</td>
-    <td>$d_{est}$</td>                  <td>Estimated distance from center of lane</td>
-    <td>$\theta_{act}$</td>           <td>Actual angle between robot and center of lane</td>
-    <td>$\theta_{est}$</td>           <td>Estimated angle between robot and center of lane</td>
-    <td>$c_{act}$</td>          <td>Actual curvature of lane</td>
-    <td>$c_{est}$</td>                  <td>Estimated curvature of lane</td>
-    <td>$c_{ref}$</td>                   <td>Reference curvature of the path to follow </td>
-    <td>$v_{ref}$</td>                   <td>Reference velocity</td>
+    <span>Variable</span>                        <span>Description</span>
+    <span>$d_{ref}$</span>                         <span>Reference distance from center of lane</span>
+    <span>$d_{act}$</span>                       <span>Actual distance from center of lane</span>
+    <span>$d_{est}$</span>                  <span>Estimated distance from center of lane</span>
+    <span>$\theta_{act}$</span>           <span>Actual angle between robot and center of lane</span>
+    <span>$\theta_{est}$</span>           <span>Estimated angle between robot and center of lane</span>
+    <span>$c_{act}$</span>          <span>Actual curvature of lane</span>
+    <span>$c_{est}$</span>                  <span>Estimated curvature of lane</span>
+    <span>$c_{ref}$</span>                   <span>Reference curvature of the path to follow </span>
+    <span>$v_{ref}$</span>                   <span>Reference velocity</span>
  </col2>
-</div>
+
 
 ![image](problem_statement.svg)
 
@@ -150,27 +150,27 @@ The Lane Filter Node will, in addition to the existing fields, also estimate the
 
 In the following table, published topics are listed:
 
-<div markdown="1">
-<col2 align='center' style="text-align:left" id='lane_filter_published_topics' figure-id="tab:lane_filter_published_topics" figure-caption="Published topics by Lane Filter Node">
-    <th>Topic</th>                                <th>Max Latency</th>
-    <td>lane_pose</td>                         <td>15 ms </td>
-    <td>belief_img</td>                       <td>2 ms </td>
-    <td>entropy</td>                      <td>negligible</td>
-    <td>in_lane</td>                  <td>negligible</td>
-    <td>switch</td>               <td>negligible </td>
+
+<col2 align='center' style="text-align:left" id="lane_filter_published_topics" figure-id="tab:lane_filter_published_topics" figure-caption="Published topics by Lane Filter Node">
+    <span>Topic</span>                                <span>Max Latency</span>
+    <span>lane_pose</span>                         <span>15 ms </span>
+    <span>belief_img</span>                       <span>2 ms </span>
+    <span>entropy</span>                      <span>negligible</span>
+    <span>in_lane</span>                  <span>negligible</span>
+    <span>switch</span>               <span>negligible </span>
 </col2>
-</div>
+
 
 In the following table, subscribed topics are listed:
 
-<div markdown="1">
+
 <col2 align='center' style="text-align:left" id='lane_filter_subscribed_topics' figure-id="tab:lane_filter_subscribed_topics" figure-caption="Published topics by Lane Filter Node">
-    <th>Topic</th>                                    <th>Max Latency</th>
-    <td>segment_list</td>                         <td>25 ms</td>
-    <td>velocity</td>                               <td>egligible</td>
-    <td>car_cmd (not yet)</td>                      <td>negligible</td>
+    <span>Topic</span>                                    <span>Max Latency</span>
+    <span>segment_list</span>                         <span>25 ms</span>
+    <span>velocity</span>                               <span>egligible</span>
+    <span>car_cmd (not yet)</span>                      <span>negligible</span>
 </col2>
-</div>
+
 
 Total latency from image taken, processed through anti-instagram, up until setting the motor control command is on average 140 ms.    
 
@@ -178,129 +178,129 @@ _Lane Controller Node_
 
 In the following table, published topics are listed:
 
-<div markdown="1">
+
 <col3 align='center' style="text-align:left" id='lane_controller_published_topics' figure-id="tab:lane_controller_published_topics" figure-caption="Published topics by Lane Controller Node">
-<th>Topic</th> <th>Type</th> <th>Max Latency</th>
-<td>car_cmd</td> <td>duckietown_msgs/Twist2DStamped</td>  <td>negligible</td> </col3>
-</div>
+<span>Topic</span> <span>Type</span> <span>Max Latency</span>
+<span>car_cmd</span> <span>duckietown_msgs/Twist2DStamped</span>  <span>negligible</span>
+</col3>
 
 In the following table, subscribed topics are listed:
 
-<div markdown="1">
-<col3 align='center' style="text-align:left" id='lane_controller_subscribed_topics' figure-id="tab:lane_controller_subscribed_topics" figure-caption="Subscribed topics by Lane Controller Node">
-  <th>Topic</th>             <th>Type</th>            <th>Max Latency</th>
- <td>lane_pose</td>                  <td>duckietown_msgs/LanePose</td>       <td>15 ms</td> 
- <td>lane_pose_intersection_navigation</td>          <td>duckietown_msgs/ControlMessage_</td>       <td>20 ms</td>
-<td>lane_pose_obstacle_avoidance</td>        <td>duckietown_msgs/ControlMessage_</td>                 <td>20 ms </td>
- <td>lane_pose_parking</td>                  <td>duckietown_msgs/ControlMessage_</td>       <td>25 ms </td>
-<td>stop_line_reading</td>      <td>duckietown_msgs/StopLineReading</td>       <td> negligible </td>
-<td>implicit_coordination_velocity</td> <td>duckietown_msgs/ControlVelocity</td> <td>negligible </td> 
-    <td>Flags defined in table below</td>              <td>BoolStamped</td>            <td>negligible </td></col3>
 
-</div>
+<col3 align='center' style="text-align:left" id='lane_controller_subscribed_topics' figure-id="tab:lane_controller_subscribed_topics" figure-caption="Subscribed topics by Lane Controller Node">
+  <span>Topic</span>             <span>Type</span>            <span>Max Latency</span>
+ <span>lane_pose</span>                  <span>duckietown_msgs/LanePose</span>       <span>15 ms</span> 
+ <span>lane_pose_intersection_navigation</span>          <span>duckietown_msgs/ControlMessage_</span>       <span>20 ms</span>
+<span>lane_pose_obstacle_avoidance</span>        <span>duckietown_msgs/ControlMessage_</span>                 <span>20 ms </span>
+ <span>lane_pose_parking</span>                  <span>duckietown_msgs/ControlMessage_</span>       <span>25 ms </span>
+<span>stop_line_reading</span>      <span>duckietown_msgs/StopLineReading</span>       <span> negligible </span>
+<span>implicit_coordination_velocity</span> <span>duckietown_msgs/ControlVelocity</span> <span>negligible </span> 
+    <span>Flags defined in table below</span>              <span>BoolStamped</span>            <span>negligible </span>
+</col3>
+
 
 
 **Flags received by other nodes**
 
 These following flags are received from other modules. While one of these flags is _true_, the Duckiebot will behave according to the descriptions in the system architecture section.
 
-<div markdown="1">
+
  <col2 align='center' style="text-align:left" id='flags' figure-id="tab:flags" figure-caption="Flags received by other modules">
-    <td>flag_at_stop_line</td>                         <td>_True_ when the distance to stop line is below a predefined distance.</td>
-    <td>flag_stop_line_deteced</td>        <td>_True_ when number of detected red segments are above a threshold</td>
-    <td>flag_at_intersection</td>                       <td>_True_ when at intersection. This flag is passed to us by the Parking team.</td>
-    <td>flag_obstacle_detected</td>                  <td>_True_ when obstacle is in the lane. This flag is passed to us by the Saviors. </td>
-    <td>flag_obstacle_emergency_stop</td>           <td>_True_ when it is not possible to avoid the obstacle without leaving the right lane. </td>
-    <td>flag_at_parking_lot</td>           <td>_True_ when stopping at an intersection and the april tag for the parking lot is detected by the Parking team. </td>
-    <td>flag_parking_stop</td>        <td>Per default = _true_. If _false_, the lane-follower will move along the given trajectory on the parking lot.</td>
-    <td>flag_implicit_coordination</td>        <td>_True_ when implicit coordination is running, in this case we listen to the velocity published by them.</td>
+    <span>flag_at_stop_line</span>                         <span>_True_ when the distance to stop line is below a predefined distance.</span>
+    <span>flag_stop_line_deteced</span>        <span>_True_ when number of detected red segments are above a threshold</span>
+    <span>flag_at_intersection</span>                       <span>_True_ when at intersection. This flag is passed to us by the Parking team.</span>
+    <span>flag_obstacle_detected</span>                  <span>_True_ when obstacle is in the lane. This flag is passed to us by the Saviors. </span>
+    <span>flag_obstacle_emergency_stop</span>           <span>_True_ when it is not possible to avoid the obstacle without leaving the right lane. </span>
+    <span>flag_at_parking_lot</span>           <span>_True_ when stopping at an intersection and the april tag for the parking lot is detected by the Parking team. </span>
+    <span>flag_parking_stop</span>        <span>Per default = _true_. If _false_, the lane-follower will move along the given trajectory on the parking lot.</span>
+    <span>flag_implicit_coordination</span>        <span>_True_ when implicit coordination is running, in this case we listen to the velocity published by them.</span>
  </col2>
-</div>
+
 
 
 **Structure of the received messages with type _duckietown_msgs/LanePose_**
 
 The following table defines the structure of the pose messages the Lane Controller Node receives.
 
-<div markdown="1">
+
 <col4 align='center' style="text-align:left" id='posemessage' figure-id="tab:posemessage" figure-caption="Structure of pose message to be used.">
-<th>Field</th>      <th>Abstract Data Type</th>     <th>SI Units</th> <th>Description</th>
-<td>header</td>     <td>Header</td>     <td>-</td>         <td>Header</td>
-<td>d</td>         <td>float32</td>     <td>$m$</td>        <td>Estimated lateral offset</td>
-<td>sigma_d</td>     <td>float32</td>     <td>$m$</td>        <td>Variance of lateral offset</td>
-<td>phi</td>         <td>float32</td>     <td>$rad$</td>        <td>Estimated Heading error</td>
-<td>sigma_phi</td>     <td>float32</td>     <td>$rad$</td>        <td>Variance of heading error</td>
-<td>c</td>         <td>float32</td>     <td>$1/m$</td>        <td>Reference curvature</td>
-<td>status</td>     <td>int32</td>         <td>-</td>        <td>Status of Duckiebot 0 if normal, 1 if error is encountered</td>
-<td>in_lane</td>     <td>bool</td>         <td>-</td>    <td>In lane status</td>
+<span>Field</span>      <span>Abstract Data Type</span>     <span>SI Units</span> <span>Description</span>
+<span>header</span>     <span>Header</span>     <span>-</span>         <span>Header</span>
+<span>d</span>         <span>float32</span>     <span>$m$</span>        <span>Estimated lateral offset</span>
+<span>sigma_d</span>     <span>float32</span>     <span>$m$</span>        <span>Variance of lateral offset</span>
+<span>phi</span>         <span>float32</span>     <span>$rad$</span>        <span>Estimated Heading error</span>
+<span>sigma_phi</span>     <span>float32</span>     <span>$rad$</span>        <span>Variance of heading error</span>
+<span>c</span>         <span>float32</span>     <span>$1/m$</span>        <span>Reference curvature</span>
+<span>status</span>     <span>int32</span>         <span>-</span>        <span>Status of Duckiebot 0 if normal, 1 if error is encountered</span>
+<span>in_lane</span>     <span>bool</span>         <span>-</span>    <span>In lane status</span>
  </col4>
-</div>
+
 
 **Structure of the received messages with type _duckietown_msgs/ControlMessage_**
 
 The following table defines the structure of the control messages the Lane Controller Node receives from all the teams who want to send commands to our controller.
 
-<div markdown="1">
+
 <col4 align='center' style="text-align:left" id='controlmessage' figure-id="tab:controlmessage" figure-caption="Structure of control message to be used.">
-<th>Field</th>      <th>Abstract Data Type</th> <th>SI Units</th> <th>Description</th>
-<td>header</td>   <td>Header</td>     <td>-</td>   <td>Header</td>
-<td>d_est</td>   <td>float32</td>  <td>$m$</td>   <td>Estimated lateral offset</td>
-<td>d_ref</td>   <td>float32</td> <td>$m$</td> <td>Reference lateral offset</td>
-<td>phi_est</td> <td>float32</td> <td>$rad$</td> <td>Estimated Heading error</td>
-<td>phi_ref</td> <td>float32</td> <td>$rad$</td>  <td>Reference heading</td>
-<td>c_ref </td>  <td>float32</td> <td>$1/m$</td>  <td>Reference curvature</td>
-<td>v_ref</td>  <td>float32</td>  <td>$m/s$</td>  <td>Reference Velocity</td>
+<span>Field</span>      <span>Abstract Data Type</span> <span>SI Units</span> <span>Description</span>
+<span>header</span>   <span>Header</span>     <span>-</span>   <span>Header</span>
+<span>d_est</span>   <span>float32</span>  <span>$m$</span>   <span>Estimated lateral offset</span>
+<span>d_ref</span>   <span>float32</span> <span>$m$</span> <span>Reference lateral offset</span>
+<span>phi_est</span> <span>float32</span> <span>$rad$</span> <span>Estimated Heading error</span>
+<span>phi_ref</span> <span>float32</span> <span>$rad$</span>  <span>Reference heading</span>
+<span>c_ref </span>  <span>float32</span> <span>$1/m$</span>  <span>Reference curvature</span>
+<span>v_ref</span>  <span>float32</span>  <span>$m/s$</span>  <span>Reference Velocity</span>
 </col4>
-</div>
+
 
 **Structure of the received messages with type _duckietown_msgs/ControlVelocity**
 
 The following table defines the structure of the control messages that mostly the implicit coordination group will send us to control the velocity.
 
-<div markdown="1">
+
 <col4 align='center' style="text-align:left" id='ControlVelocity' figure-id="tab:ControlVelocity" figure-caption="Structure of velocity message to be used.">
-<th>Field</th> <th>Abstract Data Type</th> <th>SI Units</th> <th>Description</th>
-<td>header</td> <td>Header</td>     <td>-</td> <td>Header</td>
-<td>v_ref</td> <td>float32</td> <td>$m/s$</td><td>Reference Velocity</td>
- </col4>
-</div>
+<span>Field</span> <span>Abstract Data Type</span> <span>SI Units</span> <span>Description</span>
+<span>header</span> <span>Header</span>     <span>-</span> <span>Header</span>
+<span>v_ref</span> <span>float32</span> <span>$m/s$</span><span>Reference Velocity</span>
+</col4>
+
 
 **Information to be provided from each team**
 
 The following table defines the information we need from each team that uses the lane controller.
 
-<div markdown="1">
+
 <col2 align='center' style="text-align:left" id='InfosNeeded' figure-id="tab:'InfosNeeded'" figure-caption="Information needed from each team.">
-<th>Team</th> <th>Information</th>
-<td>Saviors</td> <td>$d_{ref}$, $v_{ref}$</td>
-<td>Navigators</td> <td>$d_{est}$, $d_{ref}$, $\theta_{est}$, $c_{ref}$, $v_{ref}$</td>
-<td>Parking team</td> <td>$d_{est}$, $d_{ref}$, $\theta_{est}$, $c_{ref}$, $v_{ref}$</td>
-<td>Implicit Coordination</td> <td>$v_{ref}$</td>
-<td>Fleet-level Planning</td> <td>$d_{ref}$, $v_{ref}$</td>
+<span>Team</span> <span>Information</span>
+<span>Saviors</span> <span>$d_{ref}$, $v_{ref}$</span>
+<span>Navigators</span> <span>$d_{est}$, $d_{ref}$, $\theta_{est}$, $c_{ref}$, $v_{ref}$</span>
+<span>Parking team</span> <span>$d_{est}$, $d_{ref}$, $\theta_{est}$, $c_{ref}$, $v_{ref}$</span>
+<span>Implicit Coordination</span> <span>$v_{ref}$</span>
+<span>Fleet-level Planning</span> <span>$d_{ref}$, $v_{ref}$</span>
  </col2>
-</div>
+
 
 _Stop Line Filter Node_
 
 In the following table, published topics are listed:
 
-<div markdown="1">
+
 <col2 align='center' style="text-align:left" id='stop_line_filter_node_published_topics' figure-id="tab:stop_line_filter_node_published_topics " figure-caption="Published topics by Stop Line Filter Node">
-  <th>Topic</th> <th>Max Latency</th>
-    <td>stop_line_reading</td>                         <td>negligible</td>
-    <td>flag_at_stop_line</td>                       <td>negligible </td>
+  <span>Topic</span> <span>Max Latency</span>
+    <span>stop_line_reading</span>                         <span>negligible</span>
+    <span>flag_at_stop_line</span>                       <span>negligible </span>
 </col2>
-</div>
+
 
 In the following table, subscribed topics are listed:
 
-<div markdown="1">
+
 <col2 align='center' style="text-align:left" id='stop_line_filter_node_subscribed_topics' figure-id="tab:stop_line_filter_noder_subscribed_topics" figure-caption="Published topics by Stop Line Filter Node"> 
-<th>Topic</th> <th>Max Latency</th>
- <td>segment_list</td>  <td>25 ms</td>
- <td>lane_pose</td>  <td>15 ms</td>
+<span>Topic</span> <span>Max Latency</span>
+ <span>segment_list</span>  <span>25 ms</span>
+ <span>lane_pose</span>  <span>15 ms</span>
 </col2>
-</div>
+
 
 
 <!--
