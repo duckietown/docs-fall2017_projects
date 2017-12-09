@@ -1,22 +1,16 @@
-#  Group name: preliminary design document {#project-name-preliminary-design-doc status=ready}
+#  PDD - Visual Odometry {#visual-odometry-pdd status=beta}
 
-<!-- EXAMPLE COMMENT
--->
 
 ## Part 1: Mission and scope
 
 ### Mission statement
 
-We will use unsupervised learning to build a depth estimation system for Duckietown.  
+We will use unsupervised learning to build a depth estimation system for Duckietown.
 The application could be building a point cloud map for Duckietown for mapping--our overall plan is to have a serviceable deep network that is trained end-to-end with no ground truth data.  We will also be using the Movidius chip, hopefully learning to how integrate it well into the current system for future users.
 
 ### Motto
 
-<div class='check' markdown="1">
-
-Quidquid latine dictum sit, altum videtur
-
-</div>
+Motto: CARPE DIEM <br/> (Seize the day)
 
 ### Project scope
 
@@ -72,12 +66,9 @@ Input: RGB Image
 Output: Depth map (potentially relative depth, discretized)
 
 ### Preliminary plan of deliverables
-
-What needs to be designed? The architecture and the data collecation and augmentation schemes.
-
-What needs to be implemented? Tensorflow implementation of architecture.
-
-What already exists and needs to be revised? Open source code for unsupervised learning of depth paper (linked below).
+The architecture and the data collecation and augmentation schemes need to be designed.
+Tensorflow implementation of architecture is what needs to be implemented.
+There already exists open source code for unsupervised learning of depth paper (linked below).
 
 ### Specifications
 Do you need to revise the Duckietown specification? N/A
@@ -99,8 +90,8 @@ All of the camera geometry and computer vision notes.
 
 #### Other relevant resources to investigate
 
-https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/
-https://github.com/tinghuiz/SfMLearner
+1. https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/
+2. https://github.com/tinghuiz/SfMLearner
 
 ### Risk analysis
 
