@@ -1,4 +1,4 @@
-# Deep Visual Odometry ROS Package
+# Deep Visual Odometry ROS Package {#visual-odometry-ROS-int-rep status=beta}
 ## devel-visual-odometry
 
 This package contains a ROS node `dt_visual_odometry` that produces monocular depth estimates on duckiebot. It also contains another node `apriltags_ros_center`, which is slightly modified from `apriltags_ros` to publish pixel locations, in order to benchmark the result on April tags. You need to have Tensorflow installed on your local machine.
