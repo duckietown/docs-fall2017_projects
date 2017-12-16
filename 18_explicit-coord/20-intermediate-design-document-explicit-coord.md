@@ -105,7 +105,7 @@ Software architect check-off: I, XXX, (agree / do not agree) that the above is c
 
 ### Demo plan
 
-Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year [](#Openhouse). The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
+Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year [](#demo-coordination2016). The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
 
 From testing last year’s code we realized that the coordination does not seem to work with the mentioned demo. Duckiebots stop at the red line but they do not communicate so that they never leave the intersection or decide to go independently of the presence and decision of the other Duckiebots. Although we investigated the problem by looking at separate nodes, no solution has been found yet.
 
