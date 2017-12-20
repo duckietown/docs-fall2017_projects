@@ -4,7 +4,6 @@
 
 
 ### Mission statement
-s
 
 Make the Duckiebot robust to illumination variation.
 
