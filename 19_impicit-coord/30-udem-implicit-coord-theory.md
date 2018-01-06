@@ -4,7 +4,7 @@ Implicit coordination of traffic at an intersection comprises the orchestration 
 
 As of today, the context of Duckietown provides a simplified environment -compared to real-life situations- where the only mobile entities are duckiebots.  This simplification provides an advantageous scenario to explore techniques at different levels of complexity which could be incrementally built to produce algorithms and heuristics applicable to more convoluted scenarios. 
 
-Predicting traffic behavior at an intersection depends on accurately detect and track the position of each object involved as the preamble of using prior information (traffic rules) for predicting the sequence of expected actions of each element. Hence, the conception of a mechanism that explicitly coordinates traffic at intersection requires the research, design, and implementation of components capable of producing the required data for this outcome.
+Predicting traffic behavior at an intersection depends on accurately detect and track the position of each object involved as the preamble of using prior information (traffic rules) for predicting the sequence of expected actions of each element. Hence, the conception of a mechanism that explicitly coordinates traffic at an intersection requires the research, design, and implementation of components capable of producing the required data for this outcome.
 
 ## Detection
 
