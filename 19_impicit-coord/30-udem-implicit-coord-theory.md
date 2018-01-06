@@ -1,6 +1,10 @@
 # Coordination with Implicit Communication 
 
-The goal of this project is to allow for coordination without any form of explicit communication between the duckiebots, such as LEDs or wireless communication. 
+Implicit coordination of traffic at an intersection comprises the orchestration of the traffic flow without any form of explicit communication between the entities involves, such as traffic lights, in-vehicle signalization or vehicle-to-vehicle (to-infrastructure) communication mechanisms. Thus,  the outcome of an implicit coordination mechanism is to produce an accurate prediction of when it is safe to proceed in an intersection crossing maneuver.
+
+As of today, the context of Duckietown provides a simplified environment -compared to real-life situations- where the only mobile entities are duckiebots.  This simplification provides an advantageous scenario to explore techniques at different levels of complexity which could be incrementally built to produce algorithms and heuristics applicable to more convoluted scenarios. 
+
+Predicting traffic behavior at an intersection depends on accurately detect and track the position of each object involved as the preamble of using prior information (traffic rules) for predicting the sequence of expected actions of each element. Hence, the conception of a mechanism that explicitly coordinates traffic at intersection requires the research, design, and implementation of components capable of producing the required semantic data for this outcome.
 
 ## Detection
 
