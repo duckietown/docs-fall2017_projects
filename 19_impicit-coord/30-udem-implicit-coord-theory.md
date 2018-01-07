@@ -7,9 +7,31 @@ As of today, Duckietown exhibits a less complex environment -compared to real-li
 Predicting traffic behavior at an intersection depends on accurately detect and track the position of each object as the preamble of applying prior information (traffic rules) for predicting the sequence of expected actions of each element. Hence, the conception of a mechanism that implicitly coordinates the individual behavior of a duckiebot under such circumstances comprises the research, design, and implementation of components capable of producing the required data for this outcome.
 
 ## Detection
-Object localization and detection tasks haven been extensively reviewed in the area of Computer Vision for more than 30 years **[REF]**. With the creation of large corpora of semantically annotated images and a surge of devices' computing power, machine learning techniques have achieved notable results in most visual perception tasks in detriment of purely computer vision-based methods. Most, if not all, state-of-the-art results on these large datasets (ImageNet, PASCAL VOC, MSCOCO, KITTI, and others) have been obtained with the implementation of neural network architectures (Convolutional Neural Networks) trained under a supervised learning regime.
+Object localization and detection tasks haven been extensively reviewed in the area of Computer Vision for more than 30 years [REF]. With the creation of large corpora of semantically annotated images and a surge of devices' computing power, machine learning techniques have achieved notable results in most visual perception tasks in detriment of purely computer vision-based methods. Most, if not all, state-of-the-art results on these large datasets (ImageNet, PASCAL VOC, MSCOCO, KITTI, and others) have been obtained with the implementation of neural network architectures (Convolutional Neural Networks) trained under a supervised learning regime.
 
-Therefore,  the examination of deep learning-based object detectors deems appropriate to obtain highly reliable information of the entities present in the field of view of a duckiebot. A state of the art CNN-based object detector is regularly composed two elements: a CNN for pre-trained on ImageNet object classification challenge (usually named "backbone") and a meta-architecture that transforms the features extracted from the CNN into proposed object regions (bounding boxes) **[Figure]**.  
+Therefore,  the examination of deep learning-based object detectors deems appropriate to obtain highly reliable information of the entities present in the field of view of a duckiebot. A state of the art CNN-based object detector is regularly composed two elements: a CNN for pre-trained on ImageNet object classification challenge (usually named "backbone") and a meta-architecture that transforms the features extracted from the CNN into proposed object regions (bounding boxes) **[Figure]**.  **[EXPAND]**
+
+### Object Detection in Duckietown
+
+As explained before, Duckietown presents a diminished environment when contrasted with real-life scenarios while the only entities that constitute the traffic at its intersections are duckiebots. Consequently, the object detection task is reduced to the retrieval of the bounding box of duckiebots.  Also, the current Duckiebot platform based on a Raspberry Pi 3 board poses a challenging constraint regarding the computational resources available. This low performant environment creates a requirement for the careful selection of a model that balances speed, memory consumption, and accuracy.  A recent paper produced by a Google Research team **[REF]** reproduces an apples-to-apples study of the speed/memory/accuracy trade-off between most variants of object detection algorithms. **Figure 1**  depicts the speed vs. accuracy comparison presented in **[]**. These results are the basis of the selection of an object detection algorithm in the context of an implicit coordination mechanism for Duckietown.
+
+### Duckiebot Detection Dataset
+
+As part of the effort of bringing deep learning-based duckiebot detection to the Duckietown infrastructure, there exists today a dataset composed of approximately 6000 non-rectified images containing duckiebots at different poses, collected at University of Montreal duckietown instance. There are currently only 612 instances labeled with all bounding box coordinates of all duckiebot present on the field of view of a duckietown parked at an intersection.
+
+### Object Detector Training
+We got away with 612 sample of one class by using Transfer Learning on a pre-trained model (on PASCAL VOC).
+
+Assumptions:
+Image Size: 300x300
+Max Detections per Class: 15
+Max Total Detections: 15
+IoU Threshold: 0.6
+
+Training:
+Tensorflow Object Detection API
+RMSProp with Exponential Learning Rate Decay
+Data augmentation: random horizontal flip 
 
 ### Object Detection in Duckietown
 
