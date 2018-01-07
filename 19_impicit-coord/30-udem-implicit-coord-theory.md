@@ -13,11 +13,17 @@ Therefore,  the examination of deep learning-based object detectors deems approp
 
 ### Object Detection in Duckietown
 
-As explained before, Duckietown presents a diminished environment when contrasted with real-life scenarios while the only entities that constitute the traffic at its intersections are duckiebots. Consequently, the object detection task is reduced to the retrieval of the bounding box of duckiebots.  Also, the current Duckiebot platform based on a Raspberry Pi 3 board poses a challenging constraint regarding the computational resources available. This low performant environment creates a requirement for the careful selection of a model that balances speed, memory consumption, and accuracy.  A recent paper produced by a Google Research team **[REF]** reproduces an apples-to-apples study of the speed/memory/accuracy trade-off between most variants of object detection algorithms. **Figure 1**  depicts the speed vs. accuracy comparison presented in **[]**. These results are the basis of the selection of an object detection algorithm in the context of an implicit coordination mechanism for Duckietown.
+As explained before, Duckietown presents a diminished environment when contrasted with real-life scenarios while the only entities that constitute the traffic at its intersections are duckiebots. Consequently, the object detection task is reduced to the retrieval of the bounding box of duckiebots.  Also, the current Duckiebot platform based on a Raspberry Pi 3 board poses a challenging constraint regarding the computational resources available. This low performant environment creates a requirement for the careful selection of a model that balances speed, memory consumption, and accuracy.  
+
+A recent paper produced by a Google Research team **[REF]** reproduces an apples-to-apples study of the speed/memory/accuracy trade-off among the object detection algorithms that have currently obtained the best result in different visual challenges. **Figure 1**  depicts the speed vs. accuracy the result of their research, and represents the basis for a selection of an object detection algorithm in the context of the implicit coordination mechanism.
 
 ### Duckiebot Detection Dataset
 
-As part of the effort of bringing deep learning-based duckiebot detection to the Duckietown infrastructure, there exists today a dataset composed of approximately 6000 non-rectified images containing duckiebots at different poses, collected at University of Montreal duckietown instance. There are currently only 612 instances labeled with all bounding box coordinates of all duckiebot present on the field of view of a duckietown parked at an intersection.
+All the aforementioned deep learning models obtain their results while training in a supervised learning regime. Thus, as part of the effort of bringing deep learning-based duckiebot detection to the Duckietown infrastructure, there exists today a dataset composed of approximately 6000 images collected at University of Montreal duckietown instance. 
+
+This non-rectified images collected from /image_node/camera/compressed/ topic mainly depict the scenario of a duckiebot parked at a 4-way intersection and capture different traffic patterns and behaviors. Also, in an attempt to make this detection procedure invariant to duckiebots' aspect, the dataset includes duckiebots in different poses, sizes, distances and portraying duckiebots wearing a shell with color variations **[FIGURES]**.
+
+Unfortunately, due to time and human resources constraints, there are currently only 612 densely annotated instances with bounding box coordinates for all duckiebots in the frame. 
 
 ### Object Detector Training
 We got away with 612 sample of one class by using Transfer Learning on a pre-trained model (on PASCAL VOC).
