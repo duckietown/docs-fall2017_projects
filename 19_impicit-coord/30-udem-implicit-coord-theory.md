@@ -8,10 +8,6 @@ Predicting traffic behavior at an intersection depends on accurately detect and 
 
 ## Detection
 
-Object localization and detection tasks haven been extensively reviewed in the area of Computer Vision for more than 30 years [REF]. With the creation of large corpora of semantically annotated images and a surge of devices' computing power, machine learning techniques have achieved notable results in most visual perception tasks in detriment of purely computer vision-based methods. Most, if not all, state-of-the-art results on these large datasets (ImageNet, PASCAL VOC, MSCOCO, KITTI, and others) have been obtained with the implementation of neural network architectures (Convolutional Neural Networks) trained under a supervised learning regime.
-
-Therefore,  the examination of deep learning-based object detectors deems appropriate to obtain highly reliable information of the entities present in the field of view of a duckiebot. A state of the art CNN-based object detector is regularly composed two elements: a CNN for pre-trained on ImageNet object classification challenge (usually named "backbone") and a meta-architecture that transforms the features extracted from the CNN into proposed object regions (bounding boxes) **[Figure]**.  **[EXPAND]**
-
 ### Object Detection in Duckietown
 
 A recent paper produced by a group at Google Research **[REF]** reproduces an apples-to-apples comparison of the speed/memory/accuracy trade-off among the object detection algorithms that have currently obtained the best result in different visual challenges. **Figure 1**  depicts the speed vs. accuracy the result of their research, and represents the basis for a selection of an object detection algorithm in the context of the implicit coordination mechanism.
@@ -29,22 +25,7 @@ All the aforementioned deep learning models obtain their results while training 
 Unfortunately, due to time and human resources constraints, there are currently only 612 densely annotated instances with bounding box coordinates for all duckiebots in the frame. 
 
 ### Object Detector Training
-We got away with 612 sample of one class by using Transfer Learning on a pre-trained model (on PASCAL VOC).
-
-Assumptions:
-Image Size: 300x300
-Max Detections per Class: 15
-Max Total Detections: 15
-IoU Threshold: 0.6
-
-Training:
-Tensorflow Object Detection API
-RMSProp with Exponential Learning Rate Decay
-Data augmentation: random horizontal flip 
-
-### Object Detection in Duckietown
-
-As explained before, Duckietown presents a diminished environment when contrasted with real-life scenarios while the only entities that constitute the traffic at its intersections are duckiebots. Consequently, the object detection task is reduced to the retrieval of the bounding box of duckiebots.  Also, the current Duckiebot platform based on a Raspberry Pi 3 board poses a challenging constraint regarding the computational resources available. This low performant environment creates a requirement for the careful selection of a model that balances speed, memory consumption, and accuracy.  A recent paper produced by a Google Research team **[REF]** reproduces an apples-to-apples study of the speed/memory/accuracy trade-off between most variants of object detection algorithms. **Figure 1**  depicts the speed vs. accuracy comparison presented in **[REF]**. These results are the basis of the selection of an object detection algorithm for the Duckietown environment.
+Another interesting result of the Google Research paper mentioned above is the creation of the Tensorflow Object Detection API **[LINK]**, which makes available a configurable Tensorflow-based library to train from scratch or to fine-tune object detection models. Commonly, training deep neural networks from scratch requires an amount of annotated data for which 612 frames is notably insufficient. In this case, the training of the object detector fine-tuned a MobileNets+SSD architecture pre-trained on the Pascal VOC dataset, thus relying on the notion of transfer learning.
 
 ## Tracking
 
