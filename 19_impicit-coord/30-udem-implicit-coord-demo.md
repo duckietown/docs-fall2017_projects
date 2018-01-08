@@ -23,7 +23,31 @@ object_detector:
   inference_graph_path: models/mobilenets_ssd.pb
   score_threshold: 0.2
   denormalize_boundingbox: True
-
 ```
 
+Parameters Documentation
+```
+object_detector:
+  inference_graph_path: path to pb file containing the Tensorflow model.
+  score_threshold: intersection over union threshold
+  denormalize_boundingbox: if the bounding box should be denormalized using image size
+```
+
+
 ### Messages
+
+`Detection.msg`
+```
+string class_label
+int32 class_id
+float32 xmin
+float32 xmax
+float32 ymin
+float32 ymax
+float32 score
+```
+
+`ObjectDetectionList.msg`
+```
+Detection[] detections
+```
