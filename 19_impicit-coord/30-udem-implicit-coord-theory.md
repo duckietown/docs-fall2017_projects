@@ -28,12 +28,14 @@ Worth noting that while conducting similar research on the constraints imposed b
 
 ### Duckiebot Detection Dataset
 
-All the aforementioned deep learning models obtain their results while training in a supervised learning regime. Thus, as part of the effort of bringing deep learning-based duckiebot detection to the Duckietown infrastructure, there exists today a dataset composed of approximately 6000 images collected at University of Montreal duckietown instance.  This non-rectified images collected from `~/image_node/camera/compressed/` topic mainly depict the scenario of a duckiebot parked at a 4-way intersection and capture different traffic patterns and behaviors. Also, in an attempt to make this detection procedure invariant to duckiebots' aspect, the dataset includes duckiebots in different poses, sizes, distances and portraying duckiebots wearing a shell with color variations.
+All the aforementioned deep learning models obtain their results while training in a supervised learning regime. Thus, as part of the effort of bringing deep learning-based duckiebot detection to the Duckietown infrastructure, there exists today a dataset composed of approximately 6000 images collected at University of Montreal duckietown instance.  This non-rectified images (640x480 pixels) collected from `~/image_node/camera/compressed/` topic mainly depict the scenario of a duckiebot parked at a 4-way intersection and capture different traffic patterns and behaviors. Also, in an attempt to make this detection procedure invariant to duckiebots' aspect, the dataset includes duckiebots in different poses, sizes, distances and portraying duckiebots wearing a shell with color variations.
 
 Unfortunately, due to time and human resources constraints, there are currently only 612 densely annotated instances with bounding box coordinates for all duckiebots in the frame. 
 
 ### Object Detector Training
-Another interesting result of the Google Research paper mentioned above is the creation of the [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection), which makes available a configurable Tensorflow-based library to train from scratch or to fine-tune object detection models. Commonly, training deep neural networks from scratch requires an amount of annotated data for which 612 frames is notably insufficient. In this case, the training of the object detector fine-tuned a MobileNets+SSD architecture pre-trained on the Pascal VOC dataset, thus relying on the notion of transfer learning.
+Another interesting result of the Google Research paper mentioned above is the creation of the [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection), which makes available a configurable Tensorflow-based library to train from scratch or to fine-tune object detection models. Commonly, training deep neural networks from scratch requires an amount of annotated data for which 612 frames is notably insufficient. In this case, the training of the object detector fine-tuned a MobileNets+SSD architecture pre-trained on the Microsoft COCO dataset, thus relying on the notion of transfer learning.
+
+Below, is the configuration of the Tensorflow Object Detection API used during training. Although it reflects conventional hyper-parameters values selection for these tasks, some assumptions made were explicitly tailored for duckiebots detection. Firstly, as discussed before, only duckiebots are detected `num_classes: 1`. Also, the dataset images were downsized to a dimension of 300x300 pixels `fixed_shape_resizer { height: 300 width: 300 }`, as a data augmentation technique each image produced a synthetic frame when applied random horizontal flip `data_augmentation_options {    random_horizontal_flip { } }`.  Another significant factor in object detection meta-architectures is the number of maximum detections per class, and the maximum number of detection per image assumed to be no than 15 `max_detections_per_class: 15   max_total_detections: 15`.
 
 ```
 model {
@@ -307,7 +309,7 @@ and
 	\end{bmatrix}
 \end{align*}
 
-### Measurment Model
+### Measurement Model
 
 Assuming a measurement is available at time $t_k$, the measurement $z_k^i$ can be expressed as
 
