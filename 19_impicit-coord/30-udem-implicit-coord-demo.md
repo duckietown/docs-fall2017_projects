@@ -33,7 +33,6 @@ object_detector:
   denormalize_boundingbox: if the bounding box should be denormalized using image size
 ```
 
-
 ### Messages
 
 `Detection.msg`
@@ -51,3 +50,14 @@ float32 score
 ```
 Detection[] detections
 ```
+
+### Topics
+
+#### Published
+
+`~detections : ObjectDetectionList`
+
+#### Subscribed
+
+`~camera_node/image/compressed : CompressedImage`
+
