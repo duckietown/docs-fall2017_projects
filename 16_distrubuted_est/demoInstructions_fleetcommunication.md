@@ -38,14 +38,9 @@ First, you need to install the wireless adapters. If the adapters are plugged in
 
 ??? Pat wrote a bash file
 
-Now install B.A.T.M.A.N. to enable mesh networking.
+Three more packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N. For this run the following code.
 
-?? Francesco's bash file install_batman
-
-Two more packages are needed to enable the communication beween the Duckiebots, namely Protobuf and ZeroMQ. For this run the following code.
-
-?? Francesco's bash file install_protobuf
-?? Francesco's bash file install_zeromq
+    duckiebot /catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies/install_fleet_messaging
 
 Now you are ready to make your Duckiebots talk to each other.
 
