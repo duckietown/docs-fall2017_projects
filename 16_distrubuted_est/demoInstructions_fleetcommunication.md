@@ -20,7 +20,7 @@ For this Demo, no Duckietown is needed.
 
 ## Duckiebot setup notes {#demo-template-duckiebot-setup}
 
-For this demo, additional wireless adapters are needed that allow mesh networking (e.g. a ????).
+For this demo, additional wireless adapters are needed that allow mesh networking (e.g. TP-Link TL-WN822N or TL-WN821N).
 
 
 ## Pre-flight checklist {#demo-template-pre-flight}
