@@ -12,9 +12,6 @@ Requires: A laptop.
 
 </div>
 
-## Video of expected results {#demo-template-expected}
-
-
 
 ## Duckietown setup notes {#demo-template-duckietown-setup}
 
