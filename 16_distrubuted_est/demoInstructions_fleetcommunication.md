@@ -80,8 +80,8 @@ enjoy the show!
 
 ## Troubleshooting {#demo-template-troubleshooting}
 
-Add here any troubleshooting / tips and tricks required.
+It's networking. If it doesn't work try reinstalling while floating a duck in the bathtub and lighting magic candles.
 
 ## Demo failure demonstration {#demo-template-failure}
 
-Finally, put here a video of how the demo can fail, when the assumptions are not respected.
+terminal_full_of_errors.avi
