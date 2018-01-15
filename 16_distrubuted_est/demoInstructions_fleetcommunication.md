@@ -41,7 +41,7 @@ Next specify a static IP adress, be carefull to not use the same IP on two bots.
     
 Then change to dependecie directory
 
-    $ cd ~duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
+    $ cd ~duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging_nomesh/dependencies
     
 install!
   
