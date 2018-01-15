@@ -47,7 +47,7 @@ Then change to dependecie directory
     
 install!
   
-    $ ./install_fleet_messaging <wifi-iface> <ipaddr>
+    $ ./install_fleet_messaging_nomesh <wifi-iface> <ipaddr>
 
 Now you are ready to make your Duckiebots talk to each other.
 
