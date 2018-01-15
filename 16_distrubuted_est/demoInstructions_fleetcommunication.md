@@ -6,7 +6,7 @@ This is the description of a communication setup between multiple Duckiebots.
 
 Requires: At least two Duckiebot in configuration DB17-w or higher.
 
-Requires: One additional wireless adapter per Duckiebot.
+Requires: One multicast-capable wireless adapter per Duckiebot (tested with TP-Link TL-WN822N or TL-WN821N).
 
 Requires: A laptop.
 
@@ -25,18 +25,21 @@ For this demo, additional wireless adapters are needed that allow mesh networkin
 
 ## Pre-flight checklist {#demo-template-pre-flight}
 
-The pre-flight checklist describes the steps that are sufficient to
+This pre-flight checklist describes the steps that are sufficient to
 ensure that the demo will be correct:
 
 Check: Additional wireless adapter is plugged in.
 
 Check: Duckiebots have sufficient battery charge.
 
+Check: Laptop is able to connect to Duckiebot networks
+
 ## Demo setup {#demo-template-run}
 
-First, you need to install the wireless adapters. If the adapters are plugged into the Duckiebots, run the following command on each Duckiebot.
+First, you need to install the wireless adapters on the Duckiebots.
+ssh into the bots and then run the following command on each Duckiebot.
 
-Find the name of the wifi interface and IP adressof the tp link adapter
+Find the name of the wifi interface and IP adress of the tp link adapter
 
     $ iwconfig
     
@@ -70,6 +73,8 @@ Now you are ready to make your Duckiebots talk to each other.
 In your duckietown repository on your duckiebot, run
 
     duckiebot $ source environment.sh
+    
+    roslaunch fleet_messaging tester.launch
     
     roslaunch fleet_messaging fleet_messaging.launch iface:='<interfacename>'
     
