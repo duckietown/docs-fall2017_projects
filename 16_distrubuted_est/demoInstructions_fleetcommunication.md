@@ -59,7 +59,7 @@ install!
   
     $ ./install_fleet_messaging <wifi-iface> <ipaddr>
 
-Now you are ready to make your Duckiebots talk to each other.
+After a reboot you are ready to make your Duckiebots talk to each other.
 
 
 ## Demo instructions {#demo-template-run}
