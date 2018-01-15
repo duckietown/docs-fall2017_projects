@@ -42,7 +42,7 @@ Find the name of the wifi interface and IP adressof the tp link adapter
     
 Then change to dependencie directory
 
-    cd /catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
+    cd ~duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
     
 install!
     
@@ -56,7 +56,7 @@ Find the name of the wifi interface and IP adress created by batman (wifi interf
     
 Then change to dependecie directory
 
-    cd /catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
+    cd ~duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
     
 install!
   
@@ -67,7 +67,7 @@ Now you are ready to make your Duckiebots talk to each other.
 
 ## Demo instructions {#demo-template-run}
 
-In your duckitown repository on your duckiebot, run
+In your duckietown repository on your duckiebot, run
 
     duckiebot $ source environment.sh
     
