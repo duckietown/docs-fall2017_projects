@@ -34,20 +34,25 @@ Check: Laptop is able to connect to Duckiebot networks.
 ## Demo setup {#demo-template-run}
 Some packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N.
 
-ssh into the Duckiebots and find the name of the wifi interface (wifi interface normally: wlan0) you can use iwconfig.
+ssh into the Duckiebots and source the environment
 
+    $ cd duckietown
+    $ source environment.sh
+
+and find the name of the wifi interface you can use iwconfig. (eg. wlx7c8bca1120e0 or wlan0)
 
     $ iwconfig
 
-Next specify a static IP adress, be carefull to not use the same IP on two bots. Then run the following commands:
+Next specify a static IP adress and write it on a piece of paper, be carefull to not use the same IP on two bots. (eg. 192.168.15.38/24)
+
     
 Then change to dependecie directory
 
-    $ cd ~duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging_nomesh/dependencies
+    $ cd ~/duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
     
 install!
   
-    $ ./install_fleet_messaging_nomesh <wifi-iface> <ipaddr>
+    $ ./install_fleet_messaging <wifi-iface> <ipaddr>
 
 Now you are ready to make your Duckiebots talk to each other.
 
