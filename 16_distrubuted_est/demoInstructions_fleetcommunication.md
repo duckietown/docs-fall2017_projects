@@ -71,6 +71,8 @@ In your duckietown repository on your duckiebot, run
 
     duckiebot $ source environment.sh
     
+    roslaunch fleet_messaging fleet_messaging.launch iface:='<interfacename>'
+    
 ... 
 
 ## Troubleshooting {#demo-template-troubleshooting}
