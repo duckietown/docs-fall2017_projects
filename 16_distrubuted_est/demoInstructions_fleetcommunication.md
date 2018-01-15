@@ -6,8 +6,6 @@ This is the description of a communication setup between multiple Duckiebots.
 
 Requires: At least two Duckiebot in configuration DB17-w or higher.
 
-Requires: One multicast-capable wireless adapter per Duckiebot (tested with TP-Link TL-WN822N or TL-WN821N).
-
 Requires: A laptop.
 
 </div>
@@ -20,29 +18,26 @@ For this Demo, no Duckietown is needed.
 
 ## Duckiebot setup notes {#demo-template-duckiebot-setup}
 
-For this demo, additional wireless adapters are needed that allow mesh networking (e.g. TP-Link TL-WN822N or TL-WN821N).
-
+No modification on the Duckiebots are needed.
 
 ## Pre-flight checklist {#demo-template-pre-flight}
 
 This pre-flight checklist describes the steps that are sufficient to
 ensure that the demo will be correct:
 
-Check: Additional wireless adapter is plugged in.
-
 Check: Duckiebots have sufficient battery charge.
 
-Check: Laptop is able to connect to Duckiebot networks
+Check: Laptop is able to connect to Duckiebot networks.
 
 ## Demo setup {#demo-template-run}
+Some packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N.
 
-ssh into the bots and then run the following command on each Duckiebot.
+ssh into the Duckiebots and find the name of the wifi interface (wifi interface normally: wlan0) you can use iwconfig.
 
-Some packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N. For this run the following code.
-
-Find the name of the wifi interface (wifi interface normally: wlan0) and specify a static IP adress, be carefull to not use the same IP on two bots
 
     $ iwconfig
+
+Next specify a static IP adress, be carefull to not use the same IP on two bots. Then run the following commands:
     
 Then change to dependecie directory
 
@@ -61,9 +56,9 @@ In your duckietown repository on your duckiebot, run
 
     duckiebot $ source environment.sh
     
-    roslaunch fleet_messaging tester.launch
+    roslaunch fleet_messaging fleet_messaging.launch 
     
-    roslaunch fleet_messaging fleet_messaging.launch iface:='<interfacename>'
+    roslaunch fleet_messaging tester.launch
     
 ... 
 
