@@ -52,15 +52,15 @@ Now you are ready to make your Duckiebots talk to each other.
 
 ## Demo instructions {#demo-template-run}
 
-In your duckietown repository on your duckiebot, run
+ssh into the bots, then in your duckietown repository run:
 
-    $ duckiebot $ source environment.sh
+    $ source environment.sh
     
     $ roslaunch fleet_messaging fleet_messaging.launch 
     
     $ roslaunch fleet_messaging tester.launch
     
-... 
+enjoy the show!
 
 ## Troubleshooting {#demo-template-troubleshooting}
 
