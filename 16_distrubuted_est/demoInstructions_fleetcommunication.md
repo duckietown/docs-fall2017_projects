@@ -1,4 +1,4 @@
-# Demo template {#demo-template status=final}
+# Demo template {#demo-template status=beta}
 
 This is the description of a communication setup between multiple Duckiebots.
 
@@ -78,9 +78,7 @@ To run the demo ssh into the bots, then in your duckietown repository run:
     
 and enjoy the show!
 
-Video:
-
-<iframe src="https://drive.google.com/file/d/1zbOqEXugNF9p6Ln8f2nk8CakFrZYiSbp/preview" width="640" height="480"></iframe>
+[Demo video](https://drive.google.com/file/d/1zbOqEXugNF9p6Ln8f2nk8CakFrZYiSbp/preview)
 
 ## Troubleshooting {#demo-template-troubleshooting}
 
