@@ -1,4 +1,4 @@
-# Demo template {#demo-template status=beta}
+# Demo template {#demo-template status=final}
 
 This is the description of a communication setup between multiple Duckiebots.
 
