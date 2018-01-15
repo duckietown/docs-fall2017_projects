@@ -39,8 +39,13 @@ First, you need to install the wireless adapters. If the adapters are plugged in
 Find the name of the wifi interface and IP adressof the tp link adapter
 
     $ iwconfig
+    
+Then change to dependencie directory
 
-    cd /catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies/install_meshnet
+    cd /catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
+    
+install!
+    
     ./install_fleet_messaging <wifi-iface> <ipaddr>
 
 Three more packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N. For this run the following code.
@@ -48,8 +53,13 @@ Three more packages are needed to enable the communication beween the Duckiebots
 Find the name of the wifi interface and IP adress created by batman (wifi interface: bat0)
 
     $ iwconfig
+    
+Then change to dependecie directory
 
     cd /catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
+    
+install!
+  
     ./install_fleet_messaging <wifi-iface> <ipaddr>
 
 Now you are ready to make your Duckiebots talk to each other.
