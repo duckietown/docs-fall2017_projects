@@ -25,6 +25,8 @@ No modification on the Duckiebots are needed.
 This pre-flight checklist describes the steps that are sufficient to
 ensure that the demo will be correct:
 
+Check: The Edimax adapter is installed and workes.
+
 Check: Duckiebots have sufficient battery charge.
 
 Check: Laptop is able to connect to Duckiebot networks.
