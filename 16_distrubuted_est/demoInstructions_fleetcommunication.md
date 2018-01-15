@@ -56,8 +56,6 @@ ssh into the bots, then in your duckietown repository run:
 
     $ source environment.sh
     
-    $ roslaunch fleet_messaging fleet_messaging.launch 
-    
     $ roslaunch fleet_messaging tester.launch
     
 enjoy the show!
