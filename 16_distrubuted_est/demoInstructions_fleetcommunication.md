@@ -36,7 +36,8 @@ Check: Duckiebots have sufficient battery charge.
 
 First, you need to install the wireless adapters. If the adapters are plugged into the Duckiebots, run the following command on each Duckiebot.
 
-??? Pat wrote a bash file
+    duckiebot /catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies/install_meshnet
+
 
 Three more packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N. For this run the following code.
 
