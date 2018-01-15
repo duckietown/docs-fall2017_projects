@@ -6,6 +6,8 @@ This is the description of a communication setup between multiple Duckiebots.
 
 Requires: At least two Duckiebot in configuration DB17-w or higher.
 
+Requires: One additional wireless adapter per Duckiebot and laptop. (e.g. TP-Link TL-WN822N or TL-WN821N).
+
 Requires: A laptop.
 
 </div>
@@ -18,18 +20,21 @@ For this Demo, no Duckietown is needed.
 
 ## Duckiebot setup notes {#demo-template-duckiebot-setup}
 
-No modification on the Duckiebots are needed.
+For this demo, additional wireless adapters are needed that allow mesh networking (e.g. TP-Link TL-WN822N or TL-WN821N).
 
 ## Pre-flight checklist {#demo-template-pre-flight}
 
 This pre-flight checklist describes the steps that are sufficient to
 ensure that the demo will be correct:
 
-Check: The Edimax adapter is installed and workes.
+Check: The additional Wifi adapter is installed and works.
+
+    $ sudo apt-get install build-essential linux-headers-generic dkms git
+    $ git clone https://github.com/Mange/rtl8192eu-linux-driver.git
+    $ sudo dkms add ./rtl8192eu-linux-driver
+    $ sudo dkms install rtl8192eu/1.0
 
 Check: Duckiebots have sufficient battery charge.
-
-Check: Laptop is able to connect to Duckiebot networks.
 
 ## Demo setup {#demo-template-run}
 Some packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N.
@@ -39,7 +44,7 @@ ssh into the Duckiebots and source the environment
     $ cd duckietown
     $ source environment.sh
 
-and find the name of the wifi interface you can use iwconfig. (eg. wlx7c8bca1120e0 or wlan0)
+and find the name of the wifi interface you can use iwconfig. (eg. wlx7c8bca1120e0)
 
     $ iwconfig
 
