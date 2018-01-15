@@ -58,6 +58,12 @@ Then change to dependecie directory
 install!
   
     $ ./install_fleet_messaging <wifi-iface> <ipaddr>
+    
+now you need to alter your network config, for this open the interfaces file:
+
+    $ sudo vim /etc/network/interfaces
+    
+change all four instances of wlan0 to wlan1
 
 After a reboot you are ready to make your Duckiebots talk to each other.
 
