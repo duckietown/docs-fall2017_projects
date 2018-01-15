@@ -41,11 +41,11 @@ Next specify a static IP adress, be carefull to not use the same IP on two bots.
     
 Then change to dependecie directory
 
-    cd ~duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
+    $ cd ~duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
     
 install!
   
-    ./install_fleet_messaging <wifi-iface> <ipaddr>
+    $ ./install_fleet_messaging <wifi-iface> <ipaddr>
 
 Now you are ready to make your Duckiebots talk to each other.
 
@@ -54,11 +54,11 @@ Now you are ready to make your Duckiebots talk to each other.
 
 In your duckietown repository on your duckiebot, run
 
-    duckiebot $ source environment.sh
+    $ duckiebot $ source environment.sh
     
-    roslaunch fleet_messaging fleet_messaging.launch 
+    $ roslaunch fleet_messaging fleet_messaging.launch 
     
-    roslaunch fleet_messaging tester.launch
+    $ roslaunch fleet_messaging tester.launch
     
 ... 
 
