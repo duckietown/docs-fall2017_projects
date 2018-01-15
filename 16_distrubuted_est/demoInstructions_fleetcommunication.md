@@ -4,7 +4,7 @@ This is the description of a communication setup between multiple Duckiebots.
 
 <div class='requirements' markdown="1">
 
-Requires: At least two Duckiebot in configuration DB17-w or higher.
+Requires: At least two Duckiebots in configuration DB17-w or higher.
 
 Requires: One additional wireless adapter per Duckiebot and laptop. (e.g. TP-Link TL-WN822N or TL-WN821N).
 
@@ -24,7 +24,7 @@ For this demo, additional wireless adapters are needed that allow mesh networkin
 
 ## Pre-flight checklist {#demo-template-pre-flight}
 
-This pre-flight checklist describes the steps that are sufficient to ensure that the demo will run correctly:
+This pre-flight checklist describes the steps that ensure that the installation and demo will run correctly:
 
 Check: The additional Wifi adapter is installed and works.
 
@@ -43,13 +43,15 @@ To install them, ssh into the Duckiebots and source the environment
     $ cd duckietown
     $ source environment.sh
 
-pull from devel-distributed-est-master, then find the name of the wifi interface you want to use with iwconfig. (eg. wlx7c8bca1120e0).
+pull the necessary files from devel-distributed-est-master.
+
+Then find the name of the wifi interface you want to use with iwconfig. (eg. wlx7c8bca1120e0).
 
     $ iwconfig
 
-Next specify a static IP adress and write it on a piece of paper, be carefull to not use the same IP on two bots. (eg. 192.168.15.38/24)
+Next specify a static IP adress and subnet and write it on a piece of paper, be carefull to not use the same IP on two bots. However, the subnet should stay the same on all bots. (eg. 192.168.15.38/24)
 
-after change to dependecie directory
+Change to dependecie directory
 
     $ cd ~/duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
     
@@ -61,7 +63,7 @@ Now you need to alter your network config, for this open the interfaces file:
 
     $ sudo vim /etc/network/interfaces
     
-change all four instances of wlan0 to wlan1.
+Change all four instances of wlan0 to wlan1.
 
 After a reboot you are ready to make your Duckiebots talk to each other.
 
