@@ -36,24 +36,11 @@ Check: Laptop is able to connect to Duckiebot networks
 
 ## Demo setup {#demo-template-run}
 
-First, you need to install the wireless adapters on the Duckiebots.
 ssh into the bots and then run the following command on each Duckiebot.
 
-Find the name of the wifi interface and IP adress of the tp link adapter
+Some packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N. For this run the following code.
 
-    $ iwconfig
-    
-Then change to dependencie directory
-
-    cd ~duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
-    
-install!
-    
-    ./install_fleet_messaging <wifi-iface> <ipaddr>
-
-Three more packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N. For this run the following code.
-
-Find the name of the wifi interface and IP adress created by batman (wifi interface: bat0)
+Find the name of the wifi interface (wifi interface normally: wlan0) and specify a static IP adress, be carefull to not use the same IP on two bots
 
     $ iwconfig
     
