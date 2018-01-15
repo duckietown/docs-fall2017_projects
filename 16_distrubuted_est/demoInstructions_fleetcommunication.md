@@ -78,6 +78,10 @@ To run the demo ssh into the bots, then in your duckietown repository run:
     
 and enjoy the show!
 
+Video:
+
+<iframe src="https://drive.google.com/file/d/1zbOqEXugNF9p6Ln8f2nk8CakFrZYiSbp/preview" width="640" height="480"></iframe>
+
 ## Troubleshooting {#demo-template-troubleshooting}
 
 It's networking. If it doesn't work try reinstalling while letting 99 duckies swim in the bathtub and lighting magic candles.
