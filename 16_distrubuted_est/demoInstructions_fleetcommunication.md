@@ -78,7 +78,7 @@ and enjoy the show!
 
 ## Troubleshooting {#demo-template-troubleshooting}
 
-It's networking. If it doesn't work try reinstalling while letting 99 dueckies swim in the bathtub and lighting magic candles.
+It's networking. If it doesn't work try reinstalling while letting 99 duckies swim in the bathtub and lighting magic candles.
 
 ## Demo failure demonstration {#demo-template-failure}
 
