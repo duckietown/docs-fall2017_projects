@@ -1,4 +1,4 @@
-#  Group name: final report {#template-final-report status=draft}
+#  Group name: final report {#fleet-communication-final-report status=draft}
 
 <!--
 General notes:
@@ -7,7 +7,7 @@ General notes:
 
 _The objective of this report is to bring justice to your hard work during the semester and make so that future generations of Duckietown students may take full advantage of it. Some of the sections of this report are repetitions from the preliminary and intermediate design document (PDD, IDD respectively)._
 
-## The final result {#template-final-result}
+## The final result {#fleet-communication-final-result}
 
 _Let's start from a teaser._
 
@@ -15,13 +15,13 @@ _Let's start from a teaser._
 
 Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
 
-## Mission and Scope {#template-final-scope}
+## Mission and Scope {#fleet-communication-final-scope}
 
 _Now tell your story:_
 
-Define what is your mission here.
+Enable Duckiebots to communicate with each other wirelessly.
 
-### Motivation {#template-final-result-motivation}
+### Motivation {#fleet-communication-final-result-motivation}
 
 _Now step back and tell us how you got to that mission._
 
@@ -29,23 +29,22 @@ _Now step back and tell us how you got to that mission._
 
 - Why is it important? [Relevance]
 
-### Existing solution {#template-final-literature}
+- In the previous state of Duckietown, Duckiebots wer individual autonomous agents roaming around Duckietown with no way to communicate with each other. To connect all Duckiebots to build one functioning system of fleets working together to pick up and drop customers in the optimal way, the Duckiebots need to be able to communicate with each other.
 
-- Was there a baseline implementation in Duckietown which you improved upon, or did you implemented from scratch? Describe the "prior work"
+- One important part of this communication setup is that it needs to be decentralized and Duckiebots can join and leave the system without putting the whole network at risk to fail. This also allows for the network to be scaled to an arbitary size.
 
-### Opportunity {#template-final-opportunity}
+- Due to the current state of Duckietown, the communication is needed, but not limited to, fleet planning control and multi-SLAM.
 
-- What didn't work out with the existing solution? Why did it need improvement?
 
-Examples:
-- there wasn't a previous implementation
-- the previous performance, evaluated according to some specific metrics, was not satisfactory
-- it was not robust / reliable
-- somebody told me to do so (/s)
+### Existing solution {#fleet-communication-final-literature}
 
-* How did you address the gap in knowledge?
+- There was no prior work to build a communication system upon. Everything was implemented from scratch.
 
-- We used method / algorithm xyz to fix the gap in knowledge (don't go in the details here)
+### Opportunity {#fleet-communication-final-opportunity}
+
+- We implemented a fleet-communication package from scratch that builds an ad-hoc mesh network and lets other teams define their messag types and sends them over the created network.
+
+
 - Make sure to reference papers you used / took inspiration from
 
 ### Preliminaries (optional) {#template-final-preliminaries}
