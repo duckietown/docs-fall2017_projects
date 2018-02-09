@@ -43,8 +43,7 @@ Examples:
 - it was not robust / reliable
 - somebody told me to do so (/s)
 
-* How did you address the gap in knowledge?
-
+* How did you go about improving the existing solution / approaching the problem? [contribution]
 - We used method / algorithm xyz to fix the gap in knowledge (don't go in the details here)
 - Make sure to reference papers you used / took inspiration from
 
