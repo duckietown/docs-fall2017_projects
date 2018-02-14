@@ -22,7 +22,7 @@ LINKS STILL MISSING!
 
 **_“URBEM ANATUM TUTIOS FACIENDA (EST) - MAKE DUCKIETOWN A SAFER PLACE”_**
 
-The goal of Duckietown is to provide a relative simple platform to explore, tackle and solve many problems linked to autonomous driving in the simple but infinitely expandable environment of “Duckietown”. From controlling single driving Duckiebots till complete fleet management every scenario is possible and can be put into practice. Due to the previous classes and also the great work of many volunteers many software packages were already developed and provided a solid basis. But something was still missing.   
+The goal of Duckietown is to provide a relative simple platform to explore, tackle and solve many problems linked to autonomous driving in the simple but infinitely expandable environment of “Duckietown”. From controlling single driving Duckiebots until complete fleet management, every scenario is possible and can be put into practice. Due to the previous classes and also the great work of many volunteers many software packages were already developed and provided a solid basis. But something was still missing.   
 
 ### Motivation {#saviors-final-result-motivation}
 <!--_Now step back and tell us how you got to that mission._
@@ -32,11 +32,11 @@ The goal of Duckietown is to provide a relative simple platform to explore, tack
 So far, none of the mentioned modules was capable of reliably detecting obstacles and reacting to them in real time. Not only we saw a problem in the situation at that time: _“ Ensuring safety is a paramount concern for the citizens of Duckietown. The city has therefore commissioned the implementation of protocols for guaranteed obstacle detection and avoidance.”_(cite from the Project Pitch Slides). Therefore the foundation of our complete module lies in the disposal of this shortcoming. 
 Finding a good solution for this safety related and very important topic helped us to stay motivated every day we were trying to improve our solution.
 
-The goal of our entire module is to detect obstacles and react to them properly. Due to the limited amount of time, we limited and focused the scope of our module to two points: 
-1. In terms of Detection, we focused on the one hand to reliably detecting yellow duckies and therefore to saving the little duckies that want to cross the road and on the other hand to detect orange cones to not crash into any construction site in Duckietown. 
-2. In terms of reacting to the detected obstacles we were mainly restricted by the constraint given by the controllers of our Duckiebots who do not allow us to cross the middle of the road. This eliminated the need of also having to have a Duckiebot detection algorithm. So we focused in writing software which tries to avoid obstacles within our own lane as far as it is possible (e.g. for avoiding cones on the side of the lane) and to stop otherwise. 
-Besides from those first restrictions and simplifications we faced the general problem of detecting obstacles given images from a monocular RGB camera mounted at the front of our Duckiebot and reacting to them properly without crashing or erroneously stopping the Duckiebot. All of the two processes above have to be implemented and running on the RasberryPi’s in real time. Due to the strong hardware limitations, we decided to not use learning for the obstacle detection part. 
-As it later transpired a working "hard coded" software needs thorough analysis and understanding of th given problem.
+The goal of our module is to detect obstacles and react accordingly. Due to the limited amount of time, we limited and focused the scope of our module to two points: 
+1. In terms of detection, we focused on the one hand to reliably detecting yellow duckies and therefore to saving the little duckies that want to cross the road and on the other hand to detect orange cones to not crash into any construction site in Duckietown. 
+2. In terms of reacting to the detected obstacles we were mainly restricted by the constraint given by the controllers of our Duckiebots who do not allow us to cross the middle of the road. This eliminated the need of also having to have a Duckiebot detection algorithm. So we focused in writing software which tries to avoid obstacles within our own lane if it is possible (e.g. for avoiding cones on the side of the lane) and to stop otherwise. 
+Besides from those first restrictions and simplifications we faced the general problem of detecting obstacles given images from a monocular RGB camera mounted at the front of our Duckiebot and reacting to them properly without crashing or erroneously stopping the Duckiebot. Both processes above have to be implemented and run on the RasberryPi’s in real time. Due to the strong hardware limitations, we decided to not use any learning algorithms for the obstacle detection part. 
+As it later transpired a working "hard coded" software needs thorough analysis and understanding of the given problem.
 However, in the future, considering additional hardware like e.g. http://www.zdnet.com/article/google-offers-raspberry-pi-owners-this-new-ai-vision-kit-to-spot-cats-people-emotions/, this decision might be adapted. 
 
 In practice a well working obstacle detection is of course one of the most important parts of an autonomous system to certainly improve the outcome of unexpected situations. Therefore the relevance of an obstacle detection in a framework like "Duckietown" is very important because the aim of duckietown is to simulate the real world as realistic as possible and also in other topics as fleet planning a system with obstacle detection behaves completely different than a system without. 
@@ -46,7 +46,7 @@ In practice a well working obstacle detection is of course one of the most impor
 
 There was an exisitng solution from 2016. We had a look into the old software, one step of them was quite similar to ours: They based their obstacle detection on the colors of the obstacles, therefore they also did their processing in the HSV color space as we did. In section 
 TO DO!!!!!
-you can find the reason why it's better to do color processing in the HSV space. Because we implemted our solution from scratch and didn't base on any work they did, probably you won't find any futher similarites. The reason for implementing our own code from scratch can be found in the next section [Opprtunity](#saviors-final-opportunity). The solution from the year before was operated on the normal camera image and tried to find the contour of the object whereas we are using a very different approach as you can see in section 
+you can find the reason why it's better to do color processing in the HSV space. Because we implemted our solution from scratch and didn't base on any work they did, probably you won't find any further similarites. The reason for implementing our own code from scratch can be found in the next section [Opprtunity](#saviors-final-opportunity). The solution from the year before was operated on the normal camera image and tried to find the contour of the object whereas we are using a very different approach as you can see in section 
 TO DO!!!!!
 
 ### Opportunity {#saviors-final-opportunity}
@@ -62,7 +62,7 @@ Examples:
 
 From the beginning it was quite clear that the software was not working reliably enough. The information we have been given was that by far it didn't detect all of the obstacles and that there were quite a few false positives: It detected line segments in the middle as obstacles (color and size are quite similar to the ones of typical duckies) which led to the stopping of the car. As mentioned we had a look into the software and tried to understand it as well as possible but because it was not documented at all we couldn't go to much into detail. For sure we had a completely different idea of how we wanted to tackle this challenge. 
 
-We also tried to start their software but we couldn't make it run after an significant amount of time, the readme file didn't contain any information and the rest of the software was not documented as well. This also reinforced us in our decision to write our implementation from scratch. 
+We also tried to start their software but we couldn't make it run after a significant amount of time, the readme file didn't contain any information and the rest of the software was not documented as well. This also reinforced us in our decision to write our implementation from scratch. 
 
 ### Preliminaries {#saviors-final-preliminaries}
 <!--- Is there some particular theorem / "mathy" thing you require your readers to know before delving in the actual problem? Add links here.
@@ -70,7 +70,7 @@ Definition of link:
 - could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
 - (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)-->
 
-Since our task was to reliably detect obstacles using a mono camera only, we mainly dealed with processing the camera image, etracting the needed information, visualizing the results and to act accordingly in the real world. 
+Since our task was to reliably detect obstacles using a mono camera only, we mainly dealed with processing the camera image, extracting the needed information, visualizing the results and to act accordingly in the real world. 
 
 For understanding our approach we tried to explain and summarize the needed concepts in the theory chapter, see section 
 TO DO!!!!!
@@ -90,7 +90,7 @@ As an input we have an RGB colored image taken by a monocular camera (only one c
 
 With this information given we want to find out whether an obstacle is in our way or not. If so, we want to either stop or adapt the trajectory to pass without crashing into the obstacle. This information is then given as an output to the controllers who will then process out commands and try to act accordingly. 
 
-Therefore one of the first very important decisions was to basically separate the _detection_ and _reaction_ parts of our **saviors pipeline**. This allowed us to divide our work efficiently and to start right away. This is also supposed to ensure a wide range of flexibility: 
+Therefore one of the first very important decisions was to separate the _detection_ and _reaction_ parts of our **saviors pipeline**. This allowed us to divide our work efficiently and to start right away. This is also supposed to ensure a wide range of flexibility: 
 This separation makes it possible to easily replace, optimize or work on one of the parts (either the obstacle avoidance strategies or obstacle detection algorithms) in the future. 
 Of course it also includes having to define a clear, reasonable interface in between the two modules, which will later be explained in detail. 
 
@@ -116,14 +116,14 @@ Of course it was our aim to reach the maximum within these specifeid limits. The
 * Obstacle color (within the orange, and yellow to detect different traffic cones and duckies)
 * Illumination
 
-For measuring the performance we used the follwoing metrics:
+For measuring the performance we used the following metrics:
 * Percentage of correctly classified obstacles on our picture dataset
 * Same for changing light condiitions
 
 An evaluation of our goals and the reached performance can be found in the [Performance Evaluation](#saviors-final-formal) section. 
 
 Our approach is simply based on analysing the incoming pictures separately for obstacles in each picture and using this information only. In theory it would be also possible, but computational much more expensive to estimate the depth of each pixel through some visual odometry algorithm using a single camera only. But in this case we would need to consider multiple images to having a good depth estimate. However, the large amount of motion blur, a missing IMU (for estimating the absolute scale) and the additional computational costs clearly argue against such an approach. 
-In our case we use the extrinsics calibrations to estimate the positions of the given obstacles. Logically spoken this is possible because we know our distance and angle to the street. Assuming the street to lie on a plane allows an posiiton estimate. For more details refer to the [section below](#saviors-functionality-computer-vision).
+In our case we use the extrinsics calibrations to estimate the positions of the given obstacles. Logically spoken this is possible because we know our distance and angle to the street. Assuming the street to lie on a plane allows an position estimate. For more details refer to the [section below](#saviors-functionality-computer-vision).
 
 The final output is supposed to look as [](#fig:part_1_image_final).
 
@@ -131,9 +131,9 @@ The final output is supposed to look as [](#fig:part_1_image_final).
 
 ### Part 2: Avoidance in Real World - Description {#saviors-definition-avoidance} 
 
-With the from _Part 1_ given 3D position, size and the labelling whether the object is on the lane or not, we wanted to reatch the final objectives:
+With the from _Part 1_ given 3D position, size and the labelling whether the object is on the lane or not, we wanted to reach the final objectives:
 
-1. Plan path around (HOW MANY???) obstacles if possile (we have to stay within our lane)
+1. Plan path around obstacle if possile (we have to stay within our lane)
 2. If this is not possible, simply stop
 
 The assumptions for correctly reacting to the previously detected obstacles are:
@@ -169,7 +169,7 @@ In the beginning we tried to do the detection in the normal camera image. Due to
 * Comparing the height and the width of the objects
 * Taking the pixel volume of the duckies
 
-Unofortuantely none of the described approaches provided a sufficient performance. Also a combination of them didn't make the desired impact. All metrices which are somehow associated with the size of the object just won't work because duckies further away from the duckiebot are simply a lot smaller than the one very close to the Duckiebot. All metrices associated with the "squareness" of the lines were strongly disturbed by the ocurring motion blur. This makes finding a general criterion very difficult. 
+Unfortunately none of the described approaches provided a sufficient performance. Also a combination of them didn't make the desired impact. All metrices which are somehow associated with the size of the object just won't work because duckies further away from the duckiebot are simply a lot smaller than the one very close to the Duckiebot. All metrices associated with the "squareness" of the lines were strongly disturbed by the ocurring motion blur. This makes finding a general criterion very difficult. 
 
 Therefore we looked out for an alternative method and found another approach. 
 
@@ -297,7 +297,7 @@ To us the determination of the pose was expected to be the most critical. Our pr
 
 _Devel-controllers_ did not plan on being able to intentionally leave the lane. Meaning the space left to avoid an obstacle on the side of the lane is tight making above uncertainties more severe.
 
-We evaluated the option to keep track of our position inside the map. Given a decent accuracy of said position we’d be able to create a map of the detected obstacles. Given multiple detections (also outside of the bounding box) we could achieve a further estimation of our pose relative to the obstacles. This essentially would mean creating a SLAM-algorithm with obstacles as landmarks. We declared as out of scope given the size of our team.
+We evaluated the option to keep track of our position inside the map. Given a decent accuracy of said position we’d be able to create a map of the detected obstacles. Given multiple detections (also outside of the bounding box) we could achieve a further estimation of our pose relative to the obstacles. This essentially would mean creating a SLAM-algorithm with obstacles as landmarks. We declared as out of scope given the size of our team as well as the computational constraints.
 The goal was to make use of a stable, continuous detection and in each frame react on it.
 
 #### **Actual Implementation** {#saviors-avoidance-implementation}
@@ -310,13 +310,13 @@ One important part of the Software is the handling of the interfaces, mainly to 
 
 The obstacle avoidance part of the problem is handled on an additional node, called the obstacle_avoidance_node.
 The node uses two main inputs which are the obstacle pose and the lane pose.
-The obstacle pose is an input coming from the obstacle detection node, which contains an array of all the obstacles currently detected. Each array element consists of an x and y coordinate of an obstacle in the robot frame (with the camera as origin) and the radius of the detected object. By setting the radius to a negative value, the detection node indicates that this obstacle is outside the lane and should not be considered in our code.
-The lane pose is coming from the line detection node and contains among other channels we don’t use the current estimated distance to the middle of the lane (d) as well as the current heading of the robot $\theta$.
+The obstacle pose is an input coming from the obstacle detection node, which contains an array of all the obstacles currently detected. Each array element consists of an x and y coordinate of an obstacle in the robot frame (with the camera as origin) and the radius of the detected object. By setting the radius to a negative value, the detection node indicates that this obstacle is outside the lane and should not be considered for avoidance.
+The lane pose is coming from the line detection node and contains among other unused channels the current estimated distance to the middle of the lane (d) as well as the current heading of the robot $\theta$.
 [](#fig:definitions_top) introduces the orientations and definitions of the different inputs which are processed in the obstacle avoidance node.
 
 <center><img figure-id="fig:definitions_top" figure-caption="Variable Definitions seen from the Top" src="definitions_top.jpg" style="width: 500px;"/></center>
 
-Using the obstacle pose array we determine how many obstacles need to be considered for avoidance. If the detected obstacle is outside the lane and therefore marked with a negative radius by the obstacle detection node we can ignore it for our node. Furthermore, we use a bounding box with variable size which assures that only objects in a certain range from the robot are considered. As soon as an object within limits is inside of the bounding box, the obstacle_avoidance_active flag is set to true and the algorithm already introduced in [](#fig:avoidance_logic) is executed.
+Using the obstacle pose array we determine how many obstacles need to be considered for avoidance. If the detected obstacle is outside the lane and therefore marked with a negative radius by the obstacle detection node we can ignore it. Furthermore, we use the before mentioned bounding box with tunable size which assures that only objects in a certain range from the robot are considered. As soon as an object within limits is inside of the bounding box, the obstacle_avoidance_active flag is set to true and the algorithm already introduced in [](#fig:avoidance_logic) is executed.
 
 **Case 1: Obstacle Avoidance**
 
@@ -325,14 +325,16 @@ First step of the avoider function is to transform the transmitted obstacle coor
 
 <center><img figure-id="fig:coordinate" figure-caption="Geometry of described Scene" src="coordinate.png" style="width: 500px;"/></center>
 
-If the transformation shows that an avoidance is possible we calculate the d_ref we need to achieve to avoid the obstacle. This is sent to the lane control node and then processed as new target distance to the middle of the lane.
-At the current stage, the obstacle avoidance is not working due to inaccuracies in the estimation of $\theta$. The value shows inaccuracies with an amplitude of 10°, which leads to wrong calculations of the transformation and therefore to misjudgement of the d_ref. For this stage to work, the estimation of  would need significant improvement.
+If the transformation shows that an avoidance is possible we calculate the d_ref we need to achieve to avoid the obstacle. This is sent to the lane control node and then processed as new target distance to the middle of the lane. The lane control node uses this target and starts to correct the duckiebots position in the lane. With each new obstacle pose being generated this target is adapted so that the duckiebot eventually reaches target position. The slow transition movement allows us to avoid the obstacle even when it is not visible anymore shortly before the robot is at the same level as the obstacle.
+
+At the current stage, the obstacle avoidance is not working due to very high inaccuracies in the estimation of $\theta$. The value shows inaccuracies with an amplitude of 10°, which leads to wrong calculations of the transformation and therefore to misjudgement of the d_ref. The high amplitude of these imprecisions could be transformed to a uncertainty factor of around 3 which means that each object is around 3 times its actual size which means that even a small obstacle on the side of the lane would not allow a safe avoidance to take place. For this stage to work, the estimation of $\theta$ would need significant improvement.
 
 **Case 2: Emergency Stop**
 
 Conditions for triggering an emergency stop:
 * More than one obstacle in range
 * Avoidance not possible because the obstacle is in the middle of the lane
+* **Currently every obstacle detection in the bounding box triggers an emergency stop due to the above reasons**
 If one of the above scenarios occurs an avoidance is not possible and the robot needs to be stopped. By setting the target speed to zero, the lane controller node stops the robot.
 As soon as the situation is resolved by removing the obstacle which triggered the emergency stop, the robot can proceed with the lane following.
 
@@ -399,6 +401,7 @@ Furthermore there is still room for improvements in our opinion. E.g. in the fut
 
 Towards the really end of our project we also tried to apply this approach which worked really well for the white and yellow filtering but unfortunately not for the orange (cone) filter. (BRANCH: devel-saviors-ai-tryout2) We think that if in the future one will stick to the hardware that this might be a very interesting approach since the linear trafo provided by the anti instagram team is usually sufficient for correcting the colors and this effort could save a whole publisher and subscriber and it is obvious that it is by far more efficient to transform a few filter values once than to transform every pixel of every incoming pixel. Furthermore we think that this approach might be useful for the lane detection or other vision based algorithms which are based on the concept of filtering colors.
 
+In terms of avoidance there would be possibilities to handle the high incurracies of the pose estimation by relying on the lane controller to not leave the lane and just use a kind of closed loop control to avoid the obstacle (Use the new position of the detected obstacle in each frame to securely avoid the duckie). Furthermore the infrastructure is in place to include new scenarios like obstacles on intersection or multiple detected obstacles inside the bounding box. If multiple obstacles are in proximity, a more sophisticated trajectory generation could be put in place to avoid these obstacles in a safe and optimal way. 
 ## Theory Chapter {#saviors-theory-chapter}
 
 ### Required Matrix Transformations {#saviors-transformations}
