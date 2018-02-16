@@ -22,27 +22,30 @@ _Scope:_
  
 - Focus on autonomous lane follwing by learning based tools. 
 
-### Motivation {#template-final-result-motivation}
+### Motivation {#supervised-learning-final-result-motivation}
 
 According to the definition of 'data process inequality', essential information is prone to be left out along a long process chain, like the conventional approach for autonomous lane follwiing. To cope with this problem, an end-to-end network work is expected to be implemented, which maps raw input images from camera to vehecles' control command directly.
 
-### Existing solution {#template-final-literature}
+### Existing solution {#supervised-learning-final-literature}
 
-- Was there a baseline implementation in Duckietown which you improved upon, or did you implemented from scratch? Describe the "prior work"
+The similar end-to-end imitation learning neural network has already been implemented by Nvidia for the task of lane following on real roads. The demo details can be seen from the following link. [Nvidia demo](https://youtu.be/-96BEoXJMs0)
+
+In the case of Nvidia's work, researchers did not program any explicit object detection, mapping, path planning or control component into this car. Instead, the vehicle learns on its own to create all necessaty internal representations necessary to steer, simply by observing human drivers. The success of learning to drive in complex environments demomstrates new capacities of deep neural network.
 
 ### Opportunity {#template-final-opportunity}
 
-- What didn't work out with the existing solution? Why did it need improvement?
+Though the aim is quite same between Nvidia's work and our project, the specific requirements are different. Moreover, our group is the first one to start projects on supervised learning's application on Duckiebots on Zurich's branch. Therefore, the opportunities can be summarized into following aspects: [contribution]
 
-Examples:
-- there wasn't a previous implementation
-- the previous performance, evaluated according to some specific metrics, was not satisfactory
-- it was not robust / reliable
-- somebody told me to do so (/s)
+- There wasn't previous implementation of supevised learning's application on lane following for Duckiebots;
 
-* How did you go about improving the existing solution / approaching the problem? [contribution]
-- We used method / algorithm xyz to fix the gap in knowledge (don't go in the details here)
-- Make sure to reference papers you used / took inspiration from
+- The performance of current approach for lane following is not optimal due to the computation limit of Raspberry Pi;
+
+- For Nvidia's implementation, the network's input is the raw images, and the control command is steering angles, gas and brake, which is different from our case in Duckietown, where the control output is only the Bot's orientation;
+
+Specifically, by implementing the network for lane following, we hope to improve the performance of the conventional approach. This can be assured by two aspects: 
+
+- End-to-end network can have better performance due to 'data process inequality';
+- With an extra on-board coputation device Neural Compute Stick, the computation power of Duckiebots can be futher increased.
 
 ### Preliminaries (optional) {#template-final-preliminaries}
 
