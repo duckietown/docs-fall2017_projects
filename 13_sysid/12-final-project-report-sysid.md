@@ -23,9 +23,9 @@ Define what is your mission here.
 
 The mission is to make the controller more robust to different configurations of the robot. One approach to do this is obtaining a mathematical model of the Duckiebot in order to understand its behavior. The mathematical model can then be used to design a controller to obtain robust desired behaviors and performances.
 
-The Duckiebot is in a differential-drive configuration. It actuates each wheel with a separate DC Motor. By applying the same torque on both wheels one can go straight, and by applying different torques the Duckiebot turns. A schematic overview of the model can be seen in Figure [](#fig:model).
+The Duckiebot is in a differential-drive configuration. It actuates each wheel with a separate DC Motor. By applying the same torque on both wheels one can go straight, and by applying different torques the Duckiebot turns. A schematic overview of the model can be seen in Figure [](#fig:model) [](#bib:Modeling).
 
-<div figure-id="fig:model" figure-caption="Model of differential drive robot [](#bib:Modeling)">
+<div figure-id="fig:model" figure-caption="Model of differential drive robot">
   <img src="model.PNG" style='width: 30em; height:auto'/>
 </div>
 
@@ -317,8 +317,49 @@ with
 
 ## Contribution / Added functionality {#sysid-final-contribution}
 
+The calibration procedure consists of two parts:
 
-### Pose estimation w.r.t. chessboard from successive image
+* Recording rosbag for different duckiebot maneuvers in front of chess board
+
+* Offline processing of rosbag to find odometry parameters with fit
+
+To reproduce the results see the  [operation manual](#demo-sysid) which includes detailed instructions for a demo.
+
+### Recording rosbag log of Duckiebot maneuvers
+
+Place the Duckiebot in front of the chessboard at a distance of slightly more than 1 meter in front of the checkerboard (~2 duckie tiles), as shown in the image ().. The heading has to be set iteratively to maximize the time the duckiebot sees the checkerboard.
+
+<div figure-id="fig:calibration_setup" figure-caption="The calibration setup">
+     <img src="calibration_setup.jpg" style='width: 30em'/>
+</div>
+
+Run the calibration procedure
+
+    duckiebot $ roslaunch calibration commands.launch veh:=robot name
+
+The Duckietown should go forward and then stop. 
+
+Step 5 When the Duckiebot has stopped, you have 10 seconds to replace it again at a distance of approximately 1 meters of the chessboard. Wait for the Duckiebot to move forward again.
+
+
+Step 8: Run the calibration process with 
+
+    laptop $ roslaunch calibration calibration.launch veh:=robot name  path:=/absolute/path/to/the/rosbag/folder/
+    
+(path example: path:=/home/user_name/sysid/) Do not forget the backslash at the end of the path.(Common mistake: path not starting from /home, forgetting the last / in the path)
+
+Step 9: Once the command has finished, the parameters of your Duckiebot are stored in the folder
+
+    ![DUCKIEFLEET_ROOT]/calibrations/kinematics/![robot name].yaml
+    
+Step 10: Push the duckiefleet changes to git and pull from the duckiebot
+
+
+
+
+
+
+### Pose estimation w.r.t. chessboard
 
 
 #### Step 1 - Find 2D image points of chessboard in picture
@@ -388,10 +429,14 @@ where as we use the following equations:
 The yaw $\theta$ can then be extracted from $R^{I}_{veh}$ with the implemented rot2euler() function.
 The resulting translation can be extracted from $t_{I Veh}$
 
-### Integration
+
+
+### Extract Duckiebot pose w.r.t chessboard from successive image recorded in rosbag
+
+
+
 
 ### Fit
-
 
 
 
@@ -402,11 +447,12 @@ The resulting translation can be extracted from $t_{I Veh}$
 
 ** Pose estimation w.r.t. chessboard from successive images**  :
 
-Accuracy
 
-Precision
+Run the Validation: Duckiebot should first drive straight for 1m (in 5s) then turn a full circle to the left (in 8s) and then a full circle to the right (in 8s)
 
+    duckiebot $ roslaunch calibration test.launch
 
+known issue: the baseline is rather overestimated at the moment, thus the duckiebot will probably turn more than a circle
 
 ** Offset in straight line **  :
 
@@ -418,13 +464,16 @@ We will will drive the Duckiebot with a constant velocity $ v_a $ and constant a
 
 ** Overall User friendliness ** : 
 
-<div figure-id="fig:demo_succeeded-sysid">
+<div figure-id="fig:demo">
     <figcaption>Demo of the calibration procedure
     </figcaption>
     <dtvideo src='vimeo:251383652'/>
 </div>
 
 
+
+The current calibration is done offline. USB stick etc. 
+Of course, this can be improved in future efforts.=> Future make online
 
 
 
