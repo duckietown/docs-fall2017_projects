@@ -425,6 +425,17 @@ In terms of avoidance there would be possibilities to handle the high incurracie
 
 ### Required Matrix Transformations {#saviors-transformations}
 
+### Introduction to Computer Vision
+* Shortly Introduce Linear Camera Model and Matrix writing
+* Point out that with mono cam no depth information is possible at all
+* Propably shortly give intuition how we humans are able to extract scale (Var 1: Stereo and Triangulation; Var 2: guessing the right scale by having some reference objects)
+* Introduce our calibration technique -> if all objects are in ground plane -> we have a scale!
+
+### Obstacle Detection exploiting Inverse Perspective Mapping
+* exploiting the fact that we have scale -> show how you can transform one image plane into another one using mathematical equations!!!
+* give mathematical background behind transforming one image plane into another!
+* show why this inverse perspective lets you evaluate the scale and easily extract obstacles which "come out of the ground"
+
 ### HSV Color Space {#saviors-HSV}
 
 While a HSV image is hardly readable for humans, it is way better to filter for specific colors, since effectively in the RGB color space all “the three channels are effectively correlated by the amount of light hitting the surface,” so the color and light properties are not separated ( https://www.learnopencv.com/color-spaces-in-opencv-cpp-python/ ). However, in the HSV space, there is only one channel (the H channel) to describe the color. The S represents the saturation and H the intensity. This is the reason why it is super useful for specific color filtering.
