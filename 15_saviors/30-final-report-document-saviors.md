@@ -29,25 +29,27 @@ The goal of Duckietown is to provide a relative simple platform to explore, tack
 - What are we talking about? [Brief introduction / problem in general terms]
 - Why is it important? [Relevance]-->
 
-So far, none of the mentioned modules was capable of reliably detecting obstacles and reacting to them in real time. Not only we saw a problem in the situation at that time: _“ Ensuring safety is a paramount concern for the citizens of Duckietown. The city has therefore commissioned the implementation of protocols for guaranteed obstacle detection and avoidance.”_(cite from the Project Pitch Slides). Therefore the foundation of our complete module lies in the disposal of this shortcoming. 
+So far, none of the mentioned modules was capable of reliably detecting obstacles and reacting to them in real time. We were not the only ones who saw a problem in the situation at that time: _“ Ensuring safety is a paramount concern for the citizens of Duckietown. The city has therefore commissioned the implementation of protocols for guaranteed obstacle detection and avoidance.”_(cite from the Project Pitch Slides). Therefore the foundation of our complete module lies in the disposal of this shortcoming. 
 Finding a good solution for this safety related and very important topic helped us to stay motivated every day we were trying to improve our solution.
 
 The goal of our module is to detect obstacles and react accordingly. Due to the limited amount of time, we limited and focused the scope of our module to two points: 
-1. In terms of detection, we focused on the one hand to reliably detecting yellow duckies and therefore to saving the little duckies that want to cross the road and on the other hand to detect orange cones to not crash into any construction site in Duckietown. 
-2. In terms of reacting to the detected obstacles we were mainly restricted by the constraint given by the controllers of our Duckiebots who do not allow us to cross the middle of the road. This eliminated the need of also having to have a Duckiebot detection algorithm. So we focused in writing software which tries to avoid obstacles within our own lane if it is possible (e.g. for avoiding cones on the side of the lane) and to stop otherwise. 
+
+1. In terms of detection, we focused on the one hand to reliably detecting yellow duckies and therefore to saving the little duckies that want to cross the road and on the other hand to detect orange cones to not crash into any construction site in Duckietown.
+
+2. In terms of reacting to the detected obstacles we were mainly restricted by the constraint given by the controllers of our Duckiebots who do not allow us to cross the middle of the road. This eliminated the need of also having to have a Duckiebot detection algorithm. So we focused on writing software which tries to avoid obstacles within our own lane if it is possible (e.g. for avoiding cones on the side of the lane) and to stop otherwise. 
+
 Besides from those first restrictions and simplifications we faced the general problem of detecting obstacles given images from a monocular RGB camera mounted at the front of our Duckiebot and reacting to them properly without crashing or erroneously stopping the Duckiebot. Both processes above have to be implemented and run on the RasberryPi’s in real time. Due to the strong hardware limitations, we decided to not use any learning algorithms for the obstacle detection part. 
 As it later transpired a working "hard coded" software needs thorough analysis and understanding of the given problem.
-However, in the future, considering additional hardware like e.g. http://www.zdnet.com/article/google-offers-raspberry-pi-owners-this-new-ai-vision-kit-to-spot-cats-people-emotions/, this decision might be adapted. 
+However, in the future, considering additional hardware like e.g. --- [Tung, "Google offers Raspberry Pi owners this new AI vision kit" (2017)](http://www.zdnet.com/article/google-offers-raspberry-pi-owners-this-new-ai-vision-kit-to-spot-cats-people-emotions/), this decision might be adapted. 
 
 In practice a well working obstacle detection is of course one of the most important parts of an autonomous system to certainly improve the outcome of unexpected situations. Therefore the relevance of an obstacle detection in a framework like "Duckietown" is very important because the aim of duckietown is to simulate the real world as realistic as possible and also in other topics as fleet planning a system with obstacle detection behaves completely different than a system without. 
 
 ### Existing solution {#saviors-final-literature}
 <!--- Was there a baseline implementation in Duckietown which you improved upon, or did you implemented from scratch? Describe the "prior work"-->
 
-There was an exisitng solution from 2016. We had a look into the old software, one step of them was quite similar to ours: They based their obstacle detection on the colors of the obstacles, therefore they also did their processing in the HSV color space as we did. In section 
-TO DO!!!!!
-you can find the reason why it's better to do color processing in the HSV space. Because we implemted our solution from scratch and didn't base on any work they did, probably you won't find any further similarites. The reason for implementing our own code from scratch can be found in the next section [Opprtunity](#saviors-final-opportunity). The solution from the year before was operated on the normal camera image and tried to find the contour of the object whereas we are using a very different approach as you can see in section 
-TO DO!!!!!
+There was a previous implementation from the MIT classes in 2016. Of course we had a look into the old software and found out that one step of them was quite similar to ours: They based their obstacle detection on the colors of the obstacles. Therefore they also did their processing in the HSV color space as we did. Further information on why filtering colors in the HSV space is advantageous can be found HERE TODO.!!!! (THEORY CHAPTER!!!)
+
+Nevertheless, we implemted our solution from scratch and didn't base ours on any further concepts found in their software. That is why you won't find any further similarites between the two implementations. The reasons for implementing our own code from scratch can be found in the next section [Opprtunity](#saviors-final-opportunity). In short, last year's solution considered the image given the original camera's perspective and tried to classify the objects based on their contour. We are using a very different approach concerning those two crucial parts as you can see in the following section. TO DO!!!!! INSERT LINK!!!!!!!!!
 
 ### Opportunity {#saviors-final-opportunity}
 <!--at didn't work out with the existing solution? Why did it need improvement?
@@ -60,7 +62,7 @@ Examples:
 - We used method / algorithm xyz to fix the gap in knowledge (don't go in the details here)
 - Make sure to reference papers you used / took inspiration from-->
 
-From the beginning it was quite clear that the software was not working reliably enough. The information we have been given was that by far it didn't detect all of the obstacles and that there were quite a few false positives: It detected line segments in the middle as obstacles (color and size are quite similar to the ones of typical duckies) which led to the stopping of the car. As mentioned we had a look into the software and tried to understand it as well as possible but because it was not documented at all we couldn't go to much into detail. For sure we had a completely different idea of how we wanted to tackle this challenge. 
+From the beginning it was quite clear that the old software was not working reliably enough. The information we have been given was that by far it didn't detect all of the obstacles and that there were quite a few false positives: It detected yellow line segments in the middle of the road as obstacles (color and size are quite similar to the ones of typical duckies) which led to the stopping of the car. Furthermore extracting the contour of every potential obstacle is highly computationally expensive. As mentioned we had a look into the software and tried to understand it as well as possible but because it was not documented at all we couldn't go to much into detail. On top of that, from the very beginning we had a completely different idea of how we wanted to tackle these challenges. 
 
 We also tried to start their software but we couldn't make it run after a significant amount of time, the readme file didn't contain any information and the rest of the software was not documented as well. This also reinforced us in our decision to write our implementation from scratch. 
 
@@ -70,9 +72,9 @@ Definition of link:
 - could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
 - (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)-->
 
-Since our task was to reliably detect obstacles using a mono camera only, we mainly dealed with processing the camera image, extracting the needed information, visualizing the results and to act accordingly in the real world. 
+Since our task was to reliably detect obstacles using a monocular camera only, we mainly dealt with processing the camera image, extracting the needed information, visualizing the results and to act accordingly in the real world. 
 
-For understanding our approach we tried to explain and summarize the needed concepts in the theory chapter, see section 
+For understanding our approach we tried to explain and summarize the needed concepts in the theory chapter, see section LINK INSERTEN!!!! TO DO!!!!!. There you will find all the references to the relevant sources. 
 TO DO!!!!!
 
 ## Definition of the problem {#saviors-final-problem-def}
@@ -84,45 +86,49 @@ Make sure you include your:
 
 In this chapter we try to explain our problem in a more scientific way and to show all needed steps for fullfilling the superordinate functionality of **"avoiding obstacles"**.
 
-As an input we have an RGB colored image taken by a monocular camera (only one camera) only. The input image could look as [](#fig:image_start).
+The only input is a RGB colored image taken by a monocular camera (only one camera). The input image could look as [](#fig:image_start).
 
-<center><img figure-id="fig:image_start" figure-caption="Image including Visualization of Detected Obstacles" src="image_start.jpg" style="width: 200px;"/></center>
+<center><img figure-id="fig:image_start" figure-caption="Sample Image including some Obstacles" src="image_start.jpg" style="width: 200px;"/></center>
 
-With this information given we want to find out whether an obstacle is in our way or not. If so, we want to either stop or adapt the trajectory to pass without crashing into the obstacle. This information is then given as an output to the controllers who will then process out commands and try to act accordingly. 
+With this information given we want to find out whether an obstacle is in our way or not. If so, we want to either stop or adapt the trajectory to pass without crashing into the obstacle. This information is then forwarded as an output to the controllers who will then process out commands and try to act accordingly. 
 
 Therefore one of the first very important decisions was to separate the _detection_ and _reaction_ parts of our **saviors pipeline**. This allowed us to divide our work efficiently and to start right away. This is also supposed to ensure a wide range of flexibility: 
 This separation makes it possible to easily replace, optimize or work on one of the parts (either the obstacle avoidance strategies or obstacle detection algorithms) in the future. 
 Of course it also includes having to define a clear, reasonable interface in between the two modules, which will later be explained in detail. 
 
-You can have a look in our [Preliminary Design Document](#saviors-PDD-problem-definition) to see how we defined the following topics in the beginning: The problem statement, our final objective, the underlying assumption we lean on and the performance measurement to quantitatively check the perfomance of our algorithms. For the most part it worked out to adhere to this document but for sake of completeness we will shortly repeat them again in the following for each of the two submodules. 
+You can have a look in our [Preliminary Design Document](#saviors-PDD-problem-definition) to see how we defined the following topics in the beginning: The problem statement, our final objective, the underlying assumptions we lean on and the performance measurement to quantitatively check the perfomance of our algorithms. For the most part it worked out to adhere to this document but for sake of completeness we will shortly repeat them again in the following for each of the two submodules. 
 
 ### Part 1: Computer Vision - Description {#saviors-definition-computer-vision}
 
-In principle we wanted to use the camera image only to reach the following:
+In principle we wanted to use the camera image only to ***reach the following***:
 
 1. **Detect** the obstacles in the camera image
 2. **Viusalize** them in the camera image for tuning parameters and optimizing the code
 3. Give the **3D coordinates** of every detected obstacle in the real world
-4. Give the **size** of every detected obstacle in the form of a radius around the3d coordinate
-5. Label each obstacle if it's **on the road or outside** (e.g. for not stopping in a curve)
-6. **Visualize** them in the 3D world
+4. Give the **size** of every detected obstacle in the form of a radius around the 3D coordinate
+5. Label each obstacle if it's **inside or outside the lane boundaries** (e.g. for not stopping in a curve)
+6. **Visualize** them as markers in the 3D world (rviz)
 
-Of course every algorithm has its limitations, therefore we made the following assumptions (slightly changed since the _Preliminary Design Document_ because in principle we are now also able to detect duckies on the middle line and in intersections):
+Of course every algorithm has its limitations, therefore we made the following ***assumptions***: 
+
 * Obstacles are only yellow duckies and orange cones
 * Calibrated camera including intrinsics and extrinsics
 
-Of course it was our aim to reach the maximum within these specifeid limits. Therefore our goal was not only the detection and visualization in general but we also wanted to reach the maximum robustness to changes in:
+Those assumptions changed slightly since the _Preliminary Design Document_ because we are now also able to detect duckies on the middle line and in intersections.
+
+Of course it was our aim to reach the maximum within these specifeid limits. Therefore our goal was not only the detection and visualization in general but we also wanted to reach the ***maximum robustness*** to changes in:
+
 * Obstacle size
 * Obstacle color (within the orange, and yellow to detect different traffic cones and duckies)
 * Illumination
 
-For measuring the performance we used the following metrics:
+For measuring the ***performance*** we used the following metrics:
 * Percentage of correctly classified obstacles on our picture dataset
 * Same for changing light condiitions
 
 An evaluation of our goals and the reached performance can be found in the [Performance Evaluation](#saviors-final-formal) section. 
 
-Our approach is simply based on analysing the incoming pictures separately for obstacles in each picture and using this information only. In theory it would be also possible, but computational much more expensive to estimate the depth of each pixel through some visual odometry algorithm using a single camera only. But in this case we would need to consider multiple images to having a good depth estimate. However, the large amount of motion blur, a missing IMU (for estimating the absolute scale) and the additional computational costs clearly argue against such an approach. 
+Our ***approach*** is simply based on analysing the incoming pictures separately for obstacles in each picture and using this information only. In theory it would be also possible, but computational much more expensive to estimate the depth of each pixel through some visual odometry algorithm using a single camera only. But in this case we would need to consider multiple images to having a good depth estimate. However, the large amount of motion blur, a missing IMU (for estimating the absolute scale) and the additional computational costs clearly argue against such an approach. 
 In our case we use the extrinsics calibrations to estimate the positions of the given obstacles. Logically spoken this is possible because we know our distance and angle to the street. Assuming the street to lie on a plane allows an position estimate. For more details refer to the [section below](#saviors-functionality-computer-vision).
 
 The final output is supposed to look as [](#fig:part_1_image_final).
