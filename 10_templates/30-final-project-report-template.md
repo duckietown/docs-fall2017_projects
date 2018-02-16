@@ -24,7 +24,7 @@ _Scope:_
 
 ### Motivation {#supervised-learning-final-result-motivation}
 
-According to the definition of 'data process inequality', essential information is prone to be left out along a long process chain, like the conventional approach for autonomous lane follwiing. To cope with this problem, an end-to-end network work is expected to be implemented, which maps raw input images from camera to vehecles' control command directly.
+According to the definition of 'data process inequality', essential information is prone to be left out along a long process chain, like the conventional approach for autonomous lane following. To cope with this problem, an end-to-end network work is expected to be implemented, which maps raw input images from camera to vehecles' control command directly.
 
 ### Existing solution {#supervised-learning-final-literature}
 
@@ -32,30 +32,34 @@ The similar end-to-end imitation learning neural network has already been implem
 
 In the case of Nvidia's work, researchers did not program any explicit object detection, mapping, path planning or control component into this car. Instead, the vehicle learns on its own to create all necessaty internal representations necessary to steer, simply by observing human drivers. The success of learning to drive in complex environments demomstrates new capacities of deep neural network.
 
-### Opportunity {#template-final-opportunity}
+### Opportunity {#supervised-learning-final-opportunity}
 
-Though the aim is quite same between Nvidia's work and our project, the specific requirements are different. Moreover, our group is the first one to start projects on supervised learning's application on Duckiebots on Zurich's branch. Therefore, the opportunities can be summarized into following aspects: [contribution]
+Though the aim is quite same between Nvidia's work and our project, the specific requirements are different. Moreover, our group is the first one to start projects on supervised learning's application on Duckiebots on Zurich's branch. Therefore, the opportunities can be summarized into following aspects:
 
 - There wasn't previous implementation of supevised learning's application on lane following for Duckiebots;
 
 - The performance of current approach for lane following is not optimal due to the computation limit of Raspberry Pi;
 
-- For Nvidia's implementation, the network's input is the raw images, and the control command is steering angles, gas and brake, which is different from our case in Duckietown, where the control output is only the Bot's orientation;
+- For Nvidia's implementation, the network's input is the raw images, and the control command is steering angles, gas and brake, which is different from our case in Duckietown, where the control output is only the Bot's orientation; CNN is expected to be used in our case to realize the end-to-end control;
 
 Specifically, by implementing the network for lane following, we hope to improve the performance of the conventional approach. This can be assured by two aspects: 
 
 - End-to-end network can have better performance due to 'data process inequality';
+
 - With an extra on-board coputation device Neural Compute Stick, the computation power of Duckiebots can be futher increased.
 
-### Preliminaries (optional) {#template-final-preliminaries}
+### Preliminaries (optional) {#supervised-learning-final-preliminaries}
 
-- Is there some particular theorem / "mathy" thing you require your readers to know before delving in the actual problem? Add links here.
+There are two parts of preliminaries that are important to the implementation:
 
-Definition of link:
-- could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
-- (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)
+- Train an effective Convotional Neural Network which can maps raw image to orientation of Duckiebots for lane following;
 
-## Definition of the problem {#template-final-problem-def}
+- Implement a ROS node which subscribes to input images, communicates with Neural Compute Stick and completes the computation, and publishes the orientation angle to the car control node. 
+
+To be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; 
+to know how to implement ROS in our project, please refer to the code directly.
+
+## Definition of the problem {#supervised-learning-final-problem-def}
 
 _Up to now it was all fun and giggles. This is the most important part of your report: a crisp mathematical definition of the problem you tackled. You can use part of the preliminary design document to fill this section._
 
@@ -64,7 +68,7 @@ Make sure you include your:
 - assumptions made (including contracts with "neighbors")
 - quantitative performance metrics to judge the achievement of the goal
 
-## Contribution / Added functionality {#template-final-contribution}
+## Contribution / Added functionality {#supervised-learning-final-contribution}
 
 Describe here, in technical detail, what you have done. Make sure you include:
 - a theoretical description of the algorithm(s) you implemented
