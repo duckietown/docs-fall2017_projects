@@ -1,12 +1,12 @@
-#  Group name: final report {#template-final-report status=draft}
+#  Supervised Learning: final report {#supervised-learning-final-report status=draft}
 
 This is the final project report for the group of Supervised Learning at ETH Zurich 2017 Fall Semester. The project motivation, implementation and results are shown here. For inquries about Convolutional Neural Network training, please contact Shaohui Yang (), for inquiries about ROS implmemtnation of the project, please contact Tianlu Wang (tiawang@student.ethz.ch).
 
-## The final result {#template-final-result}
+## The final result {#supervised-learning-final-result}
 
 The final results are shown in the attached video. See the following links. [Recorded video](https://youtu.be/FCP8Ndoxae0) 
 
-## Mission and Scope {#template-final-scope}
+## Mission and Scope {#supervised-learning-final-scope}
 
 _Mission:_
 
