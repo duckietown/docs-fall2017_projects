@@ -15,7 +15,7 @@ See the code description (readme-file):
 
 See the [operation manual](#demo-template) to reproduce these results.
 
-LINKS STILL MISSING!
+***LINKS STILL MISSING!***
 
 ## Mission and Scope {#saviors-final-scope}
 <!--Define what is your mission here.-->
@@ -47,9 +47,9 @@ In practice a well working obstacle detection is of course one of the most impor
 ### Existing solution {#saviors-final-literature}
 <!--- Was there a baseline implementation in Duckietown which you improved upon, or did you implemented from scratch? Describe the "prior work"-->
 
-There was a previous implementation from the MIT classes in 2016. Of course we had a look into the old software and found out that one step of them was quite similar to ours: They based their obstacle detection on the colors of the obstacles. Therefore they also did their processing in the HSV color space as we did. Further information on why filtering colors in the HSV space is advantageous can be found HERE TODO.!!!! (THEORY CHAPTER!!!)
+There was a previous implementation from the MIT classes in 2016. Of course we had a look into the old software and found out that one step of them was quite similar to ours: They based their obstacle detection on the colors of the obstacles. Therefore they also did their processing in the HSV color space as we did. Further information on why filtering colors in the HSV space is advantageous can be found ***HERE TODO.!!!! (THEORY CHAPTER!!!)***
 
-Nevertheless, we implemted our solution from scratch and didn't base ours on any further concepts found in their software. That is why you won't find any further similarites between the two implementations. The reasons for implementing our own code from scratch can be found in the next section [Opprtunity](#saviors-final-opportunity). In short, last year's solution considered the image given the original camera's perspective and tried to classify the objects based on their contour. We are using a very different approach concerning those two crucial parts as you can see in the following section. TO DO!!!!! INSERT LINK!!!!!!!!!
+Nevertheless, we implemted our solution from scratch and didn't base ours on any further concepts found in their software. That is why you won't find any further similarites between the two implementations. The reasons for implementing our own code from scratch can be found in the next section [Opprtunity](#saviors-final-opportunity). In short, last year's solution considered the image given the original camera's perspective and tried to classify the objects based on their contour. We are using a very different approach concerning those two crucial parts as you can see in the following section. ***TO DO!!!!! INSERT LINK!!!!!!!!!***
 
 ### Opportunity {#saviors-final-opportunity}
 <!--at didn't work out with the existing solution? Why did it need improvement?
@@ -74,8 +74,8 @@ Definition of link:
 
 Since our task was to reliably detect obstacles using a monocular camera only, we mainly dealt with processing the camera image, extracting the needed information, visualizing the results and to act accordingly in the real world. 
 
-For understanding our approach we tried to explain and summarize the needed concepts in the theory chapter, see section LINK INSERTEN!!!! TO DO!!!!!. There you will find all the references to the relevant sources. 
-TO DO!!!!!
+For understanding our approach we tried to explain and summarize the needed concepts in the theory chapter, see section ***LINK INSERTEN!!!! TO DO!!!!!***. There you will find all the references to the relevant sources. 
+***TO DO!!!!!***
 
 ## Definition of the problem {#saviors-final-problem-def}
 <!--_Up to now it was all fun and giggles. This is the most important part of your report: a crisp mathematical definition of the problem you tackled. You can use part of the preliminary design document to fill this section._
@@ -122,14 +122,16 @@ Of course it was our aim to reach the maximum within these specifeid limits. The
 * Obstacle color (within the orange, and yellow to detect different traffic cones and duckies)
 * Illumination
 
-For measuring the ***performance*** we used the following metrics:
-* Percentage of correctly classified obstacles on our picture dataset
-* Same for changing light condiitions
+For measuring the ***performance*** we used the following metrics, evaluated under different light conditions and different velocities (static and in motion):
+
+* Percentage of correctly classified obstacles on our picture datasets
+* Percentage of false positives
+* Percentage of missed obstacles
 
 An evaluation of our goals and the reached performance can be found in the [Performance Evaluation](#saviors-final-formal) section. 
 
-Our ***approach*** is simply based on analysing the incoming pictures separately for obstacles in each picture and using this information only. In theory it would be also possible, but computational much more expensive to estimate the depth of each pixel through some visual odometry algorithm using a single camera only. But in this case we would need to consider multiple images to having a good depth estimate. However, the large amount of motion blur, a missing IMU (for estimating the absolute scale) and the additional computational costs clearly argue against such an approach. 
-In our case we use the extrinsics calibrations to estimate the positions of the given obstacles. Logically spoken this is possible because we know our distance and angle to the street. Assuming the street to lie on a plane allows an position estimate. For more details refer to the [section below](#saviors-functionality-computer-vision).
+Our ***approach*** is simply based on analysing incoming pictures for obstacles and trying to track them to make the algorithm more robust against outliers. Since we only rely on the monocular camera, we do not have any depth information given. In theory it would be also possible, but computational much more expensive to estimate the depth of each pixel through some monocular visual odometry algorithm considering multiple consecutive images. However, the large amount of motion blur in our setup, a missing IMU (for estimating the absolute scale) and the additional computational costs clearly argue against such an approach. 
+In our approach we use the extrinsic calibration to estimate the position of the given obstacles. The intuition behind that is that it is possible to assume that all pixels seen from the camera belong to the ground plane (except for obstacles which stand out of it) and that the Duckikebot's relative position to this ground plane stays constant, so you can assign a real world 3D coordinate to every pixel seen with the camera. For more details refer to the [section below](#saviors-functionality-computer-vision).
 
 The final output is supposed to look as [](#fig:part_1_image_final).
 
@@ -137,12 +139,13 @@ The final output is supposed to look as [](#fig:part_1_image_final).
 
 ### Part 2: Avoidance in Real World - Description {#saviors-definition-avoidance} 
 
-With the from _Part 1_ given 3D position, size and the labelling whether the object is on the lane or not, we wanted to reach the final objectives:
+With the from _Part 1_ given 3D position, size and the labelling whether the object is inside the lane boundaries or not, we wanted to reach the final objectives:
 
 1. Plan path around obstacle if possile (we have to stay within our lane)
 2. If this is not possible, simply stop
 
 The assumptions for correctly reacting to the previously detected obstacles are:
+
 * Heading and position relative to track given
 * "The Controllers" are responsible for follwoing our trajectory
 * Possibility to influence vehicle speed (slow down, stop)
@@ -150,6 +153,7 @@ The assumptions for correctly reacting to the previously detected obstacles are:
 As we know now the first point of the assumptions is normally not fulfilled. We describe in the [functionality section](#saviors-functionality-avoidance) why this comes out to be a problem. 
 
 For measuring the performance we used:
+
 * Avoid/hit ratio
 * Also performed during changing light conditions
 
@@ -164,14 +168,15 @@ For measuring the performance we used:
 _Feel free to create subsections when useful to ease the flow_-->
 ### Software Architecture {#saviors-software-architecture}
 
-In general we have three interfaces which had to be created throughout the implementation of our software:
+In general we have four interfaces which had to be created throughout the implementation of our software:
 
-**1.** At first, we need an incoming picture which we want to analyse. As our chosen approach includes filtering for specific colors, we are obviously dependent on the lighting conditions. In a first stage of our project, we nevertheless simply subscribe
-d to the raw camera image because of the considerable expense of integrating the _Anti Instagram 1. Color Transformation_. During our tests we fast recognized that our color based approach would always have some troubles if we don't compensate for the lighting change, therefore we are now subscribing to a corrected image which is provided by the anti-instagram team. For reaching this one of our team members closely collaborated with the anti-instagram team (especially with Milan Schilling) to arrive at the best possible solution. Currently, to keep computational power on our rasberryPi low, the corrected image is published at 4Hz only.
+**1.** At first, we need to recieve an incoming picture which we want to analyse. As our chosen approach includes filtering for specific colors, we are obviously dependent on the lighting conditions. In a first stage of our project, we nevertheless simply subscribed to the raw camera image because of the considerable expense of integrating the _Anti Instagram Color Transformation_ and since the _Anti Instagram_ team also first had to further develop their algorithms. During our tests we fastly recognized that our color filtering based approach would always have some troubles if we don't compensate for the lighting change. Therefore, in the second part of the project we closely collaborated with the anti-instagram team (especially Milan Schilling) and are now subscribing to a color corrected image provided by the anti-instagram team. Currently, to keep computational power on our RaspberryPi low, the corrected image is published at 4Hz only and the color transformation needs at most 0.2 seconds.
 
-**2.** The second part of our System Integration is the internal interface between the object detection and avoidance part. The interface here is defined as a _PoseArray_ which has the same timestamp as the picture from which the obstacles have been detected. This Array, as the name already describes, is made up of single poses. The meaning of those are the following: The position _x and y_ describe the real world position of the obstacle which is in our case the center front of the obstacle. The position _z coordinate_ is not needed in our case, since we are on a plane anyways that is why we are using the _z-coordinate_ to describe the radius of the obstacle. Furthermore a negative z-Radius shows that there is a white line in between us and the obstacle which indicates that it is not dangerous to us since we assume to always having to stay in the lane boundaries. Therefore this information allows us to not stop if there is an obstacle behind a turn. As for the scope of our project, the orientation of the obstacles is not really important, we use the _remaining four elements_ of the Pose Message to pass the pixel coordinates of the bounding box of the obstacle seen in the bird view. This is not needed for our “Reaction” module but rather allows us to implement an efficient way of visualisation which will be later described in detail. Furthermore, we expect our obstacle detection module to add an additional delay of about max. 0.3s.
+**2.** The second part of our System Integration is the internal interface between the object detection and avoidance part. The interface here is defined as a _PoseArray_ which has the same timestamp as the picture from which the obstacles have been extracted. This Array, as the name already describes, is made up of single poses. The meaning of those are the following: The position _x and y_ describe the real world position of the obstacle which is in our case the center front coordinate of the obstacle. The _z coordinate_ of the position is not needed in our case, since we are on a plane anyways that is why we are using the _z-coordinate_ to describe the radius of the obstacle. Furthermore a negative z-Radius shows that there is a white line in between us and the obstacle which indicates that it is not dangerous to us since we assume to always having to stay in the lane boundaries. Therefore this information allows us to not stop if there is an obstacle behind a turn. As for the scope of our project, the orientation of the obstacles is not really important, we use the _remaining four elements_ of the Pose Message to pass the pixel coordinates of the bounding box of the obstacle seen in the bird view. This is not needed for our “Reaction” module but allows us to implement an efficient way of visualisation which will be later described in detail. Furthermore, we expect our obstacle detection module to add an additional delay of about max. 0.3s.
 
-**3.** The third part is the interface between our obstacle avoidance node and the controllers. The obstacle avoidance node generates an obstacle avoidance pose array an obstacle avoidance active flag. The obstacle avoidance pose array is the main interface between the Saviors and the group doing lane control. We use the pose array to transmit d_ref (target distance to middle of the lane) and v_ref (target robot speed). The d_ref is our main control output which enables us to position the robot inside the lane and therefore to avoid objects which are placed on the side of the lane. Furthermore v_ref is used to stop the robot when there is an unavoidable object by setting the target speed to zero. The flag is used to communicate to the lane control nodes when the obstacle avoidance is activated which then triggers d_ref and v_ref tracking.
+**3.** The third part is the interface between our obstacle avoidance node and the controllers. The obstacle avoidance node generates an obstacle avoidance pose array and obstacle avoidance active flag. The obstacle avoidance pose array is the main interface between the Saviors and the group doing lane control. We use the pose array to transmit d_ref (target distance to middle of the lane) and v_ref (target robot speed). The d_ref is our main control output which enables us to position the robot inside the lane and therefore to avoid objects which are placed on the side of the lane. Furthermore v_ref is used to stop the robot when there is an unavoidable object by setting the target speed to zero. The flag is used to communicate to the lane control nodes when the obstacle avoidance is activated which then triggers d_ref and v_ref tracking.
+
+**4.** The fourth part is an optional interface between the Duckiebot and the user's personal Laptop. Especially for the needs of debugging and infering what is going on, we decided to implement a Visualisation node which can visualize on the one hand the input image including bounding boxes around all the objects which were classified as obstacles and furthermore this node can output the obstacles as markers which can be displayed in rviz. 
 
 In the following ([](#fig:overview)) you find a graph which summarizes our software packages and gives a brief overview. 
 
@@ -182,20 +187,22 @@ In the following ([](#fig:overview)) you find a graph which summarizes our softw
 
 Let's again have a look on the usual incoming camera picture in [](#fig:image_start). 
 
-In the beginning we tried to do the detection in the normal camera image. Due to the specifications of a normal camera, lines which are parallel in the real world are not parallel any longer and so the size and shape of the obstacles are disturbed (elements of the same size appear also larger in the front than in the back). After finding the potential objects - because of the color similarity there were also still a lot of yellow lines - we tried different approaches to filter the actual duckies out:
+In the very beginning of the project, like the previous implementation in 2016, we tried to do the detection in the normal camera image but we tried to opt for more efficient and general obstacle descriptors. Due to the specifications of a normal camera, lines which are parallel in the real world are not parallel any longer and so the size and shape of the obstacles are disturbed (elements of the same size appear also larger in the front than in the back). This made it very difficult to reliably differentiate between yellow ducks and line segments. We tried several different approaches to overcome this problem, namely: 
+
 * Patch matching of duckies viewed from different directions
 * Patch matching with some kind of an ellipse (because line segments are supposed to be square)
 * Measuring the maximal diameter
 * Comparing the height and the width of the objects
 * Taking the pixel volume of the duckies
 
-Unfortunately none of the described approaches provided a sufficient performance. Also a combination of them didn't make the desired impact. All metrices which are somehow associated with the size of the object just won't work because duckies further away from the duckiebot are simply a lot smaller than the one very close to the Duckiebot. All metrices associated with the "squareness" of the lines were strongly disturbed by the ocurring motion blur. This makes finding a general criterion very difficult. 
+Unfortunately none of the described approaches provided a sufficient performance. Also a combination of them didn't make the desired impact. All metrices which are somehow associated with the size of the object just won't work because duckies further away from the duckiebot are simply a lot smaller than the one very close to the Duckiebot. All metrices associated with the "squareness" of the lines were strongly disturbed by the ocurring motion blur. This makes finding a general criterion very difficult and made us think about changing the approach entirely.
 
-Therefore we looked out for an alternative method and found another approach. 
+**Therefore we developed and came up with the following new approach!**
+ 
 
 #### **Theoretical Description** {#saviors-computer-vision-theoretical}
 
-In our setup, through the extrinsic camera calibration, we are given a mapping from each pixel in the camera frame to a corresponding real world coordinate. It is important to mention that this transformation assumes all seen pixels in the camera frame to lie in one plane, in our case in the ground plane. Now, our approach exactly exploits this fact by transforming the given camera image into a new, bird view perspective which basically shows one and the same scene from above. Therefore the information provided by the extrinsic calibration is essential for our algorithm to work properly. In [](#fig:bird_view) you can see the newly warped image seen from the _bird view perspective_.
+In our setup, through the extrinsic camera calibration, we are given a mapping from each pixel in the camera frame to a corresponding real world coordinate. It is important to mention that this transformation assumes all seen pixels in the camera frame to lie in one plane which is in our case in the ground plane/street. Now, our approach exactly exploits this fact by transforming the given camera image into a new, bird view perspective which basically shows one and the same scene from above. Therefore the information provided by the extrinsic calibration is essential for our algorithm to work properly. In [](#fig:bird_view) you can see the newly warped image seen from the _bird view perspective_. Which is one of the most important steps in our algorithm. 
 
 <center><img figure-id="fig:bird_view" figure-caption="Image now seen from the Bird View Perspective" src="bird_view.png" style="width: 200px;"/></center>
 
@@ -205,18 +212,18 @@ This approach has already been shown by Prof. Davide Scaramuzza (UZH) and some o
 --- [Gang Yi Jiang, Tae Young Choi, Suk Kyo Hong, Jae Wook Bae, and Byung Suk Song (2015)](https://www.researchgate.net/publication/3876051_Lane_and_obstacle_detection_based_on_fast_inverse_perspective_mapping_algorithm)
 --- [Massimo Bertozzi, Alberto Broggi, Alessandra Fascioli](http://www.close-range.com/docs/Stereo_inverse_perspective_mapping.pdf)
 
-What stands out is that now the lines which are parallel in the real world are also parallel in this view. Generally in this “bird” view, all objects which really belong to the ground plane are represented by their real shape (e.g. the line segments are exact rectangles) while all the object which are not on the ground plane (namely our obstacles) are heavily disturbed in this top view. This top view is roughly keeping the size of the elements on the ground whereas the obstacles are displayed a lot larger. 
+What stands out is that now the lines which are parallel in the real world are also parallel in this view. Generally in this “bird” view, all objects which really belong to the ground plane are represented by their real shape (e.g. the line segments are exact rectangles) while all the objects which are not on the ground plane (namely our obstacles) are heavily disturbed in this top view. This top view is roughly keeping the size of the elements on the ground whereas the obstacles are displayed a lot larger. 
 
 _The theory behind the calculations and why the objects are so heavily distorted can be found in the [Theory Chapter](#saviors-transformations)._
 
 Either way we take advantage of this poperty. 
-Given this bird view perspective, we still have to extract the obstacles from it. We apply a filter, to filter out all orange elements in a certain range and all yellow elements, since we said that we only want to detect yellow duckies and orange cones. For this we transform the obtained image to the HSV color space. We use this HSV color space and not the RGB space because it is much easier to account for different illuminations in the HSV room compared to RGB. For the theory behind the HSV space, please refer to our appropriate [Theory Chapter](#saviors-HSV).
+Given this bird view perspective, we still have to extract the obstacles from it. At first we apply a filter to filter out all orange elements and yellow elements, since we said that we only want to detect yellow duckies and orange cones. For this we transform the obtained color corrected images (provided by the anti-instagram module) to the HSV color space. We use this HSV color space and not the RGB space because it is much easier to account for slightly different illuminations (which of course still exist since the performance of the color correction is still logically not perfect) in the HSV room compared to RGB. For the theory behind the HSV space, please refer to our appropriate [Theory Chapter](#saviors-HSV).
 
 <center><img figure-id="fig:yellow_filtered" figure-caption="Yellow filtered Image" src="yellow_filtered.png" style="width: 200px;"/></center>
 
 <center><img figure-id="fig:orange_filtered" figure-caption="Orange filtered Image" src="orange_filtered.png" style="width: 200px;"/></center>
 
-After the filtering there are only objects remaining which have approximately the desired color(see [](#fig:yellow_filtered) and [](#fig:orange_filtered)). The next challenge is therefore to filter the real obstacles out of the bunch of remaining objects. For this purpose we firstly segment the image of the remaining objects, i.e. all connected pixels which are still remaining in our image are labelled with the same label. For the segmentation we used the following algorithm.
+After this first color filtering process, there are only objects remaining which have approximately the colors of the expected obstacles(see [](#fig:yellow_filtered) and [](#fig:orange_filtered)). The next challenge is therefore to filter the real obstacles out of the bunch of all the remaining objects which passed the color filter. For this purpose we firstly segment the image of the remaining objects, i.e. all connected pixels (which is in other words one object) which are still remaining in our image are getting the same label such that you can later analyse the objects one by one. For the segmentation we used the following algorithm.
 
 --- [Wu, KeshengOtoo, EkowShoshani, Arie (2005)](https://escholarship.org/uc/item/7jg5d1zn)
 
@@ -228,8 +235,9 @@ These filters are based on a rotation invariant feature, namely the two eigenval
 --- [Richard Fitzpatrick, (2011)](http://farside.ph.utexas.edu/teaching/336k/Newtonhtml/node64.html) 
 
 Additionaly we apply some further criterions to also eliminate the last remaining outliers:
-* Movement Tracker filter (obstacles can not jump)
-* Relation width to length
+
+* A Movement Tracker filter which enforces the contraint that obstacles can not jump
+* A criterion which evaluates the relation between the width and length of the objects
 * ...
 
 The final output of the detection module is the one we showed in [](#fig:part_1_image_final).
@@ -240,7 +248,7 @@ Now we want to go more into detail how we implemented the described steps.
 
 In the beginning we again start from the picture you can see in [](#fig:image_start). In our case this is now the corrected image coming out form the _image_transformer_node_ and was implemented by the _anti instagram_ group. We then perform the follwing steps:
 
-**1.** In a first step we crop this picture to make our algorithm a little bit more efficient and due to our limited velocities, it makes no sense to detect obstacles which are not needed to be taken into consideration by our obstacle avoidance module. However, we do not simply crop the picture by a fixed amount of pixels, but we use the extrinsic calibration to neglect all the pixels which are farther away than a user defined threshold, which is at the moment at 1.7 meters. So the camount of pixels which are cropped are different for every duckiebot and depend on the extrinsics calibration. The resulting image can be seen in [](#fig:image_cropped). The calculations for this are quite simple (note that it still bargains for homogeneous coordinates): 
+**1.** In a first step we crop this picture to make our algorithm a little bit more efficient and due to our limited velocities, it makes no sense to detect obstacles which are not needed to be taken into consideration by our obstacle avoidance module. However, we do not simply crop the picture by a fixed amount of pixels, but we use the extrinsic calibration to neglect all the pixels which are farther away than a user defined threshold, which is at the moment at 1.7 meters. So the amount of pixels which are neglected are different for every duckiebot and depend on the extrinsics calibration. The resulting image can be seen in [](#fig:image_cropped). The calculations to find out where You have to cut the image are quite simple (note that it still bargains for homogeneous coordinates): 
 
 \[
     p_{camera} = H^{-1}P_{world}
@@ -248,19 +256,19 @@ In the beginning we again start from the picture you can see in [](#fig:image_st
 
 <center><img figure-id="fig:cropped" figure-caption="Cropped Image" src="image_cropped.png" style="width: 200px;"/></center>
 
-**2.** Directly detecting the obstacles from this cropped input image failed for us due to the objects being disturbed by the camera perspective and due to not really being able to infer the shape and real size of the objects, that is why we decided to use the approach described above, namely the inverse homography (transformation to bird’s view perspective). So in a second step we take the cropped image and transform it to the bird’s view. For transforming the image we first use the corners of the cropped image and transorm it to the real world. Then we scale the real world coordinates to pixel coordinates, so that it will have a width of 640 pixels afterwards. For warping all of the pixel with low artifacts we then use the function **cv2.getPerspectiveTransform()**. The obtained image can be seen in [](#fig:bird_view). 
+**2.** Directly detecting the obstacles from this cropped input image failed for us due to the reasons descibed [above](#saviors-functionality-computer-vision). That is why the second step is to perform the transformation to the bird’s view perspective. For transforming the image we first use the corners of the cropped image and transorm it to the real world. Then we scale the real world coordinates to pixel coordinates, so that it will have a width of 640 pixels afterwards. For warping all of the pixel with low artifacts we then use the function **cv2.getPerspectiveTransform()**. The obtained image can be seen in [](#fig:bird_view). 
 
-**3.** Then we transform the given RGB picture into the HSV colorspace and apply the yellow and orange filter. While a HSV image is hardly readable for humans, it is way better to filter for specific colors. The obtained pictures can be seen in [](#fig:yellow_filtered) and [](#fig:orange_filtered). For example the color filter operation then simply becomes _mask1 = cv2.inRange(im_test, self.lower_yellow, self.upper_yellow)_ where lower_yellow and upper_yellow are simple numbers. 
+**3.** Then we transform the given RGB picture into the HSV colorspace and apply the yellow and orange filter. While a HSV image is hardly readable for humans, it is way better to filter for specific colors. The obtained pictures can be seen in [](#fig:yellow_filtered) and [](#fig:orange_filtered). The color filter operation is performed by the cv2 function **cv2.inRange(im_test, self.lower_yellow, self.upper_yellow)** where lower_yellow and upper_yellow are the thresholds for yellow in the HSV color space. 
 
-**4.** Now there is the task of segmenting/isolating the objects which remained after the filtering process. At the beginning of the project we therefore implemented our own segmentation algorithm which was however more inefficient and led to an overall computational load of 200% CPU usage and a maximum frequency of our whole module of about 0.5 Hz only. By using the scikit-image module which provides a very efficient label function, the computational efficiency could be shrunk considerably to about 70% CPU usage and allowing the whole module to run at up to 3 Hz. It is important to remember that in our implementation the segmentation process is the one which consumes the most power(segmenation link: http://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.label).The output after the segmentation is the one in [](#fig:segmented), where the different colors represent the different segmented objects.
+**4.** Now there is the task of segmenting/isolating the objects which remained after the color filtering process. At the beginning of the project we therefore implemented our own segmentation algorithm which was however more inefficient and led to an overall computational load of 200% CPU usage and a maximum frequency of our whole module of about 0.5 Hz only. By using the scikit-image module which provides a very efficient [label function](http://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.label), the computational efficiency could be shrunk considerably to about 70% CPU usage and allows the whole module to run at up to 3 Hz. It is important to remember that in our implementation the segmentation process is the one which consumes the most power. The output after the segmentation is the one in [](#fig:segmented), where the different colors represent the different segmented objects.
 
-**5.** After the segmentation, we analyse each of the objects alone. At first there is a general filter that we are neglecting all the objects which contain less than a user influenced threshold of pixels. Since as mentioned above, the homographies of all the users are different, the exact amount of pixels an object has to be considered is again scaled by the individual homography. This is followed by a more in detail analysis which is color dependent. On the one hand there is the challenge to detect the orange cones reliably. Speaking about cones, the only other object that might be erroneously detected as orange are the stop lines. Of course in general the goal should be to very reliably detect orange but as the light is about to change during the drive, we prepared to also detect the stop lies and being able to cope with them when they are erroneously detected. The other challenge in general was that all object that we have to detect can appear in all different orientations and that simply inferring the height and width of the segmented box, as we did it in the beginning, is obviously not a very good measure (in the bottom left picture e.g. the segmented box is a square while the cone itself is not quadratic at all) That is why it is best to use a rotation invariant feature to classify the segmented object. In our final implementation we came up using the two eigenvalues of the inertia tensor, which are obviously rotation invariant (when being ordered by their size). Now, speaking more specifically about the detection of cones, when extracting the cone from the upper image separately it is looking like in [](#fig:segmented_cone), while an erroneous detection of a stop line is looking like in [](#fig:segmented_stop_line).
+**5.** After the segmentation, we analyse each of the objects alone. At first there is a general filter which ensures that we are neglecting all the objects which contain less than a user influenced threshold of pixels. Since as mentioned above, the homographies of all the users are different, the exact amount of pixels an object has to have to be considered is again scaled by the individual homography. This is followed by a more in detail analysis which is color dependent. On the one hand there is the challenge to detect the orange cones reliably. Speaking about cones, the only other object that might be erroneously detected as orange are the stop lines. Of course in general the goal should be to very reliably detect orange but as the light is about to change during the drive, we prepared to also detect the stop lies and being able to cope with them when they are erroneously detected. The other challenge in general was that all object that we have to detect can appear in all different orientations and that simply inferring the height and width of the segmented box, as we did it in the beginning, is obviously not a very good measure (in the bottom left picture e.g. the segmented box is a square while the cone itself is not quadratic at all) That is why it is best to use a rotation invariant feature to classify the segmented object. In our final implementation we came up using the two eigenvalues of the inertia tensor, which are obviously rotation invariant (when being ordered by their size). Now, speaking more specifically about the detection of cones, when extracting the cone from the upper image separately it is looking like in [](#fig:segmented_cone), while an erroneous detection of a stop line is looking like in [](#fig:segmented_stop_line).
 
 <center><img figure-id="fig:segmented_cone" figure-caption="Segmented Cone" src="segmented_cone.png" style="width: 200px;"/></center>
 
 <center><img figure-id="fig:segmented_stop_line" figure-caption="Segmented Stop Line" src="segmented_stop_line.png" style="width: 200px;"/></center>
 
-Our filter criteria is now the ratio between the eigenvalues of the inertia tensor which is always by a factor of about 100 greater in case the object is a cone, compared to when we erroneously segment a red stop line. This criteria is very stable that is why there is no additional filtering needed to detect the cones.
+Our filter criteria is now the ratio between the eigenvalues of the inertia tensor. This ratio is always by a factor of about 100 greater in case the object is a cone, compared to when we erroneously segment a red stop line. This criteria is very stable that is why there is no additional filtering needed to detect the cones.
 
 If the segmented object is yellowish, things get a little more tricky as there are always many yellow object in the picture, namely the middle lines. Line elements can be again observed under every possible orientation, therefore the eigenvalues of the inertia tensor which are as mentioned above rotation invariant are again the way to go. In [](#fig:segmented_middle_line) you can see a segmented line element and in [](#fig:segmented_duck) again a segmented duckie. 
 
@@ -273,7 +281,7 @@ If an object’s first eigenvalue is greater than 100 pixels and it is detected 
 
 **6.** After analysing each of the potential obstacle objects, we decide whether it is an obstacle or not. If so, we continue to steps **7.** and **8.**. 
 
-**7.** Afterwards, we calculate the position and radius of all of the obstacles. After segmenting the object we mark the 4 corners and draw in a green rectangular. For the position we then simply use the midpoint of the lower line (this point surely lies on the ground plane). For the radius we use the distance in the real world between this point and the lower right corner. This turned out to be a good approximation of the radius. For illustration you can have a look on [](#fig:position_size).
+**7.** Afterwards, we calculate the position and radius of all of the obstacles. After segmenting the object we calculate the 4 corners (which are connected in [](#fig:position_size) to form the green rectangle). For the position we then simply use the midpoint of the lower line (this point surely lies on the ground plane). For the radius we use the distance in the real world between this point and the lower right corner. This turned out to be a good approximation of the radius. For illustration you can have a look on [](#fig:position_size).
 
 <center><img figure-id="fig:position_size" figure-caption="Position and Radius of the Obstacle" src="position_size.jpg" style="width: 200px;"/></center>
 
@@ -283,7 +291,7 @@ If an object’s first eigenvalue is greater than 100 pixels and it is detected 
 
 <center><img figure-id="fig:search_line" figure-caption="Search Lines whether something White is in between" src="search_line.jpg" style="width: 200px;"/></center>
 
-**9.** As the last step of the detection pipeline we return a list of all obstacles including all the information via the posearray. 
+**9.** As the last step of the detection pipeline we return a list of all obstacles including all the information via the posearray.
 
 ### Part 2: Avoidance in Real World - Functionality {#saviors-functionality-avoidance} 
 
@@ -295,6 +303,7 @@ With the separation of the detection, an important part of the avoidance node is
 We determined the need of getting information about the remaining duckietown besides the detected obstacles. The obstacles need to be in relation to the track in order to assess whether we have to stop or to drive around obstacles. This is given because we are not supposed to leave the lane. Due to other teams already working on this, we deemed it best to not implement any further detections (lines, intersections etc.) in our visual perception pipeline. This saves similar algorithms being run twice on the processor. We decided to acquire the values of our current pose relative to the side lane, which is determined by the _devel-linedetection_ group.
 
 The idea was to make the system highly flexible. The option to adapt to following situations was deemed desirable:
+
 * Multiple obstacles. Different path planning in case of a possible avoidance might be required.
 * Adapted behavior if the robot is at intersections.
 * Collision avoidance dependent on the fleet status within the duckietown. Meaning if a duckiebot drives alone in a town it should have the option to avoid a collision by driving onto the opposite lane.
@@ -310,9 +319,11 @@ The logic shown in [](#fig:avoidance_logic) displays one of the first stages in 
 <center><img figure-id="fig:avoidance_logic" figure-caption="Logic of one of the First Stages in Commissioning" src="avoidance_logic.png" style="width: 500px;"/></center>
 
 Our biggest concern were the added inaccuracies until the planning of the trajectory. Those include:
+
 * Inaccuracy of the currently determined pose
 * Inaccuracy of the obstacle detection
 * Inaccuracy of the effectively driven path aka. controller performance
+
 To us the determination of the pose was expected to be the most critical. Our preliminary results of the obstacle detection seemed reasonably accurate. The controller could be tweaked that the robot would rather drive out of the track than into the obstacle. An inaccurate estimation of the pose would just widen the duckie artificially.
 
 _Devel-controllers_ did not plan on being able to intentionally leave the lane. Meaning the space left to avoid an obstacle on the side of the lane is tight making above uncertainties more severe.
@@ -363,7 +374,7 @@ These tasks are then repeated at the frame rate of the obstacle detection array 
 
 ### Required Infrastructure - Visualizer {#saviors-visualizer}
 
-Especially when dealing with a vision based obstacle detection algorithm it is very hard to infer what is going on. One has to also keep the visual outputs low, to consume as less computing power as possible, especially on the rasberry pi. This is why we decided to not implement one single obstacle detection node, but effectively two of them, together with some scripts which should help to evaluate the parameters offline and to infer the number of false positives, etc. The node which is designed to be run on the rasberry pi is our normal obstacle_detection_node. This should in general be run such that there is no visual output at all but that simply the PoseArray of obstacles is published through this node.
+Especially when dealing with a vision based obstacle detection algorithm it is very hard to infer what is going on. One has to also keep the visual outputs low, to consume as less computing power as possible, especially on the Raspberry Pi. This is why we decided to not implement one single obstacle detection node, but effectively two of them, together with some scripts which should help to tune the parameters offline and to infer the number of false positives, etc. The node which is designed to be run on the Raspberry Pi is our normal obstacle_detection_node. This should in general be run such that there is no visual output at all but that simply the PoseArray of obstacles is published through this node.
 The other node, namely the obstacle_detection_node_visual node is designed to be run on your own laptop which is basically visualising the information given by the posearray. There are two visualisations available. On the one hand there is a marker visualisation in rviz which shows the position and size of the obstacles. In here all the dangerous obstacles which must be considered are shown in red, whereas the non critical (which we think that they are outside the lane boundaries) are marked in green. On the other hand there is also a visualisation available which shows the camera image together with bounding boxes around the detected obstacles.
 Nevertheless, this online visualisation is still dependent on the connectivity and you can only hardly “freeze” single situations where our algorithm failed. That is why we also included some helpful scripts into our package. One script allows to thoroughly input many pictures and outputs them labelled together with the bounding boxes, while another one outputs all the intermediate steps of our filtering process which allows to fastly adapt e.g. the color thresholds which is in our opinion still the major reason for failure. More information on our created scripts can be found in our **Readme on GitHub**.
 
