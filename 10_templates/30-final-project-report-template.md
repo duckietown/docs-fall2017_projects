@@ -1,33 +1,30 @@
 #  Group name: final report {#template-final-report status=draft}
 
-<!--
-General notes:
-- REMEMBER to change the "template" in the chapter labels to your group label!
--->
-
-_The objective of this report is to bring justice to your hard work during the semester and make so that future generations of Duckietown students may take full advantage of it. Some of the sections of this report are repetitions from the preliminary and intermediate design document (PDD, IDD respectively)._
+This is the final project report for the group of Supervised Learning at ETH Zurich 2017 Fall Semester. The project motivation, implementation and results are shown here. For inquries about Convolutional Neural Network training, please contact Shaohui Yang (), for inquiries about ROS implmemtnation of the project, please contact Tianlu Wang (tiawang@student.ethz.ch).
 
 ## The final result {#template-final-result}
 
-_Let's start from a teaser._
-
-* Post a video of your best results (e.g., your demo video)
-
-Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
+The final results are shown in the attached video. See the following links. [Recorded video](https://youtu.be/FCP8Ndoxae0) 
 
 ## Mission and Scope {#template-final-scope}
 
-_Now tell your story:_
+_Mission:_
 
-Define what is your mission here.
+To learn policies which match the results from recorded data from agents in the real world, so that the vast volumes of the data in the real world can be made useful.  
+
+_Scope:_
+
+- Verifying whether Deep Learning can be used successfully in Duckietown;
+
+- Motivated by the concept of ‘data processing inequality’, using supervised and imitation learning to control the duckiebot end-to-end with data from a recorded policy;
+
+- Using supervised or unsupervised learning to model specific aspects of the autonomous driving task;
+ 
+- Focus on autonomous lane follwing by learning based tools. 
 
 ### Motivation {#template-final-result-motivation}
 
-_Now step back and tell us how you got to that mission._
-
-- What are we talking about? [Brief introduction / problem in general terms]
-
-- Why is it important? [Relevance]
+According to the definition of 'data process inequality', essential information is prone to be left out along a long process chain, like the conventional approach for autonomous lane follwiing. To cope with this problem, an end-to-end network work is expected to be implemented, which maps raw input images from camera to vehecles' control command directly.
 
 ### Existing solution {#template-final-literature}
 
