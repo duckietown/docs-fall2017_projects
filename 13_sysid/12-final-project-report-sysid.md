@@ -43,6 +43,8 @@ Therefore, these constants needs to be identified individually for each single r
 Odometry calibration is the process of determining model parameter to “match” predicted motion and measurements.  For the duckiebot odometry calibration is the process aimed at identifying the kinematic parameters used to reconstruct the robot’s absolute configuration from the given voltage input. 
 
 Increasing the accuracy of the Duckiebot’s odometry will result in reduced operation cost as the robot requires fewer absolute positioning updates with the camera.
+When the duckiebot crossing an intersection forward kinematics is used. 
+Therefore, the performance of safe crossing is closely related to having well calibrated odometry parameters.
 
 ### General odometry formulation {#sysid-final-odometry}
 
@@ -149,6 +151,15 @@ Hereby, the Duckiebot is placed on a line(e.g. tape). Afterwards the joystick de
     duckiebot: $ roslaunch duckietown_demos joystick.launch veh:=${VEHICLE_NAME}
 
 Now the human operator commands the Duckiebot to go straight for around 2m.
+
+Observe the Duckiebot from the point where it started moving and annotate on which side of the tape
+the Duckiebot drifted ([](#fig:wheel_calibration_lr_drift)).
+
+
+<div figure-id="fig:wheel_calibration_lr_drift" figure-caption="Left/Right drift">
+  <img src="wheel_calibration_lr_drift.jpg" style='width: 30em'/>
+</div>
+
 If the Duckiebot drifted to the left side of the tape, decrease the value of $t$, for example:
 
 
@@ -200,7 +211,7 @@ Assumptions: wheel radius is known and no slipping hypothesis is made.
 
 
 
-### Preliminaries (optional) {#sysid-final-preliminaries}
+### Preliminaries {#sysid-final-preliminaries}
 
 * Differential-drive model [#duckiebot-modeling](#duckiebot-modeling)
     
@@ -299,7 +310,7 @@ and a Gaussian distribution of the noise, we can quantify this nose by estimatin
 with 
 
 \begin{align}
-    \tilde{v}_{A_{i}} & = \frac{c_{r}^{\star} V_{r_i}+c_{l}^{\star} V_{l_i}{2} \label{eq:vtilde}     \\
+    \tilde{v}_{A_{i}} & = \frac{c_{r}^{\star} V_{r_i}+c_{l}^{\star} V_{l_i}}{2} \label{eq:vtilde}     \\
     \tilde{\dot{\theta}}_{A_{i}} & = \frac{c_{r}^{\star} V_{r_i}-c_{l}^{\star} V_{l_i}}{2L^{\star}}   \label{eq:thetatilde}
 \end{align}
 
@@ -315,9 +326,24 @@ with
 To to find pattern in chess board, we use the function, [findChessboardCorners](https://docs.opencv.org/3.0-beta/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html#drawchessboardcorners "OpenCV findChessboardCorners")
 It gives us the image points locations where two black squares touch each other in chess boards)
 
-We also need to pass what kind of pattern we are looking, like 8x8 grid, 5x5 grid etc. In this example, we use 7x6 grid. (Normally a chess board has 8x8 squares and 7x7 internal corners). It returns the corner points and retval which will be True if pattern is obtained. These corners will be placed in an order (from left-to-right, top-to-bottom)
+We also need to pass what kind of pattern we are looking, like 8x8 grid, 5x5 grid etc. For duckietown, we use 7x5 grid. (Normally a chess board has 8x8 squares and 7x7 internal corners).
+It returns the corner points and retval which will be True if pattern is obtained.
+These corners will be placed in an order (from left-to-right, top-to-bottom).
 
-If the chessboard is found in the image, the corners position are refined with the cv2.cornerSubPix() function.
+In order that the chessboard detection works reliable, one need an assymetric pattern. (e.g. [here](https://github.com/opencv/opencv/blob/3.3.1/doc/pattern.png)).
+However, the standard chessboard provided by Duckietown includes an ambiguity, i.e. if the chessboard looks the same if chessboard image is turned 180 degrees.
+This can result in the issue that the [findChessboardCorners](https://docs.opencv.org/3.0-beta/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html#drawchessboardcorners "OpenCV findChessboardCorners") functions from right-to-left, bottom-to-top.
+Therefore, the origin of chessboard coordinate frame switches from the upper-left to the lower-right corners for certain images.
+A fix is implemented to overcome this inconsistency in order to make it work for the default Duckietown chessboard.
+However it is suggested to use an assymmetric chessboard for future use, or a [ChArUco Board](https://docs.opencv.org/3.1.0/df/d4a/tutorial_charuco_detection.html). 
+
+If the chessboard is successfully found in the image, the corners position are refined with the [cv2.cornerSubPix()](https://docs.opencv.org/3.0-beta/modules/imgproc/doc/feature_detection.html#cornersubpix "OpenCV cornerSubPix()") function.
+
+The chessboard is then projected on to the image for debugging purposes [](#fig:DrawChessboard).
+
+<div figure-id="fig:DrawChessboard" figure-caption="Projected chessboard">
+  <img src="DrawChessboard.png" style='width: 30em'/>
+</div>
 
  
 #### Step 2 - Find the rotation and translation vectors of chessboard w.r.t camera 
@@ -329,7 +355,7 @@ Extrinsic parameters corresponds to rotation and translation vectors which trans
 The chessboard was kept stationary at XY plane, (so $Z=0$ always) and camera was moved accordingly. This consideration helps us to find only $X$,$Y$ values. Now for $X$,$Y$ values, we can simply pass the points as $(0,0), (1,0), (2,0), ...$ which denotes the location of points. In this case, the results we get will be in the scale of size of chess board square. But if we know the square size, (Duckie chessboard $32 mm$), and we can pass in our case the values as $(0,0),(32,0),(64,0),...,$ we get the results in mm. 
 
 For the pose estimation we need to know the extrinsic and extrinsic parameters of the camera.
-They can be loaded with the implemented load_camera_info() function.
+They can be loaded with the implemented load_camera_info() duckietown function.
 Intrinsic parameters are specific to a camera. It includes information like focal length ($f_x$,$f_y$), optical centers ($c_x$,$c_y$) etc. It is also called camera matrix. It is expressed as a 3x3 matrix:
 
 
@@ -346,29 +372,27 @@ It uses the object points, the chessboard corners and the camera matix as an inp
 We are interested to find the vehicle pose with respect to world frame. 
 This is done by using the homography relation:
 
-
 \begin{equation}
                        T^{I}_{cam}=T^{I}_{chess} T^{chess}_{cam}
 \end{equation}
 
 where as we use the following equations:
 
-
 \begin{align}
-    T^{world}_{veh} & = \begin{bmatrix}R^{I}_{veh}&t_{I  Veh}\\0&1\end{bmatrix}     \label{eq:worldveh}     \\
-    T^{chess}_{cam} & = \begin{bmatrix}R^{chess}_{cam}&t_{ChessCam}\\0&1\end{bmatrix} = \begin{bmatrix}R^{chess}_{cam}^T&-R^{chess}_{cam}^T t_{CamChess}\\0&1\end{bmatrix} \label{eq:chesscam}
+    T^{world}_{veh} & = \begin{bmatrix}R^{I}_{veh}&t_{I  Veh}\\0&1\end{bmatrix}     \label{eq:world} \\
+                    & = \begin{bmatrix}R^{chess}_{cam}&t_{ChessCam}\\0&1\end{bmatrix}     \label{eq:world1} \\
+                    & = \begin{bmatrix}(R^{cam}_{chess})^T&-(R^{cam}_{chess})^T t_{CamChess}\\0&1\end{bmatrix} \label{eq:world2} 
 \end{align}
 
-The yaw $\theta$ can then be extracted with the implemented rot2euler() function.
 
+The yaw $\theta$ can then be extracted from $R^{I}_{veh}$ with the implemented rot2euler() function.
+The resulting translation can be extracted from $t_{I Veh}$
 
-
-
-
+### Integration
 
 ### Fit
 
-### Integration
+
 
 
 
@@ -392,11 +416,24 @@ We will let the Duckiebot drive straight in open loop and measure its offset aft
 
 We will will drive the Duckiebot with a constant velocity $ v_a $ and constant angular velocity $ \dot \omega $ in open loop on a Duckietown corner tile. We will compare the actual path with the desired path. This is done both clock and counterclockwise. The performance metric will be the absolute position offset of the expected to the actual terminal position after the run, measured with a ruler.
 
-** User friendliness ** : 
+** Overall User friendliness ** : 
+
+<div figure-id="fig:demo_succeeded-sysid">
+    <figcaption>Demo of the calibration procedure
+    </figcaption>
+    <dtvideo src='vimeo:251383652'/>
+</div>
 
 
 
 
+
+** Integration test  **
+show that intersection crossing is more reliable with sysid
+
+
+When the duckiebot crossing an intersection forward kinematics is used. 
+Therefore, the performance of safe crossing is closely related to having well calibrated odometry parameters.
 
 
 ## Future avenues of development {#sysid-final-next-steps}
