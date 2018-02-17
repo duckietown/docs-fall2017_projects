@@ -423,7 +423,22 @@ When it comes to evaluating the performance of our obstacle classification with 
 
 <center><img figure-id="fig:detector_missclass" figure-caption="Obstacle Detector Classification Error" src="classification_error.jpg" style="width: 500px;"/></center>
 
-***HERE WE DEFINITELY MUST ALSO WRITE SOMETHING WHICH EVALUATES THE WHOLE OF OUR CODE -> ONLY THE EVALUATION OF THE VISUAL DETECTION PART IS NOT SUFFICIENT!!!!***
+### Eval Obstacle Avoidance {#saviors-eval-obst-avoid}
+
+Since at the current state we stop for every obstacle inside the lane and inside the bounding box the avoidance instead of generating avoidance trajectories, the avoidance process is very stable. The final performance on the avoidance is mainly relying on the placement of the obstacles:
+
+**1. Obstacle placement on a straight:** If the obstacle is placed on a straight with a sufficient distance from the corner the emergency stop works nearly every time if the obstacle is detected correctly. 
+
+**2. Obstacle in a corner:** Due to the currently missing information of the curvature of the current tile the bounding box is always rectangular in front of the robot. This leads to problems if an obstacle is placed in a corner because it might enter the bounding box very late (if at all). Since the detection very close to the robot is not possible, this can lead to crashes. 
+
+**3. Obstacles on intersection:** These were not yet considered in our scope but still work if the detection is correct. It then behaves similar to case 1. 
+
+Furthermore there a few cases which can lead to problems independent of the obstacle placement: 
+**1. Controller oscillations:** If the lane controller sees a lot of lag due to high computing loads or similar its control sometimes start to oscillate. These oscillations lead to a lot of motion blur which can induce problems in the detection and shorten the available reaction time to trigger an emergency stop. 
+
+**2. Controller offsets:** The current size of the bounding box assumes that the robot is driving in the middle of the lane. If the robot is driving with an offset to the middle of the lane it can happen that obstacles at the side of the lane aren't detected. This however rarely leads to crashes because then the robot is just avoiding the obstacle instead of stopping for it. 
+
+While testing our algorithms we saw successfull emergency stops in  10/10 cases for obstacles on a straight and in 3/10 cases for obstacles placed in corners assuming that the controller was acting normally. 
 
 ## Future avenues of development {#saviors-final-next-steps}
 <!--_Is there something you think still needs to be done or could be improved? List it here, and be specific!_-->
@@ -437,6 +452,11 @@ Another area of improvement would be to further develop our provided scripts to 
 Furthermore to achieve more general performance propably even adaptions in the hardware might be considered (--- [Tung, "Google offers Raspberry Pi owners this new AI vision kit" (2017)](http://www.zdnet.com/article/google-offers-raspberry-pi-owners-this-new-ai-vision-kit-to-spot-cats-people-emotions/)) to tune the obstacle detection algorithm and especially its generality. We think that setting up a **neural network** might make it possible to release the restrictions on the color of the obstacles.
 
 In terms of avoidance there would be **possibilities to handle the high inacurracies of the pose estimation** by relying on the lane controller to not leave the lane and just use a kind of closed loop control to avoid the obstacle (use the new position of the detected obstacle in each frame to securely avoid the duckie). Furthermore the infrastructure is in place to include new scenarios like obstacles on intersection or multiple detected obstacles inside the bounding box. If multiple obstacles are in proximity, a more sophisticated trajectory generation could be put in place to avoid these obstacles in a safe and optimal way. 
+
+Furthermore the **avoidance in corners** could be easily significantly improved if the line detection would estimate the curvature of the current tile which would enable adaptions to the bounding box oncorner tiles. If the pose estimation is significantly improved one could also implement an adaptive bounding box which takes exactly the form of the lane in front of the robot (see next image)
+
+<center><img figure-id="fig:adaptive_bbox" figure-caption="Adaptive bounding box" src="adaptive_bbox.png" style="width: 300px;"/></center>
+
 ## Theory Chapter {#saviors-theory-chapter}
 
 ### Required Matrix Transformations {#saviors-transformations}
