@@ -549,14 +549,88 @@ Let's have one final look at an example in Duckietown. In [](#fig:incoming_img) 
 
 ### HSV Color Space {#saviors-HSV}
 
-While a HSV image is hardly readable for humans, it is way better to filter for specific colors, since effectively in the RGB color space all “the three channels are effectively correlated by the amount of light hitting the surface,” so the color and light properties are not separated ( https://www.learnopencv.com/color-spaces-in-opencv-cpp-python/ ). However, in the HSV space, there is only one channel (the H channel) to describe the color. The S represents the saturation and H the intensity. This is the reason why it is super useful for specific color filtering.
+#### **Introduction and Motivation** {#saviors-HSV-motivation}
 
-<center><img figure-id="fig:color_comparison" figure-caption="Comparison between the two Colors Spaces" src="rgb_hsv.jpg" style="width: 200px;"/></center>
---- (https://image.slidesharecdn.com/01presentationhuehistograms-150707215651-lva1-app6892/95/about-perception-and-hue-histograms-in-hsv-space-5-638.jpg?cb=1436307525)
+The "typical" color model is called the RGB color model. It simply uses three numbers for the amount of the colors _red_, _blue_ and _green_. It is an additive color system, so we can simply add two colors to produce a third one. Mathematically written it looks as follows and shows the way of how we deal with producing new colors:
 
+\[
+\left( \begin{array}{c} r_{res} \\ g_{res} \\ b_{res} \end{array} \right) =  \left( \begin{array}{c} r_{1} \\ g_{1} \\ b_{1} \end{array} \right) + \left( \begin{array}{c} r_{2} \\ g_{2} \\ b_{2} \end{array} \right)
+\] 
 
+If the resulting color is white, the two colors _1_ and _2_ are called to be complementary (e.g. this is the case for blue and yellow). 
 
+This color system is very intuitive and is oriented on how the human vision perceives the different colors. 
 
-https://www.learnopencv.com/color-spaces-in-opencv-cpp-python/
-https://stackoverflow.com/questions/22588146/tracking-white-color-using-python-opencv
-https://docs.opencv.org/3.2.0/df/d9d/tutorial_py_colorspaces.html
+The _HSV_ color space is an alternative representation of the RGB color model. On this occasion _HSV_ is an acronym for _Hue_, _Saturation_ and _Value_. It is not so easy summable as the RGB model and it is also hardly readable for humans. So the big question is: **Why should we transform our colors to the HSV space? Does it derive a benefit?**
+
+The answer is yes. It is hardly readable for humans but it is way better to filter for specific colors. If we look at the definition openCV gives for the RGB space, the higher complexity for some tasks becomes obvious:
+
+_In the RGB color space all "the three channels are effectively correlated by the amount of light hitting the surface", so the color and light properties are simply not separated._
+
+-- ( https://www.learnopencv.com/color-spaces-in-opencv-cpp-python/ )
+
+Expressed in a more simpler way: In the RGB space the colors also influence the brightness and the brightness influences the colors. However, in the HSV space, there is only one channel - the _H_ channel - to describe the color. The _S_ channel represents the saturation and _H_ the intensity. This is the reason why it is super useful for specific color filtering tasks.
+
+The HSV color space is therefore often used by people who more try to selct colors. It corresponds better to how we experience color. As we let the **_H (Hue)_** channel go from 0 to 1, the colors vary from red through yellow, green, cyan, blue, magenta and back to red. So we have red values at 0 as well as at 1. As we vary the **_S (saturation)_** from 0 to 1 the colors simply vary from unsaturated (more grey like) to fully saturated (no white component at all). Increasing the **_V (value)_** the colors just become brighter. This color space is illustrated in [](#fig:hsv_illustration). 
+
+-- (https://www.mathworks.com/help/images/convert-from-hsv-to-rgb-color-space.html?requestedDomain=true)
+
+<center><img figure-id="fig:hsv_illustration" figure-caption="Illustration of the HSV Color Space (https://www.mathworks.com/help/images/convert-from-hsv-to-rgb-color-space.html?requestedDomain=true)" src="hsv_illustration.png" style="width: 200px;"/></center>
+
+Most systems use the so called RGB additive primary colors. The resulting mixtures can be very diverse. The variety of colors, called the _gamut_, can therefore be very large. Anyway, the relationship between the constitutent amounts of red, green,  and blue lights is unintuitive. 
+
+#### **Derivation** {#saviors-HSV-derivation}
+
+The _HSV_ model can be derived using geometric strategies. The RGB color space is simply a cube where the addition of the three color components (with a scale form 0 to 1) is displayed. You can see this on the left of [](#fig:color_comparison).
+
+<center><img figure-id="fig:color_comparison" figure-caption="Comparison between the two Colors Spaces (https://image.slidesharecdn.com/01presentationhuehistograms-150707215651-lva1-app6892/95/about-perception-and-hue-histograms-in-hsv-space-5-638.jpg?cb=1436307525)" src="rgb_hsv.jpg" style="width: 400px;"/></center>
+
+You can now simply take this cube and tilt it on its corner. We do it the way so that black rests at the orgin whereas white is the highest point directly above it along the vertical axis. Afterwards you can just measure the _hue_ of the colors by their angle around the vertical axis (red is denoted as 0°). Going from the middle to the outer parts from 0 (where the grey like parts are) to 1 determines the _saturation_. This is illustrated in [](#fig:derivation_1). 
+
+<center><img figure-id="fig:derivation_1" figure-caption="'Cutting the cube' (https://en.wikipedia.org/wiki/HSL_and_HSV)" src="derivation_1.png" style="width: 200px;"/></center>
+
+The definitions of _hue_ and _chroma_ (proportion of the distance from the origin to the edge of the hexagon) amount to a geometric warping of hexagons into circles (for more informations refer to https://en.wikipedia.org/wiki/HSL_and_HSV). Each side of the hexagon is mapped linearly onto a 60° arc of the circle. This is visualized in [](#fig:derivation_2).
+
+<center><img figure-id="fig:derivation_2" figure-caption="Warping Hexagons to Circles (https://en.wikipedia.org/wiki/HSL_and_HSV)" src="derivation_2.png" style="width: 200px;"/></center>
+
+For the _value_ or lightness there are several possibilities to define an appropriate dimension for the color space. The simplest one is just the average of the three components, which is nothing else then the vertical height of a point in our tilted cubic. For this case we have:
+
+\[
+I = 1/3 * (R + G + B)
+\] 
+
+For another definition the _value_ is defined as the largest component of a color. This places all three primaries and also all of the "secondary colors" (cyan, magenta, yellow) into a plane with white. This forms a hexagonal pyramid out of the RGB cube. This is called the HSV "hexcone" model and is the common one. We get:
+
+\[
+V = max(R, G, B)
+\]
+
+-- (https://en.wikipedia.org/wiki/HSL_and_HSV)
+
+#### **In Practice** {#saviors-HSV-practice}
+
+**1.** Form a hexagon by projecting the RGB unit cube along its pincipal diagonal onto a plane. 
+
+<center><img figure-id="fig:hsv_practice_1" figure-caption="First layer of the cube (left) and flat hexagon (right)" src="hsv_practice_1.png" style="width: 400px;"/></center>
+
+**2.** Repeat projection with smaller RGB cube (subtract 1/255 in length of every cube) to obtain smaller projected hexagon. Like this a _HSV hexcone_ is formed by stacking up the 256 hexagons in decreasing order of size. 
+
+<center><img figure-id="fig:hsv_practice_2" figure-caption="Stacking Hexagons together" src="hsv_practice_2.png" style="width: 400px;"/></center>
+
+Then the value is again defined as:
+
+\[
+V = max(R, G, B)
+\]
+
+**3.** Smooth edges of hexagon to circles (see previous chapter). 
+
+-- Photos in this chapter "In practice" were taken from the lecture "Computer Graphics" at National University of Singapore taught by Prof. CHENG Ho-lun. 
+
+#### **Application** {#saviors-HSV-application}
+
+One nice example of the application of the HSV color space can be seen in [](#fig:hsv_example).
+
+<center><img figure-id="fig:hsv_example" figure-caption="Image on the left is original. Image on the right was simply produced by rotating the H of each color by -30° while keeping S and V constant (https://en.wikipedia.org/wiki/HSL_and_HSV)" src="hsv_example.png" style="width: 400px;"/></center>
+
+I just shows how simple color manipulation in a very intuitive way can be performed. We can turn many different applications to good account using this approach. As you have seen, color filtering also simply becomes a threshold query. 
