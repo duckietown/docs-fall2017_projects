@@ -4,7 +4,7 @@ This is the final project report for the group of Supervised Learning at ETH Zur
 
 ## The final result {#supervised-learning-final-result}
 
-The final results are shown in the attached video. See the following links. [Recorded video](https://youtu.be/FCP8Ndoxae0) 
+The final results are shown in the attached video. See the following link. [Recorded video](https://youtu.be/FCP8Ndoxae0) 
 
 ## Mission and Scope {#supervised-learning-final-scope}
 
@@ -54,19 +54,30 @@ There are two parts of preliminaries that are important to the implementation:
 
 - Train an effective Convotional Neural Network which can maps raw image to orientation of Duckiebots for lane following;
 
-- Implement a ROS node which subscribes to input images, communicates with Neural Compute Stick and completes the computation, and publishes the orientation angle to the car control node. 
+- Implement a ROS node which subscribes to input images, communicates with Neural Compute Stick for computation, and publishes the computed orientation angle to the car control node. 
 
 To be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; 
-to know how to implement ROS in our project, please refer to the code directly.
+to know how to implement ROS in our project, please refer to our code directly.
 
 ## Definition of the problem {#supervised-learning-final-problem-def}
 
-_Up to now it was all fun and giggles. This is the most important part of your report: a crisp mathematical definition of the problem you tackled. You can use part of the preliminary design document to fill this section._
+_Final objective:_
 
-Make sure you include your:
-- final objective / goal
-- assumptions made (including contracts with "neighbors")
-- quantitative performance metrics to judge the achievement of the goal
+We have recorded data of the lane following algorithm exploring the duckietown. Our goal is to learn a policy which performs as well as, or better than the policy which produced the data.
+
+_Assumptions:_
+
+- The policy used to collect the data is reasonably good;
+
+- The errors in imitation learning are sufficiently small to allow a straightforward approach to learn a decent policy;
+
+- Our trained policy can improve the robustness of overall performance. 
+
+_Evaluation:_
+
+- Publishing rate of the computed orientation by the neural network, compared with the conventional approach;
+
+- Observation of the overall lane following performance, compared with the conventional approach.
 
 ## Contribution / Added functionality {#supervised-learning-final-contribution}
 
