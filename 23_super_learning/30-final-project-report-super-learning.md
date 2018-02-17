@@ -114,10 +114,13 @@ When implementing the ROS node, the different speed of subscription to images an
 
 The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic. Threfore, we compare the performance of the lane following based on our neural network and the one realized by conventional approach. 
 
-- Robustness: As shown in the recorded video, the implemeted neural network can complete the task lane follwing quite well, not only on the Duckiebot which collects data, but on other Duckiebots as well. Morevoer, the performance is also desirable on the tracks that the trained network that has never seen before. Overall speaking, the trained network is comparable with the conventional approach, from the aspect of robustness;
+- Robustness: As shown in the recorded video, the implemeted neural network can complete the task lane follwing quite well, not only on the Duckiebot which collects data, but on other Duckiebots as well. Morevoer, the performance is also desirable on the tracks that the trained network that has never seen before. Overall speaking, the trained network is robust to Duckiebots' and lanes' configurations;
 
-- Response: To have a perfect performance on lane follwing, processors should respond fast. By conventional approach, the publishing of car control command is around 2 Hz, by using the add-on hardware NCS, the publishing speed of control command can achieve 15 Hz. Therefore, the approach realized by NCS has shown its advantage in our case.
+- Response: To have a perfect performance on lane follwing, processors should respond fast. By conventional approach, the publishing of car control command is around 2 Hz, with the use of Pi; by using the add-on hardware NCS, the publishing speed of control command can achieve 15 Hz. Therefore, the approach realized by NCS has shown its advantage in our case.
 
 ## Future avenues of development {#supervised-learning-final-next-steps}
 
-_Is there something you think still needs to be done or could be improved? List it here, and be specific!_
+In our project, the autonomous lane following based on deep learning has already shown its advantages over the conventional approach (refer to last chapter). Therefore, it will be interesting to see the application of learning based tools on other functions of Duckiebots/Duckietown. To be more specific, the following topics can be discussed:
+
+- Learn to stop at intersections: it is important for Duckiebots to stop at intersections for the real application case. Threfore, the trained network should be extended to complete the relevant task;
+- The Saviors: The current approach for detecting duckies on lanes is still based on computer vision technology. Research has shown deep learning's power on object detection. Therefore, it will be reasonable to adopt learning based tools to realize the task.
