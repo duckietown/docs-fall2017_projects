@@ -91,4 +91,30 @@ _Be rigorous!_
 
 ## Future avenues of development {fleet-communication-final-next-steps}
 
-_Is there something you think still needs to be done or could be improved? List it here, and be specific!_
+One push solution for package setup/installation:
+
+Mesh networking can be very finicky because it depends on drivers for the wifi adapters and batman-adv working correctly. From experience, even with the unified Duckiebot hardware this it was very much a case by case basis. This made it difficult to develop a one push solution. Nonetheless we implemented one - see operation manual - which seemed to work on most occasion but we still had to do some on the spot debugging. If this we refined more it would make using this package almost effortless. 
+
+Development setup:
+
+When developing this package we needed three networks running at the same time: one connected to the internet (for git purposes), one connected to the local network created by the Duckie bot (for ssh), and lastly the mesh network itself.
+
+In principle there are already two wifi adapters on the current configuration, however in order to keep connection to the internet one of those has to be connected to an internet connected network.
+There are two workarounds in use currently.
+Use a centralized network created by an access point (not decentralized anymore)
+Use an additional, third (mesh capable) network adapter strictly for bot-bot and bot-pc communication (higher cost)
+
+Both workarounds have their drawbacks, so it would be nice to find a robust solution for laptops connecting to the mesh network. We discover late into the project that the edimax has mesh capabilities but we never explored it enough to use it reliably.
+
+
+
+The configuration files for the different channels are a bit cumbersome to create for bigger groups of bots. It would be nice if the bot would create its own config file according to rules laid down in a central config file where all the different groups specify their communication architecture.
+E.g fleet level planning want every bot to listen to port 23334 filter it with their name and publish to /taxi/commands and subscribe to /taxi/location and send it on port 23333.
+ As of now the config files do not support filters.
+
+For filtering of serialized messages it would be useful to extend duckieMQ with the capability to preappend a filterstring to serialized messages.
+
+
+
+Network Visualization: A very useful function to implement would be to implement a real time visualization of the network. To visualize the network involves installing batadv-vis. Batadv-vis can be used to visualize the batman-adv mesh network. It reads the neighbor information and local client table and distributes this information via alfred - a user space daemon for distributing arbitrary local information over the mesh/network in a decentralized fashion - in the network. By gathering this local information, any vis node can get the whole picture of the network. This would have only taken us half the way there as it only gave static snapshots of the network. So to improve on this would be to continuously update the graph so it appears to be live.
+
