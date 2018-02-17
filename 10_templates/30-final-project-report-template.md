@@ -1,89 +1,70 @@
-#  Supervised Learning: final report {#supervised-learning-final-report status=draft}
+#  Group name: final report {#template-final-report status=draft}
 
-This is the final project report for the group of Supervised Learning at ETH Zurich 2017 Fall Semester. The project motivation, implementation and results are shown here. For inquries about Convolutional Neural Network training, please contact Shaohui Yang (), for inquiries about ROS implmemtnation of the project, please contact Tianlu Wang (tiawang@student.ethz.ch).
+<!--
+General notes:
+- REMEMBER to change the "template" in the chapter labels to your group label!
+-->
 
-## The final result {#supervised-learning-final-result}
+_The objective of this report is to bring justice to your hard work during the semester and make so that future generations of Duckietown students may take full advantage of it. Some of the sections of this report are repetitions from the preliminary and intermediate design document (PDD, IDD respectively)._
 
-The final results are shown in the attached video. See the following link. [Recorded video](https://youtu.be/FCP8Ndoxae0) 
+## The final result {#template-final-result}
 
-## Mission and Scope {#supervised-learning-final-scope}
+_Let's start from a teaser._
 
-_Mission:_
+* Post a video of your best results (e.g., your demo video)
 
-To learn policies which match the results from recorded data from agents in the real world, so that the vast volumes of the data in the real world can be made useful.  
+Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
 
-_Scope:_
+## Mission and Scope {#template-final-scope}
 
-- Verifying whether Deep Learning can be used successfully in Duckietown;
+_Now tell your story:_
 
-- Motivated by the concept of ‘data processing inequality’, using supervised and imitation learning to control the duckiebot end-to-end with data from a recorded policy;
+Define what is your mission here.
 
-- Using supervised or unsupervised learning to model specific aspects of the autonomous driving task;
- 
-- Focus on autonomous lane follwing by learning based tools. 
+### Motivation {#template-final-result-motivation}
 
-### Motivation {#supervised-learning-final-result-motivation}
+_Now step back and tell us how you got to that mission._
 
-According to the definition of 'data process inequality', essential information is prone to be left out along a long process chain, like the conventional approach for autonomous lane following. To cope with this problem, an end-to-end network work is expected to be implemented, which maps raw input images from camera to vehecles' control command directly.
+- What are we talking about? [Brief introduction / problem in general terms]
 
-### Existing solution {#supervised-learning-final-literature}
+- Why is it important? [Relevance]
 
-The similar end-to-end imitation learning neural network has already been implemented by Nvidia for the task of lane following on real roads. The demo details can be seen from the following link. [Nvidia demo](https://youtu.be/-96BEoXJMs0)
+### Existing solution {#template-final-literature}
 
-In the case of Nvidia's work, researchers did not program any explicit object detection, mapping, path planning or control component into this car. Instead, the vehicle learns on its own to create all necessaty internal representations necessary to steer, simply by observing human drivers. The success of learning to drive in complex environments demomstrates new capacities of deep neural network.
+- Was there a baseline implementation in Duckietown which you improved upon, or did you implemented from scratch? Describe the "prior work"
 
-### Opportunity {#supervised-learning-final-opportunity}
+### Opportunity {#template-final-opportunity}
 
-Though the aim is quite same between Nvidia's work and our project, the specific requirements are different. Moreover, our group is the first one to start projects on supervised learning's application on Duckiebots on Zurich's branch. Therefore, the opportunities can be summarized into following aspects:
+- What didn't work out with the existing solution? Why did it need improvement?
 
-- There wasn't previous implementation of supevised learning's application on lane following for Duckiebots;
+Examples:
+- there wasn't a previous implementation
+- the previous performance, evaluated according to some specific metrics, was not satisfactory
+- it was not robust / reliable
+- somebody told me to do so (/s)
 
-- The performance of current approach for lane following is not optimal due to the computation limit of Raspberry Pi;
+* How did you go about improving the existing solution / approaching the problem? [contribution]
+- We used method / algorithm xyz to fix the gap in knowledge (don't go in the details here)
+- Make sure to reference papers you used / took inspiration from
 
-- For Nvidia's implementation, the network's input is the raw images, and the control command is steering angles, gas and brake, which is different from our case in Duckietown, where the control output is only the Bot's orientation; CNN is expected to be used in our case to realize the end-to-end control;
+### Preliminaries (optional) {#template-final-preliminaries}
 
-Specifically, by implementing the network for lane following, we hope to improve the performance of the conventional approach. This can be assured by two aspects: 
+- Is there some particular theorem / "mathy" thing you require your readers to know before delving in the actual problem? Add links here.
 
-- End-to-end network can have better performance due to 'data process inequality';
+Definition of link:
+- could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
+- (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)
 
-- With an extra on-board coputation device Neural Compute Stick, the computation power of Duckiebots can be futher increased.
+## Definition of the problem {#template-final-problem-def}
 
-### Preliminaries (optional) {#supervised-learning-final-preliminaries}
+_Up to now it was all fun and giggles. This is the most important part of your report: a crisp mathematical definition of the problem you tackled. You can use part of the preliminary design document to fill this section._
 
-There are two parts of preliminaries that are important to the implementation:
+Make sure you include your:
+- final objective / goal
+- assumptions made (including contracts with "neighbors")
+- quantitative performance metrics to judge the achievement of the goal
 
-- Train an effective Convotional Neural Network which can maps raw image to orientation of Duckiebots for lane following;
-
-- Implement a ROS node which subscribes to input images, communicates with Neural Compute Stick for computation, and publishes the computed orientation angle to the car control node. 
-
-To be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; 
-to know how to implement ROS in our project, please refer to our code directly.
-
-## Definition of the problem {#supervised-learning-final-problem-def}
-
-_Final objective:_
-
-We have recorded data of the lane following algorithm exploring the duckietown. Our goal is to learn a policy which performs as well as, or better than the policy which produced the data.
-
-_Assumptions:_
-
-- The policy used to collect the data is reasonably good;
-
-- The errors in imitation learning are sufficiently small to allow a straightforward approach to learn a decent policy;
-
-- Our trained policy can improve the robustness of overall performance. 
-
-_Evaluation:_
-
-- Publishing rate of the computed orientation by the neural network, compared with the conventional approach;
-
-- Observation of the overall lane following performance, compared with the conventional approach.
-
-## Contribution / Added functionality {#supervised-learning-final-contribution}
-
-As metnioned above, our group initiated the learning based approaches for Duckietown. Contributions can be categorized into two groups, successful training of a CNN for lane following and  its relevant ROS implementation. The details are demonstrated below.
-
-_Algorithms:_
+## Contribution / Added functionality {#template-final-contribution}
 
 Describe here, in technical detail, what you have done. Make sure you include:
 - a theoretical description of the algorithm(s) you implemented

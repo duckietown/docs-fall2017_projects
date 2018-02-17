@@ -10,7 +10,7 @@ The final results are shown in the attached video. See the following link. [Reco
 
 _Mission:_
 
-To learn policies which match the results from recorded data from agents in the real world, so that the vast volumes of the data in the real world can be made useful.  
+To learn policies which match the results from recorded data from agents in the real world, so that the vast volumes of the data in the real world can be made useful.
 
 _Scope:_
 
