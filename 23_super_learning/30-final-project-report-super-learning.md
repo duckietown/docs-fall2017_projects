@@ -58,15 +58,11 @@ There are three parts of preliminaries that are important to the implementation:
 
 - Implement a ROS node which subscribes to input images, communicates with Neural Compute Stick for computation, and publishes the computed orientation angle to the car control node. 
 
-Concerning learning related knowledge, here we provide basic knowledge that might be an useful introduction for readers who are not familiar with relevant topics. The relation between machine learning and deep learning is shown in the following figure.
+Concerning learning related knowledge, the relation between machine learning and deep learning is shown in the following figure. Moreover, machine learning can be catagorized into three groups: supervised learning, unsupervised learning and reinforcement learning.
 
 ![Plug 0](machine-deep.png)
 
-Machine learning can be catagorized into the following groups.
-
-![Plug 1](machine-learning-types.png)
-
-To be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly.
+To know more about Machine Learning, readers can refer to [ETH Machine Learning Course](https://ml2.inf.ethz.ch/courses/ml/) and [Andrew's Course on Deep Learning](https://www.deeplearning.ai/), to be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly.
 
 ## Definition of the problem {#supervised-learning-final-problem-def}
 
@@ -118,7 +114,7 @@ When implementing the ROS node, the different speed of subscription to images an
 
 _Results:_
 
-The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic.
+The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic. Threfore, we compare the performance our implemented lane following based on 
 
 - For each of the tasks you defined in you problem formulation, provide quantitative results (i.e., the evaluation of the previously introduced performance metrics)
 - Compare your results to the success targets. Explain successes or failures.
