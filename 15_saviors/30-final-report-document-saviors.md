@@ -459,21 +459,13 @@ Furthermore the **avoidance in corners** could be easily significantly improved 
 
 ## Theory Chapter {#saviors-theory-chapter}
 
-### Required Matrix Transformations {#saviors-transformations}
-
 ### Introduction to Computer Vision
 
-\[
-    p_{camera} = H^{-1}P_{world}
-\]
-
-* Shortly Introduce Linear Camera Model and Matrix writing
-
-In general a camera is consisting of a converging lens and a image plane ([](#fig:converging_lens)). 
+In general a camera is consisting of a converging lens and an image plane ([](#fig:converging_lens)). In the following theory chapter, I will assume that the picture in the image plane is already undistorted, meaning we preprocessed it and eliminated the lens distortion. 
 
 <center><img figure-id="fig:converging_lens" figure-caption="Simplyfied Camera Model by Davide Scaramuzza (http://rpg.ifi.uzh.ch/teaching.html)" src="thin_lens.png" style="width: 300px;"/></center>
 
-Which can be basically converted into the thin lens equation. In this thin lens equation for a point to be in focus it has to hold that bot of the "rays" (see [](#fig:converging_lens)) intersect right at the image plane in point B, so it has to hold:
+It is quite easy to infer from [](#fig:converging_lens) that for a real world point to be in focus, it has to hold, that both of the "rays" (see [](#fig:converging_lens)) intersect in one point in the image plane, namely in point B. Mathematically written this means:
 
 \[
     1: \frac{B}{A}=\frac{e}{z}
@@ -481,29 +473,77 @@ Which can be basically converted into the thin lens equation. In this thin lens 
 \[
     2: \frac{B}{A}=\frac{e-f}{f}
 \]
-\[
-    \Leftrightarrow \frac{e}{f}-1=\frac{e}{z}
-\] 
-This last equation can be approximated since usually $z \gg f$ such that we effectifely arrive at the pin-hole approximation with: $e \approx f$ (see [](#fig:pin_approx))
+\begin{equation}
+    \Leftrightarrow \frac{e}{f}-1=\frac{e}{z} \label{eq:two}
+\end{equation}
+
+This last equation \eqref{eq:two} can be approximated since usually $z \gg f$ such that we effectively arrive at the pin-hole approximation with: $e \approx f$ (see [](#fig:pin_approx))
 
 <center><img figure-id="fig:pin_approx" figure-caption="Pinhole camera Approximation by Davide Scaramuzza (http://rpg.ifi.uzh.ch/teaching.html)" src="pinhole_approx.png" style="width: 300px;"/></center>
 
-Now, for the pixel coordinate you have on the image plane it holds here: $\frac{h'}{h}=\frac{f}{z} \Leftrightarrow h'=\frac{f}{z}*h$.
+For the pixel coordinate on the image plane it holds: 
 
-For the general case when you add a second dimension it therefore hold that a real World point being at $ \left( \begin{array}{c}
-X_W \\
-Y_W \\
-Z_W \end{array} \right) $ will therefore be projected to the image/pixel positions, 
+$\frac{h'}{h}=\frac{f}{z} \Leftrightarrow h'=\frac{f}{z}*h$.
 
+In a more general case, when You consider a 3 Dimensional setup and think of a 2 dimenstional image plane you have to add another dimension and it follows that a real World point being at $ \vec{P_W} =  \left( \begin{array}{c} X_W \\ Y_W \\ Z_W \end{array} \right) $ will therefore be projected to the pixels in the image plane: 
 
-* Point out that with mono cam no depth information is possible at all
-* Propably shortly give intuition how we humans are able to extract scale (Var 1: Stereo and Triangulation; Var 2: guessing the right scale by having some reference objects)
-* Introduce our calibration technique -> if all objects are in ground plane -> we have a scale!
+$x_{pix}=\alpha * \frac{f}{Z_W}*X_W + x_{offset}$ and $y_{pix}=\beta * \frac{f}{Z_W}*Y_W + y_{offset}$ 
 
-### Obstacle Detection exploiting Inverse Perspective Mapping
-* exploiting the fact that we have scale -> show how you can transform one image plane into another one using mathematical equations!!!
-* give mathematical background behind transforming one image plane into another!
-* show why this inverse perspective lets you evaluate the scale and easily extract obstacles which "come out of the ground"
+where $\alpha$ and $\beta$ are scaling parameters and $x_{offset}$ and $y_{offset}$ are constants which can be always added. Those equations are usually rewritten in homogeneous coordinates such that we have only linear operations left as:
+\[
+\lambda * \left( \begin{array}{c} x_{pix} \\ y_{pix} \\ 1 \end{array} \right) =  \left( \begin{array}{ccc} \alpha * f & 0 & x_{offset} \\ 0 & \beta * f & y_{offset} \\ 0 & 0 & 1 \end{array} \right) * \left( \begin{array}{c} X_W \\ Y_W \\ Z_W \end{array} \right)
+\] 
+
+\begin{equation}
+\Leftrightarrow \lambda * \vec{P_{pix}} = H * \vec{P_W} \label{eq:one}
+\end{equation}
+
+Note: In general this Matrix H is what we get out of the extrinsic calibration procedure and it might happen, that if the World frame and Camera frame are not completely aligned that then the (1,2) and (2,1) entry of the H Matrix are not exactly zero.
+
+This equation \eqref{eq:one} and especially [](#fig:pin_approx) clearly show that since in every situation you only know H as well as $x_{pix}$ and $y_{pix}$ of the respective objects on the image plane, there is no way to determine the real position of the object, since everything can only be determined up to a scale ($\lambda$). Frankly speaking you only know the direction in which the object has to be but nothing more, which makes it a very difficult task to infer potential obstacles given the picture of a monocular camera only. This scale ambiguity is illustrated in [](#fig:scale_amb). 
+
+<center><img figure-id="fig:scale_amb" figure-caption="Scale Ambiguity by Davide Scaramuzza (https://www.slideshare.net/SERENEWorkshop/towards-robust-and-safe-autonomous-drones)" src="scale_amb.png" style="width: 300px;"/></center>
+
+To conclude, given a picture from a monocular camera only you have no idea at which position the house really is, so without exploiting any further knowledge it is extremely difficult to reliably detect obstacles which is also the main reason why the old approach did not really work. On top of that come other artifacts such as that the same object will appear larger if it is closer to your camera and vice versa, and lines which are parallel in the real world will in general not always be parallel in your camera image.
+
+Note: The intuition, why we humans can infer the real scale of objects is that if you add a second camera, know the relative Transformation between the two cameras and see the same object in both images, then you can easily triangulate the full position of the object, since it is at the place where the two "rays" intersect! (see [](#fig:triang)).
+
+<center><img figure-id="fig:triang" figure-caption="Triangulation to obtain absolute scale by Rasmussen, UBC (Jim Little), Seitz (U. of Wash.), Camps (Penn. State), UC, UMD (Jacobs), UNC, CUNY Computer Vision : CISC 4/689 (http://slideplayer.com/slide/4922391/)" src="triang.png" style="width: 300px;"/></center>
+
+### Inverse Perspective Mapping / Bird's View Perspective {#saviors-transformations}
+
+The first chapter above introduced the rough theory which is needed for understanding the follwing parts. The important additional information that we exploited heavily in our approach is that in our special case we know the coordinate $Z_W$. The reason therefore lies within the fact that unlike in another more general usecase of a mono camera, we know that our camera will always be at height $h$ with repsect to the street plane and that the angle $\theta_0$ also always stays constant. ([](#fig:fixed_cam))   
+
+<center><img figure-id="fig:fixed_cam" figure-caption="Illustration of our fixed Camera position (http://answers.opencv.org/question/2309/inverse-perspective-mapping/)" src="fixed_cam.png" style="width: 300px;"/></center>
+
+This information is used in the actual extrinsic calibration such that in Duckietown, due to the assumption that everything we see should in general be on the road, we can determine the full real world coordinates of every pixel, since we know the coordinate $Z_W$ which uniquely defines the absolute scale and can therefore uniquely determine $\lambda$ and M! Intuitively this comes from the fact that we can just intersect the known ray direction (see [](#fig:pin_approx)) with the known "gound plane".
+
+This makes it possible to project every pixel back into the "road plane" by computing for each available pixel:
+\[
+\vec{P_W}=H^{-1} * \lambda * P_{pix} 
+\] 
+
+**This "projection back onto the road plane" is called inverse perspective mapping!**
+
+If you now visualize this "back" projection, you basically get the bird's view since you can now map back every pixel in the image plane to a unique place on the road plane.
+
+The only trick of this easy maths is that we exploited the knowledge that everything we see in the image plane is in fact on the road and has one and the same z-coordinate. You can see that the original input image [](#fig:raw_img) is nicely transformed into the view from above where every texture and shape is nicely reconstructed if this assumption is valid [](#fig:normal_bird). You can especially see that all the yellow line segments in the middle of the road roughly have the same size in this bird view [](#fig:normal_bird) which is very different if you compare it to the original image [](#fig:raw_img).
+
+<center><img figure-id="fig:raw_img" figure-caption="Normal incoming image without any obstacle" src="4.jpg" style="width: 300px;"/></center>
+
+<center><img figure-id="fig:normal_bird" figure-caption="Incoming image without obstacle reconstructed in bird view" src="4_bird.png" style="width: 300px;"/></center>
+
+The crucial part is now what happens in this bird's view perspective, if the camera sees an object which is not entirely part of the ground plane but stands out. This are basically obstacles we want to detect. If we still transform the whole image to the bird's view, these obstacles which stand out of the image plane get heavily disturbed. Lets explain this by having a look at [](#fig:reason_for_dist). 
+
+<center><img figure-id="fig:reason_for_dist" figure-caption="Illustration why obstacle standing out of ground plane is heavily disturbed in bird view" src="shadow.png" style="width: 300px;"/></center>
+
+The upper picture in [](#fig:reason_for_dist) depicts the real world situation, where the cone is standing out ot the image plane and therefore the tip is obviously not at the same height as the ground plane. However, as we still have this assumption and as stated above intuitively intersect the ray with the ground plane, the cone gets heavily disturbed and will look like the lower picture in [](#fig:reason_for_dist) after performing the inverse perspective mapping. From this follows that if there are any object which DO stand out of the image plane then in the inverse perspective you basically see their shape being projected onto the ground plane. This behaviour can be easily exploited since all of these objects are heavily disturbed, drastically increase in size and can therefore be easily separated from the other objects which belong to the ground plane.
+
+Let's have one final look at an example in Duckietown. In [](#fig:incoming_img) you see an incoming picture seen from the normal camera perspective, including obstacles. If you now perform the inverse perspective mapping, the picture looks like [](#fig:bird_img) and as you can easily see, all the obstacles, namely the two yellow duckies and the orange cone which stand out of the ground plane are heavily disturbed and therefore it is quite easy to detect them as real obstacles.
+
+<center><img figure-id="fig:incoming_img" figure-caption="Normal situation with obstacles in Duckietown seen from Duckiebot perspective" src="image_cropped.png" style="width: 300px;"/></center>
+
+<center><img figure-id="fig:bird_img" figure-caption="Same situation seen from bird's perspective" src="bird_view.png" style="width: 300px;"/></center>
 
 ### HSV Color Space {#saviors-HSV}
 
