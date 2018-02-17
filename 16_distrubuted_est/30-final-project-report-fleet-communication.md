@@ -60,17 +60,17 @@ The new communication functionality added to Duckietown consists of four differe
 
 These individual parts were implemented as described below.
 
-###Ad-hoc Mesh Network
+### Ad-hoc Mesh Network
 Batman-adv is the backbone of the mesh network. In short, it is a specialized linux kernel module that implements a network routing protocol. It emulates a virtual network switch of all nodes participating. Hence, all nodes appears to be linked locally and are unaware of the network's topology and is also unaffected by any network changes. As a result, batman-adv allows for us to develop our communication platform agnostic to the underlying network architecture.
 
-###Messaging Algorithm
+### Messaging Algorithm
 DuckieMQ is based on zeroMQ, it facilitates the sending and receiving of messages. The serialized messages (protobuf) are broadcasted on a specified port into the network. For this to work, we need to know the name of the network interface, the desired port and whether we want to recieve or send on initialization of a messaging socket. Multiple sockets can run on one bot and on also on one port. Receivers can be equipped with filters to only receive messages starting with a specified string.
 
 Once these sockets are created (initialize either sender or receiver) messages can be passed. The receiver node is equipped with a “” filter, meaning it receives all messages. If only messages starting with a or multiple fiter want to be received, these filter strings have to be added and the “” filter string has to be removed with the addfilter and removefilter functions.
 
-###Message encoder
+### Message encoder
 
-###Framework
+### Framework
 For easy use of the messaging algorithm a ROS package, with two ROS nodes was implemented. The two nodes, are the reciever_node and the sender_node. 
 
 The sender_node subscribes to the outbox_topic and sends this data to the reciever_node on all other Duckiebots on the network via the messaging algorithm using zeroMQ. The reciever_node then publishes the received data to the inbox_topic.
