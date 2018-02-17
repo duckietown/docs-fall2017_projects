@@ -39,15 +39,15 @@ The final goals of the project were to:
 3. Have a communication framework that is adjustable and is not limited to a single message type.
 
 For this we made the following assumptions:
-1. Duckiebots can connect to a wifi network
-2. Duckiebots leave network when they are out of range or switched off
-3. If a Duckiebot is not connected to the communication network, it is not in Duckietown
+1. Duckiebots can connect to a wifi network.
+2. Duckiebots leave network when they are out of range or switched off.
+3. If a Duckiebot is not connected to the communication network, it is not in Duckietown.
 4. In a first step, the communication network is used by the fleet-planning team and the multi-robot SLAM team. 
 
 To evaluate the new framework we:
 1. Compared the messages sent and received between two Duckiebots connected over the network and looked for messages dropped
 2. Tested the range of the wifi adapters to see if it is able to cover the size of a demo-sized Duckietown
-3. Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect
+3. Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect.
 
 ## Contribution / Added functionality {fleet-communication-final-contribution}
 
@@ -98,9 +98,9 @@ There are three main criterias that have to be evaluated:
 1. Message transport:
     1. Centralized Network: test if a simple message e.g. a string can be sent from one duckiebot to another reliably. 
     2. Decentralized Network: test message propagation. In a mesh network two Duckiebots (nodes) may not be directly connected, therefore we must test if a message can be propagated through the network to the correct receiver.
-    3. Check of dropped messages
-2. Network traffic: accurately monitor network traffic
-3. Network topology: visualize nodes entering and leaving the network reliably
+    3. Check of dropped messages.
+2. Network traffic: accurately monitor network traffic.
+3. Network topology: visualize nodes entering and leaving the network reliably.
 
 
 | |0|1|2|3|4|
@@ -117,7 +117,7 @@ There are three main criterias that have to be evaluated:
 Mesh networking can be very finicky because it depends on drivers for the wifi adapters and batman-adv working correctly. From experience, even with the unified Duckiebot hardware this it was very much a case by case basis. This made it difficult to develop a one push solution. Nonetheless we implemented one - see operation manual - which seemed to work on most occasion but we still had to do some on the spot debugging.
 
 #### Possible Solution
-Refined the bash script already implemented
+Refined the bash script already implemented.
 
 ### Improve Developmental setup
 
