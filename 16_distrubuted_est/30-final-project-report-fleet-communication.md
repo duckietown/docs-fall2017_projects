@@ -94,7 +94,7 @@ The complete structure of the fleet-messaging package is illustrated below.
 
 ## Formal performance evaluation / Results {fleet-communication-final-formal}
 
-There are three main criterias that have to be evaluated:
+There are three main criterion that have to be evaluated:
 1. Message transport:
     1. Centralized Network: test if a simple message e.g. a string can be sent from one duckiebot to another reliably. 
     2. Decentralized Network: test message propagation. In a mesh network two Duckiebots (nodes) may not be directly connected, therefore we must test if a message can be propagated through the network to the correct receiver.
@@ -102,16 +102,25 @@ There are three main criterias that have to be evaluated:
 2. Network traffic: accurately monitor network traffic.
 3. Network topology: visualize nodes entering and leaving the network reliably.
 
+To test the first criteria: 
+- Compared the messages sent and received between two Duckiebots connected over the network and looked for messages dropped
 
+To test the second criteria:
+- Analyse packets sent on wireshark
+
+To test the third criteria:
+-Tested the range of the wifi adapters to see if it is able to cover the size of a demo-sized Duckietown
+-Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect.
+ 
+Our conclusions are summarized in the following table
 | |0|1|2|3|4|
 |---|---|---|---|---|---|
-|Message Transport  | Messages cannot be sent or received | Strings can be sent and received on tcp | Messages can be serialized and sent and received on tcp | Messages can be serialized and multicast and received on pgm |Messages can be serialized and multicast and received on pgm on a mesh network|
-|Network Traffic|No traffic monitored|Can see traffic on the network but no useful information extracted|Able to isolate duckiebot traffic|Able to identify specific packets|Able to visualize routing of specific packages|
-|Network Topology (centralized and decentralized)|Network cannot be established|Initial Network can be established, but no new nodes can connect to the network, not robust to connection loses|Initial Network can be established, new nodes can connect but not reliably, not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, but not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, and robust to connection loses|
+|Message Transport  | Messages cannot be sent or received | Strings can be sent and received on tcp | Messages can be serialized and sent and received on tcp | Messages can be serialized and multicast and received on pgm |**Messages can be serialized and multicast and received on pgm on a mesh network**|
+|Network Traffic|No traffic monitored|**Can see traffic on the network but no useful information extracted**|Able to isolate duckiebot traffic|Able to identify specific packets|Able to visualize routing of specific packages|
+|Network Topology (centralized and decentralized)|Network cannot be established|Initial Network can be established, but no new nodes can connect to the network, not robust to connection loses|Initial Network can be established, new nodes can connect but not reliably, not robust to connection loses|**Initial Network can be established, new nodes can connect/leave dynamically, but not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, and robust to connection loses**|
 
 ## Future avenues of development {fleet-communication-final-next-steps}
 
-<<<<<<< HEAD
 ### One push solution for package setup/installation
 
 #### Current Issue
