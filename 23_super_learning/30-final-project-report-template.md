@@ -56,8 +56,7 @@ There are two parts of preliminaries that are important to the implementation:
 
 - Implement a ROS node which subscribes to input images, communicates with Neural Compute Stick for computation, and publishes the computed orientation angle to the car control node. 
 
-To be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; 
-to know how to implement ROS in our project, please refer to our code directly.
+To be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly.
 
 ## Definition of the problem {#supervised-learning-final-problem-def}
 
@@ -83,21 +82,27 @@ _Evaluation:_
 
 As metnioned above, our group initiated the learning based approaches for Duckietown. Contributions can be categorized into two groups, successful training of a CNN for lane following and  its relevant ROS implementation. The details are demonstrated below.
 
-_Algorithms:_
-
 _Logical Architecture:_
+
+The logical architecture can be seen in the following picture. We will develop one node, the trained deep imitation learning model, that maps the compressed images to control command(orientation). All other nodes will remain unchanged.
 
 ![Plug 1](intermediate_plug1.png)
 
-Describe here, in technical detail, what you have done. Make sure you include:
-- a theoretical description of the algorithm(s) you implemented
-- logical architecture (refer to [IDD template](#template-int-report) for description)
-- software architecture (refer to [IDD template](#template-int-report) for description)
-- details on the actual implementation where relevant (how does the implementation differ from the theory?)
-- any infrastructure you had to develop in order to implement your algorithm
-- If you have collected a number of logs, add link to where you stored them
+_Software Architecture:_
 
-_Feel free to create subsections when useful to ease the flow_
+There are three main steps for software part:
+
+- Offline training with logged data;
+
+- NCS thing works on the laptop; 
+
+- It’s funny on the Pi.
+
+_Model Training:_
+
+_ROS Implementation:_
+
+When implementing the ROS node, the different speed of subscription to images and computation speed of NCS should be paid attention to. To make sure that each of the input image can be processed properly, we start a daemon thread to process them. For details, please refer to our code. More proper approaches can also be exploited.
 
 ## Formal performance evaluation / Results {#template-final-formal}
 
