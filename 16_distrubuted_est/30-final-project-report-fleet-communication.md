@@ -78,6 +78,8 @@ Once these sockets are created (initialize either sender or receiver) messages c
 
 #### Message encoder
 
+*TODO*
+
 #### Framework
 For easy use of the messaging algorithm a ROS package, with two ROS nodes was implemented. The two nodes, are the reciever_node and the sender_node. 
 
@@ -142,7 +144,7 @@ We discover late into the project that the edimax has mesh capabilities but we n
 
 ### Improving usability of platform
 
-TODO
+*TODO*
 
 ### Network Visualization
 
