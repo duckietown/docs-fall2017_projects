@@ -62,6 +62,10 @@ Concerning learning related knowledge, here we provide basic knowledge that migh
 
 ![Plug 0](machine-deep.png)
 
+Machine learning can be catagorized into the following groups.
+
+![Plug 1](machine-learning-types.png)
+
 To be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly.
 
 ## Definition of the problem {#supervised-learning-final-problem-def}
@@ -86,13 +90,13 @@ _Evaluation:_
 
 ## Contribution / Added functionality {#supervised-learning-final-contribution}
 
-As metnioned above, our group initiated the learning based approaches for Duckietown. Contributions can be categorized into two groups, successful training of a CNN for lane following and  its relevant ROS implementation. The details are demonstrated below.
+As mentioned above, our group initiated the learning based approaches for Duckietown. Contributions can be categorized into two groups, successful training of a CNN for lane following and  its relevant ROS implementation. The details are demonstrated below.
 
 _Logical Architecture:_
 
 The logical architecture can be seen in the following picture. We will develop one node, the trained deep imitation learning model, that maps the compressed images to control command(orientation). All other nodes will remain unchanged.
 
-![Plug 1](intermediate_plug1.png)
+![Plug 2](intermediate_plug1.png)
 
 _Software Architecture:_
 
