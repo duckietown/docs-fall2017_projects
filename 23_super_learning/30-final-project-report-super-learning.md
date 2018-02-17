@@ -62,7 +62,7 @@ Concerning learning related knowledge, the relation between machine learning and
 
 ![Plug 0](machine-deep.png)
 
-To know more about Machine Learning, readers can refer to [ETH Machine Learning Course](https://ml2.inf.ethz.ch/courses/ml/) and [Andrew's Course on Deep Learning](https://www.deeplearning.ai/), to be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly.
+To know more about Machine Learning and Deep Learning, readers can refer to [ETH Machine Learning Course](https://ml2.inf.ethz.ch/courses/ml/) and [Andrew's Course on Deep Learning](https://www.deeplearning.ai/); to be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly.
 
 ## Definition of the problem {#supervised-learning-final-problem-def}
 
@@ -112,14 +112,11 @@ When implementing the ROS node, the different speed of subscription to images an
 
 ## Formal performance evaluation / Results {#supervised-learning-final-formal}
 
-_Results:_
+The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic. Threfore, we compare the performance of the lane following based on our neural network and the one realized by conventional approach. 
 
-The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic. Threfore, we compare the performance our implemented lane following based on 
+- Robustness: As shown in the recorded video, the implemeted neural network can complete the task lane follwing quite well, not only on the Duckiebot which collects data, but on other Duckiebots as well. Morevoer, the performance is also desirable on the tracks that the trained network that has never seen before. Overall speaking, the trained network is comparable with the conventional approach, from the aspect of robustness;
 
-- For each of the tasks you defined in you problem formulation, provide quantitative results (i.e., the evaluation of the previously introduced performance metrics)
-- Compare your results to the success targets. Explain successes or failures.
-- Compare your results to the "state of the art" / previous implementation where relevant. Explain failure / success.
-- Include an explanation / discussion of the results. Where things (as / better than / worst than) you expected? What were the biggest challenges?
+- Response: To have a perfect performance on lane follwing, processors should respond fast. By conventional approach, the publishing of car control command is around 2 Hz, by using the add-on hardware NCS, the publishing speed of control command can achieve 15 Hz. Therefore, the approach realized by NCS has shown its advantage in our case.
 
 ## Future avenues of development {#supervised-learning-final-next-steps}
 
