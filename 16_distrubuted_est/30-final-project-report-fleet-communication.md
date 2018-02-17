@@ -117,8 +117,8 @@ Our conclusions are summarized in the following table
 | |0|1|2|3|4|
 |---|---|---|---|---|---|
 |Message Transport  | Messages cannot be sent or received | Strings can be sent and received on tcp | Messages can be serialized and sent and received on tcp | Messages can be serialized and multicast and received on pgm |**Messages can be serialized and multicast and received on pgm on a mesh network**|
-|Network Traffic|No traffic monitored|Can see traffic on the network but no useful information extracted|Able to isolate duckiebot traffic|Able to identify specific packets|Able to visualize routing of specific packages|
-|Network Topology (centralized and decentralized)|Network cannot be established|Initial Network can be established, but no new nodes can connect to the network, not robust to connection loses|Initial Network can be established, new nodes can connect but not reliably, not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, but not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, and robust to connection loses|
+|Network Traffic|No traffic monitored|**Can see traffic on the network but no useful information extracted**|Able to isolate duckiebot traffic|Able to identify specific packets|Able to visualize routing of specific packages|
+|Network Topology (centralized and decentralized)|Network cannot be established|Initial Network can be established, but no new nodes can connect to the network, not robust to connection loses|Initial Network can be established, new nodes can connect but not reliably, not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, but not robust to connection loses|**Initial Network can be established, new nodes can connect/leave dynamically, and robust to connection loses**|
 
 ## Future avenues of development {fleet-communication-final-next-steps}
 
