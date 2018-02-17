@@ -109,8 +109,8 @@ To test the second criteria:
 - Analyse packets sent on wireshark
 
 To test the third criteria:
--Tested the range of the wifi adapters to see if it is able to cover the size of a demo-sized Duckietown
--Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect.
+- Tested the range of the wifi adapters to see if it is able to cover the size of a demo-sized Duckietown
+- Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect.
  
 Our conclusions are summarized in the following table
 
