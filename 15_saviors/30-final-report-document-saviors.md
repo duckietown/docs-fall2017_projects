@@ -442,7 +442,40 @@ In terms of avoidance there would be **possibilities to handle the high incurrac
 ### Required Matrix Transformations {#saviors-transformations}
 
 ### Introduction to Computer Vision
+
+\[
+    p_{camera} = H^{-1}P_{world}
+\]
+
 * Shortly Introduce Linear Camera Model and Matrix writing
+
+In general a camera is consisting of a converging lens and a image plane ([](#fig:converging_lens)). 
+
+<center><img figure-id="fig:converging_lens" figure-caption="Simplyfied Camera Model by Davide Scaramuzza (http://rpg.ifi.uzh.ch/teaching.html)" src="thin_lens.png" style="width: 300px;"/></center>
+
+Which can be basically converted into the thin lens equation. In this thin lens equation for a point to be in focus it has to hold that bot of the "rays" (see [](#fig:converging_lens)) intersect right at the image plane in point B, so it has to hold:
+
+\[
+    1: \frac{B}{A}=\frac{e}{z}
+\]
+\[
+    2: \frac{B}{A}=\frac{e-f}{f}
+\]
+\[
+    \Leftrightarrow \frac{e}{f}-1=\frac{e}{z}
+\] 
+This last equation can be approximated since usually $z \gg f$ such that we effectifely arrive at the pin-hole approximation with: $e \approx f$ (see [](#fig:pin_approx))
+
+<center><img figure-id="fig:pin_approx" figure-caption="Pinhole camera Approximation by Davide Scaramuzza (http://rpg.ifi.uzh.ch/teaching.html)" src="pinhole_approx.png" style="width: 300px;"/></center>
+
+Now, for the pixel coordinate you have on the image plane it holds here: $\frac{h'}{h}=\frac{f}{z} \Leftrightarrow h'=\frac{f}{z}*h$.
+
+For the general case when you add a second dimension it therefore hold that a real World point being at $ \left( \begin{array}{c}
+X_W \\
+Y_W \\
+Z_W \end{array} \right) $ will therefore be projected to the image/pixel positions, 
+
+
 * Point out that with mono cam no depth information is possible at all
 * Propably shortly give intuition how we humans are able to extract scale (Var 1: Stereo and Triangulation; Var 2: guessing the right scale by having some reference objects)
 * Introduce our calibration technique -> if all objects are in ground plane -> we have a scale!
