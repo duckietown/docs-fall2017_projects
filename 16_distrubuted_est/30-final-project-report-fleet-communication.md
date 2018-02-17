@@ -113,6 +113,7 @@ To test the third criteria:
 -Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect.
  
 Our conclusions are summarized in the following table
+
 | |0|1|2|3|4|
 |---|---|---|---|---|---|
 |Message Transport  | Messages cannot be sent or received | Strings can be sent and received on tcp | Messages can be serialized and sent and received on tcp | Messages can be serialized and multicast and received on pgm |Messages can be serialized and multicast and received on pgm on a mesh network|
