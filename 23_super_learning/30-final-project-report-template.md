@@ -85,6 +85,10 @@ As metnioned above, our group initiated the learning based approaches for Duckie
 
 _Algorithms:_
 
+_Logical Architecture:_
+
+![Plug 1](intermediate_plug1.png =340*199)
+
 Describe here, in technical detail, what you have done. Make sure you include:
 - a theoretical description of the algorithm(s) you implemented
 - logical architecture (refer to [IDD template](#template-int-report) for description)
