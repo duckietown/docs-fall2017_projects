@@ -2,10 +2,11 @@
 
 ## The final result {fleet-communication-final-result}
 
-
 ![Demo Video](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Demo%20Video.ogv)
 
-Add as a caption: see the [operation manual](#demofleet-communication) to reproduce these results.
+see the [operation manual](#demofleet-communication) to reproduce these results.
+
+![README](https://github.com/duckietown/Software/blob/devel-distributed-est-master/catkin_ws/src/30-localization-and-planning/README.md)
 
 ## Mission and Scope {fleet-communication-final-scope}
 
@@ -109,16 +110,16 @@ To test the second criteria:
 - Analyse packets sent on wireshark
 
 To test the third criteria:
--Tested the range of the wifi adapters to see if it is able to cover the size of a demo-sized Duckietown
--Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect.
+- Tested the range of the wifi adapters to see if it is able to cover the size of a demo-sized Duckietown
+- Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect.
  
 Our conclusions are summarized in the following table
 
 | |0|1|2|3|4|
 |---|---|---|---|---|---|
-|Message Transport  | Messages cannot be sent or received | Strings can be sent and received on tcp | Messages can be serialized and sent and received on tcp | Messages can be serialized and multicast and received on pgm |Messages can be serialized and multicast and received on pgm on a mesh network|
-|Network Traffic|No traffic monitored|Can see traffic on the network but no useful information extracted|Able to isolate duckiebot traffic|Able to identify specific packets|Able to visualize routing of specific packages|
-|Network Topology (centralized and decentralized)|Network cannot be established|Initial Network can be established, but no new nodes can connect to the network, not robust to connection loses|Initial Network can be established, new nodes can connect but not reliably, not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, but not robust to connection loses| Initial Network can be established, new nodes can connect/leave dynamically, and robust to connection loses|
+|Message Transport  | Messages cannot be sent or received | Strings can be sent and received on tcp | Messages can be serialized and sent and received on tcp | Messages can be serialized and multicast and received on pgm |**Messages can be serialized and multicast and received on pgm on a mesh network**|
+|Network Traffic|No traffic monitored|**Can see traffic on the network but no useful information extracted**|Able to isolate duckiebot traffic|Able to identify specific packets|Able to visualize routing of specific packages|
+|Network Topology (centralized and decentralized)|Network cannot be established|Initial Network can be established, but no new nodes can connect to the network, not robust to connection loses|Initial Network can be established, new nodes can connect but not reliably, not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, but not robust to connection loses|**Initial Network can be established, new nodes can connect/leave dynamically, and robust to connection loses**|
 
 ## Future avenues of development {fleet-communication-final-next-steps}
 
