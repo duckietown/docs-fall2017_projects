@@ -2,10 +2,9 @@
 
 ## The final result {fleet-communication-final-result}
 
-
 ![Demo Video](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Demo%20Video.ogv)
-
-Add as a caption: see the [operation manual](#demofleet-communication) to reproduce these results.
+see the [operation manual](#demofleet-communication) to reproduce these results.
+![README](https://github.com/duckietown/Software/blob/devel-distributed-est-master/catkin_ws/src/30-localization-and-planning/README.md)
 
 ## Mission and Scope {fleet-communication-final-scope}
 
