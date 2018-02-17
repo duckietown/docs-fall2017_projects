@@ -50,11 +50,17 @@ Specifically, by implementing the network for lane following, we hope to improve
 
 ### Preliminaries (optional) {#supervised-learning-final-preliminaries}
 
-There are two parts of preliminaries that are important to the implementation:
+There are three parts of preliminaries that are important to the implementation:
+
+- Understand basic knowledge and differences between machine learning, deep learning, supervised learning and unsupervised learning;
 
 - Train an effective Convotional Neural Network which can maps raw image to orientation of Duckiebots for lane following;
 
 - Implement a ROS node which subscribes to input images, communicates with Neural Compute Stick for computation, and publishes the computed orientation angle to the car control node. 
+
+Concerning learning related knowledge, here we provide basic knowledge that might be an useful introduction for readers who are not familiar with relevant topics. The relation between machine learning and deep learning is shown in the following figure.
+
+![Plug 0](machine-deep.png)
 
 To be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly.
 
@@ -104,15 +110,17 @@ _ROS Implementation:_
 
 When implementing the ROS node, the different speed of subscription to images and computation speed of NCS should be paid attention to. To make sure that each of the input image can be processed properly, we start a daemon thread to process them. For details, please refer to our code. More proper approaches can also be exploited.
 
-## Formal performance evaluation / Results {#template-final-formal}
+## Formal performance evaluation / Results {#supervised-learning-final-formal}
 
-_Be rigorous!_
+_Results:_
+
+The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic.
 
 - For each of the tasks you defined in you problem formulation, provide quantitative results (i.e., the evaluation of the previously introduced performance metrics)
 - Compare your results to the success targets. Explain successes or failures.
 - Compare your results to the "state of the art" / previous implementation where relevant. Explain failure / success.
 - Include an explanation / discussion of the results. Where things (as / better than / worst than) you expected? What were the biggest challenges?
 
-## Future avenues of development {#template-final-next-steps}
+## Future avenues of development {#supervised-learning-final-next-steps}
 
 _Is there something you think still needs to be done or could be improved? List it here, and be specific!_
