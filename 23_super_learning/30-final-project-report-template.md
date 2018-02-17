@@ -87,7 +87,7 @@ _Algorithms:_
 
 _Logical Architecture:_
 
-![Plug 1](intermediate_plug1.png =340*199)
+![Plug 1](intermediate_plug1.png)
 
 Describe here, in technical detail, what you have done. Make sure you include:
 - a theoretical description of the algorithm(s) you implemented
