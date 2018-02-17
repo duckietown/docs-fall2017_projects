@@ -49,7 +49,7 @@ In practice a well working obstacle detection is of course one of the most impor
 
 There was a previous implementation from the MIT classes in 2016. Of course we had a look into the old software and found out that one step of them was quite similar to ours: They based their obstacle detection on the colors of the obstacles. Therefore they also did their processing in the HSV color space as we did. Further information on why filtering colors in the HSV space is advantageous can be found [Theory Chapter](#saviors-HSV).
 
-Nevertheless, we implemted our solution from scratch and didn't base ours on any further concepts found in their software. That is why you won't find any further similarites between the two implementations. The reasons for implementing our own code from scratch can be found in the next section [Opprtunity](#saviors-final-opportunity). In short, last year's solution considered the image given the original camera's perspective and tried to classify the objects based on their contour. We are using a very different approach concerning those two crucial parts as you can see in the following section. ***TO DO!!!!! INSERT LINK!!!!!!!!!***
+Nevertheless, we implemted our solution from scratch and didn't base ours on any further concepts found in their software. That is why you won't find any further similarites between the two implementations. The reasons for implementing our own code from scratch can be found in the next section [Opprtunity](#saviors-final-opportunity). In short, last year's solution considered the image given the original camera's perspective and tried to classify the objects based on their contour. We are using a very different approach concerning those two crucial parts as you can see in the [Contribution](#saviors-final-contribution) section.
 
 ### Opportunity {#saviors-final-opportunity}
 <!--at didn't work out with the existing solution? Why did it need improvement?
@@ -461,7 +461,7 @@ Furthermore the **avoidance in corners** could be easily significantly improved 
 
 ### Introduction to Computer Vision
 
-In general a camera is consisting of a converging lens and an image plane ([](#fig:converging_lens)). In the following theory chapter, I will assume that the picture in the image plane is already undistorted, meaning we preprocessed it and eliminated the lens distortion. 
+In general a camera is consisting of a converging lens and an image plane ([](#fig:converging_lens)). In the following theory chapter, we will assume that the picture in the image plane is already undistorted, meaning we preprocessed it and eliminated the lens distortion. 
 
 <center><img figure-id="fig:converging_lens" figure-caption="Simplyfied Camera Model by Davide Scaramuzza (http://rpg.ifi.uzh.ch/teaching.html)" src="thin_lens.png" style="width: 300px;"/></center>
 
@@ -485,7 +485,7 @@ For the pixel coordinate on the image plane it holds:
 
 $\frac{h'}{h}=\frac{f}{z} \Leftrightarrow h'=\frac{f}{z}*h$.
 
-In a more general case, when You consider a 3 Dimensional setup and think of a 2 dimenstional image plane you have to add another dimension and it follows that a real World point being at $ \vec{P_W} =  \left( \begin{array}{c} X_W \\ Y_W \\ Z_W \end{array} \right) $ will therefore be projected to the pixels in the image plane: 
+In a more general case, when you consider a 3 dimensional setup and think of a 2 dimensional image plane you have to add another dimension and it follows that a real world point being at $ \vec{P_W} =  \left( \begin{array}{c} X_W \\ Y_W \\ Z_W \end{array} \right) $ will therefore be projected to the pixels in the image plane: 
 
 $x_{pix}=\alpha * \frac{f}{Z_W}*X_W + x_{offset}$ and $y_{pix}=\beta * \frac{f}{Z_W}*Y_W + y_{offset}$ 
 
@@ -498,13 +498,13 @@ where $\alpha$ and $\beta$ are scaling parameters and $x_{offset}$ and $y_{offse
 \Leftrightarrow \lambda * \vec{P_{pix}} = H * \vec{P_W} \label{eq:one}
 \end{equation}
 
-Note: In general this Matrix H is what we get out of the extrinsic calibration procedure and it might happen, that if the World frame and Camera frame are not completely aligned that then the (1,2) and (2,1) entry of the H Matrix are not exactly zero.
+Note: In general this Matrix H is what we get out of the intrinsic calibration procedure and it might happen, that if the World frame and Camera frame are not completely aligned that then the (1,2) and (2,1) entry of the H Matrix are not exactly zero.
 
 This equation \eqref{eq:one} and especially [](#fig:pin_approx) clearly show that since in every situation you only know H as well as $x_{pix}$ and $y_{pix}$ of the respective objects on the image plane, there is no way to determine the real position of the object, since everything can only be determined up to a scale ($\lambda$). Frankly speaking you only know the direction in which the object has to be but nothing more, which makes it a very difficult task to infer potential obstacles given the picture of a monocular camera only. This scale ambiguity is illustrated in [](#fig:scale_amb). 
 
 <center><img figure-id="fig:scale_amb" figure-caption="Scale Ambiguity by Davide Scaramuzza (https://www.slideshare.net/SERENEWorkshop/towards-robust-and-safe-autonomous-drones)" src="scale_amb.png" style="width: 300px;"/></center>
 
-To conclude, given a picture from a monocular camera only you have no idea at which position the house really is, so without exploiting any further knowledge it is extremely difficult to reliably detect obstacles which is also the main reason why the old approach did not really work. On top of that come other artifacts such as that the same object will appear larger if it is closer to your camera and vice versa, and lines which are parallel in the real world will in general not always be parallel in your camera image.
+To conclude, given a picture from a monocular camera only you have no idea at which position the house really is, so without exploiting any further knowledge it is extremely difficult to reliably detect obstacles which is also the main reason why the old approach did not really work. On top of that come other artifacts such as that the same object will appear larger if it is closer to your camera and vice versa, and lines which are parallel in the real world will in general not be parallel in your camera image.
 
 Note: The intuition, why we humans can infer the real scale of objects is that if you add a second camera, know the relative Transformation between the two cameras and see the same object in both images, then you can easily triangulate the full position of the object, since it is at the place where the two "rays" intersect! (see [](#fig:triang)).
 
