@@ -33,7 +33,7 @@ The Saviors Teaser:
 
 Note: See the [operation manual](#demo-template) to reproduce these results. 
 
-The code description can be found here: (readme-file) 
+The code description can be found here in the [Readme](https://github.com/duckietown/Software/blob/devel-saviors-23feb/catkin_ws/src/25-devel-saviors/obst_avoid/README.md).
 
 ***LINKS STILL MISSING!***
 
@@ -398,7 +398,7 @@ These tasks are then repeated at the frame rate of the obstacle detection array 
 Especially when dealing with a vision based obstacle detection algorithm it is very hard to infer what is going on. One has to also keep the visual outputs low, to consume as less computing power as possible, especially on the Raspberry Pi. This is why we decided to not implement one single _obstacle detection node_, but effectively two of them, together with some scripts which should help to tune the parameters offline and to infer the number of false positives, etc.. The node which is designed to be run on the Raspberry Pi is our normal obstacle_detection_node. This should in general be run such that there is no visual output at all but that simply the PoseArray of obstacles is published through this node.
 
 The other node, namely the _obstacle_detection_visual_node_ is designed to be run on your own laptop which is basically visualising the information given by the posearray. There are two visualisations available. On the one hand there is a marker visualisation in rviz which shows the position and size of the obstacles. In here all the dangerous obstacles which must be considered are shown in red, whereas the non critical (which we think that they are outside the lane boundaries) are marked in green. On the other hand there is also a visualisation available which shows the camera image together with bounding boxes around the detected obstacles.
-Nevertheless, this online visualisation is still dependent on the connectivity and you can only hardly “freeze” single situations where our algorithm failed. That is why we also included some helpful scripts into our package. One script allows to thoroughly input many pictures and outputs them labelled together with the bounding boxes, while another one outputs all the intermediate steps of our filtering process which allows to fastly adapt e.g. the color thresholds which is in our opinion still the major reason for failure. More information on our created scripts can be found in our **Readme on GitHub**.
+Nevertheless, this online visualisation is still dependent on the connectivity and you can only hardly “freeze” single situations where our algorithm failed. That is why we also included some helpful scripts into our package. One script allows to thoroughly input many pictures and outputs them labelled together with the bounding boxes, while another one outputs all the intermediate steps of our filtering process which allows to fastly adapt e.g. the color thresholds which is in our opinion still the major reason for failure. More information on our created scripts can be found in our [Readme on GitHub](https://github.com/duckietown/Software/blob/devel-saviors-23feb/catkin_ws/src/25-devel-saviors/obst_avoid/README.md).
 
 ### Recorded Logs {#saviors-logs}
 
