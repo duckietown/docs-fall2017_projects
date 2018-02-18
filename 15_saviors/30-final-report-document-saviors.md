@@ -535,7 +535,7 @@ The only trick of this easy maths is that we exploited the knowledge that everyt
 
 <center><img figure-id="fig:normal_bird" figure-caption="Incoming image without obstacle reconstructed in bird view" src="4_bird.png" style="width: 300px;"/></center>
 
-The crucial part is now what happens in this bird's view perspective, if the camera sees an object which is not entirely part of the ground plane but stands out. This are basically obstacles we want to detect. If we still transform the whole image to the bird's view, these obstacles which stand out of the image plane get heavily disturbed. Lets explain this by having a look at [](#fig:reason_for_dist). 
+The crucial part is now what happens in this bird's view perspective, if the camera sees an object which is not entirely part of the ground plane but stands out. These are basically obstacles we want to detect. If we still transform the whole image to the bird's view, these obstacles which stand out of the image plane get heavily disturbed. Lets explain this by having a look at [](#fig:reason_for_dist). 
 
 <center><img figure-id="fig:reason_for_dist" figure-caption="Illustration why obstacle standing out of ground plane is heavily disturbed in bird view" src="shadow.png" style="width: 300px;"/></center>
 
@@ -585,7 +585,7 @@ The _HSV_ model can be derived using geometric strategies. The RGB color space i
 
 <center><img figure-id="fig:color_comparison" figure-caption="Comparison between the two Colors Spaces (https://image.slidesharecdn.com/01presentationhuehistograms-150707215651-lva1-app6892/95/about-perception-and-hue-histograms-in-hsv-space-5-638.jpg?cb=1436307525)" src="rgb_hsv.jpg" style="width: 400px;"/></center>
 
-You can now simply take this cube and tilt it on its corner. We do it the way so that black rests at the orgin whereas white is the highest point directly above it along the vertical axis. Afterwards you can just measure the _hue_ of the colors by their angle around the vertical axis (red is denoted as 0°). Going from the middle to the outer parts from 0 (where the grey like parts are) to 1 determines the _saturation_. This is illustrated in [](#fig:derivation_1). 
+You can now simply take this cube and tilt it on its corner. We do it this way so that black rests at the orgin whereas white is the highest point directly above it along the vertical axis. Afterwards you can just measure the _hue_ of the colors by their angle around the vertical axis (red is denoted as 0°). Going from the middle to the outer parts from 0 (where the grey like parts are) to 1 determines the _saturation_. This is illustrated in [](#fig:derivation_1). 
 
 <center><img figure-id="fig:derivation_1" figure-caption="'Cutting the cube' (https://en.wikipedia.org/wiki/HSL_and_HSV)" src="derivation_1.png" style="width: 200px;"/></center>
 
