@@ -1,11 +1,31 @@
-#  The Saviors: final report {#saviors-final-report status=draft}
+#  The Saviors: Final Report {#saviors-final-report status=draft}
 
 <!--
 General notes:
 - REMEMBER to change the "template" in the chapter labels to your group label!
 -->
 
-## The final result {#saviors-final-result}
+This is the final report of the fall 2017 Saviors group from ETH Zurich, namely Fabio Meier (fmeier@ethz.ch), Julian Nubert (nubertj@ethz.ch), Fabrice Oehler (foehler@ethz.ch) and Niklas Funk (nfunk@ethz.ch). We enjoyed contributing to this great project and in case there are any open questions left after having read this report, do not hesitate to contact us.
+
+## Structure  
+<!--
+unfortunately cannot be generated on own but thought would be helpful to have one in such huge report!
+-->  
+[1.2. The Final Result](#saviors-final-result)
+
+[1.3. Mission and Scope](#saviors-final-scope)
+
+[1.4. Definition of the Problem](#saviors-final-problem-def)
+
+[1.5. Contribution / Added Functionality](#saviors-final-contribution)
+
+[1.6. Formal Performance Evaluation / Results](#saviors-final-formal)
+
+[1.7. Future Avenues of Development](#saviors-final-next-steps)
+
+[1.8. Theory Chapter](#saviors-theory-chapter)
+
+## The Final Result {#saviors-final-result}
 
 The Saviors Teaser: 
 
@@ -76,7 +96,7 @@ Since our task was to reliably detect obstacles using a monocular camera only, w
 
 For understanding our approach we tried to explain and summarize the needed concepts in the theory chapter, see section [Theory Chapter](#saviors-theory-chapter). There you will find all the references to the relevant sources. 
 
-## Definition of the problem {#saviors-final-problem-def}
+## Definition of the Problem {#saviors-final-problem-def}
 <!--_Up to now it was all fun and giggles. This is the most important part of your report: a crisp mathematical definition of the problem you tackled. You can use part of the preliminary design document to fill this section._
 Make sure you include your:
 - final objective / goal
@@ -156,7 +176,7 @@ For measuring the performance we used:
 * Avoid/hit ratio
 * Also performed during changing light conditions
 
-## Contribution / Added functionality {#saviors-final-contribution}
+## Contribution / Added Functionality {#saviors-final-contribution}
 <!--Describe here, in technical detail, what you have done. Make sure you include:
 - a theoretical description of the algorithm(s) you implemented
 - logical architecture (refer to [IDD template](#template-int-report) for description)
@@ -380,7 +400,7 @@ Nevertheless, this online visualisation is still dependent on the connectivity a
 
 ### Recorded Logs {#saviors-logs}
 
-## Formal performance evaluation / Results {#saviors-final-formal}
+## Formal Performance Evaluation / Results {#saviors-final-formal}
 <!--_Be rigorous!_
 - For each of the tasks you defined in you problem formulation, provide quantitative results (i.e., the evaluation of the previously introduced performance metrics)
 - Compare your results to the success targets. Explain successes or failures.
@@ -440,7 +460,7 @@ Furthermore there a few cases which can lead to problems independent of the obst
 
 While testing our algorithms we saw successfull emergency stops in  10/10 cases for obstacles on a straight and in 3/10 cases for obstacles placed in corners assuming that the controller was acting normally. It is to be noted that the focus was lying on the reliable detections on the straights, which we intended to show on the demo day. 
 
-## Future avenues of development {#saviors-final-next-steps}
+## Future Avenues of Development {#saviors-final-next-steps}
 <!--_Is there something you think still needs to be done or could be improved? List it here, and be specific!_-->
 
 As already described above in the [eval interface section](#saviors-eval-interface), we think that there is still room for **improving the interface** between our code and the *Anti Instagram* module in terms of making the *continouus anti instagram node* as well as the *image transformer node* more computationally efficient. Another interesting thought which might be taken into consideration concerning this interface is the follwoing: As long as the main part of the anti instagram's color correction is linear (which was in most of our cases sufficient), it might be reasonable to just adapt the filter values than to subscribe to a fully transformed image. This effort could save a whole publisher and subscriber and it is obvious that it is by far more efficient to transform a few filter values once than to transform every pixel of every incoming picture. Towards the end of our project we invested some time in trying to get this approach to work but as time was not enough we could not make it. We especially struggled to transform the orange filter values, while it worked for the yellow ones (BRANCH: devel-saviors-ai-tryout2). We think that if in the future one will stick to the current hardware this might be a very interesting approach, also for other software components such as the lane detection or any other picture related algorithms which are based on the concept of filtering colors.
