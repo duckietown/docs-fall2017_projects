@@ -15,9 +15,6 @@ To reproduce the results see the  [operation manual](#demo-sysid) which includes
 
 ## Mission and Scope {#sysid-final-scope}
 
-Define what is your mission here.
-
-
 ### Motivation {#sysid-final-result-motivation}
 
 
@@ -181,10 +178,10 @@ The parameters of the Duckiebot are saved in the duckietown/config/baseline/cali
 #### Current shortcomings
 * Human in the loop
     * The car is not able to calibrate itself without human input
-* Item2
-    * ...
-* Item3
-    * ...
+    * The procedure is laborious and can be long
+* Lack of precision
+    * The calibration is only done for a straight line
+    * The speed of the Duckiebot is not known
 
 
 
@@ -493,4 +490,6 @@ Therefore, the performance of safe crossing is closely related to having well ca
 
 * Caster wheel identification
     * Initial aim was to include the kinematics of the caster wheel, however due to time constraint, we sticked to the roller wheel
+    
+* Dynamic model of the Duckiebot
 
