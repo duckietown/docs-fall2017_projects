@@ -11,19 +11,19 @@ This is the final report of the fall 2017 Saviors group from ETH Zurich, namely 
 <!--
 unfortunately cannot be generated on own but thought would be helpful to have one in such huge report!
 -->  
-[1.2. The Final Result](#saviors-final-result)
+[The Final Result](#saviors-final-result)
 
-[1.3. Mission and Scope](#saviors-final-scope)
+[Mission and Scope](#saviors-final-scope)
 
-[1.4. Definition of the Problem](#saviors-final-problem-def)
+[Definition of the Problem](#saviors-final-problem-def)
 
-[1.5. Contribution / Added Functionality](#saviors-final-contribution)
+[Contribution / Added Functionality](#saviors-final-contribution)
 
-[1.6. Formal Performance Evaluation / Results](#saviors-final-formal)
+[Formal Performance Evaluation / Results](#saviors-final-formal)
 
-[1.7. Future Avenues of Development](#saviors-final-next-steps)
+[Future Avenues of Development](#saviors-final-next-steps)
 
-[1.8. Theory Chapter](#saviors-theory-chapter)
+[Theory Chapter](#saviors-theory-chapter)
 
 ## The Final Result {#saviors-final-result}
 
@@ -49,7 +49,7 @@ The goal of Duckietown is to provide a relatively simple platform to explore, ta
 - What are we talking about? [Brief introduction / problem in general terms]
 - Why is it important? [Relevance]-->
 
-So far, none of the mentioned modules was capable of reliably detecting obstacles and reacting to them in real time. We were not the only ones who saw a problem in the situation at that time: _“Ensuring safety is a paramount concern for the citizens of Duckietown. The city has therefore commissioned the implementation of protocols for guaranteed obstacle detection and avoidance.”_(cite from the Project Pitch Slides). Therefore the foundation of our complete module lies in the disposal of this shortcoming. 
+So far, none of the mentioned modules was capable of reliably detecting obstacles and reacting to them in real time. We were not the only ones who saw a problem in the situation at that time: _“Ensuring safety is a paramount concern for the citizens of Duckietown. The city has therefore commissioned the implementation of protocols for guaranteed obstacle detection and avoidance.”_[](#bib:Tani2017). Therefore the foundation of our complete module lies in the disposal of this shortcoming. 
 Finding a good solution for this safety related and very important topic helped us to stay motivated every day we were trying to improve our solution.
 
 The goal of our module is to detect obstacles and react accordingly. Due to the limited amount of time, we limited and focused the scope of our module to two points: 
@@ -234,11 +234,7 @@ In our setup, through the extrinsic camera calibration, we are given a mapping f
 
 <center><img figure-id="fig:bird_view" figure-caption="Image now seen from the bird's view perspective" src="bird_view.png" style="width: 200px;"/></center>
 
-This approach has already been shown by Prof. Davide Scaramuzza (UZH) and some other papers and is referred as **Inverse Perspective Mapping Algorithm**.  
-
---- [Davide Scaramuzza (2004)](http://rpg.ifi.uzh.ch/docs/Tesi_Laurea_Davide_Scaramuzza.pdf)
---- [Gang Yi Jiang, Tae Young Choi, Suk Kyo Hong, Jae Wook Bae, and Byung Suk Song (2015)](https://www.researchgate.net/publication/3876051_Lane_and_obstacle_detection_based_on_fast_inverse_perspective_mapping_algorithm)
---- [Massimo Bertozzi, Alberto Broggi, Alessandra Fascioli](http://www.close-range.com/docs/Stereo_inverse_perspective_mapping.pdf)
+This approach has already been shown by Prof. Davide Scaramuzza (UZH) and some other papers and is referred as **Inverse Perspective Mapping Algorithm**. (see: [](#bib:Scaramuzz2005),[](#bib:GangYiJiang2000),[](#bib:MassimoBertozzi1997)) 
 
 What stands out, is that the lines which are parallel in the real world are also parallel in this view. Generally in this “bird's” view, all objects which really belong to the ground plane are represented by their real shape (e.g. the line segments are exact rectangles) while all the objects which are not on the ground plane (namely our obstacles) are heavily disturbed in this top view. This top view is roughly keeping the size of the elements on the ground whereas the obstacles are displayed a lot larger. 
 
@@ -246,13 +242,9 @@ _The theory behind the calculations and why the objects are so heavily distorted
 
 Either way, we take advantage of this property. Given this bird's view perspective, we still have to extract the obstacles from it. To achieve this extraction, we first filter out everything except for orange and yellow elements, since we assumed that we only want to detect yellow duckies and orange cones. To simplify this step significantly, we transform the obtained color corrected images (provided by the Anti Instagram module) to the **_HSV color space_**. We use this HSV color space and not the RGB space because it is much easier to account for slightly different illuminations - which of course still exist since the performance of the color correction is logically not perfect - in the HSV room compared to RGB. For the theory behind the HSV space, please refer to our appropriate [Theory Chapter](#saviors-HSV).
 
-After this first color filtering process, there are only objects remaining which have approximately the colors of the expected obstacles. For the purpose of filtering out the real obstacles from the bunch of all the remaining objects which passed the color filter, we decided to do the following: We segment the image of the remaining objects, i.e. all connected pixels in the filtered image are getting the same label such that you can later analyse the objects one by one. Each number then represents an obstacle. For the process of segmentation, we used the following algorithm.
+After this first color filtering process, there are only objects remaining which have approximately the colors of the expected obstacles. For the purpose of filtering out the real obstacles from the bunch of all the remaining objects which passed the color filter, we decided to do the following: We segment the image of the remaining objects, i.e. all connected pixels in the filtered image are getting the same label such that you can later analyse the objects one by one. Each number then represents an obstacle. For the process of segmentation, we used the following algorithm. (see [](#bib:Wu2005))
 
---- [Wu, KeshengOtoo, EkowShoshani, Arie (2005)](https://escholarship.org/uc/item/7jg5d1zn)
-
-Given the isolated objects, the task remains to finally decide which objects are considered obstacles and which not. In a first stage, there is a filter criterion based on a rotation invariant feature, namely the two eigenvalues of the inertia_tensor of the segmented region when rotating around its center of mass. 
-
---- [Richard Fitzpatrick, (2011)](http://farside.ph.utexas.edu/teaching/336k/Newtonhtml/node64.html) 
+Given the isolated objects, the task remains to finally decide which objects are considered obstacles and which not. In a first stage, there is a filter criterion based on a rotation invariant feature, namely the two eigenvalues of the inertia_tensor of the segmented region when rotating around its center of mass. (see [](#bib:Fitzpatrick2011))
 
 In a second stage, we apply a tracking algorithm to reject the remaining outliers and decrease the likelihood for misclassifications. The tracker especially aims for objects which passed the first stage's criterion by a small margin.  
 
@@ -481,7 +473,7 @@ Another idea of our team would be to **exploit the transformation to the bird's 
 
 Another area of improvement would be to further develop our provided scripts to being able to **automatically evaluate** the performance of our entire pipeline. As you can see in our code description in github there is a complete set of scripts available which makes it easily possible to transform a bag of raw camera images to a set of pictures on which we applied our obstacle detector, including the color correction part of Anti Instagram. The only missing step left is an automatic detection whether the drawn box is correct and in fact around an object which is considered to be an obstacle or not.
 
-Furthermore to achieve more general performance propably even adaptions in the hardware might be considered (--- [Tung, "Google offers Raspberry Pi owners this new AI vision kit" (2017)](http://www.zdnet.com/article/google-offers-raspberry-pi-owners-this-new-ai-vision-kit-to-spot-cats-people-emotions/)) to tune the obstacle detection algorithm and especially its generality. We think that setting up a **neural network** might make it possible to release the restrictions on the color of the obstacles.
+Furthermore to achieve more general performance propably even adaptions in the hardware might be considered (see [](#bib:2017)) to tune the obstacle detection algorithm and especially its generality. We think that setting up a **neural network** might make it possible to release the restrictions on the color of the obstacles.
 
 In terms of avoidance there would be **possibilities to handle the high inacurracies of the pose estimation** by relying on the lane controller to not leave the lane and just use a kind of closed loop control to avoid the obstacle (use the new position of the detected obstacle in each frame to securely avoid the duckie). Applying filters to the signals, especially the heading estimation, could further improve the behaviour. This problem was detected late in the development and could not be tested due to time constraints.
 Going further, having both the line and obstacle detection in the same algorithm would allow the direct information on how far away obstacles are from the track. We expect that this would increase the accuracy compared to computing each individually and bringing it together.
@@ -498,7 +490,12 @@ Furthermore the **avoidance in corners** could be easily significantly improved 
 
 In general a camera is consisting of a converging lens and an image plane ([](#fig:converging_lens)). In the following theory chapter, we will assume that the picture in the image plane is already undistorted, meaning we preprocessed it and eliminated the lens distortion. 
 
-<center><img figure-id="fig:converging_lens" figure-caption="Simplyfied camera model, Davide Scaramuzza (http://rpg.ifi.uzh.ch/teaching.html)" src="thin_lens.png" style="width: 300px;"/></center>
+<center>
+<div figure-id="fig:converging_lens">
+<img src="thin_lens.png" style="width: 300px;"/>
+<figcaption>Simplyfied camera model \ref{bib:Scaramuzz2017}</figcaption>
+</div>
+</center>
 
 It is quite easy to infer from [](#fig:converging_lens) that for a real world point to be in focus, it has to hold, that both of the "rays" (see [](#fig:converging_lens)) intersect in one point in the image plane, namely in point B. Mathematically written this means:
 
@@ -514,7 +511,12 @@ It is quite easy to infer from [](#fig:converging_lens) that for a real world po
 
 This last equation \eqref{eq:two} can be approximated since usually $z \gg f$ such that we effectively arrive at the pin-hole approximation with: $e \approx f$ (see [](#fig:pin_approx))
 
-<center><img figure-id="fig:pin_approx" figure-caption="Pinhole camera approximation, Davide Scaramuzza (http://rpg.ifi.uzh.ch/teaching.html)" src="pinhole_approx.png" style="width: 300px;"/></center>
+<center>
+<div figure-id="fig:pin_approx">
+<img src="pinhole_approx.png" style="width: 300px;"/>
+<figcaption>Pinhole camera approximation \ref{bib:Scaramuzz2017}</figcaption>
+</div>
+</center>
 
 For the pixel coordinate on the image plane it holds: 
 
@@ -537,19 +539,34 @@ Note: In general this Matrix H is what we get out of the intrinsic calibration p
 
 This equation \eqref{eq:one} and especially [](#fig:pin_approx) clearly show that since in every situation you only know H as well as $x_{pix}$ and $y_{pix}$ of the respective objects on the image plane, there is no way to determine the real position of the object, since everything can only be determined up to a scale ($\lambda$). Frankly speaking you only know the direction in which the object has to be but nothing more, which makes it a very difficult task to infer potential obstacles given the picture of a monocular camera only. This scale ambiguity is illustrated in [](#fig:scale_amb). 
 
-<center><img figure-id="fig:scale_amb" figure-caption="Scale ambiguity, Davide Scaramuzza (https://www.slideshare.net/SERENEWorkshop/towards-robust-and-safe-autonomous-drones)" src="scale_amb.png" style="width: 300px;"/></center>
+<center>
+<div figure-id="fig:scale_amb">
+<img src="scale_amb.png" style="width: 300px;"/>
+<figcaption>Scale ambiguity \ref{bib:Scaramuzz2015}</figcaption>
+</div>
+</center>
 
 To conclude, given a picture from a monocular camera only you have no idea at which position the house really is, so without exploiting any further knowledge it is extremely difficult to reliably detect obstacles which is also the main reason why the old approach did not really work. On top of that come other artifacts such as that the same object will appear larger if it is closer to your camera and vice versa, and lines which are parallel in the real world will in general not be parallel in your camera image.
 
 Note: The intuition, why we humans can infer the real scale of objects is that if you add a second camera, know the relative Transformation between the two cameras and see the same object in both images, then you can easily triangulate the full position of the object, since it is at the place where the two "rays" intersect! (see [](#fig:triang)).
 
-<center><img figure-id="fig:triang" figure-caption="Triangulation to obtain absolute scale by Rasmussen, UBC (Jim Little), Seitz (U. of Wash.), Camps (Penn. State), UC, UMD (Jacobs), UNC, CUNY Computer Vision : CISC 4/689 (http://slideplayer.com/slide/4922391/)" src="triang.png" style="width: 300px;"/></center>
+<center>
+<div figure-id="fig:triang">
+<img src="triang.png" style="width: 300px;"/>
+<figcaption>Triangulation to obtain absolute scale \ref{bib:Rasmussen}</figcaption>
+</div>
+</center>
 
 ### Inverse Perspective Mapping / Bird's View Perspective {#saviors-transformations}
 
 The first chapter above introduced the rough theory which is needed for understanding the follwing parts. The important additional information that we exploited heavily in our approach is that in our special case we know the coordinate $Z_W$. The reason therefore lies within the fact that unlike in another more general usecase of a mono camera, we know that our camera will always be at height $h$ with repsect to the street plane and that the angle $\theta_0$ also always stays constant. ([](#fig:fixed_cam))   
 
-<center><img figure-id="fig:fixed_cam" figure-caption="Illustration of our fixed camera position (http://answers.opencv.org/question/2309/inverse-perspective-mapping/)" src="fixed_cam.png" style="width: 300px;"/></center>
+<center>
+<div figure-id="fig:fixed_cam">
+<img src="fixed_cam.png" style="width: 300px;"/>
+<figcaption>Illustration of our fixed camera position \ref{bib:2012}</figcaption>
+</div>
+</center>
 
 This information is used in the actual extrinsic calibration such that in Duckietown, due to the assumption that everything we see should in general be on the road, we can determine the full real world coordinates of every pixel, since we know the coordinate $Z_W$ which uniquely defines the absolute scale and can therefore uniquely determine $\lambda$ and H! Intuitively this comes from the fact that we can just intersect the known ray direction (see [](#fig:pin_approx)) with the known "gound plane".
 
@@ -570,7 +587,12 @@ The only trick of this easy maths is that we exploited the knowledge that everyt
 
 The crucial part is now what happens in this bird's view perspective, if the camera sees an object which is not entirely part of the ground plane, but stands out. These are basically obstacles we want to detect. If we still transform the whole image to the bird's view, these obstacles which stand out of the image plane get heavily disturbed. Lets explain this by having a look at [](#fig:reason_for_dist). 
 
-<center><img figure-id="fig:reason_for_dist" figure-caption="Illustration why obstacle standing out of ground plane is heavily disturbed in bird's view" src="shadow.png" style="width: 300px;"/></center>
+<center>
+<div figure-id="fig:reason_for_dist">
+<img src="shadow.png" style="width: 300px;"/>
+<figcaption>Illustration why obstacle standing out of ground plane is heavily disturbed in bird's view, modified: \ref{bib:2012}</figcaption>
+</div>
+</center>
 
 The upper picture in [](#fig:reason_for_dist) depicts the real world situation, where the cone is standing out ot the image plane and therefore the tip is obviously not at the same height as the ground plane. However, as we still have this assumption and as stated above intuitively intersect the ray with the ground plane, the cone gets heavily disturbed and will look like the lower picture in [](#fig:reason_for_dist) after performing the inverse perspective mapping. From this follows that if there are any objects which DO stand out of the image plane then in the inverse perspective you basically see their shape being projected onto the ground plane. This behaviour can be easily exploited since all of these objects are heavily disturbed, drastically increase in size and can therefore be easily separated from the other objects which belong to the ground plane.
 
@@ -598,17 +620,18 @@ The _HSV_ color space is an alternative representation of the RGB color model. O
 
 The answer is yes. It is hardly readable for humans but it is way better to filter for specific colors. If we look at the definition openCV gives for the RGB space, the higher complexity for some tasks becomes obvious:
 
-_In the RGB color space all "the three channels are effectively correlated by the amount of light hitting the surface", so the color and light properties are simply not separated._
-
--- ( https://www.learnopencv.com/color-spaces-in-opencv-cpp-python/ )
+_In the RGB color space all "the three channels are effectively correlated by the amount of light hitting the surface", so the color and light properties are simply not separated._ (see: [](#bib:GUPTA2017))
 
 Expressed in a more simpler way: In the RGB space the colors also influence the brightness and the brightness influences the colors. However, in the HSV space, there is only one channel - the _H_ channel - to describe the color. The _S_ channel represents the saturation and _H_ the intensity. This is the reason why it is super useful for specific color filtering tasks.
 
-The HSV color space is therefore often used by people who try to select specific colors. It corresponds better to how we experience color. As we let the **_H (Hue)_** channel go from 0 to 1, the colors vary from red through yellow, green, cyan, blue, magenta and back to red. So we have red values at 0 as well as at 1. As we vary the **_S (saturation)_** from 0 to 1 the colors simply vary from unsaturated (more grey like) to fully saturated (no white component at all). Increasing the **_V (value)_** the colors just become brighter. This color space is illustrated in [](#fig:hsv_illustration). 
+The HSV color space is therefore often used by people who try to select specific colors. It corresponds better to how we experience color. As we let the **_H (Hue)_** channel go from 0 to 1, the colors vary from red through yellow, green, cyan, blue, magenta and back to red. So we have red values at 0 as well as at 1. As we vary the **_S (saturation)_** from 0 to 1 the colors simply vary from unsaturated (more grey like) to fully saturated (no white component at all). Increasing the **_V (value)_** the colors just become brighter. This color space is illustrated in [](#fig:hsv_illustration). (see: [](#bib:2018))
 
--- (https://www.mathworks.com/help/images/convert-from-hsv-to-rgb-color-space.html?requestedDomain=true)
-
-<center><img figure-id="fig:hsv_illustration" figure-caption="Illustration of the HSV Color Space (https://www.mathworks.com/help/images/convert-from-hsv-to-rgb-color-space.html?requestedDomain=true)" src="hsv_illustration.png" style="width: 200px;"/></center>
+<center>
+<div figure-id="fig:hsv_illustration">
+<img src="hsv_illustration.png" style="width: 200px;"/>
+<figcaption>Illustration of the HSV Color Space \ref{bib:2018}</figcaption>
+</div>
+</center>
 
 Most systems use the so called RGB additive primary colors. The resulting mixtures can be very diverse. The variety of colors, called the _gamut_, can therefore be very large. Anyway, the relationship between the constitutent amounts of red, green,  and blue lights is unintuitive. 
 
@@ -616,15 +639,30 @@ Most systems use the so called RGB additive primary colors. The resulting mixtur
 
 The _HSV_ model can be derived using geometric strategies. The RGB color space is simply a cube where the addition of the three color components (with a scale form 0 to 1) is displayed. You can see this on the left of [](#fig:color_comparison).
 
-<center><img figure-id="fig:color_comparison" figure-caption="Comparison between the two colors spaces (https://image.slidesharecdn.com/01presentationhuehistograms-150707215651-lva1-app6892/95/about-perception-and-hue-histograms-in-hsv-space-5-638.jpg?cb=1436307525)" src="rgb_hsv.jpg" style="width: 400px;"/></center>
+<center>
+<div figure-id="fig:color_comparison">
+<img src="rgb_hsv.jpg" style="width: 400px;"/>
+<figcaption>Comparison between the two colors spaces \ref{bib:Alves2015}</figcaption>
+</div>
+</center>
 
 You can now simply take this cube and tilt it on its corner. We do it this way so that black rests at the orgin whereas white is the highest point directly above it along the vertical axis. Afterwards you can just measure the _hue_ of the colors by their angle around the vertical axis (red is denoted as 0°). Going from the middle to the outer parts from 0 (where the grey like parts are) to 1 determines the _saturation_. This is illustrated in [](#fig:derivation_1). 
 
-<center><img figure-id="fig:derivation_1" figure-caption="'Cutting the cube' (https://en.wikipedia.org/wiki/HSL_and_HSV)" src="derivation_1.png" style="width: 200px;"/></center>
+<center>
+<div figure-id="fig:derivation_1">
+<img src="derivation_1.png" style="width: 200px;"/>
+<figcaption>'Cutting the cube' \ref{bib:2017a}</figcaption>
+</div>
+</center>
 
-The definitions of _hue_ and _chroma_ (proportion of the distance from the origin to the edge of the hexagon) amount to a geometric warping of hexagons into circles (for more informations refer to https://en.wikipedia.org/wiki/HSL_and_HSV). Each side of the hexagon is mapped linearly onto a 60° arc of the circle. This is visualized in [](#fig:derivation_2).
+The definitions of _hue_ and _chroma_ (proportion of the distance from the origin to the edge of the hexagon) amount to a geometric warping of hexagons into circles (for more informations see: [](#bib:2017a)). Each side of the hexagon is mapped linearly onto a 60° arc of the circle. This is visualized in [](#fig:derivation_2).
 
-<center><img figure-id="fig:derivation_2" figure-caption="Warping hexagons to circles (https://en.wikipedia.org/wiki/HSL_and_HSV)" src="derivation_2.png" style="width: 200px;"/></center>
+<center>
+<div figure-id="fig:derivation_2">
+<img src="derivation_2.png" style="width: 200px;"/>
+<figcaption>Warping hexagons to circles \ref{bib:2017a}</figcaption>
+</div>
+</center>
 
 For the _value_ or lightness there are several possibilities to define an appropriate dimension for the color space. The simplest one is just the average of the three components, which is nothing else then the vertical height of a point in our tilted cubic. For this case we have:
 
@@ -638,17 +676,27 @@ For another definition the _value_ is defined as the largest component of a colo
 V = max(R, G, B)
 \]
 
--- (https://en.wikipedia.org/wiki/HSL_and_HSV)
+(see: ([](#bib:2017a)))
 
 #### **In Practice** {#saviors-HSV-practice}
 
 **1.** Form a hexagon by projecting the RGB unit cube along its pincipal diagonal onto a plane. 
 
-<center><img figure-id="fig:hsv_practice_1" figure-caption="First layer of the cube (left) and flat hexagon (right)" src="hsv_practice_1.png" style="width: 400px;"/></center>
+<center>
+<div figure-id="fig:hsv_practice_1">
+<img src="hsv_practice_1.png" style="width: 400px;"/>
+<figcaption>First layer of the cube (left) and flat hexagon (right) \ref{bib:CHENG}</figcaption>
+</div>
+</center>
 
 **2.** Repeat projection with smaller RGB cube (subtract 1/255 in length of every cube) to obtain smaller projected hexagon. Like this a _HSV hexcone_ is formed by stacking up the 256 hexagons in decreasing order of size. 
 
-<center><img figure-id="fig:hsv_practice_2" figure-caption="Stacking hexagons together" src="hsv_practice_2.png" style="width: 400px;"/></center>
+<center>
+<div figure-id="fig:hsv_practice_2">
+<img src="hsv_practice_2.png" style="width: 400px;"/>
+<figcaption>Stacking hexagons together \ref{bib:CHENG}</figcaption>
+</div>
+</center>
 
 Then the value is again defined as:
 
@@ -658,12 +706,15 @@ V = max(R, G, B)
 
 **3.** Smooth edges of hexagon to circles (see previous chapter). 
 
--- Photos in this chapter "In practice" were taken from the lecture "Computer Graphics" at National University of Singapore taught by Prof. CHENG Ho-lun. 
-
 #### **Application** {#saviors-HSV-application}
 
 One nice example of the application of the HSV color space can be seen in [](#fig:hsv_example).
 
-<center><img figure-id="fig:hsv_example" figure-caption="Image on the left is original. Image on the right was simply produced by rotating the H of each color by -30° while keeping S and V constant (https://en.wikipedia.org/wiki/HSL_and_HSV)" src="hsv_example.png" style="width: 400px;"/></center>
+<center>
+<div figure-id="fig:hsv_example">
+<img src="hsv_example.png" style="width: 400px;"/>
+<figcaption>Image on the left is original. Image on the right was simply produced by rotating the H of each color by -30° while keeping S and V constant \ref{bib:2017a}</figcaption>
+</div>
+</center>
 
 It just shows how simple color manipulation can be performed in a very intuitive way. We can turn many different applications to good account using this approach. As you have seen, color filtering also simply becomes a threshold query. 
