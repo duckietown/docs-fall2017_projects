@@ -199,13 +199,11 @@ There were several possible approaches discussed to overcome the shortcomings of
 * Motion blur based calibration
     * Reconstruct dynamics from blurred images
 
+Because we needed to have very precise measurments of the Duckiebot's position, the localization based calibration has been chosen. To simplify the calibration procedures, we decided also to use the same chessborad as for the camera calibration.
+But since the computational power needed for detecting the chessboard was big, we chose to do the chessboard detection on the laptop.
 
-
-
-Identify motors steady-state parameters. Mapping between voltage and angular rate, i.e. mapping between voltage and velocity at once based on localization based calibration.
-
-Assumptions: wheel radius is known and no slipping hypothesis is made.
-
+We also kept a kynematic model, without including any dynamic and made some assumptions about the physics of the Duckiebot: the wheels do not slip and the velocity of the wheels is proportional to the voltage applied. 
+Hence, if the results do not meet our expectations or if the Duckiebot is changed, the model can aslo be changed or it can be made more complex. 
 
 
 ### Preliminaries {#sysid-final-preliminaries}
