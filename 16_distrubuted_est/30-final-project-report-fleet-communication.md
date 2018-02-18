@@ -156,7 +156,13 @@ We discover late into the project that the edimax has mesh capabilities but we n
 
 ### Improving usability of platform
 
-*TODO*
+ZeroMQ allows to filter messages according to strings (eg. botname) at the start of messages. Our duckieMQ implementation already supports filtering it has however not been used yet by the teams as the whole set up gets a bit cumbersome if it has to be implemented on every bot. Also serialized messages need to be manually prepended by the filterstring. It would be useful to extend duckieMQ with the capability to prepend a filterstring to serialized messages automatically.
+
+The configuration files for the different channels are a bit cumbersome to create for bigger groups of bots. It would be nice if the bot would create its own config file according to rules laid down in a central config file where all the different groups specify their communication architecture.
+
+E.g fleet level planning want every bot to listen to port 23334 filter it with their name and publish to /taxi/commands and subscribe to /taxi/location and send it on port 23333.
+
+As a final step we could let the config file generator handle ports by itself, so noone needs to keep track of used ports
 
 ### Network Visualization
 
