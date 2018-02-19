@@ -167,43 +167,43 @@ The Duckiebot was modeled as a symmetric rigid body, according to the following 
 	
 Considering only the kinematics, we get the following equations for the linear and angular velocity $v_A $ and $\dot{\theta}$ of the Duckiebot : 
 	
-\begin{eqnarray}
+\begin{align}
 	 v_A &= \cfrac{v_r + v_l}{2}
 	 \label{vA} \\
 	 \dot{\theta} &= \cfrac{v_r - v_l}{2L}
 	\label{theta}
-\end{eqnarray} \\ 
+\end{align} \\ 
 
 
  With the assumption that the velocity of the wheels is proportional to the voltage applied on each wheel $V_l$ and $V_r$ and that there is no slipping,  we can write the following : 
 
-\begin{eqnarray}
+\begin{align}
 	 v_l &= c_l \cdot V_l
 	  \label{vl} \\ 
 	 v_r &= c_r \cdot V_r
 	\label{vr}
-\end{eqnarray}
+\end{align}
 
  Thus ~\eqref{vA} and ~\eqref{theta} can bre rewritten as : 
 
-\begin{eqnarray}
+\begin{align}
 	v_A &= \cfrac{c_r \cdot V_r + c_l \cdot V_l }{2}
 	 \label{vA2} \\ 
 	\dot{\theta} &= \cfrac{c_r \cdot V_r - c_l \cdot V_l }{2L}
 	 \label{theta2}
- \end{eqnarray}
+ \end{align}
 
 With, $c_r, c_l $ and $L$, some constants to define for each duckiebot. \\ \\ 
 
 
 Alternatively, we can define $c = c_r$ and $c_l = c + \Delta c$ and we get from  ~\eqref{vA3} and ~\eqref{theta3} 
 
-\begin{eqnarray}
+\begin{align}
 	v_A &= \cfrac{c \cdot (V_r +  V_l ) + \Delta c \cdot V_l}{2}
 	\label{vA3} \\ 
 	\dot{\theta} &= \cfrac{c \cdot (V_r - V_l ) - \Delta c \cdot V_l}{2L}
 	\label{theta3}
- \end{eqnarray}
+ \end{align}
 
 We get a kinematic model, that shows the relation between the linear and angular velocity of the Duckiebot and the voltage applied to each wheel. To have our model totally defined, we only need to calculate three parameters, namely $c $ and $\Delta c$ and $L$. 
 These three parameters will be calculated with odometry calibration.
@@ -261,10 +261,10 @@ By minimizing the position of the Duckiebot $x_i,y_i$ and its theoretical positi
 
 We used the L2-norm :
 
-\begin{equation}
+\begin{align}
     \begin{pmatrix}c_{l}^{\star}\\c_{r}^{\star}\\L^{\star}\end{pmatrix}= \underset{c_l,c_r,L}{\mathrm{argmin}}   \begin{pmatrix} x_1-\tilde{x}_1\\y_1-\tilde{y}_1\\\vdots\\x_n-\tilde{x}_n\\y_n-\tilde{y}_n\end{pmatrix}^T  \begin{pmatrix} x_1-\tilde{x}_1\\y_1-\tilde{y}_1\\\vdots\\x_n-\tilde{x}_n\\y_n-\tilde{y}_n\end{pmatrix}
     
-\end{equation}
+\end{align}
 
 
 ### Dealing with uncertainty
