@@ -35,8 +35,6 @@ Note: See the [operation manual](#demo-template) to reproduce these results.
 
 The code description can be found here in the [Readme](https://github.com/duckietown/Software/blob/devel-saviors-23feb/catkin_ws/src/25-devel-saviors/obst_avoid/README.md).
 
-***LINKS STILL MISSING!***
-
 ## Mission and Scope {#saviors-final-scope}
 <!--Define what is your mission here.-->
 
@@ -402,7 +400,7 @@ Nevertheless, this online visualisation is still dependent on the connectivity a
 
 ### Recorded Logs {#saviors-logs}
 
-For being able to thorougly evaluate and tune our algorithms, we recorded various bags, which we uploaded to the Duckietown logs server.
+For being able to thorougly evaluate and tune our algorithms, we recorded various bags, which we uploaded to the [Duckietown logs database](http://logs.duckietown.org/).
 
 ## Formal Performance Evaluation / Results {#saviors-final-formal}
 <!--_Be rigorous!_
