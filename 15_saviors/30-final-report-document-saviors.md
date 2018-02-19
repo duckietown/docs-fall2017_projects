@@ -31,7 +31,7 @@ The Saviors Teaser:
 
 [![Vimeo](vimeo_screenshot.png){:height="50%" width="50%"}](https://player.vimeo.com/video/251523150 "The Saviors Teaser - Click to Watch!")
 
-Note: See the [operation manual](#demo-template) to reproduce these results. 
+Note: See the [operation manual](#demo-saviors) to reproduce these results. 
 
 The code description can be found here in the [Readme](https://github.com/duckietown/Software/blob/devel-saviors-23feb/catkin_ws/src/25-devel-saviors/obst_avoid/README.md).
 
