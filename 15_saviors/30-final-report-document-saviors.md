@@ -52,7 +52,7 @@ The goal of Duckietown is to provide a relatively simple platform to explore, ta
 So far, none of the mentioned modules was capable of reliably detecting obstacles and reacting to them in real time. We were not the only ones who saw a problem in the situation at that time: _“Ensuring safety is a paramount concern for the citizens of Duckietown. The city has therefore commissioned the implementation of protocols for guaranteed obstacle detection and avoidance.”_[](#bib:Tani2017). Therefore the foundation of our complete module lies in the disposal of this shortcoming. 
 Finding a good solution for this safety related and very important topic helped us to stay motivated every day we were trying to improve our solution.
 
-The goal of our module is to detect obstacles and react accordingly. Due to the limited amount of time, we limited and focused the scope of our module to two points: 
+The goal of our module is to detect obstacles and react accordingly. Due to the limited amount of time, we focused the scope of our module to two points: 
 
 **1.** In terms of detection, on the one hand we focused to reliably detect yellow duckies and therefore to saving the little duckies that want to cross the road. On the other hand we had to detect orange cones to not crash into any construction site in Duckietown.
 
@@ -67,7 +67,7 @@ In practice a well working obstacle detection is one of the most important parts
 ### Existing Solution {#saviors-final-literature}
 <!--- Was there a baseline implementation in Duckietown which you improved upon, or did you implemented from scratch? Describe the "prior work"-->
 
-There was a previous implementation from the MIT classes in 2016. Of course we had a look into the old software and found out that one step of them was quite similar to ours: They based their obstacle detection on the colors of the obstacles. Therefore they also did their processing in the HSV color space as we did. Further information on why filtering colors in the HSV space is advantageous can be found [Theory Chapter](#saviors-HSV).
+There was a previous implementation from the MIT classes in 2016. Of course we had a look into the old software and found out that one step of them was quite similar to ours: They based their obstacle detection on the colors of the obstacles. Therefore they also did their processing in the HSV color space as we did. Further information on why filtering colors in the HSV space is advantageous can be found in the [Theory Chapter](#saviors-HSV).
 
 Nevertheless, we implemted our solution from scratch and didn't base ours on any further concepts found in their software. That is why you won't find any further similarites between the two implementations. The reasons for implementing our own code from scratch can be found in the next section [Opprtunity](#saviors-final-opportunity). In short, last year's solution considered the image given the original camera's perspective and tried to classify the objects based on their contour. We are using a very different approach concerning those two crucial parts as you can see in the [Contribution](#saviors-final-contribution) section.
 
@@ -148,7 +148,7 @@ For evaluating the ***performance***, we used the following metrics, evaluated u
 
 An evaluation of our goals and the reached performance can be found in the [Performance Evaluation](#saviors-final-formal) section. 
 
-Our ***approach*** is simply based on analysing incoming pictures for obstacles and trying to track them to make the algorithm more robust against outliers. Since we only rely on the monocular camera, we do not have any direct depth information given. In theory, it would be possible to estimate the depth of each pixel through some monocular visual odometry algorithm considering multiple consecutive images. However this would be extremely computationally expensive. The large amount of motion blur in our setup, a missing IMU (for estimating the absolute scale) and the additional computational costs further argue against such an approach. 
+Our ***approach*** is simply based on analysing incoming pictures for obstacles and trying to track them to make the algorithm more robust against outliers. Since we only rely on the monocular camera, we do not have any direct depth information given. In theory, it would be possible to estimate the depth of each pixel through some monocular visual odometry algorithm considering multiple consecutive images. However this would be extremely computationally expensive. The large amount of motion blur in our setup, a missing IMU (for estimating the absolute scale) further argue against such an approach. 
 In our approach we use the extrinsic calibration to estimate the position of the given obstacles. The intuition behind that is that it is possible to assume that all pixels seen from the camera belong to the ground plane (except for obstacles which stand out of it) and that the Duckikebot's relative position to this ground plane stays constant. Therefore you can assign a real world 3D coordinate to every pixel seen with the camera. For more details refer to the [section below](#saviors-functionality-computer-vision).
 
 The final output is supposed to look as [](#fig:part_1_image_final).
@@ -168,7 +168,7 @@ The assumptions for correctly reacting to the previously detected obstacles are:
 * "The Controllers" are responsible for following our trajectory
 * Possibility to influence vehicle speed (slow down, stop)
 
-As we now know, the first point of the assumptions is normally not fulfilled. We describe in the [functionality section](#saviors-functionality-avoidance) why this comes out to be a problem. 
+As we now know, the first assumption is normally not fulfilled. We describe in the [functionality section](#saviors-functionality-avoidance) why this comes out to be a problem. 
 
 For measuring the performance we used:
 
