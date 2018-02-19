@@ -164,46 +164,46 @@ The Duckiebot was modeled as a symmetric rigid body, according to the following 
 <div figure-id="fig:mod-kin" figure-caption="Schematics of differential drive robot [](#bib:Modeling)">
   <img src="mod-kin.png" style='width: 30em; height:auto'/>
 </div>
-	
+
 Considering only the kinematics, we get the following equations for the linear and angular velocity $v_A $ and $\dot{\theta}$ of the Duckiebot : 
-	
+
 \begin{align}
-	 v_A &= \cfrac{v_r + v_l}{2}
-	 \label{vA} \\
-	 \dot{\theta} &= \cfrac{v_r - v_l}{2L}
-	\label{theta}
+    v_A &= \cfrac{v_r + v_l}{2}
+    \label{vA} \\
+    \dot{\theta} &= \cfrac{v_r - v_l}{2L}
+    \label{theta}
 \end{align} \\ 
 
 
- With the assumption that the velocity of the wheels is proportional to the voltage applied on each wheel $V_l$ and $V_r$ and that there is no slipping,  we can write the following : 
+With the assumption that the velocity of the wheels is proportional to the voltage applied on each wheel $V_l$ and $V_r$ and that there is no slipping,  we can write the following : 
 
 \begin{align}
-	 v_l &= c_l \cdot V_l
-	  \label{vl} \\ 
-	 v_r &= c_r \cdot V_r
-	\label{vr}
+    v_l &= c_l \cdot V_l
+    \label{vl} \\ 
+    v_r &= c_r \cdot V_r
+    \label{vr}
 \end{align}
 
  Thus ~\eqref{vA} and ~\eqref{theta} can bre rewritten as : 
 
 \begin{align}
-	v_A &= \cfrac{c_r \cdot V_r + c_l \cdot V_l }{2}
-	 \label{vA2} \\ 
-	\dot{\theta} &= \cfrac{c_r \cdot V_r - c_l \cdot V_l }{2L}
-	 \label{theta2}
+    v_A &= \cfrac{c_r \cdot V_r + c_l \cdot V_l }{2}
+    \label{vA2} \\ 
+    \dot{\theta} &= \cfrac{c_r \cdot V_r - c_l \cdot V_l }{2L}
+    \label{theta2}
  \end{align}
 
-With, $c_r, c_l $ and $L$, some constants to define for each duckiebot. \\ \\ 
+With, $c_r, c_l $ and $L$, some constants to define for each duckiebot. \\ 
 
 
 Alternatively, we can define $c = c_r$ and $c_l = c + \Delta c$ and we get from  ~\eqref{vA3} and ~\eqref{theta3} 
 
 \begin{align}
-	v_A &= \cfrac{c \cdot (V_r +  V_l ) + \Delta c \cdot V_l}{2}
-	\label{vA3} \\ 
-	\dot{\theta} &= \cfrac{c \cdot (V_r - V_l ) - \Delta c \cdot V_l}{2L}
-	\label{theta3}
- \end{align}
+    v_A &= \cfrac{c \cdot (V_r +  V_l ) + \Delta c \cdot V_l}{2}
+    \label{vA3} \\ 
+    \dot{\theta} &= \cfrac{c \cdot (V_r - V_l ) - \Delta c \cdot V_l}{2L}
+    \label{theta3}
+\end{align}
 
 We get a kinematic model, that shows the relation between the linear and angular velocity of the Duckiebot and the voltage applied to each wheel. To have our model totally defined, we only need to calculate three parameters, namely $c $ and $\Delta c$ and $L$. 
 These three parameters will be calculated with odometry calibration.
@@ -227,7 +227,7 @@ The model of the system [](#bib:OdometryCalibration) with the notations explaine
     <s>$p$</s>  <s>Calibration Parameters</s>
     <s>$f(\cdot)$</s>  <s>Model </s>
     <s>$g(\cdot)$</s>  <s>Pose </s>
-    <s>$\mathcal{M}_{n}$</s>  <s>Set of discrete measurements</s>
+    <s>$ \mathcal{M}_{n} $</s>  <s>Set of discrete measurements</s>
     <s>$m_k$</s>  <s>Measurements (not necessarily evenly space in time)</s>
     <s>$\hat{\mathcal{Y}}_{n}$</s>  <s>Set of output estimates</s>
 
