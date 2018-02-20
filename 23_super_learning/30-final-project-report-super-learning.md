@@ -10,27 +10,27 @@ The final results are shown in the attached video. See the following link. [Reco
 
 _Mission:_
 
-To learn policies which match the results from recorded data from agents in the real world, so that the vast volumes of the data in the real world can be made useful.
+To learn policies which match the results from recorded data collected from agents in the real world, so that the vast volumes of the data in the real world can be made useful.
 
 _Scope:_
 
 - Verifying whether Deep Learning can be used successfully in Duckietown;
 
-- Motivated by the concept of ‘data processing inequality’, using supervised and imitation learning to control the duckiebot end-to-end with data from a recorded policy;
+- Motivated by the concept of ‘Data Processing Inequality’, using supervised and imitation learning to control the Duckiebot end-to-end(input: raw image, output: control command) with data from a recorded policy;
 
 - Using supervised or unsupervised learning to model specific aspects of the autonomous driving task;
  
-- Focus on autonomous lane follwing by learning based tools. 
+- Focus on autonomous lane following by learning based tools. 
 
 ### Motivation {#supervised-learning-final-result-motivation}
 
-According to the definition of 'data process inequality', essential information is prone to be left out along a long process chain, as the conventional approach for autonomous lane following. To cope with this problem, an end-to-end network is expected to be implemented, which maps raw input images from camera to vehecles' control command directly.
+According to the definition of 'Data Processing Inequality', essential information is prone to be left out along a long processing chain, as the conventional approach for autonomous lane following. To cope with this problem, an end-to-end network is expected to be implemented, which maps raw input images from camera to vehicles' control command directly.
 
 ### Existing solution {#supervised-learning-final-literature}
 
 The similar end-to-end imitation learning neural network has already been implemented by Nvidia for the task of lane following on real roads. The demo details can be seen from the following link. [Nvidia demo](https://youtu.be/-96BEoXJMs0)
 
-In the case of Nvidia's work, researchers did not program any explicit object detection, mapping, path planning or control component into this car. Instead, the vehicle learns on its own to create all necessaty internal representations necessary to steer, simply by observing human drivers. The success of learning to drive in complex environments demomstrates new capacities of deep neural network.
+In the case of Nvidia's work, researchers did not program any explicit image segmentation, object detection, mapping, path planning or control component into the car. Instead, the vehicle learns on its own to create all necessaty internal representations necessary to steer, simply by observing human drivers. The success of learning to drive in complex environments demonstrates new capacities of deep neural network.
 
 ### Opportunity {#supervised-learning-final-opportunity}
 
@@ -38,7 +38,7 @@ Though the aim is quite same between Nvidia's work and our project, the specific
 
 - There wasn't previous implementation of supevised learning's application on lane following for Duckiebots;
 
-- The performance of current approach for lane following is not optimal due to the computation limit of Raspberry Pi;
+- The performance of current approach for lane following is not optimal due to the computational limit of Raspberry Pi;
 
 - For Nvidia's implementation, the network's input is the raw images, and the control command is steering angles, gas and brake, which is different from our case in Duckietown, where the control output is only the Bot's orientation; CNN is expected to be adopted in our case to realize the end-to-end control;
 
@@ -46,7 +46,7 @@ Specifically, by implementing the network for lane following, we hope to improve
 
 - End-to-end network can have better performance due to 'data process inequality';
 
-- With an extra on-board coputation device Neural Compute Stick, the computation power of Duckiebots can be futher increased.
+- With an extra on-board device Neural Compute Stick, the burden of Raspberry Pi will be released so that more CPU power can be used on higher level path planning, vehicle coordination and city manipulation. 
 
 ### Preliminaries (optional) {#supervised-learning-final-preliminaries}
 
@@ -54,7 +54,7 @@ There are three parts of preliminaries that are important to the implementation:
 
 - Understand basic knowledge and differences between machine learning, deep learning, supervised learning and unsupervised learning;
 
-- Train an effective Convolutional Neural Network which can maps raw image to orientation of Duckiebots for lane following;
+- Train an effective Convolutional Neural Network which maps raw image to orientation of Duckiebots for lane following(the most pratical and difficult part);
 
 - Implement a ROS node which subscribes to input images, communicates with Neural Compute Stick for computation, and publishes the computed orientation angle to the car control node. 
 
@@ -62,7 +62,7 @@ Concerning learning related knowledge, the relation between machine learning and
 
 ![Plug 0](machine-deep.png)
 
-To know more about Machine Learning and Deep Learning, readers can refer to [ETH Machine Learning Course](https://ml2.inf.ethz.ch/courses/ml/) and [Andrew's Course on Deep Learning](https://www.deeplearning.ai/); to be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly.
+To know more about Machine Learning and Deep Learning, readers can refer to [ETH Machine Learning Course](https://ml2.inf.ethz.ch/courses/ml/) and [Andrew's Course on Deep Learning](https://www.deeplearning.ai/); to be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly. Our code are stored in two repositories. One is in the [Duckietown Software](https://github.com/duckietown/Software/tree/devel-super-learning-jan15/catkin_ws/src/80-deep-learning/duckiebot_il_lane_following/src) while the other is [Duckietown Imitation Learning](https://github.com/syangav/duckietown_imitation_learning). The latter repo contains everything to reproduce a CNN model which can be used on Duckiebot. 
 
 ## Definition of the problem {#supervised-learning-final-problem-def}
 
@@ -98,11 +98,9 @@ _Software Architecture:_
 
 There are three main steps for software part:
 
-- Offline training with logged data;
+- Offline training with logged data which contained around 6000 pictures and corresonding orientation angle(A really interesting point: The working CNN model is only trained based on outer circle data. The bot always turns left and seldom turns right in an outer circle. But the model works quite well on inner cicle as well. The inner circle requires right turns in most cases. My guess is that is I shuffle the inner and outer circle data, then maybe around 2000 training samples will be suffient. The converging speed may be faster.);
 
-- NCS thing works on the laptop; 
-
-- It’s funny on the Pi.
+- NCS thing works on the laptop. The CNN model has four convolution layers followed by RELU layer. The last layer is a fully connected one; 
 
 _Model Training:_
 
@@ -112,9 +110,9 @@ When implementing the ROS node, the different speed of subscription to images an
 
 ## Formal performance evaluation / Results {#supervised-learning-final-formal}
 
-The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic. Threfore, we compare the performance of the lane following based on our neural network and the one realized by conventional approach. 
+The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic. Therefore, we compare the performance of the lane following based on our neural network and the one realized by conventional approach. 
 
-- Robustness: As shown in the recorded video, the implemeted neural network can complete the task lane follwing quite well, not only on the Duckiebot which collects data, but on other Duckiebots as well. Morevoer, the performance is also desirable on the tracks which the trained network that has never seen before. Overall speaking, the trained network is robust to Duckiebots' and lanes' configurations;
+- Robustness: As shown in the recorded video, the implemented neural network can complete the task lane following quite well, not only on the Duckiebot which collected data, but on other Duckiebots as well. Morevoer, the performance is also desirable on the tracks which the trained network that has never seen before. Generally speaking, the trained network is robust to Duckiebots' and lanes' configurations;
 
 - Response: To have a perfect performance on lane follwing, processors should respond fast enough. By conventional approach, the publishing of car control command is around 2 Hz, with the use of Pi; by using the add-on hardware NCS, the publishing speed of control command can achieve 15 Hz. Therefore, the approach realized by NCS has shown its advantage in our case.
 
@@ -122,5 +120,9 @@ The overall results of the project can be seen from the demo video: [Recorded vi
 
 In our project, the autonomous lane following based on deep learning has already shown its advantages over the conventional approach (refer to last chapter). Therefore, it will be interesting to see the application of learning based tools on other functions of Duckiebots/Duckietown. To be more specific, the following topics can be discussed:
 
-- Learn to stop at intersections: it is important for Duckiebots to stop at intersections for the real application case. Threfore, the trained network should be extended to complete the relevant task;
+- Learn to stop at intersections: it is important for Duckiebots to stop at intersections for the real application case. Therefore, the trained network should be extended to complete the relevant task;
 - The Saviors: The current approach for detecting duckies on lanes is still based on computer vision technology. Research has shown deep learning's power on object detection. Therefore, it will be reasonable to adopt learning based tools to realize the task of 'The Saviors'.
+
+The only thing that limits further development of deep learning in Duckietown is collecting suffient amount of training data regarding to the topics we would like to focus on. Training data collection can be costly. 
+
+Another thing to be noticed is merging different neural networks into one. This problem is not shown in our project because we only solved lane following task. However, in the future development, for each individual task, there shall be one corresponding pre-trained specific CNN. For example, the lane following CNN is always running since it's the main task but we do need "stopping at intersection" CNN running as well so that Duckiebot stops as we desired. Shall we have all of those CNN running in the background at the same time or shall we somehow figure out a way to combine all CNN into one? The former solution is definitely costly but will work for sure while the second method is computationally optimal but touches a brand new area. Different CNN has different structures and weights. Is combining them possible? 
