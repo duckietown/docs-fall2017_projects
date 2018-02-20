@@ -46,15 +46,19 @@ The overall goal of our project is to stay in the lane while driving and stop in
 <!--
 - Was there a baseline implementation in Duckietown which you improved upon, or did you implemented from scratch? Describe the "prior work"
 -->
+<center><img figure-id="fig:curve_plot" figure-caption="Pose of Duckiebot in a curve element." src="curve_plot.png" alt="Curve plot" style="width: 200px;"/></center>
 
 From last year’s project, the baseline implementation of a pose estimator and a controller were provided to us for further improvement. The prior pose estimator was designed to deliver the pose for a Duckiebot on straight lanes only. If the Duckiebot was in or before a curve and in the middle of the lane, the estimated pose showed an offset **d**, see definition of **d** in figure below. The existing controller worked ok on straight lines. Due to the inputs from the pose estimator to the controller, the Duckiebot overshot in the curves and crossed the left/right line during or after the curve.
 
-<center><img figure-id="fig:curve_plot" figure-caption="Pose of Duckiebot in a curve element." src="curve_plot.png" alt="Curve plot" style="width: 200px;"/></center>
-
 <!--
 <insert video> see folder: 21_Media: Final Report > 02_controller_special_curve…
-https://drive.google.com/drive/folders/1wNDhf7-v_jX6HF0im74G5_6sHnbKD8cX
+No Sound Video: https://drive.google.com/file/d/1y9L4_-VFRy9ay0EB-X7cyJkQ33ORXL49/view?usp=sharing
 -->
+
+<div figure-id="fig:demo-video">
+    <figcaption>Old vs. new controller</figcaption>
+    <dtvideo src="vimeo:256663571"/>
+</div>
 
 ### Opportunity {#controllers-final-opportunity}
 
@@ -101,7 +105,7 @@ Our final objective is to keep the Duckiebots at a given distance **d** from the
 
 The project was on the bottom line, taking the line segments which gave information about the line colour and the segment positions to estimate the Duckiebot’s pose and return a command for the motors to steer the robot to the center of the lane. After roughly analysing the existing solution, we divided the work load into two topics **pose estimation** and **controller** to enable parallel dealing with the problems in the short period of time. 
 
-In our [Preliminary Design Document](#controllers-pdd) and [Intermediate Report](#controllers-int-report), we have listed all variables and their definitions, as well as all system interfaces with other groups and assumptions we made. Due to limitation of time, some integrations with other teams are not yet activated but they are already prepared in the code (some of it commented out), see 
+In our [Preliminary Design Document](#controllers-pdd) and [Intermediate Report](#controllers-int-report), we have listed all variables and their definitions, as well as all system interfaces with other groups and assumptions we made. Due to limitation of time, some integrations with other teams are not yet activated but they are already prepared in the code (some of it commented out), see this repository branch [devel-controllers-external](https://github.com/duckietown/Software/tree/devel-controllers-externaluse).
 TODO insert link to description or link to devel-controllers-external use?
  
 ### Pose Estimation
@@ -117,6 +121,7 @@ TODO: Image of pose estimation/ vote generation
 Our general goal was to improve the accuracy of estimated pose in regard to reference pose and increase the computational efficiency. Also robustness regarding slight changes in width of the lane, width of the lines and curvature should be achieved.
 
 ### Controller
+<center><img figure-id="fig:coordinates" figure-caption="Definition of used coordinates." src="coordinates.png" alt="Definition of used coordinates." style="width: 300px;"/></center>
 
 In the existing implementation, the controller has taken the output of the estimator as input and calculated the motor command, velocity **v** and angular velocity **$\omega$**, with hardcoded parameters. Running the current lane following demo, we determined the weaknesses of the controller’s performance. Since the existing controller only had a P-part, we decided to implement following parts and benchmark its performance.
 
@@ -134,7 +139,7 @@ In the existing implementation, the controller has taken the output of the estim
         *The feedforward part is very much dependent on the correct curvature estimation. If curvature was estimated correctly, feedforward worked well.
 
 
-In some cases, the controller won’t need the real time pose input of the pose estimator but a given path from other teams for example during intersection navigation. For this task, we had to define a more general ‘Lane Pose‘ message, communicate and coordinate the integration with other teams and subscribe to their nodes, see [Subscribed topics by Lane Controller Node](# xxxxxx). To make a decision about the input source, we have to subscribe to flags passed by the other teams, see [Flags received by other modules](#) and create a prioritization logic, see .... 
+In some cases, the controller won’t need the real time pose input of the pose estimator but a given path from other teams for example during intersection navigation. For this task, we had to define a more general ‘Lane Pose‘ message, communicate and coordinate the integration with other teams and subscribe to their nodes, see [Subscribed topics by Lane Controller Node](#controllers-int-report). To make a decision about the input source, we have to subscribe to flags passed by the other teams, see [Flags received by other modules](#The Controllers: Intermediate Report) and create a prioritization logic, see .... 
 
 Regarding performance, the Duckiebot should be left with a small steady state error within a tile and never leave the lane given the [Duckietown appearance specifications](#duckietown-specs). 
 
@@ -158,7 +163,7 @@ The idea of our curvature estimation approach is to split the domain in front of
 
 
 
-In each of the range areas the road can roughly be assumed as a straight lane. But for every area further away from the bot this straight lane fit is tilted more towards the left. For all the areas we take all the segments with their center point lying inside the area. Using these segments for each area we run the standard estimation getting a **d** and a **$\theta$** value. Now we can compare those results with the **d** and a **$\theta$** value from the estimation of the position. 
+In each of the range areas the road can roughly be assumed as a straight lane. But for every area further away from the bot this straight lane fit is tilted more towards the left. For each area, only those segments with center point is inside the area are considered. Using these segments for each area we run the standard estimation and thereafter we get for each area a **d** and a **$\theta$** value. Now we can compare those results with the **d** and a **$\theta$** value from the estimation of the position. 
 
 
 The expected results are shown in [](#fig:curvature_estimation_expected) where the left most points in each graph represent the actual position estimation and the further three point represent the estimations of the three different range areas. As a leftover of the existing code where this was already the case, **$\phi$** and **$\theta$** are still used as synonyms within the code. Due to limited time, it did not make it to our highest priority at any time within our project, to merge those names. This should be done in further work.
@@ -168,11 +173,22 @@ The expected results are shown in [](#fig:curvature_estimation_expected) where t
 
 Unfortunately, the measurements for the higher ranges are very noisy as there are only a few line segments detected at further distance and therefore the signal to noise ratio is very bad. To get rid of outliers we decided to add a median filter over values of the ranges. Additionally we saved this median **d** and **$\phi$** values over time for the last five time steps and again took the median value of it. Then we checked if it is above or below the value of the closest range.
 
-Another possibility would be to calculate the slope of each value at the further ranges to the closest one and then take the median of those slopes. But computational complexity was tried to be kept as low as possible, since we already had problems that using curvature estimation increased latency significantly and therefore reduced controller performance.
+Another possibility would be to fit a line through the data points and decide on the lane type based on the slope of the line. We decided to go for the above mentioned method because we wanted to keep the computational complexity as low as possible.
 
-By testing we found good results for the following cutoffs:
+By testing we found good results for the cutoffs shown in [](#tab:curvature_cutoffs) where $d_{median}$ and $\phi_{median}$ represent the median over 5 time steps of the values resulting from the range area and $d_{est}$ and $\phi_{est}$ represent the actual pose estimate.
+
+<col3 align='center' style="text-align:left" id='curvature_cutoffs' figure-id="tab:curvature_cutoffs" figure-caption="Cut offs for the decision on the curvature type.">
+   <span> </span>     <span>$d_{median} - d_{est}$</span>    <span>$\phi_{median} - \phi_{est}$</span>
+   <span>left curve</span>    <span>$<-0.3$</span>    <span>$>0.05$</span>
+   <span>right curve</span>    <span>$> 0.2$</span>   <span>$< -0.02$</span>
+</col3>
+
 
 #### Curvature estimation using Discrete Fourier Transform
+
+By generating a discrete binary image from the segments projected to the ground and applying the discrete fourier transform to this image, the curvature of the road in front of the Duckiebot can be detected. Fourier transforms of such binary images are shown in [](#fig:curvature_estimation_fourier). By using the right fourier features straight lanes, right and left curves could be detected thanks to their differing fourier transform.
+
+This method has been implemented successfully by jukindle but the problem was first of all choosing the right resolution for the segment images and additionally the method introduced a delay of about 0.2 seconds, which again lowered the lane following performance of the Duckiebot. 
 
 <center><img figure-id="fig:curvature_estimation_fourier" figure-caption="Discrete Fourier Transform (DFT) of a street image in ground frame." src="curvature_estimation_dft.png" alt="Discrete Fourier Transform of street image" style="width: 300px;"/></center>
 
@@ -202,7 +218,7 @@ An example of a processed frame is shown in [](#fig:segment_foto).
 
 #### How to run
 
-Basically you need to navigate to the folder that contains the benchmark code. In this case:
+You need to navigate to the folder that contains the benchmark code. In this case:
 
     $ /catkin_ws/src/10-lane-control/benchmark/
 
@@ -210,7 +226,7 @@ Then execute the following code:
 
     $ python benchmark path/to/folder_containing_rosbags
 
-You can specify the path to a single rosbag or you can specify the general folder containing several rosbags and it will process all those which haven't been processed yet and safe the output into a folder "output" unless otherwise defined.
+You can specify the path to a single rosbag or you can specify the general folder containing several rosbags and it will process all those which have not been processed yet and save the output into a folder __output__ unless otherwise defined.
 To get help on the flags type:
 
     $ python benchmark --help
@@ -227,11 +243,11 @@ There are the following flags:
 
 In the controller, a feedforward part was added to figuratively speaking straighten the lane and ease the work of the controller. Therefore, the feedforward part takes the estimated curvature **$c_{est}$** and reference velocity **$v_{ref}$** as inputs and returns the needed yaw rate **$omega$**. Which is then added to the output of the controller.
 
-To reduce static offset, integral parts were implemented for both **$d$** and **$\theta$**. To prevent them from increasing unnecessarily, an Anti Reset Windup was implemented. Therefore, whenever activator limits were reached (meaning the motors were not sent lower values than would be necessary to reach the controller outputs, because of certain limitations within the software), the integral steps at the corresponding time step were not added to the integrator.
+To reduce static offset, integral parts were implemented for both **$d$** and **$\theta$**. To prevent the integral parts from diverging, an Anti Reset Windup was implemented. Therefore, whenever actuator limits were reached (meaning the motors were not sent lower values than would be necessary to reach the controller outputs, because of certain limitations within the software), the integral steps at the corresponding time step were not added to the integrator.
 
-In curves, the integrator values grew strongly and lead to an overshoot after the curve. A possible approach would be to turn off the integrator in curves, but therefore the curvature estimation would need to be used and robust. Or if the feedforward part (also needing a robust  and low-latency curvature estimation) could be fully used, the problem might be diminished. In the current state, the integrator is reset to zero when it is at or crosses the zone (since the pose is estimated in ) of zero error. The integrator was also reset to zero, when the velocity sent to the motors was zero.
+In curves the integrator values accumulate rapidly and lead to an overshoot after the curve. A possible approach would be to turn off the integrator in curves, but in consequence the curvature estimation would need to be used and in addition need to be robust. Or if the feedforward part could be fully used (while also needing a robust and low-latency curvature estimation), the problem might be diminished. In the current state, the integrator is reset to zero whenever it is at or crosses the zone (since the pose is estimated in) of zero error. In addition the integrator was also reset to zero, whenever the velocity sent to the motors was zero.
 
-The resulting parameter (the proportional gains and the integrator gains of both **$d$** and **$\theta$**) were tuned. First with … initial values were approximated. Then the parameters were tuned by hand using …, therefore the unstable state and the approximate boundary thereof was looked for for each parameter with all the other parameters in a stable state. This was repeated multiple times with ever more aggressive controller behavior and an optimum was found.
+The resulting parameter, the proportional gains and the integrator gains of both **$d$** and **$\theta$**,s were tuned. First with … initial values were approximated. Then the parameters were tuned by hand using …, therefore the unstable state and the approximate boundary thereof was looked for for each parameter with all the other parameters in a stable state. This was repeated multiple times with ever more aggressive controller behavior and an optimum was found.
  
 
 Only obstacle avoidance is integrated 
@@ -270,9 +286,9 @@ Explain failure / success.
 -->
 
 We evaluated the improvement of performance with help of several evaluations. The evaluation procedure are defined in our [Indermediate Report](#controllers-int-report). The main benchmark feature was the average deviation from tracking reference during a run (distance to middle lane) and the standard deviation of the same value. We also benchmarked the deviation from the heading angle aswell, but since the bot is mainly controlled according to the deviation of the tracking distance it was the main feature to lead our development.
-Benchmarking in general occurred by letting the Duckiebot run a specific experiment and recording a rosbag. We wrote a distinct benchmarking application, that takes the rosbag and analyzes the recorded values to create plots with information about tracking distance and heading angle over the run. 
+Benchmarking in general occurred by letting the Duckiebot run a specific experiment and recording a rosbag. We wrote a distinct benchmarking application, that analyzes the rosbag containing the recorded values and creates plots with the extracted information about tracking distance and heading angle over the run. 
 
-Furthermore, we assessed the performance of the Duckiebots in the following ways:
+Furthermore, we assessed the performance of the Duckiebots in the following dimensions:
 
 * **Estimator**:
     - Static lane pose estimation benchmark
@@ -284,19 +300,18 @@ Furthermore, we assessed the performance of the Duckiebots in the following ways
     - Stop at red line benchmark
     - Controller benchmark
     - Non-conforming curve benchmark
-
 ### Performance Evaluation of Estimator
 
 #### Static lane pose estimation benchmark
 
-In the static lane pose estimation we put the Duckiebot on predefined poses and checked how well the pose estimator performs. In this section the Duckiebot was placed on straight road with different distances from the middle of the lane and different heading angles. The results can be seen in the following graphs: 
+In the static lane pose estimation, we put the Duckiebot on predefined poses and checked how well the pose estimator performs. In this section, the Duckiebot was placed on a straight lane segment with different distances from the middle of the lane and different heading angles. The results can be seen in the following graphs: 
 
 <center><img figure-id="fig:perf_static_straight_d" figure-caption="Old Lane Estimator Performance of estimating $d$ on straight lane." src="perf_static_straight_d.png" alt="Old Lane Estimator Performance on straight lane" style="width: 400px;"/></center>
 
 
 
 
-As one can see from [](#fig:perf_static_straight_d), the estimated distance from the middle lane and the actual value correspond very good in most experiments. There is only one case where the actual deviation was $-1 cm$ and measured was $4 cm$. Note that the histogram resolution used to determine the pose is $1 cm$.
+As one can see from [](#fig:perf_static_straight_d), the estimated distance from the middle of the lane and the actual value correspond very good in most experiments. There is only one case where the actual deviation was $-1 cm$ and measured was $4 cm$. Note that the histogram resolution used to determine the pose is $1 cm$.
 
 <center><img figure-id="fig:perf_static_straight_phi" figure-caption="Old Lane Estimator Performance of estimating $\phi$ on straight lane." src="perf_static_straight_phi.png" alt="Old Lane Estimator Performance on straight lane" style="width: 400px;"/></center>
 
@@ -306,7 +321,7 @@ As one can see from [](#fig:perf_static_straight_d), the estimated distance from
 <center><img figure-id="fig:perf_static_straight_delta" figure-caption="Differences of $d_{actual}$ and $d_{measured}$ and $\phi_{actual}$ and $\phi_{measured}$ respectively." src="perf_static_straight_delta.png" alt="Old Lane Estimator Performance on straight lane" style="width: 400px;"/></center>
 
 
-If we look at the overall deviations in all experiments shown in [](#fig:perf_static_straight_delta), we can see that the pose estimator performs fairly well, and it is possible to control on the deviation of the distance. The heading angle shows more error. The average deviation from the actual tracking distance in all experiments accounts to $1.6 cm$ and the average deviation from the actual heading angle in all experiments is $7.2^{circ}$.
+If we look at the overall deviations in all experiments shown in [](#fig:perf_static_straight_delta), we can see that the pose estimator performs fairly well, and it is possible to control on the deviation of the distance. The heading angle shows more error. The average deviation from the actual tracking distance in all experiments accounts to $1.6 cm$ and the average deviation from the actual heading angle in all experiments is $7.2^{\circ}$.
 
 #### Static curve pose estimation benchmark
 
@@ -337,7 +352,7 @@ Since the image resolution has an impact on the number of segments being visible
 
 
 
-As one can see in [](#fig:perf_image_res_yaf) the performance of the Duckiebot measured as the mean deviation from the reference trajectory (which is usually $0 cm$) is getting worse the higher the resolution. There are outliers though, since the highest resolution being tested shows better performance than the resolution just one step smaller. The best performance is achieved with slightly higher resolution at $150x200$ pixels. To validate these results, we tested it on another Duckiebot aswell.
+As one can see in [](#fig:perf_image_res_yaf) the performance of the Duckiebot measured as the mean deviation from the reference trajectory (which is usually $0 cm$) is getting worse the higher the resolution. There are outliers though, since the highest resolution being tested shows better performance than the resolution just one step smaller. The best performance is achieved with slightly higher resolution at 150x200 pixels. To validate these results, we tested it on another Duckiebot aswell.
 
 <center><img figure-id="fig:perf_image_res_a313" figure-caption="Measured $d_{mean}$ and $\phi_{mean}$ values for different image resolutions for Duckiebot 'a313'." src="perf_image_res_a313.png" alt="Image Resolution performance a313" style="width: 400px;"/></center>
 
@@ -356,7 +371,7 @@ Increasing the top cutoff value means, that from the input image more of the top
 
 
 
-We run a benchmark to evaluate the influence of the top cutoff on the performance. The test has been performed with an image resolution of $120x160$ pixels. The results are shown in [](#fig:perf_image_res_top_d). $40$ pixels is the standard top cutoff values. This means the upper 40 pixels are cut away from each image. While increasing the top cutoff amount, the $d_{mean}$ decreases slightly while $\phi_{mean}$ increases slightly. We don’t see big changes in performance until the top cutoff gets quite big. At this point the Duckiebot does not see enough to control according to the actual pose situation. 
+We run a benchmark to evaluate the influence of the top cutoff on the performance. The test has been performed with an image resolution of 120x160 pixels. The results are shown in [](#fig:perf_image_res_top_d). 40 pixels is the standard top cutoff values. This means the upper 40 pixels are cut away from each image. While increasing the top cutoff amount, the $d_{mean}$ decreases slightly while $\phi_{mean}$ increases slightly. We don’t see big changes in performance until the top cutoff gets quite big. At this point the Duckiebot does not see enough to control according to the actual pose situation. 
 
 <center><img figure-id="fig:perf_image_res_top_time" figure-caption="Segment process time and number of segments for different top cutoffs in pixels." src="perf_image_res_top_time.png" alt="Top cutoff performance test" style="width: 400px;"/></center>
 
@@ -376,61 +391,77 @@ We also tested the influence of the histogram size for the generation of the vot
 
 <col6 align='center' style="text-align:left" id='image_res_top' figure-id="tab:image_res_top" figure-caption="Combining image resolution and top cutoff.">
    <span>Resolution</span>      <span>Top Cutoff</span>     <span>$t_{latency} [s]$</span>       <span>$d_{mean} [cm]$</span>    <span>$\phi_{mean} [rad]$</span>    <span>$n_{segments} [-]$</span>
-   <span>$120x160$</span>      <span>$40$</span>     <span>$0.019$</span>       <span>$-1.802$</span>    <span>$-0.025$</span>    <span>$39$</span>
-   <span>$150x200$</span>      <span>$75$</span>     <span>$0.012$</span>       <span>$-0.011$</span>    <span>$-0.004$</span>    <span>$23$</span>
+   <span>120x160</span>      <span>40</span>     <span>$0.019$</span>       <span>$-1.802$</span>    <span>$-0.025$</span>    <span>$39$</span>
+   <span>150x200</span>      <span>75</span>     <span>$0.012$</span>       <span>$-0.011$</span>    <span>$-0.004$</span>    <span>$23$</span>
 </col6>
 
-As we can see from [](#tab:image_res_top), the configuration with resolution $150x200$ and top cutoff $75$ can improve the lane control performance compared to the standard configuration with resolution $120x160$ and top cutoff $40$ without changing the lane controller itself or the pose estimator. Note that all the results from this section have been tested with the improved lane controller.
+As we can see from [](#tab:image_res_top), the configuration with resolution 150x200 and top cutoff 75 can improve the lane control performance compared to the standard configuration with resolution 120x160 and top cutoff 40 without changing the lane controller itself or the pose estimator. Note that all the results from this section have been tested with the improved lane controller.
 
 #### Segment interpolation benchmark
 
-Another approach to improve the pose estimator is to increase amount of line segments without increasing the image resolution. Here we take each line segment and divide them into smaller pieces of which each has a vote on the belief image. Good line segments cast more votes to the same pose estimate, while bad segments (e.g. which are further away or outliers) have less weight on casting wrong results. Think of it as a filter to improve quality of the lane pose estimate.
+Another approach to improve the pose estimator is to increase the amount of line segments without increasing the image resolution. Here we take each line segment and divide it into smaller pieces of which each has a vote on the belief image. Good line segments cast more votes to the same pose estimate, while bad segments (e.g. which are further away or outliers) have less weight on casting wrong results. Think of it as a filter to improve quality of the lane pose estimate.
+
+<center><img figure-id="fig:perf_segment_d" figure-caption="Performance for different segment interpolations." src="perf_segment_d.png" alt="Performance evaluation of segment interpolation" style="width: 400px;"/></center>
 
  
 
-As we can see, we tested up to interpolating a line segment 5 times. There aren’t any significant changes to the lane following performance except for one outlier while interpolating with 3 line segments. If we look closer, we can see that the actual performance gets worse the more we interpolate due to processing speed of the raspberry pi.
+As we can see in [](#fig:perf_segment_d), we tested up to interpolating a line segment 5 times. There aren’t any significant changes to the lane following performance except for one outlier while interpolating with 3 line segments. If we look closer, we can see that the actual performance gets worse the more we interpolate due to processing speed of the raspberry pi.
+
+<center><img figure-id="fig:perf_segment_t" figure-caption="Standard deviation of $d$ and mean latency for different segment interpolations." src="perf_segment_t.png" alt="Performance evaluation of segment interpolation" style="width: 400px;"/></center>
 
 
 
-The d_stdev shows the standard deviation and how it increases the more we interpolate due to higher latency. This behavior is observable on straight lanes where the Duckiebot oscillates around the reference trajectory. We can also see this in the benchmark graph.
+
+[](#fig:perf_segment_t) shows the standard deviation of $d$ ($d_{stdev}$) and how it increases the more we interpolate due to higher latency. This behavior is observable on straight lanes where the Duckiebot oscillates around the reference trajectory. We can see this in [](#fig:perf_segment_osc) for a run with 5 interpolated segments per detected segments. From 50 to 70 sec we can observe the oscillations on a straight lane due to high latencies.
+
+<center><img figure-id="fig:perf_segment_osc" figure-caption="Benchmark graph for a run with 'a313' and 5 interpolated segments per detected segment." src="perf_segment_osc.png" alt="Performance evaluation of segment interpolation" style="width: 400px;"/></center>
 
 
-
-At the section of time from 50 to 70 sec we can observe this oscillations on a straight lane due to high latencies.
 
 #### Curvature estimation benchmark
 
 In this section we want to evaluate the curvature estimation performance. What the curvature estimator basically does is dividing the input image into several circular sections with equi-radial distance to the Duckiebot. From each section it derives the pose and evaluates, how it changes in these sections. This will tell us, how the road in front of the Duckiebot looks like. Then again, this feature has an impact on the lane following performance of the Duckiebot since the processing power of the raspberry pi is limited and any added latency will slow the bot down.
 
+<center><img figure-id="fig:perf_curvature_estim" figure-caption="Performance for different numbers of belief images from 1 to 7 where the first image is for the actual pose estimation and the further ones are for the curvature estimation (curvature resolution)." src="perf_curvature_estim.png" alt="Performance evaluation of curvature estimation" style="width: 400px;"/></center>
+
     
 
-On the horizontal we can see the number of belief images being evaluated (curvature estimation resolution). The higher the number, the better we can forecast the type of the road (left curve, right curve, straight lane). With a number of 1, there is no curvature estimation (basically the old pose estimator). We can see that the performance compared to the old pose estimator is much better. This is because the reference run with 1 belief image has been recorded before and the calibration may have changed. Anyway, we can see a decrease in lane following performance, the higher the amount of belief images or image sections are created. This is due to higher cpu cost and increased latency. From tests we can see that a number of 4 belief images is sufficient to tell in most cases, at what kind of road type we are looking at. 
+In [](#fig:perf_curvature_estim) on the horizontal we can see the number of belief images being evaluated (curvature estimation resolution). The higher the number, the better we can forecast the type of the road (left curve, right curve, straight lane). With a number of 1, there is no curvature estimation (basically the old pose estimator). We can see that the performance compared to the old pose estimator is much better. This is because the reference run with 1 belief image has been recorded before and the calibration may have changed. Anyway, we can see a decrease in lane following performance, the higher the amount of belief images or image sections are created. This is due to higher cpu cost and increased latency. From tests we can see that a number of 4 belief images is sufficient to tell in most cases, at what kind of road type we are looking at. 
+
+<center><img figure-id="fig:perf_curvature_estim_dstd" figure-caption="Standard deviation of $d$ and $\phi$ for different numbers of belief images." src="perf_curvature_estim_dstd.png" alt="Performance evaluation of curvature estimation" style="width: 400px;"/></center>
 
 
 
-A look at the graph with the standard deviation tells us, that performance decreases with higher amount of belief images (curvature estimation resolution).
+A look at [](#fig:perf_curvature_estim_dstd) showing the standard deviation tells us, that performance decreases with higher numbers of belief images (curvature estimation resolution).
+
+<center><img figure-id="fig:perf_curvature_estim_t" figure-caption="Segment processing time and number of segments for different numbers of belief images." src="perf_curvature_estim_t.png" alt="Performance evaluation of curvature estimation" style="width: 400px;"/></center>
 
 
 
-As with in other sections, the main performance is heavily dependant on the overall latency of the code being executed on the Duckiebot.
+Same as in other sections, the main performance is heavily depending on the overall latency of the code being executed on the Duckiebot. The latency of segment processing is shown in [](#fig:perf_curvature_estim_t)
+
 We improved the code on curvature estimation and retook all tests to better compare how the Duckiebot behaves. In the following we will see similar graphs with 1 belief image on the old pose estimator, 4 and 7 belief images on the new curvature estimator and again 1, 4 and 7 belief images on the improved estimator.
 
+<center><img figure-id="fig:perf_curvature_estim_improved" figure-caption="Performance of 1, 4 and 7 belief images for old curvature estimation on the left 1, 4 and 7 belief images for improved curvature estimation on the right." src="perf_curvature_estim_improved.png" alt="Performance evaluation of improved curvature estimation" style="width: 400px;"/></center>
 
 
-It is observable that the improved curvature estimator runs slightly faster and thus the performance is better in all cases. Especially good performance is achieved with a curvature estimation resolution of 1 (means curvature estimation is turned off).
+
+
+It is observable in [](#fig:perf_curvature_estim_improved) that the improved curvature estimation performs slightly better in all three cases. In [](#fig:perf_curvature_estim_t_improved) we see that the latency for the improved curvature estimator is lower and therefore the case with just one belief image (meaning the curvature estimation is turned off) performs especially well. 
+
+<center><img figure-id="fig:perf_curvature_estim_t_improved" figure-caption="Segment processing time and number of segments of 1, 4 and 7 belief images for old curvature estimation on the left 1, 4 and 7 belief images for improved curvature estimation on the right." src="perf_curvature_estim_t_improved.png" alt="Performance evaluation of improved curvature estimation" style="width: 400px;"/></center>
 
 
 
-A look at the latencies tells us that the improved curvature estimator runs slightly faster, thus leading to better lane following performance.
 
 ### Performance Evaluation of Controller
 
 #### Stopping in front of red stop line
 
-We evaluated if the Duckiebot is able to stop in front of the red stop line within the defined specifications. In order to test the stopping behavior, we tested the old controller and the new controller and measured the pose in front of the stop line. The results show that we are able to improve the stopping in front of the red line. The performance shows to be in the bound of the target values.  The stopping distance to the center of the red line should be 16 to 10 cm and the final angle should be in the range of $\phi=-10°$ to $\phi=10°$.
+We evaluated if the Duckiebot is able to stop in front of the red stop line within the defined specifications. In order to test the stopping behavior, we tested the old controller and the new controller and measured the pose in front of the stop line. The results in [](#tab:redline_results) show that we are able to improve the stopping in front of the red line. The performance shows to be in the bound of the target values.  The stopping distance to the center of the red line should be 16 to 10 cm and the final angle should be in the range of $\phi=-10^{\circ}$ to $\phi=10^{\circ}$.
 
 <col4 align='center' style="text-align:left" id='redline_results' figure-id="tab:redline_results" figure-caption="Stopping at Stop Line Evaluation.">
-   <span> </span>      <span>$d_{mean}$</span>     <span>$$\theta_{mean}$$</span>       <span><b>Mean stopping distance to center of red line</b></span>
+   <span> </span>      <span>$d_{mean}$</span>     <span>$$\phi_{mean}$$</span>       <span><b>Mean stopping distance to center of red line</b></span>
    <span> Old Controller </span>     <span>$5.6cm$</span>    <span>$5^{\circ}$</span>    <span>$17.4 cm$</span>
    <span>New Controller</span> <span>$-0.6cm$</span>     <span>$3.6^{\circ}$</span>    <span>$8.2cm$</span>
 </col4>
@@ -439,28 +470,15 @@ We evaluated if the Duckiebot is able to stop in front of the red stop line with
 
 The controller has been improved in several steps. In the first step, control parameters have been tuned and an integral part has been added. In a second step, the static offset has been corrected as well.
 
- 
-d_mean [cm]
-d_std [cm]
-phi_mean [rad]
-phi_std [rad]
-Old Controller
-3.16
-0.45
--0.40
-0.1
-New Integral Part
--2.08
-0.08
--0.11
-0.07
-Offset Correction
--0.45
-0.16
--0.03
-0.20
+<col5 align='center' style="text-align:left" id='controller_results' figure-id="tab:controller_results" figure-caption="Results for controller evaluation of old controller, new integral part and offset correction.">
+  <span> </span>    <span>$d_{mean} [cm]$</span>    <span>$d_{std} [cm]$</span>    <span>$\phi_{mean} [rad]$</span>    <span>$\phi_{std} [rad]$</span>
+  <span>Old Controller</span>    <span>3.16</span>     <span>0.45</span>   <span>-0.40</span>    <span>0.1</span>
+  <span>New Integral Part</span>    <span>-2.08</span>    <span>0.08</span>    <span>-0.11</span>   <span>0.07</span>
+  <span>Offset Correction</span>    <span>-0.45</span>     <span>0.16</span>    <span>-0.03</span>     <span>0.20</span>
+</col5>
 
-As observable, the lane following performance increases drastically after implementing all improvements to the controller.
+
+As observable in [](#tab:controller_results), the lane following performance increases drastically after implementing all improvements to the controller.
 
 Some more results and words by the controller part? These are the results highlighted in violet on the results excel file on the control sheet.
 
@@ -468,726 +486,10 @@ Some more results and words by the controller part? These are the results highli
 
 Shall we even put this?
 
-Non conforming curve large
-d_mean [cm]
-d_median [cm]
-d_std [cm]
-phi_mean [rad]
-phi_median [rad]
-phi_std [rad]
-n_seg_mean [-]
-n_seg_median [-]
- 
- 
- 
- 
- 
- 
- 
- 
+<object width= "500" height="500" type="application/pdf" data="nonconforming_curve.pdf"></object>
 
 
-
-
- 
- 
-6.287
-4
--
--0.224
--0.05
--
-38.7
-39
-
-
- 
- 
- 
--
- 
- 
--
- 
- 
-
-
- 
-6.903
-4
--
--0.34
--0.05
--
-38.872
-38
-
-
- 
-3.462
-2
--
-0.027
--0.05
--
-33.956
-37
-
-
- 
-5.1
-4
-0.4
--0.245
--0.05
-0.248
-38.701
-38
-
-
- 
-2.3
-2
-0.1
-0.079
-0.05
-0.054
-38.801
-38
-
-
- 
-4
-2
-0.2
--0.177
--0.05
-0.167
-39.609
-39
-
-
- 
-4.7
-4
-0.3
-0.03
-0.05
-0.089
-27.2
-34
-
-
- 
-5
-2
-0.5
--0.223
--0.05
-0.199
-38.7
-38
-
-
- 
-3.8
-4
-0.2
-0.042
-0.05
-0.033
-30.5
-35
-
-
-Average above old controller
-4.616888889
-3.111111111
-0.283333333
--0.114555556
--0.016666667
-0.131666667
-36.11544444
-37.33333333
- 
- 
-2.1
-0
-0.4
--0.136
-0.05
-0.172
-38.5322
-39
-
-
- 
--0.1
-0
-0.1
-0.055
-0.5
-0.014
-38.4
-42
-
-
- 
--1
--2
-0.2
--0.11
--0.05
-0.109
-37.936
-38
-
-
- 
--0.4
-0
-0.1
-0.077
-0.05
-0.013
-39.214
-41
-
-
- 
--0.2
-0
-0.2
--0.022
--0.05
-0.03
-25.923
-22
-
-
- 
--2.8
--2
-0.1
-0.094
-0.05
-0.021
-35.659
-39
-turn at end of log
- 
--2.7
--2
-0.1
--0.024
--0.05
-0.053
-38.27
-39
-
-
- 
--2.8
--2
--0.2
-0.087
-0.05
-0.036
-32.957
-34
-
-
- 
--2.7
--2
-0.1
-0.026
--0.05
-0.038
-36.439
-27
-
-
- 
--2.3
--2
-0.2
-0.035
--0.05
-0.027
-26
-31
-gain = 0.6
- 
--0.5
--2
-0.007
--0.346
--0,05
-0.343
-37.96
-40
-
-
- 
--2.3
--2
-0.2
-0.146
-0.05
-0.098
-36.3
-41
-turn at end of log
- 
--3.6
--4
-0.1
--0.026
--0.05
-0.068
-37.106
-38
- 
- 
--2.8
--4
-0.1
-0.048
-0.05
-0.016
-37.921
-40
-
-
-Average above old controller
--1.578571429
--1.714285714
-0.121928571
--0.006857143
-0.038461538
-0.074142857
-35.61551429
-36.5
-
-
- 
-2.9
-2
-0.1
--0.09
--0.05
-0.023
-38.739
-28
-
-
- 
-1
-2
-0.1
--0.001
--0.5
-0.037
-37.756
-39
-
-
- 
-1.6
-2
-0.1
--0.039
--0.05
-0.03
-32.753
-35
-take a lok at this log. Controller performed not very good in curve
-4.6
-4
-0.3
-0.036
-0.05
-0.024
-23.014
-24
-
-
- 
-1.5
-2
-0.2
--0.085
--0.05
-0.072
-38.755
-39
-neglect last 2 second of log. did drive by controller
-2
-2
-0.3
-0.025
--0.05
-0.082
-31.069
-35
-neglect last 5 second of log. did drive by controller
-3.9
-2
-0.3
--0.2
--15
-0.152
-38.307
-37
-neglect last 10 second of log. did drive by controller
-6.1
-8
-0.3
--0.103
--0.15
-0.053
-21.218
-12
-
-
- 
-1.6
-2
-0.2
--0.095
--0.05
-0.054
-37.098
-37
-
-
- 
-2.5
-2
-0.2
-0.046
-0.05
-0.19
-31.844
-34
-
-
-Average above new controller
-2.77
-2.8
-0.21
--0.0506
--1.58
-0.0717
-33.0553
-32
-gain 0.8
-oscillation
--1.9
--2
-0.1
-0.033
-0.05
-0.035
-40.287
-40
-gain 0.8
-oscillation
--0.1
--2
-0.4
-0.011
-0.05
-0.122
-33.36
-38
-gain 0.8
-oscillation
--1.7
--2
-0
-0.005
--0.05
-0.017
-39.339
-39
-gain 0.8
-oscillation
--2.8
--2
-0.1
-0.068
-0.05
-0.116
-34.872
-39
-gain 0.6
- 
--1.8
--2
-0
-0.008
-0.05
-0.014
-42.303
-43
-gain 0.6
- 
--1.8
--2
-0
-0.083
-0.05
-0.013
-40.683
-43
-gain 0.6
-curve at end included
-0
-0
-0.001
--0.052
-0.05
-0.128
-40.345
-40
-gain 0.6
- 
--1.4
--2
-0
-0.053
-0.05
-0.012
-41.33
-43
-gain 0.6
- 
--1.7
--2
-0
-0.012
-0.05
-0.015
-42.246
-42
-gain 0.6
- 
--0.3
--2
-0.3
-0.008
-0.05
-0.109
-38.54
-45
-
-
-Average above new controller
--1.35
--1.8
-0.0901
-0.0229
-0.04
-0.0581
-39.3305
-41.2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Non conforming curve s-curve small
- 
- 
- 
- 
- 
- 
-
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
- 
- 
--2.2
--2
-0.4
-0.008
-0.05
-0.052
-33.467
-41
-
-
- 
-0.8
-0
-0.3
--0.015
--0.05
-0.031
-42.598
-44
- 
- 
-1.3
-2
-0.4
-0.097
-0.15
-0.308
-
-
-
-
-
-
- 
--2.3
--2
-0.5
-0.009
-0.05
-0.202
-
-
-
-
-
-
-Average above old controller
--0.6
--0.5
-0.4
-0.02475
-0.05
-0.14825
-38.0325
-42.5
- 
- 
-1.1
-0
-0.1
-0.08
-0.15
-0.119
-
-
-
-
-
-
- 
-0.1
-0
-0
--0.096
--0.15
-0.083
-
-
-
-
-
-
- 
-0.5
-0
-0.1
-0.013
-0.05
-0.108
-
-
-
-
-
-
- 
-0.4
-0
-0.1
--0.191
--0.15
-0.24
-
-
-
-
-
-
- 
-0.1
-0
-0.1
--0.037
--0.15
-0.194
-
-
-
-
- 
- 
-0.1
-0
-0.1
-0.048
-0.05
-0.065
-28.232
-34
- 
- 
--0.5
-0
-0.2
-0.05
--0.05
-0.153
-27.859
-33
-
-
-Average above new controller
-0.02
--0.05
-0.2
--0.000225
-0
-0.162025
-31.3745
-36.5
+<!-- Ich han es pdf vo de tabelle igfüegt -->
 
 
 #### Offset minimization in straight lanes
@@ -1206,47 +508,53 @@ Do we even have logs for these?
 
 ### Failed Implementations 
 
-**Estimator**
+**Estimator**    
 Although the 7 ranges estimation provided low mean deviation from the actual position and provided good prediction of the upcoming curve as well as its curvature direction.  The 7 ranges estimation failed in the implementation of the lane following demo due to high computation requirement and the caused time latency. 
 
 
-**Controller**
+**Controller**    
 Feedforward during lane following:
 As the feedforward part during lane following depends entirely on the estimation of the curve, this part failed due to bad estimation of the curves in certain situations as well as the increased latency due to the curvature estimation. Whenever a curve is not correctly detected or not precisely at the beginning of the curve, the feedforward part introduces additional instability. This is especially a problem in the notorious S curves. Therefore, the implementation of the feedforward works good if a precises estimation of the curve is available that works without introducing high latencies. Although, such a precise curvature estimation with low latency is not available at the moment. Hence, the feedforward part during lane following is not robust enough for the current curvature estimation. Nevertheless, the feedforward part is useful for other nodes to interact with the controller. In certain situations other nodes are able to use the feedforward part in order to drive in curves (navigators on intersections and parking team on parking lots).
 
 ### Challenges
 
 TODO: Introduction and conclusion 
-- Limited computational power of Raspberry Pi.
-- Estimation of curvature introduced high latencies.
-- By increasing the resolution of the picture we would get more segments. Nevertheless, the latency is also increased significantly.
-- Duckiebot with different wheels (slippery and non-slippery wheels)
-- Some Duckiebots prove to have higher latency when running the same code. This increased latency is a problem.
-- Lightning has a very big influence on the performance
-- Depending on the light condition of duckietown the number of detected segments as well as the correctness of the color is varying. Especially reflection on yellow tape makes it appear white. To tackle this issue, a polarisation filter was found to have a positive influence. This might need to be considered in future hardware updates.
-- Anti instagram might not be as good for every light condition.
+
+* Limited computational power of Raspberry Pi.
+    - Estimation of curvature introduced high latencies.
+    - By increasing the resolution of the picture we would get more segments and this would make both a better pose and curvature estimation possible. Nevertheless, the latency is also increased significantly.
+* Duckiebot with different wheels (slippery and non-slippery wheels)
+* Some Duckiebots prove to have higher latency when running the same code. This increased latency is a problem.
+* Lightning has a very big influence on the performance
+    - Depending on the light condition of duckietown the number of detected segments as well as the correctness of the color is varying. Especially reflection on yellow tape makes it appear white. To tackle this issue, a polarisation filter was found to have a positive influence. This might need to be considered in future hardware updates.
+    - Anti instagram might not be as good for every light condition.
+
 <!--
 <insert video> https://drive.google.com/drive/folders/1sn5SBtQD6vK03epUSpMijCnvV0BMTyAX
+No Sound video: https://drive.google.com/open?id=1Hy6EjQ8QakfZliiSp_j2NV78_VpyPvCq
 -->
-Effect of anti-instagram on curve detection
 
+<div figure-id="fig:demo-video">
+    <figcaption>Anit Instagram failure on curve</figcaption>
+    <dtvideo src="vimeo:256664213"/>
+</div>
+Effect of anti-instagram on curve detection: If Anti-Instagram is badly calibrated, the Duckiebot will not see enough line segments. This is especially a problem in the curve and the Duckiebot will leave the lane. An example of this failure can be seen in the video above for which we had a bad Anti-Instagram calibration. Hence, the Duckiebot sees not enough line segments and the lane following fails in the curve. To solve the problem Anti-Instagram needs to be relaunched. In the last part of the video above the __X__ button on the joystick is pressed and the Anti-Instagram node gets relaunched. We can see in the last part of the video RVIZ that the number of detected line segments gets increased drastically after the recalibration.
 
 ## Future avenues of development {#controllers-final-next-steps}
 
-TODO introduction 
+As there is always more to do and the performance for both the controller and the estimator can still be further enhanced we list in this section some suggestions for next steps to take.
+
 ### Estimator
 To make curvature estimation applicable it has to be made more robust and at the same time more computationally efficient adding less delay to the system. In its actual state the added delay is too high and the performance with curvature estimation switched on decreases. 
 
 ### Controller
 
-Integrate the inputs of other teams, see http://book.duckietown.org/master/duckiebook/controllers_int_report.html#sec:controllers-int-report
+Integrate the inputs of other teams, [see.](#sec:controllers-int-report)
 
 * After doing the new wheel calibration (link to the system id report?), the controller parameters need to be adjusted
 * To reduce impact of time delays, e.g. a Smith Predictor could be implemented
-* For the activation of the remaining interfaces (e.g. intersection navigation and parking), the respective commented out sections of the code need to be activated.
-* 
-    - 
-        * 
+* For the activation of the remaining interfaces (e.g. intersection navigation and parking), the respective commented out sections of the final code needs to be activated.
+* The control parameters should be made dependent on the calibration of the Duckiebot, such that the gains do not have to be tuned for every Duckiebot individually.
 
 ### General
 
