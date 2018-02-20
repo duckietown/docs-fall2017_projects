@@ -316,21 +316,21 @@ Run the calibration procedure
 The program will publish at a frequency of 30 Hz in the topic robot_name/wheels_driver_node/wheels_cmd the following commands : 
 
 - A ramp (the same increasing voltage command to the right and left wheels), of the form 
-$V_l = V_r = /cfrac{V_fin}{N_{step}}/cdot N $
+$V_l = V_r = \cfrac{V_{fin}}{N_{step}}\cdot N $
 - No command for 10 seconds (so you can replace your Duckiebot at 1 meter of the chessboard)
 - A sinusoid (a cosinus voltage command in opposite phase between the left and the right wheels) of the form
-$V_l = k1 + k2 /cdot /cos(/omega /cdot t)$
-$V_r = k1 - k2 /cdot /cos(/omega /cdot t)$
+$V_l = k1 + k2 \cdot \cos(\omega \cdot t)$
+$V_r = k1 - k2 \cdot \cos(\omega \cdot t)$
 
 <div markdown="1">
  <col2 id='sysid-notations2' figure-id="tab:sysid-notations2" figure-caption="Notations for the voltage commands send">
     <s>$V_l, V_r$</s>  <s>Voltages applied to the left and right wheel</s>
-    <s>$Vfin$</s>  <s>The ramp's final voltage applied</s>
+    <s>$V_{fin}$</s>  <s>The ramp's final voltage applied</s>
     <s>$N_{step}$</s>  <s>The number of steps of the ramp</s>
     <s>$N$</s>  <s>The number of the current step (that goes from $0$ to $N_{step}$ at a frequency of 30 Hz)</s>
     <s>$k1, k2$</s>  <s>The gains for the sinusoid command</s>
     <s>$/omega$</s>  <s>The angular velocity of the sinusoid command</s>
-    <s>$t$</s>  <s>The discrete time of the signal</s>
+    <s>$t$</s>  <s>The time of the voltage signal</s>
  </col2>
 </div>
 
