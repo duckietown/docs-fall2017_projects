@@ -1,6 +1,6 @@
 #  Supervised Learning: final report {#supervised-learning-final-report status=draft}
 
-This is the final project report for the group of Supervised Learning at ETH Zurich 2017 Fall Semester. The project motivation, implementation and results are shown here. For inquries about Convolutional Neural Network training, please contact Shaohui Yang (), for inquiries about ROS implmemtnation of the project, please contact Tianlu Wang (tiawang@student.ethz.ch).
+This is the final project report for the group of Supervised Learning at ETH Zurich 2017 Fall Semester. The project motivation, implementation and results are shown here. For inquries about Convolutional Neural Network training, please contact Shaohui Yang (shyang@ethz.ch), for inquiries about ROS implementation of the project, please contact Tianlu Wang (tiawang@student.ethz.ch).
 
 ## The final result {#supervised-learning-final-result}
 
@@ -30,7 +30,7 @@ According to the definition of 'Data Processing Inequality', essential informati
 
 The similar end-to-end imitation learning neural network has already been implemented by Nvidia for the task of lane following on real roads. The demo details can be seen from the following link. [Nvidia demo](https://youtu.be/-96BEoXJMs0)
 
-In the case of Nvidia's work, researchers did not program any explicit image segmentation, object detection, mapping, path planning or control component into the car. Instead, the vehicle learns on its own to create all necessaty internal representations necessary to steer, simply by observing human drivers. The success of learning to drive in complex environments demonstrates new capacities of deep neural network.
+In the case of Nvidia's work, researchers did not program any explicit image segmentation, object detection, mapping, path planning or control component into the car. Instead, the vehicle learns on its own to create all necessary internal representations necessary to steer, simply by observing human drivers. The success of learning to drive in complex environments demonstrates new capacities of deep neural network.
 
 ### Opportunity {#supervised-learning-final-opportunity}
 
@@ -54,7 +54,7 @@ There are three parts of preliminaries that are important to the implementation:
 
 - Understand basic knowledge and differences between machine learning, deep learning, supervised learning and unsupervised learning;
 
-- Train an effective Convolutional Neural Network which maps raw image to orientation of Duckiebots for lane following(the most pratical and difficult part);
+- Train an effective Convolutional Neural Network which maps raw image to orientation of Duckiebots for lane following(the most practical and difficult part);
 
 - Implement a ROS node which subscribes to input images, communicates with Neural Compute Stick for computation, and publishes the computed orientation angle to the car control node. 
 
@@ -62,7 +62,7 @@ Concerning learning related knowledge, the relation between machine learning and
 
 ![Plug 0](machine-deep.png)
 
-To know more about Machine Learning and Deep Learning, readers can refer to [ETH Machine Learning Course](https://ml2.inf.ethz.ch/courses/ml/) and [Andrew's Course on Deep Learning](https://www.deeplearning.ai/); to be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly. Our code are stored in two repositories. One is in the [Duckietown Software](https://github.com/duckietown/Software/tree/devel-super-learning-jan15/catkin_ws/src/80-deep-learning/duckiebot_il_lane_following/src) while the other is [Duckietown Imitation Learning](https://github.com/syangav/duckietown_imitation_learning). The latter repo contains everything to reproduce a CNN model which can be used on Duckiebot. 
+To know more about Machine Learning and Deep Learning, readers can refer to [ETH Machine Learning Course](https://ml2.inf.ethz.ch/courses/ml/) and [Andrew's Course on Deep Learning](https://www.deeplearning.ai/); to be familiar with CNN, readers can refer to [Stanford University CS231n](http://cs231n.stanford.edu/) for further information; get familiar with Neural Compute Stick, please refer to [Movidius NCS Information](https://developer.movidius.com/); to know how to implement ROS in our project, please refer to our code directly. Our code are stored in two repositories. One is in the [Duckietown Software](https://github.com/duckietown/Software/tree/devel-super-learning-jan15/catkin_ws/src/80-deep-learning/duckiebot_il_lane_following/src), which contains the code that does all the on-board ROS related computation, while the other is [Duckietown Imitation Learning](https://github.com/syangav/duckietown_imitation_learning). The latter containes the code to reproduce a CNN model which can be used on Duckiebot. 
 
 ## Definition of the problem {#supervised-learning-final-problem-def}
 
@@ -96,13 +96,17 @@ The logical architecture can be seen in the following picture. We will develop o
 
 _Software Architecture:_
 
-There are three main steps for software part:
+There are three main steps for the software part:
 
-- Offline training with logged data which contained around 6000 pictures and corresonding orientation angle(A really interesting point: The working CNN model is only trained based on outer circle data. The bot always turns left and seldom turns right in an outer circle. But the model works quite well on inner cicle as well. The inner circle requires right turns in most cases. My guess is that is I shuffle the inner and outer circle data, then maybe around 2000 training samples will be suffient. The converging speed may be faster.);
+- Offline training with logged data;
 
-- NCS thing works on the laptop. The CNN model has four convolution layers followed by RELU layer. The last layer is a fully connected one; 
+- NCS thing works on the laptop;
+
+- Have fun on Duckiebot.
 
 _Model Training:_
+
+We collected data which is composed of around 6000 pictures and corresponding orientation angle. Then use a CNN model, which has four convolution layers (the last layer is a fully connected one) followed by RELU layer, to train the model. A really interesting phenomenon is that, the applicable CNN model is only trained based on outer circle data, where the bot turns left and seldom turns right in an outer circle. But the model works quite well on inner circle as well. The inner circle requires right turns in most cases. The explanation is that the inner and outer circle data are shuffled, then around 2000 training samples will be sufficient. Therefore, the converging speed of training can be faster. 
 
 _ROS Implementation:_
 
@@ -112,7 +116,7 @@ When implementing the ROS node, the different speed of subscription to images an
 
 The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic. Therefore, we compare the performance of the lane following based on our neural network and the one realized by conventional approach. 
 
-- Robustness: As shown in the recorded video, the implemented neural network can complete the task lane following quite well, not only on the Duckiebot which collected data, but on other Duckiebots as well. Morevoer, the performance is also desirable on the tracks which the trained network that has never seen before. Generally speaking, the trained network is robust to Duckiebots' and lanes' configurations;
+- Robustness: As shown in the recorded video, the implemented neural network can complete the task lane following quite well, not only on the Duckiebot which collected data, but on other Duckiebots as well. Moreover, the performance is also desirable on the tracks which the trained network that has never seen before. Generally speaking, the trained network is robust to Duckiebots' and lanes' configurations;
 
 - Response: To have a perfect performance on lane follwing, processors should respond fast enough. By conventional approach, the publishing of car control command is around 2 Hz, with the use of Pi; by using the add-on hardware NCS, the publishing speed of control command can achieve 15 Hz. Therefore, the approach realized by NCS has shown its advantage in our case.
 
@@ -123,6 +127,6 @@ In our project, the autonomous lane following based on deep learning has already
 - Learn to stop at intersections: it is important for Duckiebots to stop at intersections for the real application case. Therefore, the trained network should be extended to complete the relevant task;
 - The Saviors: The current approach for detecting duckies on lanes is still based on computer vision technology. Research has shown deep learning's power on object detection. Therefore, it will be reasonable to adopt learning based tools to realize the task of 'The Saviors'.
 
-The only thing that limits further development of deep learning in Duckietown is collecting suffient amount of training data regarding to the topics we would like to focus on. Training data collection can be costly. 
+Moreover, the only thing that limits further development of deep learning in Duckietown is collecting sufficient amount of training data regarding to the topics we would like to focus on. Training data collection can be costly. 
 
-Another thing to be noticed is merging different neural networks into one. This problem is not shown in our project because we only solved lane following task. However, in the future development, for each individual task, there shall be one corresponding pre-trained specific CNN. For example, the lane following CNN is always running since it's the main task but we do need "stopping at intersection" CNN running as well so that Duckiebot stops as we desired. Shall we have all of those CNN running in the background at the same time or shall we somehow figure out a way to combine all CNN into one? The former solution is definitely costly but will work for sure while the second method is computationally optimal but touches a brand new area. Different CNN has different structures and weights. Is combining them possible? 
+Another thing to be noticed is to merge different neural networks into one. This problem is not shown in our project because we only solved lane following task. However, in the following development, for each individual task, there shall be one corresponding pre-trained specific CNN. For example, the lane following CNN is always running since it's the main task but we do need "stopping at intersection" CNN running as well so that Duckiebot stops as we desired. Shall we have all of those CNN running in the background at the same time, or shall we somehow figure out a way to combine all CNN into one? The former solution is definitely costly but will work for sure, while the second method is computationally optimal but explores a brand new area where different CNN has different structures and weights. Is the combination even possible? 
