@@ -83,9 +83,9 @@ Once these sockets are created (initialize either sender or receiver) messages c
 
 #### Message encoder
 In order for the messages to be sent and recieved, a universal message type is needed for simplicity. 
-To not limit the message type for other packages, a serialization library was implemented, which allowes to take in data as a ROS message and outpust the data as a ByteMultyArray. After the message is sent, the data is then parsed back into a ROS message.
+To not limit the message type for other packages, a serialization library was implemented, which allowes to take in data as a ROS message and outputs the data as a ByteMultyArray. After the message is sent, the data is then parsed back into a ROS message.
 
-*TODO* (&FEF: do you need to talk to me about this?)
+With this encoder library other packages can send and recieve any of the standard ROS messages (std_msgs) without having to serialize the data first.
 
 #### Framework
 For easy use of the messaging algorithm a ROS package, with two ROS nodes was implemented. The two nodes are the receiver_node and the sender_node. 
