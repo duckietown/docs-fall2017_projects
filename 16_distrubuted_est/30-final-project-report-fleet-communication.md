@@ -82,6 +82,8 @@ DuckieMQ is based on zeroMQ, a framework used to send messages over sockets (&FE
 Once these sockets are created (initialize either sender or receiver) messages can be passed. The receiver node is equipped with a “” filter, meaning it receives all messages. If only messages starting with a or multiple fiter want to be received, these filter strings have to be added and the “” filter string has to be removed with the addfilter and removefilter functions. (&FEF: see above)
 
 #### Message encoder
+In order for the messages to be sent and recieved, a universal message type is needed for simplicity. 
+To not limit the message type for other packages, a serialization library was implemented, which allowes to take in data as a ROS message and outpust the data as a ByteMultyArray. After the message is sent, the data is then parsed back into a ROS message.
 
 *TODO* (&FEF: do you need to talk to me about this?)
 
