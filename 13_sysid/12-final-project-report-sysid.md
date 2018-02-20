@@ -326,9 +326,10 @@ $V_l = k_1 + k_2 \cdot \cos(\omega \cdot t)$
 
 $V_r = k_1 - k_2 \cdot \cos(\omega \cdot t)$
 
+
 <div markdown="1">
  <col2 id='sysid-notationsCommands' figure-id="tab:sysid-notationsCommands" figure-caption="Notations for the voltage commands send">
-    <s>$V_l, V_r$</s>  <s>Voltages applied to the left and right wheel</s>
+    <s>$V_l, V_r$</s>  <s>The voltages applied to the left and right wheel</s>
     <s>$V_{fin}$</s>  <s>The ramp's final voltage applied</s>
     <s>$N_{step}$</s>  <s>The number of steps of the ramp</s>
     <s>$N$</s>  <s>The number of the current step (that goes from $0$ to $N_{step}$ at a frequency of 30 Hz)</s>
@@ -337,6 +338,7 @@ $V_r = k_1 - k_2 \cdot \cos(\omega \cdot t)$
     <s>$t$</s>  <s>The time of the voltage signal</s>
  </col2>
 </div>
+
 
 All these parameters can be modified if the chessboard does not stay in the field of view of the camera long enough during the calibration procedure. 
 
