@@ -34,12 +34,13 @@ However, there will never be two duckiebots that show exactly the same behavior.
 You might have noticed that your vehicle doesn’t really go in a straight line when you command it to. 
 For example, when the same voltage is supplied to each motor, the Duckiebot will not go straight as might expected. 
 Also, the vehicle might not go at the velocity you are commanding it to drive at.
-Therefore, these constants needs to be identified individually for each single robot. The determination process to do so is called system identification. 
-Odometry calibration is the process of determining model parameter to “match” predicted motion and measurements. For the duckiebot odometry calibration is the process aimed at identifying the kinematic parameters used to reconstruct the robot’s absolute configuration from the given voltage input. 
+
+Therefore, these constants needs to be identified individually for each single robot. The determination process to do so is called system identification. This can be done by odometry calibration : we determine the model parameter by finding the parameters that fit best some measurements of the poition we can get. 
+
+Hence, when these kinematic parameters are defined, we are able to reconstruct the robot’s velocity from the given voltage input.
 
 Increasing the accuracy of the Duckiebot’s odometry will result in reduced operation cost as the robot requires fewer absolute positioning updates with the camera.
-When the duckiebot crossing an intersection forward kinematics is used. 
-Therefore, the performance of safe crossing is closely related to having well calibrated odometry parameters.
+When the duckiebot crossing an intersection forward kinematics is used. Therefore, the performance of safe crossing is closely related to having well calibrated odometry parameters.
 
 
 ### Existing solution {#sysid-final-literature}
@@ -95,7 +96,6 @@ the Duckiebot drifted ([](#fig:wheel_calibration_lr_drift)).
 
 If the Duckiebot drifted to the left side of the tape, decrease the value of $t$, for example:
 
-
     duckiebot: $ rosservice call /${VEHICLE_NAME}/inverse_kinematics_node/set_trim -- 0.01
 
 Or Changing the trim in a negative way, e.g. to -0.01:
@@ -107,7 +107,9 @@ The speed of the duckiebot can be adjusted by setting the gain:
 
     duckiebot: $ rosservice call /${VEHICLE_NAME}/inverse_kinematics_node/set_gain -- 1.1
 
-The parameters of the Duckiebot are saved in the duckietown/config/baseline/calibration/kinematics/{VEHICLE_NAME}.yaml file.
+The parameters of the Duckiebot are saved in the file
+
+    duckietown/config/baseline/calibration/kinematics/{VEHICLE_NAME}.yaml
 
 ### Opportunity {#sysid-final-opportunity}
 
@@ -129,17 +131,17 @@ This means that the car will calibrate itself, without any human input.
 There were several possible approaches discussed to overcome the shortcomings of the current calibration:
 
 * Localization based calibration
-    * E.g. determine relative pose w.r.t. Chessboard from successive images
+    * e.g. determine relative pose w.r.t. Chessboard from successive images
 * Closed loop calibration
     * Modify the trim while Duckiebot is following a loop until satisfactory
 * Motion blur based calibration
     * Reconstruct dynamics from blurred images
 
 Because we needed to have very precise measurments of the Duckiebot's position, the localization based calibration has been chosen. To simplify the calibration procedures, we decided also to use the same chessboard as for the camera calibration.
-But since the computational power needed for detecting the chessboard was big, we chose to do the chessboard detection on the laptop.
+But since the computational power needed for detecting the chessboard was big, we had to do the chessboard detection on the laptop.
 
 We also kept a kynematic model, without including any dynamic and made some assumptions about the physics of the Duckiebot: the wheels do not slip and the velocity of the wheels is proportional to the voltage applied. 
-Hence, if the results do not meet our expectations or if the Duckiebot is changed, the model can aslo be changed or it can be made more complex. 
+Hence, if the results do not meet our expectations or if the Duckiebot's configuration is changed, the model can also be changed or it can be made more complex. 
 
 
 ### Preliminaries {#sysid-final-preliminaries}
@@ -147,7 +149,6 @@ Hence, if the results do not meet our expectations or if the Duckiebot is change
 * Differential-drive model [#duckiebot-modeling](#duckiebot-modeling)
     
 * Pinhole-camera model [#camera-geometry](#camera-geometry)
-
 
 
 ## Definition of the problem {#sysid-final-problem-def}
@@ -293,7 +294,7 @@ with
 
 The calibration procedure consists of two parts:
 
-* Recording rosbag for different duckiebot maneuvers in front of chess board
+* Recording Rosbag for different Duckiebot maneuvers in front of a chessboard
 
 * Offline processing of rosbag to find odometry parameters with fit
 
@@ -301,7 +302,7 @@ To reproduce the results see the  [operation manual](#demo-sysid) which includes
 
 ### Recording rosbag log of Duckiebot maneuvers
 
-Place the Duckiebot in front of the chessboard at a distance of slightly more than 1 meter in front of the checkerboard (~2 duckie tiles), as shown in the image. The heading has to be set iteratively to maximize the time the duckiebot sees the checkerboard.
+For recording the ROsbag, the Duckiebot has to be placed in front of the chessboard at a distance of slightly more than 1 meter in front of the chessboard (~2 duckie tiles), as shown in the image. The heading has to be set iteratively to maximize the time the Duckiebot sees the chessboard.
 
 <div figure-id="fig:calibration_setup" figure-caption="The calibration setup">
      <img src="calibration_setup.jpg" style='width: 30em'/>
@@ -314,9 +315,26 @@ Run the calibration procedure
     
 The program will publish at a frequency of 30 Hz in the topic robot_name/wheels_driver_node/wheels_cmd the following commands : 
 
-- A ramp (the same increasing voltage command to the right and left wheels) 
+- A ramp (the same increasing voltage command to the right and left wheels), of the form 
+$V_l = V_r = /cfrac{V_fin}{N_{step}}/cdot N $
 - No command for 10 seconds (so you can replace your Duckiebot at 1 meter of the chessboard)
-- A sinusoid (a cosinus voltage command in opposite phase between the left and the right wheels)
+- A sinusoid (a cosinus voltage command in opposite phase between the left and the right wheels) of the form
+$V_l = k1 + k2 /cdot /cos(/omega /cdot t)$
+$V_r = k1 - k2 /cdot /cos(/omega /cdot t)$
+
+<div markdown="1">
+ <col2 id='sysid-notations2' figure-id="tab:sysid-notations2" figure-caption="Notations for the voltage commands send">
+    <s>$V_l, V_r$</s>  <s>Voltages applied to the left and right wheel</s>
+    <s>$Vfin$</s>  <s>The ramp's final voltage applied</s>
+    <s>$N_{step}$</s>  <s>The number of steps of the ramp</s>
+    <s>$N$</s>  <s>The number of the current step (that goes from $0$ to $N_{step}$ at a frequency of 30 Hz)</s>
+    <s>$k1, k2$</s>  <s>The gains for the sinusoid command</s>
+    <s>$/omega$</s>  <s>The angular velocity of the sinusoid command</s>
+    <s>$t$</s>  <s>The discrete time of the signal</s>
+ </col2>
+</div>
+
+All these parameters can be modified if the chessboard does not stay in the field of view of the camera long enough during the calibration procedure. 
 
 When the program will exit, you will have a rosbag named robot_name_calibration.bag in your USB drive containing the commands published and the images.
 
