@@ -116,6 +116,8 @@ When implementing the ROS node, the different speed of subscription to images an
 
 The overall results of the project can be seen from the demo video: [Recorded video](https://youtu.be/FCP8Ndoxae0). Because we are the first group starting work on supervised learning for Duckietown, it is not possible to compare our results with former groups on the same topic. Therefore, we compare the performance of the lane following based on our neural network and the one realized by conventional approach. 
 
+- Effectiveness: The trained network can perform well on real platforms. Moreover, the time evaluation of the trained model by mvNCprofile is also completed. [Execution Time of CNN](https://github.com/syangav/duckietown_imitation_learning/blob/b5f96d7dc735866aaa4d4317ace223d9013247b7/output.gv.svg)
+
 - Robustness: As shown in the recorded video, the implemented neural network can complete the task lane following quite well, not only on the Duckiebot which collected data, but on other Duckiebots as well. Moreover, the performance is also desirable on the tracks which the trained network that has never seen before. Generally speaking, the trained network is robust to Duckiebots' and lanes' configurations;
 
 - Response: To have a perfect performance on lane follwing, processors should respond fast enough. By conventional approach, the publishing of car control command is around 2 Hz, with the use of Pi; by using the add-on hardware NCS, the publishing speed of control command can achieve 15 Hz. Therefore, the approach realized by NCS has shown its advantage in our case.
