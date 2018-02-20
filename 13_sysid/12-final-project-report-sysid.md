@@ -461,7 +461,7 @@ The two first tests have been made thanks to the following command line : 
 
     duckiebot $ roslaunch calibration test.launch
 
-During this validation test,the Duckiebot should first drive straight for 1m (in 5s) then turn a full circle to the left (in 8s) and then a full circle to the right (in 8s)
+During this validation test, the Duckiebot should first drive straight for 1m (in 5s) then turn a full circle to the left (in 8s) and then a full circle to the right (in 8s)
 
 known issue: the baseline is rather overestimated at the moment, thus the duckiebot will probably turn more than a circle
 
@@ -474,7 +474,7 @@ known issue: the baseline is rather overestimated at the moment, thus the duckie
     <dtvideo src='vimeo:251383652'/>
 </div>
 
-Thanks to the odometry calibration, the user has only to place its Duckiebot in front of the chessboard and type a command. But because of computational power restrictions, he has then to transfer the Rosbag from the Duckiebot to its computer before launching the calibration and then sending the calibration file to its Duckiebot again. Thess manipulation are not straightforward and should be imporved in the future. 
+Thanks to the odometry calibration, the user has only to place its Duckiebot in front of the chessboard and type a command. But because of computational power restrictions, he has then to transfer the Rosbag from the Duckiebot to its computer before launching the calibration and then sending the calibration file to its Duckiebot again. These manipulations are not straightforward and should be improved in the future. 
 
 
 ## Future avenues of development {#sysid-final-next-steps}
