@@ -439,16 +439,7 @@ The resulting translation can be extracted from $t_{I Veh}$
 
 ## Formal performance evaluation / Results {#sysid-final-formal}
 
-### Plan for Performance evaluation
-
-** Pose estimation w.r.t. chessboard from successive images**  :
-
-
-Run the Validation: Duckiebot should first drive straight for 1m (in 5s) then turn a full circle to the left (in 8s) and then a full circle to the right (in 8s)
-
-    duckiebot $ roslaunch calibration test.launch
-
-known issue: the baseline is rather overestimated at the moment, thus the duckiebot will probably turn more than a circle
+### Performance evaluation
 
 ** Offset in straight line **  :
 
@@ -458,6 +449,23 @@ We will let the Duckiebot drive straight in open loop and measure its offset aft
 
 We will will drive the Duckiebot with a constant velocity $ v_a $ and constant angular velocity $ \dot \omega $ in open loop on a Duckietown corner tile. We will compare the actual path with the desired path. This is done both clock and counterclockwise. The performance metric will be the absolute position offset of the expected to the actual terminal position after the run, measured with a ruler.
 
+
+** Overall User friendliness **
+
+This is a quantitative test. The overall calibration procedure will have to be as simple and short as possible for the user. 
+
+
+### Results
+
+The two first tests have been made thanks to the following command line : 
+
+    duckiebot $ roslaunch calibration test.launch
+
+During this validation test,the Duckiebot should first drive straight for 1m (in 5s) then turn a full circle to the left (in 8s) and then a full circle to the right (in 8s)
+
+known issue: the baseline is rather overestimated at the moment, thus the duckiebot will probably turn more than a circle
+
+
 ** Overall User friendliness ** : 
 
 <div figure-id="fig:demo">
@@ -466,19 +474,7 @@ We will will drive the Duckiebot with a constant velocity $ v_a $ and constant a
     <dtvideo src='vimeo:251383652'/>
 </div>
 
-
-
-The current calibration is done offline. USB stick etc. 
-Of course, this can be improved in future efforts.=> Future make online
-
-
-
-** Integration test  **
-show that intersection crossing is more reliable with sysid
-
-
-When the duckiebot crossing an intersection forward kinematics is used. 
-Therefore, the performance of safe crossing is closely related to having well calibrated odometry parameters.
+Thanks to the odometry calibration, the user has only to place its Duckiebot in front of the chessboard and type a command. But because of computational power restrictions, he has then to transfer the Rosbag from the Duckiebot to its computer before launching the calibration and then sending the calibration file to its Duckiebot again. Thess manipulation are not straightforward and should be imporved in the future. 
 
 
 ## Future avenues of development {#sysid-final-next-steps}
