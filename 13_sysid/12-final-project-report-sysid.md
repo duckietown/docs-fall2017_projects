@@ -219,7 +219,7 @@ The model of the system [](#bib:OdometryCalibration) with the notations explaine
     \dot{x} &= f(p;x,u)       \label{eq:model1} \\
       y & = g(x)       \label{eq:model2} \\
       \mathcal{M} & = \{ m_k=m(t_k), t_1 < \dots < t_k < \dots < t_n)\}     \label{eq:measurements} \\
-      \hat{\mathcal{Y}}_{n} & = \{ \hat{y}_{k}=h(m_k),k=1, \dots ,n \}             \label{eq:outputestimates}
+      \hat{\mathcal{Y}} & = \{ \hat{y}_{k}=h(m_k),k=1, \dots ,n \}             \label{eq:outputestimates}
 \end{align}
 
 
