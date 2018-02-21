@@ -58,10 +58,16 @@ We need to park N Duckiebots in a designated area in which they are able enter a
 
 
 ## Part 4: Contribution / Added functionality
+
+### Localization
+* Debugged openCV 3.4 error - (float to double)
+* Debugged image rectification node (remove distortion due to wrong scaling)
+
+### Path Planning
 * Dubins path planning
-* Debuggt openCV 3.4 error - (float to double)
-* Debuggt image rectification node (remove distortion due to wrong scaling)
 * Generate necessary control output (d_est, d_ref, theta_est, v_ref, c_ref)
+
+### Control
 
 ## Part 5: Formal performance evaluation / Results
 * state estimation: quantitativ results - ??? - accuracy + precision (success), speed of algorithm (failure)
