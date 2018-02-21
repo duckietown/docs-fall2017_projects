@@ -21,3 +21,35 @@ Note that the video only includes the simulation results and not the duckiebot p
         * **Feedback control to the planned path**: As mentioned, this is the piece of the pipeline that currently requires development. We found that the localization via AprilTags takes several seconds to compute on the Raspberry Pi. The time lag proved to be insufficient in supplying the lane controller with sufficiently frequent state updates to control to. For further details regarding this issue, please see the "Future avenues of development" portion of this report. 
         
 ## Part 3: Definition of the problem
+* goal/final objective: park duckiebot in parking space
+* state estimation: 	localize duckiebot position (x, y, theta) - quantitativ performance metric - accuracy + precision of state estimate [mm]
+* path planning: 		plan collision free path from the current state estimate into a parking space (1-6) given a static map - quantitativ performance metric - is path collision free [# of collision free path / # of path]  
+* closed loop control: 	let the duckiebot follow along the path into a set parking space
+quantitativ performance metric - is robot able to reach final parking space
+
+## Part 4: Contribution / Added functionality
+* Dubins path planning
+* Debuggt openCV 3.4 error - (float to double)
+* Debuggt image rectification node (remove distortion due to wrong scaling)
+* Generate necessary control output (d_est, d_ref, theta_est, v_ref, c_ref)
+
+## Part 5: Formal performance evaluation / Results
+* state estimation: quantitativ results - ??? - accuracy + precision (success), speed of algorithm (failure)
+* path planning: quantitiativ results - ???
+* closed loop control: qunatitativ results - ??? - (failure) most likely due to speed of state estimation
+
+no previous explaination available
+
+explanation / discusstion of results
+
+path planning - as expected
+state estimation - accuracy + precision as expected, speed worse then expected
+
+biggest challenge 
+speed of state estimation
+finding problems in old pipeline
+
+## Part 6: Future avenues of development
+
+* Speed of the state estimation
+
