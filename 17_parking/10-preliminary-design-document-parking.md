@@ -82,6 +82,7 @@ We need to park N Duckiebots in a designated area in which they are able enter a
 
 
 ### Functionality provided
+aims to address: "how is the functionality of this feature measured"
 
 * Probability of a successful parking maneuver per parking maneuver attempt
 * Number of Duckiebots within the parking lot boundary per hour

@@ -15,9 +15,35 @@ Note that the video only includes the simulation results and not the duckiebot p
 * Existing Solution
     * The parking feature was implemented from scratch. 
 * Opportunity
-    * There was no previous implementation of parking within duckietown. In order to approach the problem, we first designed a physical space to park the duckiebots. A specification for the space was determined and approved. In order to actually park the duckiebots, we split the problem into three main pieces of a parking pipeline:
+    * There was no previous implementation of parking within duckietown. In order to approach the problem, we first designed a physical parking lot to park the duckiebots. A specification for the parking lot was therefore determined. In order to actually park the duckiebots, we split the problem into three main pieces of a parking pipeline:
         * **Duckiebot localization**: Localization was implemented based on the existing AprilTag C++ library found [here](https://april.eecs.umich.edu/software/apriltag.html).
-        * **Path planning**: A path was planned using dubins paths and, during the instance of path obstacles, RRT Star with dubins paths. A general description of dubins paths can be found [here](https://gieseanw.wordpress.com/2012/10/21/a-comprehensive-step-by-step-tutorial-to-computing-dubins-paths/). An existing library for RRT Star with dubins paths was implented with help from the library [here](https://github.com/AtsushiSakai/PythonRobotics).
-        * **Feedback control to the planned path**: As mentioned, this is the piece of the pipeline that currently requires development. We found that the localization via AprilTags takes several seconds to compute on the Raspberry Pi. The time lag proved to be insufficient in supplying the lane controller with sufficiently frequent state updates to control to. For further details regarding this issue, please see the "Future avenues of development" portion of this report. 
+        * **Path planning**: A path was planned using dubins paths and, during the instance of path obstacles, RRT Star with dubins paths. A general description of dubins paths can be found [here](https://gieseanw.wordpress.com/2012/10/21/a-comprehensive-step-by-step-tutorial-to-computing-dubins-paths/). An existing library for RRT Star with dubins paths was implemented with help from the library [here](https://github.com/AtsushiSakai/PythonRobotics).
+        * **Feedback control to the planned path**: As mentioned in part 1, this is the piece of the pipeline that currently requires development. We found that the localization via AprilTags takes several seconds to compute on the Raspberry Pi. The time lag proved to be insufficient in supplying the lane controller with sufficiently frequent state updates to control to. For further details regarding this issue, please see part 6 of this report (Future avenues of development).
         
 ## Part 3: Definition of the problem
+
+### Problem statement
+
+We need to park N Duckiebots in a designated area in which they are able enter and exit in an efficient manner. 
+
+### Assumptions
+
+* The parking lot is a four tile structure with defined inlet, outlet and color scheme.
+* The specification of the parking lot is known.
+* When entering the lot and searching for a parking space, the parking lot is in a static state (there are no actively parking duckiebots).
+* Assume that when leaving the parking space, the parking lot is in a static state.
+
+### Performance measurement
+
+#### Localization
+
+#### Path Planning 
+
+#### Control
+
+* Starting at parking lot entrance, measure the number of parking maneuvers completed within boundaries of designated parking spot (over N attempts)
+* Starting in designated parking space, measure the number of Duckiebots able to arrive at the exit of the parking lot (over N attempts)
+* Average time (for N vehicles) to enter and exit parking lot
+
+
+
