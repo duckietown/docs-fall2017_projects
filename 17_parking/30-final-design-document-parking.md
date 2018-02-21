@@ -38,21 +38,24 @@ We need to park N Duckiebots in a designated area in which they are able enter a
 
 #### Localization
 
+* Localization involves computing a state estimate of the duckiebot's position (x, y, theta)
+    * **Quantitative performance metric** 
+        * accuracy of state estimate in x[mm], y[mm] and theta [degree]
+
 #### Path Planning 
+
+* Path planning consists of planning a collision free path from the current state estimate into or out of a parking space given a static map (no actively parking duckiebots)
+	* **Quantitative performance metric** 
+		* Percentage of collision free paths (# of collision free path / # of total paths)[%]
 
 #### Control
 
-* Starting at parking lot entrance, measure the number of parking maneuvers completed within boundaries of designated parking spot (over N attempts)
-* Starting in designated parking space, measure the number of Duckiebots able to arrive at the exit of the parking lot (over N attempts)
-* Average time (for N vehicles) to enter and exit parking lot
+* Once a state estimate is computed and a path is planned, the duckiebot must be controlled to the computed collision free path with a sufficiently high frequency of state updates.
+	* **Quantitative performance metric** 
+		* Starting at parking lot entrance, measure the number of parking maneuvers completed within boundaries of designated parking spot (over N attempts)[%]
+		* Starting in designated parking space, measure the number of Duckiebots able to arrive at the exit of the parking lot (over N attempts)[%]
+		* Average time (for N vehicles) to enter and exit parking lot[seconds]
 
-
-=======
-* goal/final objective: park duckiebot in parking space
-* state estimation: 	localize duckiebot position (x, y, theta) - quantitativ performance metric - accuracy + precision of state estimate [mm]
-* path planning: 		plan collision free path from the current state estimate into a parking space (1-6) given a static map - quantitativ performance metric - is path collision free [# of collision free path / # of path]  
-* closed loop control: 	let the duckiebot follow along the path into a set parking space
-quantitativ performance metric - is robot able to reach final parking space
 
 ## Part 4: Contribution / Added functionality
 * Dubins path planning
@@ -79,5 +82,5 @@ finding problems in old pipeline
 ## Part 6: Future avenues of development
 
 * Speed of the state estimation
->>>>>>> 612f2cbb3c22c3d5c8260d8bc300b21572f66e9d
+
 
