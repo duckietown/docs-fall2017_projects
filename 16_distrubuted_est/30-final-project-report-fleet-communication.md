@@ -82,7 +82,7 @@ Moreover, messaging features of the platform is decoupled from the implementatio
 
 #### Message encoder
 In order for the messages to be sent and received, they have to be serialized. Therefore, a serialization library was implemented to serialize [ByteMultiArrays](http://docs.ros.org/jade/api/std_msgs/html/msg/ByteMultiArray.html). After the message is sent, the data is then parsed back into a ROS message and published to the correct inbox_topic specified by the package that sent the message.
-We chose to use [ByteMultiArray](http://docs.ros.org/jade/api/std_msgs/html/msg/ByteMultiArray.html) for its flexibility and because it is a `std_msg` of ROS. This means that other packages must only publish ByteMultiArray to fleet messaging.
+We chose to use ByteMultiArray for its flexibility and because it is a `std_msg` of ROS. This means that other packages must only publish ByteMultiArray to fleet messaging.
 
 #### Framework
 For easy use of the messaging algorithm a ROS package, with two ROS nodes was implemented. The two nodes are the receiver_node and the sender_node. 
