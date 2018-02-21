@@ -35,7 +35,7 @@ You might have noticed that your vehicle doesn’t really go in a straight line 
 For example, when the same voltage is supplied to each motor, the Duckiebot will not go straight as might expected. 
 Also, the vehicle might not go at the velocity you are commanding it to drive at.
 
-Therefore, these constants needs to be identified individually for each single robot. The determination process to do so is called system identification. This can be done by odometry calibration : we determine the model parameter by finding the parameters that fit best some measurements of the poition we can get. 
+Therefore, these constants needs to be identified individually for each single robot. The determination process to do so is called system identification. This can be done by odometry calibration : we determine the model parameter by finding the parameters that fit best some measurements of the position we can get. 
 
 Hence, when these kinematic parameters are defined, we are able to reconstruct the robot’s velocity from the given voltage input.
 
@@ -131,7 +131,7 @@ This means that the car will calibrate itself, without any human input.
 There were several possible approaches discussed to overcome the shortcomings of the current calibration:
 
 * Localization based calibration
-    * e.g. determine relative pose w.r.t. Chessboard from successive images
+    * E.g. determine relative pose w.r.t. Chessboard from successive images
 * Closed loop calibration
     * Modify the trim while Duckiebot is following a loop until satisfactory
 * Motion blur based calibration
@@ -154,7 +154,7 @@ Hence, if the results do not meet our expectations or if the Duckiebot's configu
 ## Definition of the problem {#sysid-final-problem-def}
 
 The approach we chose to improve the behaviour of the Duckiebots was to derive a model with some parameters, and to identify this parameters for each Duckiebot independantely. 
-Hence, we first construct a model and then we try to fit the model to the measurements we get.
+Hence, we first construct a theoretical model and then we try to fit the model to the measurements of the position we get from the camera and the chessboard.
 
 
 
@@ -173,7 +173,7 @@ Considering only the kinematics, we get the following equations for the linear a
     \label{vA} \\
     \dot{\theta} &= \cfrac{v_r - v_l}{2L}
     \label{theta}
-\end{align} \\ 
+\end{align} 
 
 
 With the assumption that the velocity of the wheels is proportional to the voltage applied on each wheel $V_l$ and $V_r$ and that there is no slipping,  we can write the following : 
@@ -185,7 +185,7 @@ With the assumption that the velocity of the wheels is proportional to the volta
     \label{vr}
 \end{align}
 
- Thus ~\eqref{vA} and ~\eqref{theta} can bre rewritten as : 
+ Thus the above equations can bre rewritten as : 
 
 \begin{align}
     v_A &= \cfrac{c_r \cdot V_r + c_l \cdot V_l }{2}
@@ -194,10 +194,10 @@ With the assumption that the velocity of the wheels is proportional to the volta
     \label{theta2}
  \end{align}
 
-With, $c_r, c_l $ and $L$, some constants to define for each duckiebot. \\ 
+With, $c_r, c_l $ and $L$, some constants to define for each duckiebot. 
 
 
-Alternatively, we can define $c = c_r$ and $c_l = c + \Delta c$ and we get from  ~\eqref{vA3} and ~\eqref{theta3} 
+Alternatively, we can define $c = c_r$ and $c_l = c + \Delta c$ and we get : 
 
 \begin{align}
     v_A &= \cfrac{c \cdot (V_r +  V_l ) + \Delta c \cdot V_l}{2}
@@ -206,7 +206,7 @@ Alternatively, we can define $c = c_r$ and $c_l = c + \Delta c$ and we get from 
     \label{theta3}
 \end{align}
 
-We get a kinematic model, that shows the relation between the linear and angular velocity of the Duckiebot and the voltage applied to each wheel. To have our model totally defined, we only need to calculate three parameters, namely $c $ and $\Delta c$ and $L$. 
+We get a kinematic model, that shows the relation between the linear and angular velocity of the Duckiebot and the voltage applied to each wheel. To have our model totally defined, we only need to calculate three parameters, namely $c $, $\Delta c$ and $L$. 
 These three parameters will be calculated with odometry calibration.
 
 
@@ -218,7 +218,7 @@ The model of the system [](#bib:OdometryCalibration) with the notations explaine
 \begin{align}
     \dot{x} &= f(p;x,u)       \label{eq:model1} \\
       y & = g(x)       \label{eq:model2} \\
-      \mathcal{M}_{n} & = \{ m_k=m(t_k), t_1 < \dots < t_k < \dots < t_n)\}     \label{eq:measurements} \\
+      \mathcal{M} & = \{ m_k=m(t_k), t_1 < \dots < t_k < \dots < t_n)\}     \label{eq:measurements} \\
       \hat{\mathcal{Y}}_{n} & = \{ \hat{y}_{k}=h(m_k),k=1, \dots ,n \}             \label{eq:outputestimates}
 \end{align}
 
@@ -228,9 +228,9 @@ The model of the system [](#bib:OdometryCalibration) with the notations explaine
     <s>$p$</s>  <s>Calibration Parameters</s>
     <s>$f(\cdot)$</s>  <s>Model </s>
     <s>$g(\cdot)$</s>  <s>Pose </s>
-    <s>$ \mathcal{M}_{n} $</s>  <s>Set of discrete measurements</s>
+    <s>$ \mathcal{M} $</s>  <s>Set of discrete measurements</s>
     <s>$m_k$</s>  <s>Measurements (not necessarily evenly space in time)</s>
-    <s>$\hat{\mathcal{Y}}_{n}$</s>  <s>Set of output estimates</s>
+    <s>$\hat{\mathcal{Y}}$</s>  <s>Set of output estimates</s>
 
  </col2>
 </div>
@@ -241,7 +241,7 @@ The pose $g(\cdot)$ can be the robot pose or the sensor pose.
 The measurements $m_k$ can be from "internal" sensors e.g. wheel encoders, IMUs etc. or from "external" sensors such as Lidar, Infrared or camera.
 
 
-For our project, our set of measurments was obtained thanks to the camera : we put the Duckiebot in front of a chessboard, and then we were able to derived the position of the Duckiebot at every image relative to the chessboard. 
+For our project, our set of measurments was obtained thanks to the camera : we put the Duckiebot in front of a chessboard, and then we were able to derive the position of the Duckiebot at every image relative to the chessboard $\big( \hat{x}_i, \hat{y}_i \big) $. 
 
 At the same time, from our kinematic model, we could estimate the position of the Duckiebot $\big( x_i, y_i\big) $ recursively with the formula : 
 
@@ -263,7 +263,7 @@ By minimizing the position of the Duckiebot $x_i,y_i$ and its theoretical positi
 We used the L2-norm :
 
 \begin{align}
-    \begin{pmatrix}c_{l}^{\star}\\c_{r}^{\star}\\L^{\star}\end{pmatrix}= \underset{c_l,c_r,L}{\mathrm{argmin}}   \begin{pmatrix} x_1-\tilde{x}_1\\y_1-\tilde{y}_1\\\vdots\\x_n-\tilde{x}_n\\y_n-\tilde{y}_n\end{pmatrix}^T  \begin{pmatrix} x_1-\tilde{x}_1\\y_1-\tilde{y}_1\\\vdots\\x_n-\tilde{x}_n\\y_n-\tilde{y}_n\end{pmatrix}
+    \begin{pmatrix}c_{l}^{\star}\\c_{r}^{\star}\\L^{\star}\end{pmatrix}= \underset{c_l,c_r,L}{\mathrm{argmin}}   \begin{pmatrix} x_1-\hat{x}_1\\y_1-\hat{y}_1\\\vdots\\x_n-\hat{x}_n\\y_n-\hat{y}_n\end{pmatrix}^T  \begin{pmatrix} x_1-\hat{x}_1\\y_1-\hat{y}_1\\\vdots\\x_n-\hat{x}_n\\y_n-\hat{y}_n\end{pmatrix}
     
 \end{align}
 
@@ -302,13 +302,13 @@ To reproduce the results see the  [operation manual](#demo-sysid) which includes
 
 ### Recording rosbag log of Duckiebot maneuvers
 
-For recording the ROsbag, the Duckiebot has to be placed in front of the chessboard at a distance of slightly more than 1 meter in front of the chessboard (~2 duckie tiles), as shown in the image. The heading has to be set iteratively to maximize the time the Duckiebot sees the chessboard.
+For recording the Rosbag, the Duckiebot has to be placed in front of the chessboard at a distance of slightly more than 1 meter in front of the chessboard (~2 duckie tiles), as shown in the image. The heading has to be set iteratively to maximize the time the Duckiebot sees the chessboard.
 
 <div figure-id="fig:calibration_setup" figure-caption="The calibration setup">
      <img src="calibration_setup.jpg" style='width: 30em'/>
 </div>
 
-Run the calibration procedure
+You then have to run the calibration procedure
 
     duckiebot $ roslaunch calibration commands.launch veh:=robot name
     
