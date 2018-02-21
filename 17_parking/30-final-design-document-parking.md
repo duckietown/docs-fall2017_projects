@@ -56,11 +56,24 @@ We need to park N Duckiebots in a designated area in which they are able enter a
 		* Starting in designated parking space, measure the number of Duckiebots able to arrive at the exit of the parking lot (over N attempts)[%]
 		* Average time (for N vehicles) to enter and exit parking lot[seconds]
 
-
 ## Part 4: Contribution / Added functionality
 
 ### Localization
-* Debugged openCV 3.4 error - (float to double)
+* We slightly modified the previously implemented localization pipeline. 
+	* The localization pipeline takes a rectified image as in input. Therefore we need to undistore the barrel distorted images provided by the wide angle camera in a first step. To do so we use the distortion parametes determined in the intrinsic camera calibration. The previously implemented image rectification node undistortes the image in a way that is usable for the lane following pipeline, but unacceptable for a reliable state estimation. It is necessary for the state estimation based on apriltags to workm that the undistored image corresponds to the intrinsic parametes of the camera.
+	The previously used pipeline uses the image rectification node from the ROS library that is based on openCV. The node works in the following way: 
+	The node takes the distored image (e.g. 480x360 pxl) as an input and undistores the image using the default "initUndistortRectifyMap" openCV function. 
+	Undistorting a barrel distored image using all pixel information will result in an image with black areas along the edges as shown in figure XXX. The default openCV function will cut the biggest rectanglular section out of the image that contains
+	information for every pixel within the rectangle (red area) and map the image into a new image with the same size as the original image (i.e. 480x360). 
+	This causes two problems. First of all, the ratio of the cutout section is not the same as the one of the original image. Forcing the selected section back in the original ratio will distore the image by streching the image more in one direction then in the other causing a rectangle to become a oblong. 
+	Secondly, neglecting the distortion the overall scale of the image does not correspond the focal length anymore.
+	Both problems cause a missmatch between the image and the intrinsic parameters that could easily be compensated by using scaling the focal lenth and using a different focal length in x and y direction resulting in a new intrinsic matrix. Instead we came up with the folling solution.  
+
+	...
+
+	* The apriltag detection uses the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
+** 
+** 
 * Debugged image rectification node (remove distortion due to wrong scaling)
 
 ### Path Planning
