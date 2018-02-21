@@ -59,7 +59,7 @@ Added Functionalities are as follow:
 - Duckiebots are now able to communicate with one another directly without a central station to relay the messages. 
 - The network has no centralized point of failure. If a Duckiebot fails (runs out battery, breaks, disconnects abruptly) for any reason, the rest of the Duckiebots remaining in the system are still able to communicate without any noticeable disruption, given they are in range of each other.
 
-Consequently, we believe we have achieved the gold medal outcome for this project. 
+**Consequently, we believe we have achieved the gold medal outcome for this project.** 
 
 ### Package Infrustructure
 
