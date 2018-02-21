@@ -26,8 +26,6 @@ There was no prior work to build a communication system upon. Everything was imp
 ### Opportunity {fleet-messaging-final-opportunity}
 Without any existing work on wireless communication, we came up and built a whole new addition to Duckietown. We implemented a fleet-messaging package that builds an ad-hoc mesh network and lets other teams define their message types and sends them over the created network. 
 
-Remark: It is important to know that the  is not stable everywhere yet. There were some driver problems with some WiFi adapters with respect to mesh network capabilities. It works with the edimax, so it might be of advantage to have two edimax adapters: one for the duckiebot and one for the laptop. With this setup, the edimax adapters can be used to create the mesh network (and the connected laptops would be a part of the network as well). It is also important to know that at this moment, it is not possible to get a connection to the internet through the duckiebot via the mesh network.
-
 ### Preliminaries {fleet-messaging-final-preliminaries}
 We specifically picked libraries and modules that encapsulates their respective functionalities well. Therefore to fully understand what is going on under the hood, you simply need to read up on the documentation of each package used:
 - [batman-adv](https://www.open-mesh.org/projects/batman-adv/wiki/Wiki)
@@ -156,6 +154,8 @@ Following from the last point, adding an additional wifi adapter is costly.
 
 #### Possible Solution
 We discovered late into the project that the edimax has mesh capabilities. We tried it and found that it works but never fully tested it to a point that we were confident with its viability. 
+
+_Remark: There were some driver problems with some WiFi adapters with respect to mesh network capabilities. It works with the edimax, so it might be of advantage to have two edimax adapters: one for the duckiebot and one for the laptop. With this setup, the edimax adapters can be used to create the mesh network (and the connected laptops would be a part of the network as well). It is also important to know that at this moment, it is not possible to get a connection to the internet through the duckiebot via the mesh network._
 
 ### Improving usability of platform
 
