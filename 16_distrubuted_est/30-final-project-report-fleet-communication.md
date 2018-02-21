@@ -6,7 +6,7 @@
 
 see the [operation manual](#demofleet-messaging) to reproduce these results.
 
-![README](https://github.com/duckietown/Software/blob/devel-distributed-est-master/catkin_ws/src/30-localization-and-planning/README.md)
+![README](https://github.com/duckietown/Software/blob/devel-distributed-est-master/catkin_ws/src/30-localization-and-planning/fleet_messaging/README.md)
 
 ## Mission and Scope {fleet-messaging-final-scope}
 
