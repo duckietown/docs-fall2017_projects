@@ -81,17 +81,15 @@ DuckieMQ is based on zeroMQ, a framework used to send messages over sockets (&FE
 Moreover, messaging features of the platform is decoupled from the implementation of the network achitecture.
 
 #### Message encoder
-In order for the messages to be sent and received, a universal message type is needed for simplicity. 
-To not limit the message type for other packages, a serialization library was implemented, which allows to take in data as a ROS message and outputs the data as a ByteMultyArray. After the message is sent, the data is then parsed back into a ROS message.
-
-With this encoder library other packages can send and receive any of the standard ROS messages (std_msgs) without having to serialize the data first.
+In order for the messages to be sent and received, they have to be serialized. Therefore, a serialization library was implemented to serialize [ByteMultiArrays](http://docs.ros.org/jade/api/std_msgs/html/msg/ByteMultiArray.html). After the message is sent, the data is then parsed back into a ROS message and published to the correct inbox_topic specified by the package that sent the message.
+We chose to use [ByteMultiArray](http://docs.ros.org/jade/api/std_msgs/html/msg/ByteMultiArray.html) for its flexibility and because it is a `std_msg` of ROS. This means that other packages must only publish ByteMultiArray to fleet messaging.
 
 #### Framework
 For easy use of the messaging algorithm a ROS package, with two ROS nodes was implemented. The two nodes are the receiver_node and the sender_node. 
 
-The sender_node subscribes to the outbox_topic and sends this data to the receiver_node on all other Duckiebots on the network via the messaging algorithm using zeroMQ. The receiver_node then publishes the received data to the inbox_topic.
+The sender_node subscribes to the outbox_topic and sends this data to the receiver_node on all other Duckiebots on the network via the messaging algorithm using zeroMQ. The receiver_node then publishes the received data to the inbox_topic .
 
-To use the framework, one simply has to publish to the ROS topic outbox_topic and subscribe to the inbox_topic and listen to the specified message port.
+To use the framework, one simply has to publish to the ROS topic outbox_topic (specified by the config file) and subscribe to the inbox_topic (also specified by the config file) and listen to the specified message port.
 
 The complete structure of the fleet-messaging package is illustrated below.
 ![System Infrustructure](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Simple%20Fleet%20Messaging%20Flow%20Diagram.png "System Infrustructure")
