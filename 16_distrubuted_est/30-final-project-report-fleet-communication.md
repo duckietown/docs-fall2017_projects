@@ -1,18 +1,18 @@
-#  Fleet Communication: final report {fleet-communication-final-report status=draft}
+#  Fleet Communication: final report {fleet-messaging-final-report status=draft}
 
-## The final result {fleet-communication-final-result}
+## The final result {fleet-messaging-final-result}
 
 ![Demo Video](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Demo%20Video.ogv)
 
-see the [operation manual](#demofleet-communication) to reproduce these results.
+see the [operation manual](#demofleet-messaging) to reproduce these results.
 
 ![README](https://github.com/duckietown/Software/blob/devel-distributed-est-master/catkin_ws/src/30-localization-and-planning/README.md)
 
-## Mission and Scope {fleet-communication-final-scope}
+## Mission and Scope {fleet-messaging-final-scope}
 
 With this project we enable Duckiebots to communicate with each other on centralized and decentralized wireless network.
 
-### Motivation {fleet-communication-final-result-motivation}
+### Motivation {fleet-messaging-final-result-motivation}
 
 In the previous state of Duckietown, Duckiebots were individual, autonomous agents, roaming around Duckietown with no way to communicate with each other explicitly (the only method in existence is with the help of LED patterns, resulting in long interpretation times). Since the ultimate goal being an automated taxi system: Duckiebots working together picking up and dropping off customers in the optimal way; the Duckiebots needs to be able to communicate with each other efficiently.
 
@@ -20,21 +20,21 @@ One important part of this communication setup is that it can be decentralized, 
 
 Due to the current state of Duckietown, the communication is needed, but not limited to, fleet planning control to coordinate the fleet in a town with a predefined map.
 
-### Existing solution {fleet-communication-final-literature}
+### Existing solution {fleet-messaging-final-literature}
 There was no prior work to build a communication system upon. Everything was implemented from scratch.
 
-### Opportunity {fleet-communication-final-opportunity}
-Without any existing work on wireless communication, we came up and build a whole new addition to Duckietown. We implemented a fleet-communication package that builds an ad-hoc mesh network and lets other teams define their message types and sends them over the created network. 
+### Opportunity {fleet-messaging-final-opportunity}
+Without any existing work on wireless communication, we came up and build a whole new addition to Duckietown. We implemented a fleet-messaging package that builds an ad-hoc mesh network and lets other teams define their message types and sends them over the created network. 
 
 Remark: It is important to know that the  is not stable everywhere yet. There were some driver problems with some WiFi adapters with respect to mesh network capabilities. It works with the edimax, so it might be of advantage to have two edimax adapters: one for the duckiebot and one for the laptop. With this setup, the edimax adapters can be used to create the mesh network (and the connected laptops would be a part of the network as well). It is also important to know that at this moment, it is not possible to get a connection to the internet through the duckiebot via the mesh network.
 
-### Preliminaries (optional) {fleet-communication-final-preliminaries}
+### Preliminaries (optional) {fleet-messaging-final-preliminaries}
 We specifically picked libraries and modules that encapsulates their respective functionalities well. Therefore to fully understand what is going on under the hood, you simply need to read up on the documentation of each package used:
 - [batman-adv](https://www.open-mesh.org/projects/batman-adv/wiki/Wiki)
 - [zeroMQ](http://zeromq.org/)
 - [protobuf](https://developers.google.com/protocol-buffers/)
 
-## Definition of the problem {fleet-communication-final-problem-def}
+## Definition of the problem {fleet-messaging-final-problem-def}
 
 The final goals of the project were to:
 1. Create a robust wireless network that can easily be scaled to a larger fleet size and to a bigger Duckietown.
@@ -52,7 +52,7 @@ To evaluate the new framework we:
 2. Tested the range of the wifi adapters to see if it is able to cover the size of a demo-sized Duckietown
 3. Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect.
 
-## Contribution / Added functionality {fleet-communication-final-contribution}
+## Contribution / Added functionality {fleet-messaging-final-contribution}
 
 ### Added Functionailities
 Added Functionalities are as follow:
@@ -96,7 +96,7 @@ The complete structure of the fleet-messaging package is illustrated below.
 
 
 
-## Formal performance evaluation / Results {fleet-communication-final-formal}
+## Formal performance evaluation / Results {fleet-messaging-final-formal}
 
 There are three main criterion that have to be evaluated:
 1. Message transport:
@@ -124,7 +124,7 @@ Our conclusions are summarized in the following table
 |Network Traffic|No traffic monitored|**Can see traffic on the network but no useful information extracted**|Able to isolate duckiebot traffic|Able to identify specific packets|Able to visualize routing of specific packages|
 |Network Topology (centralized and decentralized)|Network cannot be established|Initial Network can be established, but no new nodes can connect to the network, not robust to connection loses|Initial Network can be established, new nodes can connect but not reliably, not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, but not robust to connection loses|**Initial Network can be established, new nodes can connect/leave dynamically, and robust to connection loses**|
 
-## Future avenues of development {fleet-communication-final-next-steps}
+## Future avenues of development {fleet-messaging-final-next-steps}
 
 ### One push solution for package setup/installation
 
