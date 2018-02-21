@@ -24,11 +24,9 @@ The Duckiebot is in a differential-drive configuration. It actuates each wheel w
   <img src="model.PNG" style='width: 30em; height:auto'/>
 </div>
 
-A model for a differential drive robot is derived in section in chapter [#duckiebot-modeling](#duckiebot-modeling). This model can be used to provide a simple method of maintaining an individual’s position or velocity estimate in the absence of computationally expensive position updates from external sources such as the mounted camera.
+A mathematical model for a differential drive robot is derived in chapter [#duckiebot-modeling](#duckiebot-modeling). This model can be used to provide a simple method of maintaining an individual’s position or velocity estimate in the absence of computationally expensive position updates from external sources such as the mounted camera.
 
-The derived non-linear model describes the expected output of the pose (e.g. position, velocity) w.r.t. a fixed inertial frame for a certain voltage input. The model makes several assumptions, such as rigid body motion, symmetry, pure rolling and no lateral slipping.
-
-Most important of all, the model assumes the knowledge of certain constants that characterize the DC motors as well as the robot’s geometry.
+The derived non-linear model describes the expected output of the pose (e.g. position, velocity) w.r.t. a fixed inertial frame for a certain voltage input. The model makes several assumptions, such as rigid body motion, symmetry, pure rolling and no lateral slipping. Most important of all, the model assumes the knowledge of certain constants that characterize the DC motors as well as the robot’s geometry.
 
 However, there will never be two duckiebots that show exactly the same behavior. This can be very problematic. 
 You might have noticed that your vehicle doesn’t really go in a straight line when you command it to. 
@@ -40,7 +38,7 @@ Therefore, these constants needs to be identified individually for each single r
 Hence, when these kinematic parameters are defined, we are able to reconstruct the robot’s velocity from the given voltage input.
 
 Increasing the accuracy of the Duckiebot’s odometry will result in reduced operation cost as the robot requires fewer absolute positioning updates with the camera.
-When the duckiebot crossing an intersection forward kinematics is used. Therefore, the performance of safe crossing is closely related to having well calibrated odometry parameters.
+When the duckiebot is crossing an intersection forward kinematics is used. Therefore, the performance of safe crossing is closely related to having well calibrated odometry parameters.
 
 
 ### Existing solution {#sysid-final-literature}
@@ -48,7 +46,7 @@ When the duckiebot crossing an intersection forward kinematics is used. Therefor
 
 #### Forward Kinematics
 
-The existing model was the following : 
+The existing mathematical model was the following : 
 
 \begin{align}
     V_{l} &= (g+t)(v_{A}-\omega L)  \label{eq:V_l}     \\
@@ -58,7 +56,7 @@ The existing model was the following :
 
 <div markdown="1">
 
- <col2 id='sysid-notations2' figure-id="tab:sysid-notations2" figure-caption="Notations for odometry calibration a differential drive robot">
+ <col2 id='sysid-notationsExistingModel' figure-id="tab:sysid-notationsExistingModel" figure-caption="Notations for the existing model of the differential drive robot">
     <s>$V_{l,r}$</s>  <s>Voltage to left/right motors</s>
     <s>$g$</s>  <s>Gain</s>
     <s>$t$</s>  <s>Trim</s>
@@ -80,7 +78,7 @@ The parameters $g$ and $t$ were to be set manually during the wheels calibration
 
 The current implementation of the calibration procedure can be found in the [#wheel-calibration](#wheel-calibration) section.
 
-Hereby, the Duckiebot is placed on a line(e.g. tape). Afterwards the joystick demo is launched with the following command:
+Hereby, the Duckiebot is placed on a line (e.g. tape). Afterwards the joystick demo is launched with the following command:
 
     duckiebot: $ roslaunch duckietown_demos joystick.launch veh:=${VEHICLE_NAME}
 
@@ -328,7 +326,7 @@ $V_r = k_1 - k_2 \cdot \cos(\omega \cdot t)$
 
 
 <div markdown="1">
- <col2 id='sysid-notationsCommands' figure-id="tab:sysid-notationsCommands" figure-caption="Notations for the voltage commands send">
+ <col2 id='sysid-notationsCommands' figure-id="tab:sysid-notationsCommands" figure-caption="Notations for the voltage commands sent">
     <s>$V_l, V_r$</s>  <s>The voltages applied to the left and right wheel</s>
     <s>$V_{fin}$</s>  <s>The ramp's final voltage applied</s>
     <s>$N_{step}$</s>  <s>The number of steps of the ramp</s>
