@@ -10,16 +10,15 @@ see the [operation manual](#demofleet-communication) to reproduce these results.
 
 ## Mission and Scope {fleet-communication-final-scope}
 
-With this project we enable Duckiebots to communicate with each other wirelessly with or without (&FEF: works in both cases) any centralized hardware.
+With this project we enable Duckiebots to communicate with each other on centralized and decentralized wireless network.
 
 ### Motivation {fleet-communication-final-result-motivation}
 
-In the previous state of Duckietown, Duckiebots were individual, autonomous agents, roaming around Duckietown with no way to communicate with each other (or only with the help of LED patterns, resulting in long interpretation times) (&FEF we could say that this kind of slow visual communication could be replaced). With the end goal being an automated taxi system: Duckiebots working together picking up and dropping off customers in the optimal way, the Duckiebots need to be able to communicate with each other.
+In the previous state of Duckietown, Duckiebots were individual, autonomous agents, roaming around Duckietown with no way to communicate with each other explicitly (the only method in existence is with the help of LED patterns, resulting in long interpretation times). Since the ultimate goal being an automated taxi system: Duckiebots working together picking up and dropping off customers in the optimal way; the Duckiebots needs to be able to communicate with each other efficiently.
 
-One important part of this communication setup is that it can be decentralized using a mesh network (&FEF: it does not need to be decentralized, the communication nodes and the network type are completely decoupled) and Duckiebots can join and leave the system without putting the whole network at risk of failing. This also allows for the network to be scaled, given network limitations.
+One important part of this communication setup is that it can be decentralized, using a mesh network and Duckiebots can join and leave the system without putting the whole network at risk of failing. This also allows for the network to be scaled, given network limitations.
 
-Due to the current state of Duckietown, the communication is needed, but not limited to, fleet planning control to coordinate the fleet in a town with a pre-defined map. (&FEF: multi-SLAM was apparently never implemented, they did normal SLAM)
-
+Due to the current state of Duckietown, the communication is needed, but not limited to, fleet planning control to coordinate the fleet in a town with a predefined map.
 
 ### Existing solution {fleet-communication-final-literature}
 There was no prior work to build a communication system upon. Everything was implemented from scratch.
@@ -67,25 +66,25 @@ Consequently, we believe we have achieved the gold medal outcome for this projec
 The package infrastructure is as follows:
 1. A mesh network that dynamically connects all of the Duckiebots that are currently in Duckietown.
 2. A messaging algorithm that allows the sending and receiving of messages over this network.
-3. A message encoder that packs the data before it is sent. (&FEF we do not define new message types, the message types are fixed --> more flexibility on our side)
+3. A message encoder that packs the data before it is sent.
 4. A message decoder that unpacks the data after it is received.
 5. A framework that allows other Duckietown packages to send and receive messages of their defined types.
 
 These individual parts were implemented as described below.
 
 #### Mesh Network
-Batman-adv is the backbone of the mesh network. In short, it is a specialized linux kernel module that implements a network routing protocol. It emulates a virtual network switch of all nodes participating. Hence, all nodes appears to be linked locally and are unaware of the network's topology and is also unaffected by any network changes. As a result, batman-adv allows for us to develop our communication platform agnostic to the underlying network architecture. (&FEF: I would leave the last sentence out. It is not because of batman-advanced that the network is decoupled from the framework. batman-advanced just manages the mesh network)
+Batman-adv is the backbone of the mesh network. In short, it is a specialized linux kernel module that implements a network routing protocol. It emulates a virtual network switch of all nodes participating. Hence, all nodes appears to be linked locally and are unaware of the network's topology and is also unaffected by any network changes. Once setup properly, batman-adv manages the mesh network for us.
 
 #### Messaging Algorithm
-DuckieMQ is based on zeroMQ, a framework used to send messages over sockets (&FEF: small technical correction). The serialized messages (protobuf) are broadcasted on a specified port into the network. For this to work, we need to know the name of the network interface, the desired port and whether we want to recieve or send on initialization of a messaging socket (&FEF: what do you mean by "we want to receive or send on initialization of a socket?"). Multiple sockets can run on one bot and on also on one port (important: if the same port is used, it must be used by a sending and a receiving socket, so it is limited to two sockets with opposite functionality). Receivers can be equipped with filters to only receive messages starting with a specified string. (&FEF: we didn't use this and didn't think this filtering through in the context of the framework, so maybe we should leave it out?)
+DuckieMQ is based on zeroMQ, a framework used to send messages over sockets (&FEF: small technical correction). The serialized messages (protobuf) are broadcasted on a specified port into the network. For this to work, we need to know the name of the network interface, the desired port and whether we want to recieve or send on initialization of a messaging socket (&FEF: what do you mean by "we want to receive or send on initialization of a socket?"). Multiple sockets can run on one bot and on also on one port (important: if the same port is used, it must be used by a sending and a receiving socket, so it is limited to two sockets with opposite functionality). 
 
-Once these sockets are created (initialize either sender or receiver) messages can be passed. The receiver node is equipped with a “” filter, meaning it receives all messages. If only messages starting with a or multiple fiter want to be received, these filter strings have to be added and the “” filter string has to be removed with the addfilter and removefilter functions. (&FEF: see above)
+Moreover, messaging features of the platform is decoupled from the implementation of the network achitecture.
 
 #### Message encoder
-In order for the messages to be sent and recieved, a universal message type is needed for simplicity. 
-To not limit the message type for other packages, a serialization library was implemented, which allowes to take in data as a ROS message and outputs the data as a ByteMultyArray. After the message is sent, the data is then parsed back into a ROS message.
+In order for the messages to be sent and received, a universal message type is needed for simplicity. 
+To not limit the message type for other packages, a serialization library was implemented, which allows to take in data as a ROS message and outputs the data as a ByteMultyArray. After the message is sent, the data is then parsed back into a ROS message.
 
-With this encoder library other packages can send and recieve any of the standard ROS messages (std_msgs) without having to serialize the data first.
+With this encoder library other packages can send and receive any of the standard ROS messages (std_msgs) without having to serialize the data first.
 
 #### Framework
 For easy use of the messaging algorithm a ROS package, with two ROS nodes was implemented. The two nodes are the receiver_node and the sender_node. 
@@ -113,7 +112,7 @@ To test the first criteria:
 - Compared the messages sent and received between two Duckiebots connected over the network and looked for messages dropped
 
 To test the second criteria:
-- Analyse packets sent on wireshark (&FEF: we need to check, whether the receiver gets the message)
+- Analyse packets sent on wireshark
 
 To test the third criteria:
 - Tested the range of the wifi adapters to see if it is able to cover the size of a demo-sized Duckietown
@@ -158,17 +157,17 @@ Both workarounds have their drawbacks, so it would be nice to find a robust solu
 Following from the last point, adding an additional wifi adapter is costly
 
 #### Possible Solution
-We discover late into the project that the edimax has mesh capabilities but we never explored it properly. (&FEF: it worked without doing anything when I tested it on Pat's duckiebot. I'd say it's a safe bet that it works)
+We discover late into the project that the edimax has mesh capabilities. We tried it and knows that it worked but never fully tested to a point that we were confident with its viability. 
 
 ### Improving usability of platform
 
 ZeroMQ allows to filter messages according to strings (eg. botname) at the start of messages. Our duckieMQ implementation already supports filtering it has however not been used yet by the teams as the whole set up gets a bit cumbersome if it has to be implemented on every bot. Also serialized messages need to be manually prepended by the filterstring. It would be useful to extend duckieMQ with the capability to prepend a filterstring to serialized messages automatically.
 
-The configuration files for the different channels are a bit cumbersome to create for bigger groups of bots. It would be nice if the bot would create its own config file according to rules laid down in a central config file where all the different groups specify their communication architecture. (&FEF: that's kind of a nice idea :-))
+The configuration files for the different channels are a bit cumbersome to create for bigger groups of bots. It would be nice if the bot would create its own config file according to rules laid down in a central config file where all the different groups specify their communication architecture. 
 
 E.g fleet level planning want every bot to listen to port 23334 filter it with their name and publish to /taxi/commands and subscribe to /taxi/location and send it on port 23333.
 
-As a final step we could let the config file generator handle ports by itself, so noone needs to keep track of used ports
+As a final step we could let the config file generator handle ports by itself, so no one needs to keep track of used ports
 
 ### Network Visualization
 
@@ -176,6 +175,4 @@ As a final step we could let the config file generator handle ports by itself, s
 With the current implementation there is no way to visualize the topology of the network.
 
 #### Possible Solution
-A very useful function to implement would be to implement a real time visualization of the network. To visualize the network involves installing batadv-vis. Batadv-vis can be used to visualize the batman-adv mesh network. It reads the neighbor information and local client table and distributes this information via alfred - a user-space daemon for distributing arbitrary local information over the mesh/network in a decentralized fashion - in the network. By gathering this local information, any vis node can get the whole picture of the network. This would have only taken us half the way there as it only gave static snapshots of the network. So to improve on this would be to continuously update the graph so it appears to be live.
-
-(&FEF good work! I like it!)
+A very useful function to implement would be to implement a real time visualization of the network. To visualize the network involves installing batadv-vis. Batadv-vis can be used to visualize the batman-adv mesh network. It reads the neighbor information and local client table and distributes this information via alfred - a user-space daemon for distributing arbitrary local information over the mesh/network in a decentralized fashion - in the network. By gathering this local information, any vis node can get the whole picture of the network. But this would have only taken us half the way there as it only gave static snapshots of the network. So to improve on this would be to continuously update/generate the graph so it appears to be live.
