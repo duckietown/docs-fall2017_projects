@@ -1,4 +1,4 @@
-#  Fleet Communication: final report {fleet-messaging-final-report status=draft}
+#  Fleet Messaging: final report {fleet-messaging-final-report status=draft}
 
 ## The final result {fleet-messaging-final-result}
 
