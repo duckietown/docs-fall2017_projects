@@ -7,7 +7,8 @@ General notes:
 
 
 ## The final result {#template-final-result}
-
+\alpha
+$ \alpha $
 _Let's start from a teaser._
 
 * Post a video of your best results (e.g., your demo video)
