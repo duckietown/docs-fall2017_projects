@@ -50,10 +50,6 @@ The overall goal of our project is to stay in the lane while driving and stoppin
 
 From last year’s project, the baseline implementation of a pose estimator and a controller were provided to us for further improvement. The prior pose estimator was designed to deliver the pose for a Duckiebot on straight lanes only. If the Duckiebot was in or before a curve and in the middle of the lane, the estimated pose showed an offset **d**, see definition of **d** in figure below. The existing controller worked reasonably on straight lines. Although, due to the inputs from the pose estimator to the controller, the Duckiebot overshot in the curves and crossed the left/right line during or after the curve.
 
-<!--
-<insert video> see folder: 21_Media: Final Report > 02_controller_special_curve…
-No Sound Video: https://drive.google.com/file/d/1y9L4_-VFRy9ay0EB-X7cyJkQ33ORXL49/view?usp=sharing
--->
 
 <div figure-id="fig:controller_video">
     <figcaption>Old vs. new controller</figcaption>
@@ -252,6 +248,84 @@ This method has been implemented successfully but the problem was first of all c
 
 
 
+
+### Controller
+
+In the controller, a feedforward part was added to figuratively speaking straighten the lane and ease the work of the controller. Therefore, the feedforward part takes the reference curvature **$c_{ref}$** and reference velocity **$v_{ref}$** as inputs and returns the needed yaw rate **$\omega$**, which is then added to the output of the controller. The block diagram of the control loop is shown in [](#fig:feedforward_diagram). Since the kinematic calibration was not yet yielding the demanded values of **$v_{ref}$** and **$\omega$** in **$[m/s]$** and **$[$rad$/s]$**, correction factors **velocity_to_m_per_s** and **omega_to_rad_per_s** were introduced. With the new kinematic calibration, those correction factors need to be adjusted or ideally become obsolete and need to be deleted.
+
+<center><img figure-id="fig:feedforward_diagram" figure-caption="Block diagram including feedforward part (FF)" src="feedforward_diagram.png" alt="Block diagram feedforward." style="width: 300px;"/></center>
+
+
+
+
+The feedforward part also enables the controller to work for other applications than just lane following. It can follow a path, for example on intersections and parking lots, if the information (including localization) is given in the format described in our [Intermediate Report](#controllers-int-report). The respective code is written but some of it is commented out or in other words not activated yet. To handle those and the additional input possibilities as described in our [Intermediate Report](#controllers-int-report), the priorities were handled as follows:
+* if ……………………..
+* if ……………...
+
+
+From the coordinates as shown in [](#fig:coordinates), we get
+
+\begin{equation}
+    \left[ \begin{array}{c} \dot {d} \\ \dot \theta \end{array} \right] = \left[ \begin{array}{c} v \times \sin \theta \\ \omega \end{array} \right]
+\end{equation}
+
+Through linearization, assuming **$\theta$** to stay small, and with **$u = \omega$**, this becomes
+
+\begin{equation}
+    \left[ \begin{array}{c} \dot {d} \\ \dot \theta \end{array} \right] = \begin{pmatrix} 0 & v \\ 0 & 0 \end{pmatrix} \times \left[ \begin{array}{c} d \\ \theta \end{array} \right] + \left[ \begin{array}{c} 0 \\ 1 \end{array} \right] \times u
+\end{equation}
+
+with
+
+\begin{equation}
+    x = \left[ \begin{array}{c} d \\ \theta \end{array} \right]
+\end{equation}
+
+To reduce static offset, integral parts were implemented for both **$d$** and **$\theta$**. This was achieved by augmenting the system to **$\hat{x}$**, as shown below.
+
+\begin{equation}
+    \hat{x} = \left[ \begin{array}{c} x \\ e_I \end{array} \right]
+\end{equation}
+
+\begin{equation}
+    \left[ \begin{array}{c} \dot{x} \\ \dot{e_I} \end{array} \right] = \begin{pmatrix} 0 & v & 0 & 0\\ 0 & 0 & 0 & 0 \\ -1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \end{pmatrix} \times \left[ \begin{array}{c} x \\ e_I \end{array} \right] + \left[ \begin{array}{c} 0 \\ 1 \\ 0 \\ 0 \end{array} \right] \times u + \begin{pmatrix} 0 & 0 \\ 0 & 0 \\ 1 & 0 \\ 0 & 1 \end{pmatrix} \times x_{ref}
+\end{equation}
+
+With
+
+\begin{equation}
+    \left[ \begin{array}{c} e \\ e_I \end{array} \right] = \left[ \begin{array}{c} x_{ref} - x \\ \int {(x_{ref} - x)} dt  \end{array} \right]
+\end{equation}
+
+\begin{equation}
+    x_{ref} = \left[ \begin{array}{c} d_{ref} \\ \theta_{ref} \end{array} \right]
+\end{equation}
+
+By pole placement, we found the initial values for **$k_p$** and **$k_I$** in
+
+\begin{equation}
+    u = - \left[ \begin{matrix} k_p & k_I \end{matrix}\right] \times \left[ \begin{array}{c} e \\ e_I \end{array} \right]
+\end{equation}
+
+through
+
+\begin{equation}
+    \left[ \begin{array}{c} \dot {d} \\ \dot \theta \end{array} \right] = \begin{pmatrix} 0 & v \\ -k_p & -k_I \end{pmatrix} \times \left[ \begin{array}{c} d \\ \theta \end{array} \right] + \left[ \begin{array}{c} 1 \\ 1 \end{array} \right] \times x_{ref}
+\end{equation}
+
+To prevent the integral parts from diverging, an Anti Reset Windup was implemented. Therefore, whenever actuator limits were reached, the integral steps at the corresponding time step were not added to the integrator. The actuator limits were reached when the motors were sent lower values than would be necessary to reach the controller outputs, because of certain limitations within the software. The latter include for example a limitation on the radius that is allowed to be driven by the Duckiebot, because it should not be able to turn on the spot but move more similarly to common passenger cars.
+
+In curves, the integrator values accumulate rapidly and lead to an overshoot after the curve. A possible approach would be to turn off the integrator in curves, but in consequence the curvature estimation would need to be used and in addition need to be robust. Or if the feedforward part could be fully used (while also needing a robust and low-latency curvature estimation), the problem might be diminished. In the current state, the integrator is reset to zero whenever it is at or crosses the zone of zero error. In addition the integrator was also reset to zero, whenever the velocity sent to the motors was zero.
+
+Since the integral part of theta is not controllable, it was set to zero. The resulting parameter, the proportional gains of both **$d$** and **$\theta$** plus the integrator gain of **$d$**, were tuned. First with pole placement initial values were approximated, as described above. For the final tuning the unstable state and the approximate boundary thereof was looked for through each parameter with all the other parameters in a stable state. This was repeated multiple times with ever more aggressive controller behavior until an optimum was found.
+
+ 
+<!--
+Only obstacle avoidance is integrated 
+
+TODO
+-->
+
 ### Benchmark 
 
 To benchmark the state zero at the beginning of the project and our final implementation and compare them, we implemented a benchmark package. This package contains the benchmark code used for the Controllers project. It basically takes one or more rosbags in a specific folder and evaluates the run of the corresponding Duckiebot for **$d_{ref}$** and **$\phi_{ref}$** and plots them into a diagram.
@@ -299,97 +373,9 @@ There are the following flags:
 
 -->
 
+### Logs
 
-### Controller
-
-In the controller, a feedforward part was added to figuratively speaking straighten the lane and ease the work of the controller. Therefore, the feedforward part takes the reference curvature **$c_{ref}$** and reference velocity **$v_{ref}$** as inputs and returns the needed yaw rate **$\omega$**, which is then added to the output of the controller. The blockdiagram of the control loop is shown in [](#fig:feedforward_diagram). Since the kinematic calibration was not yet yielding the demanded values of **$v_{ref}$** and **$\omega$** in **$m/s$** and **rad$/s$**, correction factors **velocity_to_m_per_s** and **omega_to_rad_per_s** were introduced. With the new kinematic calibration, those correction factors need to be adjusted or ideally become obsolete and need to be deleted.
-
-<center><img figure-id="fig:feedforward_diagram" figure-caption="Block diagram including feedforward part (FF)" src="feedforward_diagram.png" alt="Block diagram feedforward." style="width: 300px;"/></center>
-
-
-
-
-The feedforward part also enables the controller to work for other applications than just lane following. It can follow a path, for example on intersections and parking lots, if the information (including localisation) is given in the format described in our [Intermediate Report](#controllers-int-report). The respective code is written but some of it is commented out or in other words not activated yet. To handle those and the additional input possibilities as described in our [Intermediate Report](#controllers-int-report), the priorities were handled as follows:
-* if ……………………..
-* if ……………...
-
-
-From the coordinates as described above, we get
-
-\begin{equation}
-    \left[ \begin{array}{c} \dot {d} \\ \dot \theta \end{array} \right] = \left[ \begin{array}{c} v \times \sin \theta \\ \omega \end{array} \right]
-\end{equation}
-
-Through linearization, assuming **$\theta$** to stay small, and with **$u = \omega$**, this becomes
-
-\begin{equation}
-    \left[ \begin{array}{c} \dot {d} \\ \dot \theta \end{array} \right] = \begin{pmatrix} 0 & v \\ 0 & 0 \end{pmatrix} \times \left[ \begin{array}{c} d \\ \theta \end{array} \right] + \left[ \begin{array}{c} 0 \\ 1 \end{array} \right] \times u
-\end{equation}
-
-with
-
-\begin{equation}
-    x = \left[ \begin{array}{c} d \\ \theta \end{array} \right]
-\end{equation}
-
-To reduce static offset, integral parts were implemented for both **$d$** and **$\theta$**. This was achieved by augmenting the system to **$\hat{x}$** as shown below
-
-\begin{equation}
-    \hat{x} = \left[ \begin{array}{c} x \\ e_I \end{array} \right]
-\end{equation}
-
-\begin{equation}
-    \left[ \begin{array}{c} \dot{x} \\ \dot{e_I} \end{array} \right] = \begin{pmatrix} 0 & v & 0 & 0\\ 0 & 0 & 0 & 0 \\ -1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \end{pmatrix} \times \left[ \begin{array}{c} x \\ e_I \end{array} \right] + \left[ \begin{array}{c} 0 \\ 1 \\ 0 \\ 0 \end{array} \right] \times u + \begin{pmatrix} 0 & 0 \\ 0 & 0 \\ 1 & 0 \\ 0 & 1 \end{pmatrix} \times x_{ref}
-\end{equation}
-
-With
-
-\begin{equation}
-    \left[ \begin{array}{c} e \\ e_I \end{array} \right] = \left[ \begin{array}{c} x_{ref} - x \\ \int {(x_{ref} - x)} dt  \end{array} \right]
-\end{equation}
-
-\begin{equation}
-    x_{ref} = \left[ \begin{array}{c} d_{ref} \\ \theta_{ref} \end{array} \right]
-\end{equation}
-
-By pole placement we found the initial values for **$k_d$** and **$k_I$** in
-
-\begin{equation}
-    u = - \left[ \begin{matrix} k_p & k_I \end{matrix}\right] \times \left[ \begin{array}{c} e \\ e_I \end{array} \right]
-\end{equation}
-
-Through
-
-\begin{equation}
-    \left[ \begin{array}{c} \dot {d} \\ \dot \theta \end{array} \right] = \begin{pmatrix} 0 & v \\ -k_p & -k_I \end{pmatrix} \times \left[ \begin{array}{c} d \\ \theta \end{array} \right] + \left[ \begin{array}{c} 1 \\ 1 \end{array} \right] \times x_{ref}
-\end{equation}
-
-
-\begin{equation}
-    
-\end{equation}
-
-
-
-
-
-
-
-
-To prevent the integral parts from diverging, an Anti Reset Windup was implemented. Therefore, whenever actuator limits were reached, the integral steps at the corresponding time step were not added to the integrator. The actuator limits were reached when the motors were sent lower values than would be necessary to reach the controller outputs, because of certain limitations within the software. The latter include for example a limitation on the radius that is allowed to be driven by the Duckiebot, because it should not be able to turn on the spot but move more similarly to common passenger cars.
-
-
-
-In curves the integrator values accumulate rapidly and lead to an overshoot after the curve. A possible approach would be to turn off the integrator in curves, but in consequence the curvature estimation would need to be used and in addition need to be robust. Or if the feedforward part could be fully used (while also needing a robust and low-latency curvature estimation), the problem might be diminished. In the current state, the integrator is reset to zero whenever it is at or crosses the zone of zero error. In addition the integrator was also reset to zero, whenever the velocity sent to the motors was zero.
-
-Since the integral part of theta is not controllable, it was set to zero. The resulting parameter, the proportional gains and the integrator gains of both **$d$** and **$\theta$**, were tuned. First with pole placement initial values were approximated. For the final tuning the unstable state and the approximate boundary thereof was looked for for each parameter with all the other parameters in a stable state. This was repeated multiple times with ever more aggressive controller behavior until an optimum was found.
-
-Pole auf reeller achse => keine Schwingungen; Pole negativ, damit stabil
- 
-
-Only obstacle avoidance is integrated 
-
-TODO
+We took a huge amount of logs to benchmark the performance of the controller and estimator. These logs are available [here](http://logs.duckietown.org). Our Duckiebots were a313, yaf, fobot, ducktaped and tori. 
 
 <!--
 Describe here, in technical detail, what you have done. Make sure you include:
@@ -607,7 +593,7 @@ We evaluated if the Duckiebot is able to stop in front of the red stop line with
 
 #### Controller benchmark
 
-The performance of the controller has been benchmarked under varying configurations, i.e. with the old baseline controller, the improved controller with the implemented Integrator and finally the same improved controller with addition of a correction for the static offset. The results of this benchmarking are shown in [](#tab:controller_results). Notably the controller did not use the improved estimator for this benchmark, rather the baseline estimator was used.
+The performance of the controller has been benchmarked under varying configurations, i.e. with the old baseline controller, the improved controller with the implemented Integrator and finally the same improved controller with addition of a correction for the static offset. The results of this benchmarking are shown in [](#tab:controller_results). Notably the controller did not use the improved estimator for this benchmark, rather the baseline estimator was used. The desired state throughout the benchmark is $d = 0.0$ and $\phi = 0.0$.
 
 <col5 align='center' style="text-align:left" id='controller_results' figure-id="tab:controller_results" figure-caption="Results for controller evaluation of old controller, new integral part and offset correction.">
   <span> </span>    <span>$d_{mean} [cm]$</span>    <span>$d_{std} [cm]$</span>    <span>$\phi_{mean} [rad]$</span>    <span>$\phi_{std} [rad]$</span>
@@ -616,35 +602,57 @@ The performance of the controller has been benchmarked under varying configurati
   <span>Offset Correction</span>    <span>-0.45</span>     <span>0.16</span>    <span>-0.03</span>     <span>0.20</span>
 </col5>
 
-As observable in [](#tab:controller_results), the lane following performance increased drastically after improving the controller. First, by implementing the Integrator into the controller, the performance improved in terms of a lower static offset as well as a lower median heading angle. This means that the Duckiebot stayed much closer to the wanted position in the center of the lane, even after a long time. Therefore, the performance improved greatly with help of the Integrator alone already. 
-Further, by correcting the remaining static offset, the static offset was cancelled out completely and the median heading angle was lowered as well. This is a very important result, as the static offset represented a vital problem.
-In addition to the quantitative benchmarking above, the performance was evaluated qualitatively as well by observing the driving duckiebot. From those observations the performance improvements in terms of a cancelled static offset as well as a much lower median heading angle were very clearly noticed as well. By directly comparing the performance of the old and new controller qualitatively, the improvement of the controller are very clearly visible.
+As observable in [](#tab:controller_results), the lane following performance increased drastically after improving the controller. First, by implementing the Integrator into the controller, the performance improved in terms of a lower static offset as well as a lower mean heading angle. Additionally, the standard deviation of both **d** and **$\phi$** was lowered considerably. This means that the Duckiebot stayed much closer to the desired position in the center of the lane, even after a long time. Therefore, the performance improved greatly with help of the Integrator alone already. 
 
-TODO: Some more results and words by the controller part? These are the results highlighted in violet on the results excel file on the control sheet.
+Further, by correcting the remaining static offset, the static offset was cancelled out completely and the median heading angle was lowered as well. This is a very important result, as the static offset represented a vital problem.
+
+In addition to the quantitative benchmarking above, the performance was evaluated qualitatively as well by observing the driving Duckiebot. From those observations, the performance improvements in terms of a cancelled static offset as well as a much lower median heading angle were very clearly noticed as well. By directly comparing the performance of the old and new controller qualitatively, the improvement of the controller is very clearly visible. With the new controller the Duckiebot never touches the middle and outer lines, drives very robust, there is no static offset and no overshoot after the curves is observed.
 
 #### Non-conforming curve benchmark
 
-TODO: Shall we even put this?
+<div figure-id="fig:big_curve_video">
+    <figcaption>Non conforming big curve.</figcaption>
+    <dtvideo src="vimeo:257020623"/>
+</div>
 
-<object width= "500" height="500" type="application/pdf" data="nonconforming_curve.pdf"></object>
+We benchmarked the controller not only for the straight lanes and curves which are conforming with the Duckietown specification, rather the new improved controller was also tested on lanes with non-conforming geometries such as a very large and wide curve as shown in [](#fig:big_curve_video) and a very narrow and harsh S-curve as shown in [](#fig:controller_video). This benchmark was conducted in order to test the robustness of the controller to varying lane geometries. This is a very relevant test, as the geometry of the duckietown can not always be guaranteed. In addition, a controller which works good for a wide range of geometries would be desired.
+The results of those tests with non conforming curve geometries can be found in [](#fig:non_conforming).
+
+<object width= "500" height="500" type="application/pdf"  figure-id="fig:non_conforming" figure-caption="Results from benchmark on non-conforming curves." data="nonconforming_curve.pdf"></object>
 
 
-<!-- Ich han es pdf vo de tabelle igfüegt -->
 
 
-#### Offset minimization in straight lanes
-
-TODO: Some words by devel-mstalder on this maybe?
+As can be seen from the results in [](#fig:non_conforming) for both tested non conforming curves the performance improved considerably by introducing the new controller. Both the mean distance to the center of the lane **d** and the mean heading angle **$\phi$** have been improved. In addition, the standard deviation of both of those metrics were reduced as well. Those results show that the performance of the new controller was improved with respect to non conforming curve geometries. Since only two non conforming geometries have been tested, this test represents far from all non conforming geometries. In future benchmarks with respect to geometry robustness, this fact should be considered and more non conforming geometries should be tested.
+Nevertheless, the performance on those two tested non conforming curves are very promising and point to a strong robustness with respect to altering geometries.
 
 #### Performance of the controller on curvy road
 
+<center><img figure-id="fig:perf_controller_curvy_old" figure-caption="Benchmark of Duckiebot on curvy roads with the baseline controller from last year." src="perf_controller_curvy_old.png" alt="Performance old controller on curvy roads" style="width: 400px;"/></center>
+
+
 Benchmark of Duckiebot with baseline controller from last year’s implementation. Most notably, the median lateral position of the Duckiebot $d_{est\_median}$ is higher compared to the new implementation of the controller.
+
+<center><img figure-id="fig:perf_controller_curvy_new" figure-caption="Benchmark of Duckiebot on curvy roads with the new improved controller." src="perf_controller_curvy_new.png" alt="Performance new controller on curvy roads" style="width: 400px;"/></center>
+
 
 Benchmark of Duckiebot with new controller implementation. Most notably, the median lateral position of the Duckiebot $d_{est\_median}$ is lower compared to the old implementation of the controller.
 
-#### Performance of the controller on lanes with dynamic width
+#### Performance of the controller on non conforming lanes
 
-TODO: Do we even have logs for these?
+We also made some test to show that our controller is able to cope with situations that are not conforming with the Duckietown specifications. [](#fig:thicker_lines_video) shows a run with thicker white and yellow lines then specified and [](#fig:missing_lines_video) shows a run with some white and yellow lines missing. In both videos the new controller is still able to follow the lane as expected.
+
+<div figure-id="fig:thicker_lines_video">
+    <figcaption>Lane following with thicker lines</figcaption>
+    <dtvideo src="vimeo:257016299"/>
+</div>
+
+
+<div figure-id="fig:missing_lines_video">
+    <figcaption>Lane following with partial lines missing</figcaption>
+    <dtvideo src="vimeo:257016541"/>
+</div>
+
 
 ### Failed Implementations 
 
@@ -654,7 +662,7 @@ Although the 7 ranges estimation provided low mean deviation from the actual pos
 
 **Controller**    
 Feedforward during lane following:
-As the feedforward part during lane following depends entirely on the estimation of the curve, this part failed due to bad estimation of the curves in certain situations as well as the increased latency due to the curvature estimation. Whenever a curve is not correctly detected or not precisely at the beginning of the curve, the feedforward part introduces additional instability. This is especially a problem in the notorious S curves. Therefore, the implementation of the feedforward works good if a precises estimation of the curve is available that works without introducing high latencies. Although, such a precise curvature estimation with low latency is not available at the moment. Hence, the feedforward part during lane following is not robust enough for the current curvature estimation. Nevertheless, the feedforward part is useful for other nodes to interact with the controller. In certain situations other nodes are able to use the feedforward part in order to drive in curves (navigators on intersections and parking team on parking lots).
+As the feedforward part during lane following depends entirely on the estimation of the curve, this part failed due to bad estimation of the curves in certain situations as well as the increased latency due to the curvature estimation. Whenever a curve is not correctly detected or not precisely at the beginning of the curve, the feedforward part introduces additional instability. This is especially a problem in the notorious S curves. Therefore, the implementation of the feedforward works good if a precises estimation of the curve is available that works without introducing high latencies. Although, such a precise curvature estimation with low latency is not available at the moment. Hence, the feedforward part during lane following is not robust enough for the current curvature estimation. Nevertheless, the feedforward part is useful for other nodes to interact with the controller. In certain situations other nodes are able to use the feedforward part in order to follow paths (navigators on intersections and parking team on parking lots).
 
 ### Challenges
 
@@ -690,27 +698,25 @@ The improved controller gives a nice improvement over the baseline controller as
 As there is always more to do and the performance for both the controller and the estimator can still be further enhanced we list in this section some suggestions for next steps to take.
 
 ### Estimator
-To make curvature estimation applicable it has to be made more robust and at the same time more computationally efficient adding less delay to the system. In its actual state the added delay is too high and the performance with curvature estimation switched on decreases. 
+To make curvature estimation applicable it has to be made more robust and at the same time more computationally efficient adding less delay to the system. In its current state the added delay is too high and the performance with curvature estimation switched on decreases. 
 
 ### Controller
 
-Integrate the inputs of other teams, [see](#sec:controllers-int-report).
-
+* Integrate the inputs of other teams, [see](#sec:controllers-int-report).
 * After doing the new kinematic calibration provided by the System Identification group:
     - The controller parameters should be adjusted according to the output of the calibration.
     - The correction factors **velocity_to_m_per_s** and **omega_to_rad_per_s** need to be adjusted or ideally become obsolete and thus need to be deleted.
 * To reduce impact of time delays, e.g. a Smith Predictor could be implemented.
 * For the activation of the remaining interfaces (e.g. intersection navigation and parking), the respective commented out sections of the final code needs to be activated and the integration needs to be completed in collaboration with the other teams.
+* Ideally the controller should be able to drive on any lane geometry.
 
 
 ### General
 
 * Anti-Instagram should be enhanced, in order to identify more line segments and perceive the correct color.
-* Add a polarization filter to reduce impact of reflections on color perception.
+* Adding a polarization filter to reduce impact of reflections on color perception.
 * New edge detection with higher accuracy.
-* Replace the Raspberry Pi with something more computationally powerful.
-
-
+* Replacing the Raspberry Pi with something more computationally powerful to ensure low latency and enable a more complex pose estimation.
 
 
 
