@@ -178,12 +178,11 @@ Assumptions about other modules:
 
 **rosnode list**:
 
-
-* /vehicle/parking\_perception\_localization
+* localization_node
     - subscribes: driving\_mode, camera\_image,
     - publishes: parking\_mode, space\_status, pose\_duckiebot, ,
 
-* /vehicle/parking\_path\_planning
+* path_planning_node
     - subscribes: parking\_mode, pose\_duckiebot,  space\_status
     - publishes: reference\_for\_control, (path)
 
