@@ -136,7 +136,7 @@ _Be rigorous!_
 
 
 ### Two step k-Means
-Do first transformation with n iterations and k centers. Remember the k centers. For the next 2, ..., z images only start from the \[z_{i-1}\] to compute image $$z_{i}$  
+Do first transformation with n iterations and k centers. Remember the k centers. For the next 2, ..., z images only start from the \(z_{i-1}\) to compute image $$z_{i}$  
 
 ### Other clustering method
 Gaussian mixture models, the cluster
