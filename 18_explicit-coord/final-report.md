@@ -29,7 +29,7 @@ In order to guarantee the success in any condition, it makes sense to have a dec
 
 ### Existing solution {#explicit-coord-final-literature}
 
-A prior implementation for intersection coordination was already available from the 2016's MIT class. The principle was simple: when the Duckiebot comes at an intersection, it stops at the red line and is able to detect with the april tags if there is or not a traffic light. In the first case, the Duckiebot detects the frequency at which the traffic light is blinking and acts based on the road rules. Without a traffic light, the Duckiebot detects the frequency at which the other bots are blinking and adjusts its emitted frequency depending on its state.
+A prior implementation for intersection coordination was already available from the 2016's MIT class. The principle was simple: when the Duckiebot comes at an intersection, it stops at the red line and is able to detect with the april tags if there is or not a traffic light. In the case with a traffic light, the Duckiebot detects the frequency at which the traffic light is blinking and acts based on the road rules. Otherwise, the Duckiebot detects the frequency at which the other bots are blinking and adjusts its emitted frequency depending on its state.
 
 Two modules can be distiguished:
 
@@ -41,7 +41,7 @@ For the emission, three signals can be produced: red, yellow and green light, bl
 
 For the detection, the position and frequency of blinking LEDs are registered.
 
-For the coordination, with the assumption that each vehicle can only see other vehicles on its right but not its left, the Duckiebot yields its position if the only visible car is on the right, otherwise the Duckiebot waits (light green or red) or crosses (yellow light).
+For the coordination, with the assumption that each vehicle can only see other vehicles on its right but not on its left, the Duckiebot yields its position if the only visible car is on the right, otherwise the Duckiebot waits (light green or red) or crosses (yellow light).
 
 
 
@@ -54,7 +54,7 @@ The existing solution had essentially two drawbacks:
 
 Although the solution was problematic, it still gave us some important intuitions on how to solve the problem. First of all, using a LED-communication protocol is a brillant idea to let the Duckiebots communicate with each other. Since the communication algorithm had the only disadvantage of being slow, we started by re-thinking the coordination algorithm, which contained some bugs. The existing implementation for the coordination was rather complex and articulated, resulting in confused strategies which led to the failure rate of 50%. In order to develop a simpler and lighter algorithm we took inspiration from an existing media access control protocol (MAC): the so called Carrier Sense Multiple Access (CSMA, https://en.wikipedia.org/wiki/Carrier-sense_multiple_access). This algorithm gave us the basic idea behind our strategy and allowed us to have a lighter protocol. In the second place, we re-designed the LED-detection/-interpreter to be faster and more efficient based on the detection of blobs rather than frequencies.
 
-
+_una sola demo per entrambi con e senza TL_
 
 ### Preliminaries (optional) {#template-final-preliminaries}
 
@@ -75,12 +75,21 @@ An intersection is said to be cleared efficiently if and only if:
 - The Duckiebots do not incur into incidents during the navigation.
 
 ### Assumptions
+
+_assumptions sugli altri gruppi
+
+assumptions che abbiamo scelto  
+(un solo DB alla volta)
+
+functional assumptions (30hz, DB di tipo DB17-l)_
+
+
 The following assumptions are made for the LEDs communication:
 - The Duckiebot is of type DB17-l, i.e. has LEDs mounted on it.
 - One to four Duckiebots are at the intersection with a certain position and orientation with respect to the stop line. Responsible for this assumption are The Controllers, which should guide the Duckiebot towards the intersection based on the following measures, based on the projection of the Duckiebot on the 2D lane of the road. The Duckiebot should be
-  - Min. 0 cm behind the stop red line;
-  - Max. 6 cm behind the stop red line;
-  - Max. +/- (left/right deviations) 2 cm from the center of the line;
+    - Min. 0 cm behind the stop red line;
+    - Max. 6 cm behind the stop red line;
+    - Max. +/- (left/right deviations) 2 cm from the center of the line;
     +/- 10° of rotation with respect to the perpendicular line of the red line.
 
 - Duckiebots are able to see the vehicles in front and on the right with respect to their position: one cannot assume that the left visual is clear.
@@ -98,12 +107,19 @@ The following assumptions are made for the coordination:
 
 
 ### Performance metrics
+
+_Valentina???_
 Make sure you include your:
 - final objective / goal
 - assumptions made (including contracts with "neighbors")
 - quantitative performance metrics to judge the achievement of the goal
 
 ## Contribution / Added functionality {#explicit-coord-final-contribution}
+
+
+_2 subsections 1) detector (Nicolas) 2)coordination (Gioele) 3)demo, 1 sola per il db + modifiche a quella del TL_
+
+
 
 Describe here, in technical detail, what you have done. Make sure you include:
 - a theoretical description of the algorithm(s) you implemented
@@ -118,6 +134,59 @@ _Feel free to create subsections when useful to ease the flow_
 ## Formal performance evaluation / Results {#explicit-coord-final-formal}
 
 _Be rigorous!_
+_success rate e tempo con un solo DB, 2 (FF,FR),3
+stesso per TL_
+
+
+<col4 figure-id="tab:Performance" class="labels-row1">
+  <figcaption>Performance Evaluation</figcaption>
+
+  <span>Situation</span>
+  <span>Performance measure</span>
+  <span>Required</span>
+  <span>Obtained</span>
+
+
+  <span>One Duckiebot at the intersection</span>
+  <span>Clearing time</span>
+  <span>60s</span>
+  <span>!!!!missing </span>
+
+  <span>One Duckiebot at the intersection</span>
+  <span>Success rate</span>
+  <span>90%</span>
+  <span>!!!!missing </span>
+
+  <span>Two Duckiebots at the intersection</span>
+  <span>Clearing time</span>
+  <span>60s</span>
+  <span>!!!!missing </span>
+
+  <span>Two Duckiebots at the intersection</span>
+  <span>Success rate</span>
+  <span>80%</span>
+  <span>!!!missing </span>
+
+  <span>Three Duckiebots at the intersection</span>
+  <span>Clearing time</span>
+  <span>60s</span>
+  <span>!!!missing </span>
+
+  <span>Three Duckiebot at the intersection</span>
+  <span>Success rate</span>
+  <span>70%</span>
+  <span>!!!!missing </span>
+
+  <span>One Duckiebot at a traffic light type intersection</span>
+  <span>Clearing time</span>
+  <span>60s</span>
+  <span>!!!!missing </span>
+
+  <span>One Duckiebot at a traffic light type intersection</span>
+  <span>Success rate</span>
+  <span>90%</span>
+  <span>!!!!missing </span>
+</col4>
 
 - For each of the tasks you defined in you problem formulation, provide quantitative results (i.e., the evaluation of the previously introduced performance metrics)
 - Compare your results to the success targets. Explain successes or failures.
