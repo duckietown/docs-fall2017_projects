@@ -72,8 +72,8 @@ TODO: add theory here
 
 #### Path Planning (TODO Sam)
 
-* Dubins path planning
-* Generate necessary control output (d_est, d_ref, theta_est, v_ref, c_ref)
+* Dubins paths
+* RRT Star with Dubins paths
 
 #### State Propagation 
 
@@ -108,6 +108,9 @@ Both problems cause a miss-match between the image and the intrinsic parameters 
 * Debugged image rectification node (remove distortion due to incorrect scaling)
 
 #### Path Planning (TODO Sam)
+
+* Add implementation details for dubins path and RRT star with dubins paths.
+* Also describe how you generated necessary control outputs (d_est, d_ref, theta_est, v_ref, c_ref)
 
 #### State Propagation 
 
