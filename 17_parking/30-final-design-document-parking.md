@@ -119,7 +119,7 @@ In order to control to the planned path, the lane controller is utilized. It was
 1) Process AprilTags in view and estimate a state while static (duckiebot velocity is zero)
 2) Plan a path based on this state
 3) A "time to plan" threshold has passed
-4) Use feedforward state estimates to broadcast inputs into the lane controller
+4) Use feedforward state estimates to broadcast inputs to the lane controller
 5) Stop the duckiebot after a "time to control with feedforward" has been passed
 6) Return to 1)
 
