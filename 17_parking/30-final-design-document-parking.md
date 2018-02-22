@@ -102,7 +102,7 @@ In order to control to the planned path, the lane controller is utilized. It was
 5) Stop the duckiebot after a "time to control with feedforward" has been passed
 6) Return to 1)
 
-In order to perform the above steps, an alternate node, named devel_path_planning_node.py was constructed. As mentioned before, this is an experimental node and needs further development to function with the the other parking nodes. The devel_path_planning_node introduces new functions, namely a stopping_callback function and a get_intermediate_pose function. Please see below for a description of each.
+In order to perform the above steps, an alternate node, named devel_path_planning_node.py was constructed. This node can be found in the src folder of the parking package. As mentioned before, this is an experimental node and needs further development to function with the the other parking nodes. The devel_path_planning_node introduces new functions, namely a stopping_callback function and a get_intermediate_pose function. Please see below for a description of each.
 
 * The `get_intermediate_pose` function takes the time since a pose was last calculated as an input. The function then uses that time, along with the duckiebot's velocity to estimate where along the path the duckiebot is. The estimate is then broadcasted to the controller. 
 
