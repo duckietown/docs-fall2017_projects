@@ -68,7 +68,25 @@ Following these descriptions, the logical architecture and software architecture
 
 #### Localization
 
+<<<<<<< HEAD
+The localization is based on the relative transformation of the duckiebot to the apriltags within the parking lot and their known position in the world frame.
+
+A rectified images is needed to detect the apriltags within the image. The used wide angle camera on the duckiebot provides a distored barrel image. In a barrel distored image each pixel is position closer to the optical center as it would be in a rectified image. The distortion is non linear and can be modeled by a polynomial function depending on the pixel distance to the optical center.
+
+f(r) = 1 + k_1*r + k_2*r + ... + k_n*r
+r² = (u-u_0)² + (v-v_0)²
+
+The intrinsic camera calibration estimates the distortion parameters k_1 to k_4.
+The rectified image can be computed by positioning each pixel of the distorted image at its actual position using the estimated parameters and the distortion model.
+
+The rectified image is first converted to a gray scale image and afterwards thresholded to a binary image. Next the apriltags in the binary image are detected. 
+
+The relative position of the camera to the each tag can be calculated, after one or multiple apriltags are detected. The four pixels corresponding to the corners of each apriltag in the image, as well as the position of the corners in the body frame of each apriltag are known. Using this information and the intrinsic camera matrix the relative position of the camera and the apriltag can be computed by using the PnP algorithm.
+
+Once the relative position of the camera to each apriltag is computed, the absolut position of the duckiebot in the world frame can be calculated. First the position of the duckiebot in the world frame can be calculated for each single apriltag by combining transformation of the apriltag in the world frame, the relative transformation of the camera and the apriltag and the relative transformation of the duckiebot and the camera. Next a more reliable state estimate can be computed by taking the average all estimated duckiebot transformations.
+=======
 TODO: add theory here
+>>>>>>> 96baf000f328143fa6f71e83920fa23ef17ede8d
 
 #### Path Planning (TODO Sam)
 
@@ -203,10 +221,38 @@ Assumptions about other modules:
     * x,y,theta
     * frequency: inherit from camera\_image (~30 Hz)
 
+<<<<<<< HEAD
+- /vehicle/motor\_voltage
+    - two values for the two motors
+    - frequency: fast (~ 30 Hz)
+
+### Implementation
+
+#### Localization
+
+We slightly modified the previously implemented localization pipeline. 
+
+The localization pipeline takes a rectified image as an input. Therefore we need to undistort the barrel distorted images provided by the wide angle camera in a first step. To do so we use the distortion parameters determined in the intrinsic camera calibration. The previously implemented image rectification node undistorts the image in a way that is usable for the lane following pipeline, but unacceptable for a reliable state estimation. It is necessary for the state estimation based on apriltags to work that the undistored image corresponds to the intrinsic parametes of the camera.
+
+The previously used pipeline uses the image rectification node from the ROS library that is based on openCV. The node works in the following way: 
+
+* The node takes the distored image (e.g. 480x360 pixels) as an input and undistorts the image using the default "initUndistortRectifyMap" openCV function. 
+
+Undistorting a barrel distorted image using all pixel information will result in an image with black areas along the edges as shown in figure 15.3 in the figure [here](http://book.duckietown.org/fall2017/duckiebook/camera_calib_jan18.html#sec:camera-calib-jan18). The default openCV function will cut the biggest rectangular section out of the image that contains information for every pixel within the rectangle (red area) and map the image into a new image with the same size as the original image (i.e. 480x360). 
+
+This causes two problems. First of all, the ratio of the cutout section is not the same as the one of the original image. Forcing the selected section back in the original ratio will distort the image by stretching the image more in one direction then in the other causing a rectangle to become oblong. 
+
+Secondly, neglecting the distortion the overall scale of the image does not correspond the focal length anymore.
+
+Both problems cause a miss-match between the image and the intrinsic parameters that could easily be compensated by using scaling the focal length and using a different focal length in x and y direction resulting in a new intrinsic matrix. Instead we came up with the following solution:
+
+* We compute the mapping of every distorted pixel coordinate to the undistorted pixel coordinate for a given intrinsic camera matrix and image size using the openCV "initUndistortRectifyMap" function with non default parameters. We use the intrinsic camera matrix determined in the camera calibration and size of the original image. This way we overcome both problems that we had with the ROS image rectification node, while not changing the intrinsic camera matrix. 
+=======
 * /vehicle/path
     * x,y,theta array
     * frequency: very low - only updated once (if my\_parking\_space = {1:3}) or twice (for my\_parking\_space = {4:6}, first path is to go to the middle and observe which parking spaces are free, second path is to go go the associated parking space)
     - computation time ~ 10 s
+>>>>>>> 96baf000f328143fa6f71e83920fa23ef17ede8d
 
 * /vehicle/reference\_for\_control
     * d (orthogonal distance to path), c (curvature), phi (differential heading path and Duckiebot)
