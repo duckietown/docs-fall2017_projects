@@ -139,7 +139,7 @@ Our implicit coordination algorithm is inspired by the  Carrier Sense Multiple A
 Additionally we have implemented rigth priority option in order to accelerate the traffic at the intersection. Rigth priority doesn't allow a duckiebot to drive and as lang as another duckiebot is standing right to them at an intersection.
 
 <div figure-id="fig:DemoMap" figure-caption="Process Flow Chart Implicit Coordination">
-     <img src="FlowChartImplicit.png" style='width: 15em'/>
+     <img src="FlowChartImplicit.png" style='width: 10em'/>
 </div>
 
 ### Contribution Follow The Leader:
@@ -164,10 +164,10 @@ The velocity of the leader is calculated according to the difference in distance
 Thus, we get the two ouputs of the black box in the picture, d_Leader and v_Leader.
 
 <div figure-id="fig:DemoMap" figure-caption="Coordination Trafo1">
-     <img src="CoordTrafo1.png" style='width: 15em'/>
+     <img src="CoordTrafo1.png" style='width: 10em'/>
 </div>
 <div figure-id="fig:DemoMap" figure-caption="Coordination Trafo2">
-     <img src="CoordTrafo2.png" style='width: 15em'/>
+     <img src="CoordTrafo2.png" style='width: 10em'/>
 </div>
 
 
@@ -186,7 +186,7 @@ Further Details
 Lastly, there are some precautions not shown in the picture: If the velocity v_Duckiebot is smaller or equals to 0, both the velocity and omega input of the Duckiebot are set to 0. It is undesirable, that the Duckiebots start to drive backwards, as they cannot follow the lanes or avoid obstacles that way. If omega is not set to 0, the Duckiebots start rotating on the spot which – besides looking bad – causes them to lose track of the fiducial tag of the Duckiebot in front of them which in turn causes them to collide.
 Finally, if the distance d_Leader falls under a certain threshold, an emergency brake is performed.
 <div figure-id="fig:DemoMap" figure-caption="Controller">
-     <img src="Controller.png" style='width: 15em'/>
+     <img src="Controller.png" style='width: 10em'/>
 </div>
 
 
