@@ -126,7 +126,7 @@ Both problems cause a miss-match between the image and the intrinsic parameters 
 
 #### State Propagation 
 
-In order to control to the planned path, the lane controller is utilized. It was soon found, however, that with the given hardware a (x,y,theta) duckiebot state update took several seconds to compute. With the existing lane controller, this time lag proved insufficient: by the time a new state update was calculated and published to the lane controller, the duckiebot had already deviated substantially from this published state. In order to address this issue, we developed a path planning node that "fills in" the state update time lag gaps with a feedforward state update. In addition to the feedforward feature, the algorithm allows the duckiebot to stop for a set period of time in order to plan a new path. The time for which the duckiebot is stopped is ensured to be sufficient in order to produce an accurate state estimate. As such, the algorithm behaves as follows: 
+In order to control to the planned path, the lane controller is utilized. We developed a path planning node that "fills in" the state update time lag gaps with a feedforward state update. In addition to the feedforward feature, the algorithm allows the duckiebot to stop for a set period of time in order to plan a new path. The time for which the duckiebot is stopped is ensured to be sufficient in order to produce an accurate state estimate. As such, the algorithm behaves as follows: 
 
 1) Process AprilTags in view and estimate a state while static (duckiebot velocity is zero)
 2) Plan a path based on this state
@@ -153,7 +153,7 @@ The logical architecture is a description of the functionality: what happens whe
 
 * Once at the parking lot entrance, the duckiebot estimates her pose (x, y and theta) using as many AprilTags as possible within view. The localization of course requires the camera nodes, AprilTag detector node, Apriltag Postprocessing node and localization node to be launched. There is at least one (potentially more) AprilTags per parking space and possibly some additional tags placed at the entrance and exit. To estimate a pose, the state estimation algorithm has been extended (see localization description above) using the library 'AprilTags C++'. It estimates the relative position of the robot with respect to the april tag. The location of the april tag is encoded in the QR code. As soon as you see one (better two) tags, the pose can be calculated. We assume that we always see at least one tag.
 
-* Given a prior information about the parking lot (where the parking spaces are located, where the robot can drive, etc) and real time vision information, the robot chooses a parking space. Currently, the parking space is chosen as a "hardcoded" value in the launch file, please see the demo operation manual for more information. At first we assume that the parking lot is empty or that other duckiebots are static (do not move) and this is encoded in the parking map (places where the robot is not allowed to drive).
+* Given a prior information about the parking lot (where the parking spaces are located, where the robot can drive, etc) and real time vision information, the robot chooses a parking space. Currently, the parking space is chosen as a "hardcoded" value in the launch file, please see the demo operation manual for more information. We assume that the parking lot is empty or that other duckiebots are static (do not move) and this is encoded in the parking map (places where the robot is not allowed to drive).
 
 * We use dubins paths to generate a path given the pose of the robot, the pose of the assigned parking space and the parking map. If there is an obstacle in place, we use RRT star with dubins paths to generate a path (this feature is coded, but not currently implemented within ROS). The above features are launched in the path planning node.
 
@@ -166,11 +166,6 @@ Target values:
 * accuracy: the error is a combination of localization accuracy and the offset due to the maximum allowable controller error. To park two duckiebots next to each other within the space boundaries, the path planning accuracy has to be less (or equal) than 5 cm (which is the distance from the robot edge to the parking lane)
 
 * the point of the robot which is the furthest away from the parking mid line should be less than half of the parking space width while the heading of the robot must be less than a constant (20 degrees) relative to the parking space boundary lines.
-
-Assumptions about other modules:
-* we assume that the robot finds itself at the entrance of the parking lot whenever it wants to get a parking space.
-
-* once in the parking lot: parking is decoupled from the rest of duckietown. 
 
 ### Software architecture (TODO update with correct values)
 
@@ -235,6 +230,7 @@ state estimation - accuracy + precision as expected, speed worse then expected
 
 biggest challenge 
 speed of state estimation
+It was soon found, however, that with the given hardware a (x,y,theta) duckiebot state update took several seconds to compute. With the existing lane controller, this time lag proved insufficient: by the time a new state update was calculated and published to the lane controller, the duckiebot had already deviated substantially from this published state. 
 finding problems in old pipeline
 
 ## Part 6: Future avenues of development
