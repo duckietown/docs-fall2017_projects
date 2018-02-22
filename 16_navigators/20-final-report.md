@@ -160,12 +160,9 @@ projections onto the image plane.
 	The next step is a least squares optimization, defined as (Formula from the paper cited 	
 in [](#navigators-final-opportunity)): 
 
-$$W=min\sum_i (A_iW-l_i)^2$$
-
-
-
-
-ouéruhuorhguwhguwuhgwro
+\begin{equation}
+W=min\sum_i (A_iW-l_i)^2
+\end{equation}
 
 Where A is the nx3 matrix which contains the n control points, W is the motion vector 	
 defined as $W=\lbrack w_z t_x t_y \rbrack^T$ where we can obtain the Rotation matrix from the vector w 
