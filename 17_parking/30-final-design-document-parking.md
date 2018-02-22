@@ -68,11 +68,7 @@ Following these descriptions, the logical architecture and software architecture
 
 #### Localization
 
-<<<<<<< HEAD
 The localization is based on the relative transformation of the duckiebot to the apriltags within the parking lot and their known position in the world frame.
-=======
-The localization is based on the relative transformation of the duckiebot to the AprilTags within the parking lot and their known position in the world frame.
->>>>>>> d3f17edce92f8ac390be1c689433022d6d46484a
 
 A rectified images is needed to detect the AprilTags within the image. The used wide angle camera on the duckiebot provides a distorted barrel image. In a barrel distorted image each pixel is position closer to the optical center as it would be in a rectified image. The distortion is non linear and can be modeled by a polynomial function depending on the pixel distance to the optical center:
 
@@ -86,11 +82,7 @@ The rectified image is first converted to a gray scale image and afterwards thre
 
 The relative position of the camera to the each tag can be calculated, after one or multiple AprilTags are detected. The four pixels corresponding to the corners of each AprilTag in the image, as well as the position of the corners in the body frame of each AprilTag are known. Using this information and the intrinsic camera matrix the relative position of the camera and the AprilTag can be computed by using the PnP algorithm.
 
-<<<<<<< HEAD
 Once the relative position of the camera to each apriltag is computed, the absolut position of the duckiebot in the world frame can be calculated. First the position of the duckiebot in the world frame can be calculated for each single apriltag by combining transformation of the apriltag in the world frame, the relative transformation of the camera and the apriltag and the relative transformation of the duckiebot and the camera. Next a more reliable state estimate can be computed by taking the average all estimated duckiebot transformations.
-=======
-Once the relative position of the camera to each AprilTag is computed, the absolute position of the duckiebot in the world frame can be calculated. First the position of the duckiebot in the world frame can be calculated for each single AprilTag by combining transformation of the apriltag in the world frame, the relative transformation of the camera and the AprilTag and the relative transformation of the duckiebot and the camera. Next a more reliable state estimate can be computed by taking the average all estimated duckiebot transformations.
->>>>>>> d3f17edce92f8ac390be1c689433022d6d46484a
 
 #### Path Planning (TODO Sam)
 
@@ -159,7 +151,7 @@ The logical architecture is a description of the functionality: what happens whe
 
 * If the duckiebot exits the parking lot, it views a "parking exit" AprilTag and it switches from parking mode back to normal driving mode (starting at a four way intersection). **Note**: this feature is not currently implemented in the parking pipeline as it currently stands.
 
-* Once at the parking lot entrance, the duckiebot estimates her pose (x, y and theta) using as many AprilTags as possible within view. The localization of course requires the camera nodes, AprilTag detector node, Apriltag Postprocessing node and localization node to be launched. There is at least one (potentially more) AprilTags per parking space and possibly some additional tags placed at the entrance and exit. To estimate a pose, a new state estimation algorithm has been implemented (see localization description above) using the library 'AprilTags C++'. It estimates the relative position of the robot with respect to the april tag. The location of the april tag is encoded in the QR code. As soon as you see one (better two) tags, the pose can be calculated. We assume that we always see at least one tag.
+* Once at the parking lot entrance, the duckiebot estimates her pose (x, y and theta) using as many AprilTags as possible within view. The localization of course requires the camera nodes, AprilTag detector node, Apriltag Postprocessing node and localization node to be launched. There is at least one (potentially more) AprilTags per parking space and possibly some additional tags placed at the entrance and exit. To estimate a pose, the state estimation algorithm has been extended (see localization description above) using the library 'AprilTags C++'. It estimates the relative position of the robot with respect to the april tag. The location of the april tag is encoded in the QR code. As soon as you see one (better two) tags, the pose can be calculated. We assume that we always see at least one tag.
 
 * Given a prior information about the parking lot (where the parking spaces are located, where the robot can drive, etc) and real time vision information, the robot chooses a parking space. Currently, the parking space is chosen as a "hardcoded" value in the launch file, please see the demo operation manual for more information. At first we assume that the parking lot is empty or that other duckiebots are static (do not move) and this is encoded in the parking map (places where the robot is not allowed to drive).
 
