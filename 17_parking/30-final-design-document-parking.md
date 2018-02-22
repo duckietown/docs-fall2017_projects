@@ -171,17 +171,9 @@ Target values:
 
 **rosnode list** (note that topic names are often remapped in launch files. Please refer to specific launch files for details): 
 
-<<<<<<< HEAD
 * image\_rect\_proportional\_node.py
 	* subscribes: /camera_node/image/raw, /camera_node/raw_camera_info
 	* publishes: ~image\_rect
-=======
-
-
-* localization_node
-    - subscribes: driving\_mode, camera\_image,
-    - publishes: parking\_mode, space\_status, pose\_duckiebot, ,
->>>>>>> c050553ffa0acccc9853fe21387547dd7e32854b
 
 * apriltag\_detector.cpp
 	* subscribes: ~image\_rect
