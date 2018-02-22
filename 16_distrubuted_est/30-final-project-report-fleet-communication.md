@@ -24,7 +24,7 @@ Due to the current state of Duckietown, the communication is needed, but not lim
 There was no prior work to build a communication system upon. Everything was implemented from scratch.
 
 ### Opportunity {fleet-messaging-final-opportunity}
-Without any existing work on wireless communication, we came up and built a whole new addition to Duckietown. We implemented a fleet-messaging package that builds an ad-hoc mesh network and lets other teams send messages (&FEF they cannot define new message types) over the created network. 
+Without any existing work on wireless communication, we came up and built a whole new addition to Duckietown. We implemented a fleet-messaging package that builds an ad-hoc mesh network and lets other teams send messages
 
 ### Preliminaries {fleet-messaging-final-preliminaries}
 We specifically picked libraries and modules that encapsulates their respective functionalities well. Therefore to fully understand what is going on under the hood, you simply need to read up on the documentation of each package used:
@@ -37,7 +37,7 @@ We specifically picked libraries and modules that encapsulates their respective 
 The final goals of the project were to:
 1. Create a robust wireless network that can easily be scaled to a larger fleet size and to a bigger Duckietown.
 2. Build a communication framework for the Duckiebots that enables the sending and receiving of messages to and from any Duckiebot, which is connected to the above mentioned network. 
-3. Have a communication framework that is reusable and scalable (&FEF again, no new message types can be defined, so it's not adjustable, but scalable and better reusable).
+3. Have a communication framework that is reusable and scalable.
 
 For this we made the following assumptions:
 1. Duckiebots can connect to a wifi network.
@@ -79,7 +79,7 @@ DuckieMQ is based on zeroMQ, a framework used to send messages over sockets. The
 Moreover, messaging features of the platform is decoupled from the implementation of the network achitecture.
 
 #### Message encoder and decoder
-In order for the messages to be sent and received, they have to be encoded into ROS [ByteMultiArrays](http://docs.ros.org/jade/api/std_msgs/html/msg/ByteMultiArray.html). A serialization library was implemented to pack the ROS messages into a byte array such that the data could be sent through a zeroMQ message (&FEF it was not correct before. Next time we meet, I'll explain better how it works :-)). After the message is sent, the data is then parsed back into a ROS message and published to the correct inbox_topic specified by the package that sent the message.
+In order for the messages to be sent and received, they have to be encoded into ROS [ByteMultiArrays](http://docs.ros.org/jade/api/std_msgs/html/msg/ByteMultiArray.html). A serialization library was implemented to pack the ROS messages into a byte array such that the data could be sent through a zeroMQ message. After the message is sent, the data is then parsed back into a ROS message and published to the correct inbox_topic specified by the package that sent the message.
 We chose to use ByteMultiArray for its flexibility and because it is a `std_msg` of ROS. This means that other packages must only publish ByteMultiArray to fleet messaging.
 
 #### Framework
@@ -91,8 +91,6 @@ To use the framework, one simply has to publish to the ROS topic outbox_topic (s
 
 The complete structure of the fleet-messaging package is illustrated below.
 ![System Infrustructure](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Simple%20Fleet%20Messaging%20Flow%20Diagram.png "System Infrustructure")
-
-
 
 ## Formal performance evaluation / Results {fleet-messaging-final-formal}
 
@@ -170,7 +168,7 @@ As a final step we could let the config file generator handle ports by itself, s
 ### Network Visualization
 
 #### Current Issue
-With the current implementation there is no way to visualize the topology of the network. (&FEF I would reformulate this. I'd say that it is possible but that could not be done due to lack of time or so, because it is possible :-P)
+With the current implementation there is no way to visualize the topology of the network. This was very possible but unfortunately we ran out of time.
 
 #### Possible Solution
 A very useful function would be to implement a real time visualization of the network. To visualize the network involves installing batadv-vis. Batadv-vis can be used to visualize the batman-adv mesh network. It reads the neighbor information and local client table and distributes this information via alfred - a user-space daemon for distributing arbitrary local information over the mesh/network in a decentralized fashion - in the network. By gathering this local information, any vis node can get the whole picture of the network. But this would have only taken us half the way there as it only gave static snapshots of the network. So to improve on this would be to continuously update/generate the graph so it appears to be live.
