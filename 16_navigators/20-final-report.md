@@ -3,7 +3,9 @@
 
 ## 1: The final result {#navigators-final-result}
 
-Video of the final result: https://drive.google.com/drive/folders/1IY-LdhHvO91Pj7tprS4qdyqALAi1ma22 
+Video of the final result: 
+
+<iframe width="420" height="315" src="https://www.youtube.com/watch?v=x2rPmNqhteo&feature=youtu.be" frameborder="0" allowfullscreen></iframe> 
 
 ## 2: Mission and Scope {#navigators-final-scope}
 
