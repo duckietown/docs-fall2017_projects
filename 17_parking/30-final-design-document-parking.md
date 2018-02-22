@@ -117,7 +117,7 @@ Both problems cause a miss-match between the image and the intrinsic parameters 
 
 * For the apriltag detection we use the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
 
-* The apriltag detection node outputs all detected apriltag IDs and the corresponding transformation of the camera to each apriltag. We send these information to the previously implemented localization node. The localization node computes the pose of the duckiebot in world frame for each apriltag and averages the transformations to a more reliable estimate. We extended the node by another custom message that includes the x and y position, as well as the orientation of the duckiebot, because only this information are importent for the path planning and control of the duckiebot.
+* The apriltag detection node outputs all detected apriltag IDs and the corresponding transformation of the camera to each apriltag. We send these information to the previously implemented apriltag postprocessing node. The postprocessing node computes the transformation from the duckiebot to each apriltag by including the static transformation between the duckebot and the camera. Afterwards, the localization node computes the pose of the duckiebot in world frame for each apriltag and averages the transformations to a more reliable estimate. We are able to calculate the pose of the duckiebot in world frame, because the position of each apriltag in world frame is known to the robot. We extended the node by another custom message that includes the x and y position, as well as the orientation of the duckiebot, because only this information are importent for the path planning and control of the duckiebot.
 
 #### Path Planning (TODO Sam)
 
@@ -171,9 +171,17 @@ Target values:
 
 **rosnode list** (note that topic names are often remapped in launch files. Please refer to specific launch files for details): 
 
+<<<<<<< HEAD
 * image\_rect\_proportional\_node.py
 	* subscribes: /camera_node/image/raw, /camera_node/raw_camera_info
 	* publishes: ~image\_rect
+=======
+
+
+* localization_node
+    - subscribes: driving\_mode, camera\_image,
+    - publishes: parking\_mode, space\_status, pose\_duckiebot, ,
+>>>>>>> c050553ffa0acccc9853fe21387547dd7e32854b
 
 * apriltag\_detector.cpp
 	* subscribes: ~image\_rect
