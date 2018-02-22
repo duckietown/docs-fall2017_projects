@@ -125,7 +125,7 @@ Both problems cause a miss-match between the image and the intrinsic parameters 
 
 * For the apriltag detection we use the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
 
-
+* The apriltag detection node outputs all detected apriltag IDs and the corresponding transformation of the camera to each apriltag. We send these information to the previously implemented localization node. The localization node computes the pose of the duckiebot in world frame for each apriltag and averages the transformations to a more reliable estimate. We extended the node by another custom message that includes the x and y position, as well as the orientation of the duckiebot, because only this information are importent for the path planning and control of the duckiebot.
 
 #### Path Planning (TODO Sam)
 
