@@ -135,7 +135,7 @@ In order to control to the planned path, the lane controller is utilized. We dev
 5) Stop the duckiebot after a "time to control with feedforward" has been passed
 6) Return to 1)
 
-In order to perform the above steps, an alternate node, named devel_path_planning_node.py was constructed. This node can be found in the src folder of the parking package. As mentioned before, this is an experimental node and needs further development to function with the the other parking nodes. The devel_path_planning_node introduces new functions, namely a stopping_callback function and a get_intermediate_pose function. Please see below for a description of each.
+In order to perform the above steps, an alternate node, named devel\_path\_planning\_node.py was constructed. This node can be found in the src folder of the parking package. As mentioned before, this is an experimental node and needs further development to function with the the other parking nodes. The devel\_path\_planning\_node introduces new functions, namely a stopping_callback function and a get_intermediate_pose function. Please see below for a description of each.
 
 * The `get_intermediate_pose` function takes the time since a pose was last calculated as an input. The function then uses that time, along with the duckiebot's velocity to estimate where along the path the duckiebot is. The estimate is then broadcasted to the controller. 
 
@@ -169,20 +169,32 @@ Target values:
 
 ### Software architecture (TODO update with correct values)
 
-**rosnode list**:
+**rosnode list** (note that topic names are often remapped in launch files. Please refer to specific launch files for details): 
 
-* localization_node
-    - subscribes: driving\_mode, camera\_image,
-    - publishes: parking\_mode, space\_status, pose\_duckiebot, ,
+* image\_rect\_proportional\_node.py
+	* subscribes: /camera_node/image/raw, /camera_node/raw_camera_info
+	* publishes: ~image\_rect
 
-* path_planning_node
-    - subscribes: parking\_mode, pose\_duckiebot,  space\_status
-    - publishes: reference\_for\_control, (path)
+* apriltag\_detector.cpp
+	* subscribes: ~image\_rect
+	* publishes: tag\_detections\_image, tag\_detections, tag\_detections\_pose
+	
+* apriltags\_postprocessing\_node.py
+	* subscribes: ~apriltags\_in
+	* publishes: ~apriltags\_out, ~tag\_pose, ~apriltags\_parking, ~apriltags\_intersection
 
-* /vehicle/parking\_control
+* localization\_node
+	* subscribes: ~apriltags
+	* publishes: /tf, ~pose\_duckiebot
+
+* path\_planning\_node
+	* subscribes: ~pose\_duckiebot
+	* publishes: ~parking\_pose, ~parking\_active
+
+* lane\_controller\_node
    	* we copy this node from 'the controllers'
-   	* subscribes: reference\_for\_control
-   	* publishes: motor\_voltage
+   	* subscribes: ~parking\_pose
+   	* publishes: ~car\_cmd, ~actuator\_limits\_received, ~radius\_limit
 
 **rostopic list**:
 
