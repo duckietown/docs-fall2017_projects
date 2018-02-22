@@ -162,57 +162,59 @@ Assumptions about other modules:
 
 ### Software architecture (TODO update with correct values)
 
-`rosnode list`:
-- someone
+**rosnode list**:
+
+* someone
     - publishes: driving\_mode
 
-- /vehicle/parking\_perception\_localization
+* /vehicle/parking\_perception\_localization
     - subscribes: driving\_mode, camera\_image,
     - publishes: parking\_mode, space\_status, pose\_duckiebot, ,
 
-- /vehicle/parking\_path\_planning
+* /vehicle/parking\_path\_planning
     - subscribes: parking\_mode, pose\_duckiebot,  space\_status
     - publishes: reference\_for\_control, (path)
 
-- /vehicle/parking\_control
-   - we copy this node from 'the controllers'
-   - subscribes: reference\_for\_control
-   - publishes: motor\_voltage
+* /vehicle/parking\_control
+   	* we copy this node from 'the controllers'
+   	* subscribes: reference\_for\_control
+   	* publishes: motor\_voltage
 
-- /vehicle/parking\_LED
-   - subscribes: parking\_mode, space\_status
-   - publishes: -
+* /vehicle/parking\_LED
+   	* subscribes: parking\_mode, space\_status
+   	* publishes: -
 
-`rostopic list`:
-- /vehicle/driving\_mode
-    - values = {driving, parking}
-    - frequency: ~ 1 Hz
+**rostopic list**:
 
-- /vehicle/parking\_mode
-    - values = {parking, staying, leaving, observing}
-    - frequency: ~ 1 Hz
+* /vehicle/driving\_mode
+   	* values = {driving, parking}
+   	* frequency: ~ 1 Hz
 
-- /vehicle/space\_status
-    - 1xN array, N = number of parking space
-    - values = {taken, free, not\_detectable, my\_parking\_space}
-    - frequency: ~ 1 Hz
+* /vehicle/parking\_mode
+    * values = {parking, staying, leaving, observing}
+    * frequency: ~ 1 Hz
 
-- /vehicle/pose\_duckiebot
-    - x,y,theta
-    - frequency: inherit from camera\_image (~30 Hz)
+* /vehicle/space\_status
+    * 1xN array, N = number of parking space
+    * values = {taken, free, not\_detectable, my\_parking\_space}
+    * frequency: ~ 1 Hz
 
-- /vehicle/path
-    - x,y,theta array
-    - frequency: very low - only updated once (if my\_parking\_space = {1:3}) or twice (for my\_parking\_space = {4:6}, first path is to go to the middle and observe which parking spaces are free, second path is to go go the associated parking space)
+* /vehicle/pose\_duckiebot
+    * x,y,theta
+    * frequency: inherit from camera\_image (~30 Hz)
+
+* /vehicle/path
+    * x,y,theta array
+    * frequency: very low - only updated once (if my\_parking\_space = {1:3}) or twice (for my\_parking\_space = {4:6}, first path is to go to the middle and observe which parking spaces are free, second path is to go go the associated parking space)
     - computation time ~ 10 s
 
-- /vehicle/reference\_for\_control
-    - d (orthogonal distance to path), c (curvature), phi (differential heading path and Duckiebot)
-    - frequency: first step (path generation) uses a lot of time ~ 10 s, afterwards fast (~ 30 Hz) 
+* /vehicle/reference\_for\_control
+    * d (orthogonal distance to path), c (curvature), phi (differential heading path and Duckiebot)
+    * frequency: first step (path generation) uses a lot of time ~ 10 s, afterwards fast (~ 30 Hz) 
 
-- /vehicle/motor\_voltage
-    - two values for the two motors
-    - frequency: fast (~ 30 Hz)
+* /vehicle/motor\_voltage
+    * two values for the two motors
+    * frequency: fast (~ 30 Hz)
 
 ## Part 5: Formal performance evaluation / Results
 * state estimation: quantitativ results - ??? - accuracy + precision (success), speed of algorithm (failure)
@@ -232,6 +234,28 @@ finding problems in old pipeline
 
 ## Part 6: Future avenues of development
 
-* Speed of the state estimation
+As mentioned before, the main area of work needed to get the parking pipeline working is to successfully implement some sort of control in order to autonomously park a duckiebot. Currently, there are three main options for doing this, described in the following sections. Each avenue of development may be explored individually or a combination of multiple could prove to be the best way forward.
+
+1) Increase the speed of the state estimation
+
+* As seen in the part 5 of this report, there is a considerable time lag in the state estimation via AprilTags. An avenue of investigation should be to look deeper into the `extractTags` method from the AprilTag C++ library. The node where this method is called is found here, on line 67:
+
+`DUCKIETOWN_ROOT/catkin_ws/src/20-indefinite-navigation/apriltags_ros/apriltags_ros/src/apriltag_detector.cpp`
+
+* Any development which can increase the speed of this 'extractTags' method, which takes a grayscale image and detects tag number(s) in view, would be very beneficial for an increased state estimate frequency. 
+
+* Another avenue of development may be to increase the computing power of the duckiebot. The parking pipeline was currently run on a Raspberry Pi. A more powerful computer may improve the time lag issue.
+
+2) Successful integration of state propagation 
+
+* More development could be made on the `devel_path_planning_node` node that propagates the state estimate at a high frequency for use with the lane controller. Please see the "State Propagation" section of part 4 for how this algorithm is intended to work. 
+* As of the writing of this report, the parking group was unable to successfully integrate the state propagation. More work is needed to allow the algorithm to work as designed. 
+
+3) Development of a dedicated parking controller
+
+* 1) and 2) above rely on the use of the lane controller while parking. It may be beneficial, however, to develop a dedicated parking controller which can better handle the parking feature pipeline.
+
+
+
 
 
