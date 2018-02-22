@@ -82,6 +82,10 @@ Secondly, neglecting the distortion the overall scale of the image does not corr
 
 Both problems cause a miss-match between the image and the intrinsic parameters that could easily be compensated by using scaling the focal length and using a different focal length in x and y direction resulting in a new intrinsic matrix. Instead we came up with the following solution:
 
+* We compute the mapping of every distorted pixel coordinate to the undistorted pixel coordinate for a given intrinsic camera matrix and image size using the openCV "initUndistortRectifyMap" function with non default parameters. We use the intrinsic camera matrix determined in the camera calibration and size of the original image. This way we overcome both problems that we had with the ROS image rectification node, while not changing the intrinsic camera matrix. 
+
+*  rectified image and the corresponding intrinsic camera matrixThe apriltag detection uses the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
+
 * The apriltag detection uses the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
 
 * Debugged image rectification node (remove distortion due to incorrect scaling)
