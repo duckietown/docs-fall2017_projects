@@ -7,12 +7,7 @@ General notes:
 
 
 ## The final result {#template-final-result}
-\alpha
-$ \alpha $
-$$
-\alpha
-$$
-_italic_ and **bold** tex
+
 _Let's start from a teaser._
 
 * Post a video of your best results (e.g., your demo video)
@@ -153,20 +148,20 @@ The Duckiebots have two steering inputs, the forward velocity and the angular ve
 
 #### Pose Estimation
 This algorithm consists of roughly two parts: The first one is the pose estimation of the leading Duckiebot and the other one is the adjustment of the velocity according to this estimate.
-We used an OpenCV library blob detector that detects fiducial tags from the camera. From the pixel coordinates of the detected blobs, i.e. the markers of the fiducial tag, the transformation matrix between the tag coordinate frame and the camera coordinate frame is calculated. The OpenCV algorithm gives us the the transformation T_CP, which is the homogeneous transformation from camera to tag. We map the this transformation in 3D to the 2D case, where the pose of the Duckiebot will be represented by $\rho$, psi and theta..
+We used an OpenCV library blob detector that detects fiducial tags from the camera. From the pixel coordinates of the detected blobs, i.e. the markers of the fiducial tag, the transformation matrix between the tag coordinate frame and the camera coordinate frame is calculated. The OpenCV algorithm gives us the the transformation T_CP, which is the homogeneous transformation from camera to tag. We map the this transformation in 3D to the 2D case, where the pose of the Duckiebot will be represented by ρ, psi and theta..
 First T_CP is inverted which results in T_PC. From this transformation we extract the rotation matrix R_PC and the translation vector t_PC.
 From T_CP = [R_CP, t_CP; 0,0,0,1] we extract R_CP and t_CP. From there we can easily obtain R_PC = R_CP⁻1 and t_PC = -t_CP.
 We assume that the tag is centered on the Duckiebot’s rear such that the Z-axis of the tag coordinate system is aligned with the X-axis of the Duckiebot and the X-axis of the tag with the Y-axis of the leading Duckiebot. (The view of the image is from above.)
 With these assumptions we can calculate the pose of the leading Duckiebot in the coordinate system of the following Duckiebot.
-rho is the distance between the Duckiebots, calculated from the translation vector.
+ρ is the distance between the Duckiebots, calculated from the translation vector.
 psi is the rotation of the tag around its Y-axis
 And finally theta can be calculated from the calculated psi.
-rho = sqrt(x²+y²) (from t_CP)
+ρ = sqrt(x²+y²) (from t_CP)
 theta = arctan2(y/x) o.ä?
 psi = ? arccos(R(1,1)) ?
-The blob detector outputs the distance rho between the camera and the tag, the angle theta and finally, the angle psi of the tag relative to the camera.
+The blob detector outputs the distance ρ between the camera and the tag, the angle theta and finally, the angle psi of the tag relative to the camera.
 The velocity of the leader is calculated according to the difference in distance to the leader between two consecutive detections, divided by time between the two detections.
-(rho_1 – rho_2)/deltaT
+(ρ_1 – ρ_2)/deltaT
 Thus, we get the two ouputs of the black box in the picture, d_Leader and v_Leader.
 
 <div figure-id="fig:DemoMap" figure-caption="Coordination Trafo1">
