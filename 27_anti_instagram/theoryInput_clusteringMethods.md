@@ -7,3 +7,6 @@ is able to solve is to group objects together that are similar in some sense.
 ## Description of the algorithm
 
 ## Advantages and Limits
+
+# Gaussian Mixture models
+##
