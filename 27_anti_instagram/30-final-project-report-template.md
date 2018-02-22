@@ -133,9 +133,10 @@ _Be rigorous!_
 
 ## Future avenues of development {#template-final-next-steps}
 
-### Two step k-Means
 
-Do first transformation with n iterations and k centers. Remember the k centers. For the next 2, ..., z images only start from the $z_{i-1}$ to compute image $$z_{i}$  
+
+### Two step k-Means
+Do first transformation with n iterations and k centers. Remember the k centers. For the next 2, ..., z images only start from the \[z_{i-1}\] to compute image $$z_{i}$  
 
 ### Other clustering method
 Gaussian mixture models, the cluster
