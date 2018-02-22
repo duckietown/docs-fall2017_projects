@@ -60,19 +60,56 @@ We need to park N Duckiebots in a designated area in which they are able enter a
 
 ## Part 4: Contribution / Added functionality
 
-Initially, the theoretical description of the three main parts of out parking pipeline (localization, path planning and control) are described. Following these descriptions, the logical architecture and software architecture of the pipeline as a whole is described.
+Initially, the theoretical descriptions and implementations of the three main parts of our parking pipeline (localization, path planning and control) are described. As you will notice in the descriptions below, there is no technical description or implementation description for control, as we intended to use the existing lane controller for control. In order to interface with this controller, we developed a state propagation strategy to send high frequency state updates to the lane controller. Therefore, we have included our implementation strategy for control and refer to it as "state propagation". 
+
+Following these descriptions, the logical architecture and software architecture of the pipeline as a whole is described.
 
 ### Theoretical Descriptions 
 
 #### Localization
 
+TODO: add theory here
 
 #### Path Planning (TODO Sam)
 
 * Dubins path planning
 * Generate necessary control output (d_est, d_ref, theta_est, v_ref, c_ref)
 
-#### Control
+#### State Propagation 
+
+As there is no real theory involved in our strategy to interface successfully with the lane controller, please see the implementation section for an implementation strategy for state propagation.
+
+### Implementation
+
+#### Localization
+
+We slightly modified the previously implemented localization pipeline. 
+
+The localization pipeline takes a rectified image as an input. Therefore we need to undistort the barrel distorted images provided by the wide angle camera in a first step. To do so we use the distortion parameters determined in the intrinsic camera calibration. The previously implemented image rectification node undistorts the image in a way that is usable for the lane following pipeline, but unacceptable for a reliable state estimation. It is necessary for the state estimation based on apriltags to workm that the undistored image corresponds to the intrinsic parametes of the camera.
+
+The previously used pipeline uses the image rectification node from the ROS library that is based on openCV. The node works in the following way: 
+
+* The node takes the distored image (e.g. 480x360 pixels) as an input and undistorts the image using the default "initUndistortRectifyMap" openCV function. 
+
+Undistorting a barrel distorted image using all pixel information will result in an image with black areas along the edges as shown in figure 15.3 in the figure [here](http://book.duckietown.org/fall2017/duckiebook/camera_calib_jan18.html#sec:camera-calib-jan18). The default openCV function will cut the biggest rectangular section out of the image that contains information for every pixel within the rectangle (red area) and map the image into a new image with the same size as the original image (i.e. 480x360). 
+
+This causes two problems. First of all, the ratio of the cutout section is not the same as the one of the original image. Forcing the selected section back in the original ratio will distort the image by stretching the image more in one direction then in the other causing a rectangle to become oblong. 
+
+Secondly, neglecting the distortion the overall scale of the image does not correspond the focal length anymore.
+
+Both problems cause a miss-match between the image and the intrinsic parameters that could easily be compensated by using scaling the focal length and using a different focal length in x and y direction resulting in a new intrinsic matrix. Instead we came up with the following solution:
+
+* We compute the mapping of every distorted pixel coordinate to the undistorted pixel coordinate for a given intrinsic camera matrix and image size using the openCV "initUndistortRectifyMap" function with non default parameters. We use the intrinsic camera matrix determined in the camera calibration and size of the original image. This way we overcome both problems that we had with the ROS image rectification node, while not changing the intrinsic camera matrix. 
+
+*  rectified image and the corresponding intrinsic camera matrixThe apriltag detection uses the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
+
+* The apriltag detection uses the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
+
+* Debugged image rectification node (remove distortion due to incorrect scaling)
+
+#### Path Planning (TODO Sam)
+
+#### State Propagation 
 
 In order to control to the planned path, the lane controller is utilized. It was soon found, however, that with the given hardware a (x,y,theta) duckiebot state update took several seconds to compute. With the existing lane controller, this time lag proved insufficient: by the time a new state update was calculated and published to the lane controller, the duckiebot had already deviated substantially from this published state. In order to address this issue, we developed a path planning node that "fills in" the state update time lag gaps with a feedforward state update. In addition to the feedforward feature, the algorithm allows the duckiebot to stop for a set period of time in order to plan a new path. The time for which the duckiebot is stopped is ensured to be sufficient in order to produce an accurate state estimate. As such, the algorithm behaves as follows: 
 
@@ -173,32 +210,6 @@ Assumptions about other modules:
 - /vehicle/motor\_voltage
     - two values for the two motors
     - frequency: fast (~ 30 Hz)
-
-### Implementation
-
-We slightly modified the previously implemented localization pipeline. 
-
-The localization pipeline takes a rectified image as an input. Therefore we need to undistort the barrel distorted images provided by the wide angle camera in a first step. To do so we use the distortion parameters determined in the intrinsic camera calibration. The previously implemented image rectification node undistorts the image in a way that is usable for the lane following pipeline, but unacceptable for a reliable state estimation. It is necessary for the state estimation based on apriltags to workm that the undistored image corresponds to the intrinsic parametes of the camera.
-
-The previously used pipeline uses the image rectification node from the ROS library that is based on openCV. The node works in the following way: 
-
-* The node takes the distored image (e.g. 480x360 pixels) as an input and undistorts the image using the default "initUndistortRectifyMap" openCV function. 
-
-Undistorting a barrel distorted image using all pixel information will result in an image with black areas along the edges as shown in figure 15.3 in the figure [here](http://book.duckietown.org/fall2017/duckiebook/camera_calib_jan18.html#sec:camera-calib-jan18). The default openCV function will cut the biggest rectangular section out of the image that contains information for every pixel within the rectangle (red area) and map the image into a new image with the same size as the original image (i.e. 480x360). 
-
-This causes two problems. First of all, the ratio of the cutout section is not the same as the one of the original image. Forcing the selected section back in the original ratio will distort the image by stretching the image more in one direction then in the other causing a rectangle to become oblong. 
-
-Secondly, neglecting the distortion the overall scale of the image does not correspond the focal length anymore.
-
-Both problems cause a miss-match between the image and the intrinsic parameters that could easily be compensated by using scaling the focal length and using a different focal length in x and y direction resulting in a new intrinsic matrix. Instead we came up with the following solution:
-
-* We compute the mapping of every distorted pixel coordinate to the undistorted pixel coordinate for a given intrinsic camera matrix and image size using the openCV "initUndistortRectifyMap" function with non default parameters. We use the intrinsic camera matrix determined in the camera calibration and size of the original image. This way we overcome both problems that we had with the ROS image rectification node, while not changing the intrinsic camera matrix. 
-
-*  rectified image and the corresponding intrinsic camera matrixThe apriltag detection uses the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
-
-* The apriltag detection uses the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
-
-* Debugged image rectification node (remove distortion due to incorrect scaling)
 
 ## Part 5: Formal performance evaluation / Results
 * state estimation: quantitativ results - ??? - accuracy + precision (success), speed of algorithm (failure)
