@@ -151,7 +151,7 @@ Both workarounds have their drawbacks, so it would be prefreable to find a robus
 Following from the last point, adding an additional wifi adapter is costly.
 
 #### Possible Solution
-We discovered late into the project that the edimax has mesh capabilities. We tried it and found that it works but never fully tested it to a point that we were confident with its viability (&FEF great, that sounds more professional than my "safe bet" :-)). 
+We discovered late into the project that the edimax has mesh capabilities. We tried it and found that it works but never fully tested it to a point that we were confident with its viability.
 
 _Remark: There were some driver problems with some WiFi adapters with respect to mesh network capabilities. It works with the edimax, so it might be of advantage to have two edimax adapters: one for the duckiebot and one for the laptop. With this setup, the edimax adapters can be used to create the mesh network (and the connected laptops would be a part of the network as well). It is also important to know that at this moment, it is not possible to get a connection to the internet through the duckiebot via the mesh network._
 
