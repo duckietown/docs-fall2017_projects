@@ -171,62 +171,55 @@ Target values:
 
 **rosnode list** (note that topic names are often remapped in launch files. Please refer to specific launch files for details): 
 
-* image\_rect\_proportional\_node.py
+* image\_proc\_proportional\_node.py
 	* subscribes: /camera_node/image/raw, /camera_node/raw_camera_info
-	* publishes: ~image\_rect
+	* publishes: image\_rect
 
 * apriltag\_detector.cpp
-	* subscribes: ~image\_rect
+	* subscribes: image\_rect
 	* publishes: tag\_detections\_image, tag\_detections, tag\_detections\_pose
 	
 * apriltags\_postprocessing\_node.py
-	* subscribes: ~apriltags\_in
-	* publishes: ~apriltags\_out, ~tag\_pose, ~apriltags\_parking, ~apriltags\_intersection
+	* subscribes: apriltags\_in
+	* publishes: apriltags\_out , tag\_pose, apriltags\_parking, apriltags\_intersection
 
 * localization\_node
-	* subscribes: ~apriltags
-	* publishes: /tf, ~pose\_duckiebot
+	* subscribes: apriltags
+	* publishes: /tf, pose\_duckiebot
 
 * path\_planning\_node
-	* subscribes: ~pose\_duckiebot
-	* publishes: ~parking\_pose, ~parking\_active
+	* subscribes: pose\_duckiebot
+	* publishes: parking\_pose, parking\_active
 
 * lane\_controller\_node
-   	* we copy this node from 'the controllers'
-   	* subscribes: ~parking\_pose
-   	* publishes: ~car\_cmd, ~actuator\_limits\_received, ~radius\_limit
+   	* **note**: we copy this node from 'the controllers'
+   	* subscribes: parking\_pose
+   	* publishes: car\_cmd, actuator\_limits\_received, radius\_limit
 
-**rostopic list**:
+**rostopic list** (TODO: Add a note about the latency):
 
-* /vehicle/driving\_mode
-   	* values = {driving, parking}
-   	* frequency: ~ 1 Hz
+* image\_rect
+	* from sensor_msgs.msg, type: Image
+	
+* tag\_detections
+	* from duckietown_msgs.msg, type: AprilTagDetectionArray
+	
+* apriltags\_in
+	* from duckietown_msgs.msg, type: AprilTagDetectionArray
 
-* /vehicle/parking\_mode
-    * values = {parking, staying, leaving, observing}
-    * frequency: ~ 1 Hz
+* apriltags\_out
+	* from duckietown_msgs.msg, type: AprilTagsWithInfos
 
-* /vehicle/space\_status
-    * 1xN array, N = number of parking space
-    * values = {taken, free, not\_detectable, my\_parking\_space}
-    * frequency: ~ 1 Hz
+* apriltags
+	* from duckietown_msgs.msg, type: AprilTagsWithInfos
 
-* /vehicle/pose\_duckiebot
-    * x,y,theta
-    * frequency: inherit from camera\_image (~30 Hz)
+* pose\_duckiebot
+	* from duckietown_msgs.msg, type: Pose2DStamped
 
-* /vehicle/path
-    * x,y,theta array
-    * frequency: very low - only updated once (if my\_parking\_space = {1:3}) or twice (for my\_parking\_space = {4:6}, first path is to go to the middle and observe which parking spaces are free, second path is to go go the associated parking space)
-    - computation time ~ 10 s
+* parking\_pose
+	* from duckietown_msgs.msg, type: LanePose
+	* **note**: this is the topic that is published at a frequency of ~ 1 signal/ 2-3 seconds. As such, this topic is the bottle neck of the algorithm. Please see Part 6 for potential remedies for this issue. 
 
-* /vehicle/reference\_for\_control
-    * d (orthogonal distance to path), c (curvature), phi (differential heading path and Duckiebot)
-    * frequency: first step (path generation) uses a lot of time ~ 10 s, afterwards fast (~ 30 Hz) 
-
-* /vehicle/motor\_voltage
-    * two values for the two motors
-    * frequency: fast (~ 30 Hz)
 
 ## Part 5: Formal performance evaluation / Results
 * state estimation: quantitativ results - ??? - accuracy + precision (success), speed of algorithm (failure)
