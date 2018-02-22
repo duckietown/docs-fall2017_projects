@@ -203,6 +203,7 @@ Target values:
 	
 * tag\_detections
 	* from duckietown_msgs.msg, type: AprilTagDetectionArray
+	* **note**: this is the topic that is published at a frequency of ~ 1 signal/ 2-3 seconds. As such, this topic is the bottle neck of the algorithm. Please see Part 6 for potential remedies for this issue. 
 	
 * apriltags\_in
 	* from duckietown_msgs.msg, type: AprilTagDetectionArray
@@ -218,7 +219,6 @@ Target values:
 
 * parking\_pose
 	* from duckietown_msgs.msg, type: LanePose
-	* **note**: this is the topic that is published at a frequency of ~ 1 signal/ 2-3 seconds. As such, this topic is the bottle neck of the algorithm. Please see Part 6 for potential remedies for this issue. 
 
 
 ## Part 5: Formal performance evaluation / Results
