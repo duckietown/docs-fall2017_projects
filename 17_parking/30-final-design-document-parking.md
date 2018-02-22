@@ -85,6 +85,8 @@ The rectified image is first converted to a gray scale image and afterwards thre
 The relative position of the camera to the each tag can be calculated, after one or multiple apriltags are detected. The four pixels corresponding to the corners of each apriltag in the image, as well as the position of the corners in the body frame of each apriltag are known. Using this information and the intrinsic camera matrix the relative position of the camera and the apriltag can be computed by using the PnP algorithm.
 
 Once the relative position of the camera to each apriltag is computed, the absolut position of the duckiebot in the world frame can be calculated. First the position of the duckiebot in the world frame can be calculated for each single apriltag by combining transformation of the apriltag in the world frame, the relative transformation of the camera and the apriltag and the relative transformation of the duckiebot and the camera. Next a more reliable state estimate can be computed by taking the average all estimated duckiebot transformations.
+
+
 =======
 TODO: add theory here
 >>>>>>> f52c880ca5f67ea0bb7e0eb125fb585e946ca8e8
