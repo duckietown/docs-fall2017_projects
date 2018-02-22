@@ -68,7 +68,11 @@ Following these descriptions, the logical architecture and software architecture
 
 #### Localization
 
+<<<<<<< HEAD
+The localization is based on the relative transformation of the duckiebot to the apriltags within the parking lot and their known position in the world frame.
+=======
 The localization is based on the relative transformation of the duckiebot to the AprilTags within the parking lot and their known position in the world frame.
+>>>>>>> d3f17edce92f8ac390be1c689433022d6d46484a
 
 A rectified images is needed to detect the AprilTags within the image. The used wide angle camera on the duckiebot provides a distorted barrel image. In a barrel distorted image each pixel is position closer to the optical center as it would be in a rectified image. The distortion is non linear and can be modeled by a polynomial function depending on the pixel distance to the optical center:
 
@@ -82,7 +86,11 @@ The rectified image is first converted to a gray scale image and afterwards thre
 
 The relative position of the camera to the each tag can be calculated, after one or multiple AprilTags are detected. The four pixels corresponding to the corners of each AprilTag in the image, as well as the position of the corners in the body frame of each AprilTag are known. Using this information and the intrinsic camera matrix the relative position of the camera and the AprilTag can be computed by using the PnP algorithm.
 
+<<<<<<< HEAD
+Once the relative position of the camera to each apriltag is computed, the absolut position of the duckiebot in the world frame can be calculated. First the position of the duckiebot in the world frame can be calculated for each single apriltag by combining transformation of the apriltag in the world frame, the relative transformation of the camera and the apriltag and the relative transformation of the duckiebot and the camera. Next a more reliable state estimate can be computed by taking the average all estimated duckiebot transformations.
+=======
 Once the relative position of the camera to each AprilTag is computed, the absolute position of the duckiebot in the world frame can be calculated. First the position of the duckiebot in the world frame can be calculated for each single AprilTag by combining transformation of the apriltag in the world frame, the relative transformation of the camera and the AprilTag and the relative transformation of the duckiebot and the camera. Next a more reliable state estimate can be computed by taking the average all estimated duckiebot transformations.
+>>>>>>> d3f17edce92f8ac390be1c689433022d6d46484a
 
 #### Path Planning (TODO Sam)
 
@@ -115,11 +123,9 @@ Both problems cause a miss-match between the image and the intrinsic parameters 
 
 * We compute the mapping of every distorted pixel coordinate to the undistorted pixel coordinate for a given intrinsic camera matrix and image size using the openCV "initUndistortRectifyMap" function with non default parameters. We use the intrinsic camera matrix determined in the camera calibration and size of the original image. This way we overcome both problems that we had with the ROS image rectification node, while not changing the intrinsic camera matrix. 
 
-*  rectified image and the corresponding intrinsic camera matrixThe apriltag detection uses the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
+* For the apriltag detection we use the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
 
-* The apriltag detection uses the AprilTags for ROS library from the Robotics and Intelligent Ground Vehicle Research Laboratory. After an update of openCV 3 the algorithm did not work anymore due to a variable type error that we fixed. 
-
-* Debugged image rectification node (remove distortion due to incorrect scaling)
+* The apriltag detection node outputs all detected apriltag IDs and the corresponding transformation of the camera to each apriltag. We send these information to the previously implemented localization node. The localization node computes the pose of the duckiebot in world frame for each apriltag and averages the transformations to a more reliable estimate. We extended the node by another custom message that includes the x and y position, as well as the orientation of the duckiebot, because only this information are importent for the path planning and control of the duckiebot.
 
 #### Path Planning (TODO Sam)
 
