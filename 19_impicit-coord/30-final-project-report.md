@@ -20,7 +20,10 @@ _Now tell your story:_
 
 Define what is your mission here.
 
-
+<div figure-id="Implicit Coordination Video">
+    <figcaption>Implicit Coordination Video</figcaption>
+    <dtvideo src="intersection_coordination.mp4"/>
+</div>
 
 ### Motivation {#template-final-result-motivation}
 
@@ -192,7 +195,7 @@ Finally, if the distance d_Leader falls under a certain threshold, an emergency 
 
 
 
-## Formal performance evaluation / Results {#template-final-formal}
+
 
 ### Results and Performance Evaluation Implicit Coordination
 Omitting possible errors which might occur in case of the implicit coordination at intersections, one should take the following precautions.
@@ -203,18 +206,6 @@ The algorithm is designed for up 4 robots at the stoplines, but since we depend 
 We tested our follow the leader with up to four Duckiebots in duckietown and there doesn’t seem to be an upper limit on the number of Duckiebots following each other. Regarding the equal distance we are somewhat restricted by the computational power of the Duckiebots and hence the time needed for the detection of the antecedent Duckiebot. The detection time can vary from image frame to image frame however, 0.4 seconds used to be an appropriate upper bound. We found that this delay lead to deviations of maximally 20% from our optimal reference distance. In order to function properly the gain of the wheel calibration should be set to 0.6 as proposed by the Controllers to assure a smooth interplay between our controller and the lane following algorithm. Note that very high gains can dramatically worsen the deviations from the reference distance. Additionally, as always, a correct camera and wheel calibration are crucial for a fluid traffic.
 
 
-
-_Be rigorous!_
-
-- For each of the tasks you defined in you problem formulation, provide quantitative results (i.e., the evaluation of the previously introduced performance metrics)
-- Compare your results to the success targets. Explain successes or failures.
-- Compare your results to the "state of the art" / previous implementation where relevant. Explain failure / success.
-- Include an explanation / discussion of the results. Where things (as / better than / worst than) you expected? What were the biggest challenges?
-
-## Future avenues of development {#template-final-next-steps}
-
-
-_Is there something you think still needs to be done or could be improved? List it here, and be specific!_
 
 
 ### Future avenues Implicit Coordination
