@@ -58,7 +58,7 @@ Although the solution was problematic, it still gave us some important intuition
 First of all, using a LED-communication protocol is a brilliant idea to let the Duckiebots communicate with each other. Since the previous communication algorithm had the only disadvantage of being slow (also because of several bugs), we started by re-thinking the coordination algorithm.
 The existing implementation for the coordination was rather complex and articulated, resulting in confused strategies which led to the failure rate of 50%. In order to develop a simpler and lighter algorithm we took inspiration from an existing media access control protocol (MAC): the so called Carrier Sense Multiple Access (CSMA, https://en.wikipedia.org/wiki/Carrier-sense_multiple_access). This algorithm gave us the basic idea behind our strategy and allowed us to have a lighter protocol.
 
-In the second place, we re-designed the LED-detection/-interpreter to be faster and more efficient based on the detection of blobs rather than frequencies.
+In the second place, we re-designed the LED-detection/-interpreter to be more efficient and robust based on the detection of blobs and not only on the detection of  frequencies.
 
 Lastly, we wanted to have a demo that could deal with both intersections, i.e. with and without a traffic light, as opposed to the two available demos from MIT 2016's class.
 
