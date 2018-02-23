@@ -28,11 +28,9 @@ Define what is your mission here.
     <figcaption>Follow the Leader Video</figcaption>
     <dtvideo src="Formation_Keeping.mp4"/>
 </div>
-![](Formation_Keeping.mp4)
-<video controls="controls">
-  <source type="video/mp4" src="Formation_Keeping.mp4"></source>
-  <p>Your browser does not support the video element.</p>
-</video>
+!video[ title ]( https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2017_projects/19_impicit-coord/Formation_Keeping.mp4 ){ size=10 }
+
+
 ### Motivation {#template-final-result-motivation}
 
 _Now step back and tell us how you got to that mission._
