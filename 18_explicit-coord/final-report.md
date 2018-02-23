@@ -125,6 +125,30 @@ The clearing time should not exceed one minute and the success rate should be hi
 
 _2 subsections 1) detector (Nicolas) 2)coordination (Gioele) 3)demo, 1 sola per il db + modifiche a quella del TL_
 
+### LEDs Detection
+
+LEDs are modeled as blobs in an image: A Blob is a group of connected pixels in an image that share some common property, which, in the case of LEDs, is the intensity of the pixel. Among the many ways to detect blobs, the one that turned out to be more robust for our purpose was the following algorithm (https://www.learnopencv.com/blob-detection-using-opencv-python-c/):
+- Thresholding: Convert the source images to several binary images by thresholding the source image with thresholds.
+- Grouping: In each binary image, connected white pixels are grouped together.  Let’s call these binary blobs.
+- Merging: The centers of the binary blobs in the binary images are computed, and blobs located closer than a threshold are merged.
+- Center and Radius Calculation:  The centers and radii of the new merged blobs are computed and returned.
+- Filtering: The blobs are filtered by size and shape.
+
+To increase the robustness of the detection, a sequence of $N$ images in analyzed. Each blob $b$ is characterized with a position vector $x_b\in\mathbb{R}^2$ and a signal $y_b\in\{0,1\}^N$ of dimension, indicating whether the blob was detected in the image (1) or not (0). The blobs found are collected in a set called $B$. The algorithm works as follows:
+- Initialization: Initialize the set of blobs $B$ with the empty set.
+- Recursion: For image $i$ and blob $j$:
+   + If $\Vert x_{ij} – x_b\Vert > \mathrm{TOL}$ for all $b\in B$ the blob is added to $B$ with $x=x_{ij}$ and $y=e_i$, where $e_i$ is a vector of dimension $N$ whose $i$ entry is 1 and all other entries are 0. 
+   + If $\Vert x_{ij} – x_b\Vert \leq \mathrm{TOL}$ for some b. Then, we “merge” blob $j$ with the blob it was closest to, i.e., we set $y_i$ = 1 for $\bar b$, where $\bar b=\arg\min_{b\in B}\Vert x_{ij}-x_b\Vert.
+   
+After this procedure, the user has full information about the blobs in the image. Then, one may identify the presence of another Duckiebot as follows:
+- Analyzing the frequency spectrum of the signal y of each blob. If the known emission frequency and the detected frequency using the Fast Fourier Transform match, then we can conclude that a car has been detected.
+- Using some heuristics. For instance, for each blob one may compute
+\[
+m_b=\frac{1}{N}\sum_{i=1}^N [y_b]_i
+\]
+and act upon this number.
+This algorithms is run three times: To detect Duckiebots on the right, to detect Duckietbots on the left, and to detect traffic lights. To increase the robustness and reduce the computational demand, the image is cut accordingly. Hence, the output of the algorithm are three Booleans indicating the detection on the right, on the front, and for the traffic light respectively.  
+
 
 
 Describe here, in technical detail, what you have done. Make sure you include:
