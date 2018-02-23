@@ -31,7 +31,7 @@ In order to guarantee the success in any condition, it makes sense to have a dec
 
 A prior implementation for intersection coordination was already available from the 2016's MIT class. The principle was simple: when the Duckiebot comes at an intersection, it stops at the red line and is able to detect with the april tags if there is or not a traffic light. In the case with a traffic light, the Duckiebot detects the frequency at which the traffic light is blinking and acts based on the road rules. Otherwise, the Duckiebot detects the frequency at which the other bots are blinking and adjusts its emitted frequency depending on its state.
 
-Two modules can be distiguished:
+Two modules can be distinguished:
 
 - LED emission and detection
 - Coordination based on the detected signals
@@ -52,9 +52,14 @@ The existing solution had essentially two drawbacks:
 - The overall success rate was about 50%: the algorithm for LED-detection, and/or coordination failed, leading to a potential crash of the Duckiebots.
 - In case of success, the LED-detection and/or coordination algorithms required an average of four minutes to clear an intersection with four Duckiebots. This results in an extremely slow process, which would block a city with dozens of Duckiebots.
 
-Although the solution was problematic, it still gave us some important intuitions on how to solve the problem. First of all, using a LED-communication protocol is a brillant idea to let the Duckiebots communicate with each other. Since the communication algorithm had the only disadvantage of being slow, we started by re-thinking the coordination algorithm, which contained some bugs. The existing implementation for the coordination was rather complex and articulated, resulting in confused strategies which led to the failure rate of 50%. In order to develop a simpler and lighter algorithm we took inspiration from an existing media access control protocol (MAC): the so called Carrier Sense Multiple Access (CSMA, https://en.wikipedia.org/wiki/Carrier-sense_multiple_access). This algorithm gave us the basic idea behind our strategy and allowed us to have a lighter protocol. In the second place, we re-designed the LED-detection/-interpreter to be faster and more efficient based on the detection of blobs rather than frequencies.
+Although the solution was problematic, it still gave us some important intuitions on how to solve the problem.
 
-_una sola demo per entrambi con e senza TL_
+First of all, using a LED-communication protocol is a brilliant idea to let the Duckiebots communicate with each other. Since the previous communication algorithm had the only disadvantage of being slow, we started by re-thinking the coordination algorithm, which contained some bugs. The existing implementation for the coordination was rather complex and articulated, resulting in confused strategies which led to the failure rate of 50%. In order to develop a simpler and lighter algorithm we took inspiration from an existing media access control protocol (MAC): the so called Carrier Sense Multiple Access (CSMA, https://en.wikipedia.org/wiki/Carrier-sense_multiple_access). This algorithm gave us the basic idea behind our strategy and allowed us to have a lighter protocol.
+
+In the second place, we re-designed the LED-detection/-interpreter to be faster and more efficient based on the detection of blobs rather than frequencies.
+
+Lastly, we wanted to have a demo that could deal with both cases with and without a traffic light, as opposed to the two available demos from MIT 2016's class
+
 
 ### Preliminaries (optional) {#template-final-preliminaries}
 
@@ -72,47 +77,47 @@ An intersection is said to be cleared efficiently if and only if:
 
 - The time needed to cross the intersection is below 1 minute.
 - Only one Duckiebot at a time crosses the intersection.
-- The Duckiebots do not incur into incidents during the navigation.
+- The Duckiebots do not crash during the navigation.
 
 ### Assumptions
 
-_assumptions sugli altri gruppi
+####Functional assumptions
 
-assumptions che abbiamo scelto  
-(un solo DB alla volta)
+The following assumptions are made:
 
-functional assumptions (30hz, DB di tipo DB17-l)_
+* The Duckiebot is of type DB17-l, i.e. has LEDs mounted on it.
+* Camera works properly ( frequency 30Hz, resolution 64x48)
+* LEDs work properly and emit the signals with the correct color and frequency.
+* Duckiebots are able to see the vehicles in front and on the right with respect to their position: one cannot assume that the left visual is clear.
+* The Duckiebots do not move while “waiting” at the intersection.
+* One Duckiebot navigates the intersection at the time.
+* The intersection is among one of the standard intersections of Duckietown, detected through april tags.
 
+#### Assumptions on other groups
 
-The following assumptions are made for the LEDs communication:
-- The Duckiebot is of type DB17-l, i.e. has LEDs mounted on it.
-- One to four Duckiebots are at the intersection with a certain position and orientation with respect to the stop line. Responsible for this assumption are The Controllers, which should guide the Duckiebot towards the intersection based on the following measures, based on the projection of the Duckiebot on the 2D lane of the road. The Duckiebot should be
+The following assumptions are made:
+
+* The Controllers: one to four Duckiebots are at the intersection with a certain position and orientation with respect to the stop line. Responsible for this assumption are The Controllers, which should guide the Duckiebot towards the intersection based on the following measures, based on the projection of the Duckiebot on the 2D lane of the road. The Duckiebot should be
     - Min. 0 cm behind the stop red line;
     - Max. 6 cm behind the stop red line;
     - Max. +/- (left/right deviations) 2 cm from the center of the line;
     +/- 10° of rotation with respect to the perpendicular line of the red line.
+* Navigators: Intersection navigation is taken care by them and it is assumed that navigation is done safely.
+* Implicit coordination: it is assumed that explicit and implicit coordination are never running at the same time.
 
-- Duckiebots are able to see the vehicles in front and on the right with respect to their position: one cannot assume that the left visual is clear.
-- LEDs work properly and emit the signals with the correct color and frequency. We can also detect the LEDs as the correct state that they represent, and attribute those LEDs to the correct Duckiebot that is displaying them.
-- The Duckiebots do not move while “waiting” at the intersection, but they can move on the spot to look around to see the left.
-- Camera works properly (frequency 30Hz, resolution of 64x48).
-
-The following assumptions are made for the coordination:
-
-- Signals are correctly recognised and associated to the corresponding messages.
-- The intersection is among one of the standard intersections of Duckietown, detected through april tags.
-- The intersection type and the presence of a traffic lights are known.
-- Intersection navigation (for which The Navigators are responsible) is guaranteed to be working safely.
-- One Duckiebot navigates the intersection at the time.
 
 
 ### Performance metrics
 
-_Valentina???_
-Make sure you include your:
-- final objective / goal
-- assumptions made (including contracts with "neighbors")
-- quantitative performance metrics to judge the achievement of the goal
+The metrics that are going to be used to judge the achievement of the goal are two:
+
+1. Mean clearing time
+
+2. Success rate
+
+Our goal is to make the Duckiebots cross an intersection efficiently, therefore the performance metrics follow naturally.
+The clearing time should not exceed one minute and the success rate should be higher than 70% in all intersection configurations (1,2,3 vehicles, with or without a traffic light)
+
 
 ## Contribution / Added functionality {#explicit-coord-final-contribution}
 
@@ -132,11 +137,6 @@ Describe here, in technical detail, what you have done. Make sure you include:
 _Feel free to create subsections when useful to ease the flow_
 
 ## Formal performance evaluation / Results {#explicit-coord-final-formal}
-
-_Be rigorous!_
-_success rate e tempo con un solo DB, 2 (FF,FR),3
-stesso per TL_
-
 
 <col4 figure-id="tab:Performance" class="labels-row1">
   <figcaption>Performance Evaluation</figcaption>
