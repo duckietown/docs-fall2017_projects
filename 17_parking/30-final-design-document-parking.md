@@ -37,7 +37,22 @@ We need to park N Duckiebots in a designated area in which they are able enter a
 * The robot is limited in curvature, it exists a minimum curvature radius
 * The robot can drive any desired curvature within the minimum curvature radius in forward driving mode
 * The only possibility for backwards driving is straight, this a result of the used controller
-* The robot must move in a car like behaviour, e.g. no side slip and no turning without forward movement is allowed
+* The robot must move in a car like behaviour, e.g. no side slip and no turning without forward movement is allowed, this is encoded in the equations of motion: 
+
+
+`x_dot(t) = v * cos(theta(t))`
+
+`y_dot(t) = v * sin(theta(t))`
+
+`theta_dot(t) = v / r_turn(t)`
+
+This results in a discrete time system (time discretisation `Ts`)
+
+`x[k+1] = x[k] + Ts * v * cos(theta[k])`
+
+`y[k+1] = y[k] + Ts * v * sin(theta[k])`
+
+`theta[k+1] = theta[k] + Ts * v / r_turn[k]`
 
 
 ### Performance measurement
@@ -274,7 +289,7 @@ If the camera image plane and the AprilTag are parallel and the Duckiebot is no 
 
 A major problem is that the detection of the AprilTag takes 3 seconds (mean 2.9 sec, std. dev. 0.19 sec, see the figure below). 
 
-<center><img figure-caption="AprilTag Detection Time Lag" src="timelag.jpeg" style="width: 500px;"/></center>
+<center><img figure-caption="AprilTag Detection Time Lag" src="timelag_new.jpg" style="width: 500px;"/></center>
 
 This is currently the bottleneck of the parking pipeline. To control the duckiebot, a real-time state estimate or a reliable state propagation is needed.
 
