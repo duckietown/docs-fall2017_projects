@@ -40,6 +40,8 @@ To get to this flat shaped histogram one can follow the algorithm described here
 1. Create a normalized histogram consisting probabilities $p_i$ where $i = 1,..., 255$ for a 8-bit image. The histogram describes how probable a certain value in the channel is: $p_i = \frac{\text{number of pixels with intensity n}}{\text{total number of pixels}}$.
 2. Using that histogram one can equalize a picture by converting each pixel value $g_{i,j}$ of the picture with the following formula $g_{i,j} = \text{floor}((L-1) \cdot \sum_{n=0}^{f_{i,j}} p_n )$. With this procedure the histogram will be flattened as seen in the following picture.
 
+[ [source] ](https://www.math.uci.edu/icamp/courses/math77c/demos/hist_eq.pdf)
+
 <center>
 <figure>
 <img src="/images/histogram2.png" alt="kMeans working" style="width: 350px;"/>
