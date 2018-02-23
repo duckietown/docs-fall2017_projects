@@ -63,8 +63,6 @@ The python package graphviz was used to compute the graph and generate a visuali
 
 The GUI consisted of a list, from which the user could select the desired start- and destination nodes for one single Duckiebot as well as an overlay of the tile-map and the graph image. The location was indicated by highlighting the corresponding node in a different color, and the path by highlighting the graph edges. No localization was integrated in the demo, and thus the start node had to be set manually and the subsequent execution of the path was completely open loop.
 
-![alt text](https://github.com/duckietown/duckuments/blob/devel-fleet-planning-final-report/docs/atoms_85_fall2017_projects/21_fleet_planning/fleetplanning_gui_1.png "GUI")
-![alt text](https://github.com/duckietown/duckuments/blob/devel-fleet-planning-final-report/docs/atoms_85_fall2017_projects/21_fleet_planning/fleetplanning_gui_2.png "GUI")
 
 When the user hit the start button, a request was sent to the navigation ROS node, upon which the start and end graph nodes were highlighted and the computed path was indicated on the image.
 
@@ -251,9 +249,7 @@ Map with icons for a customer at node 7. Duckiebot “Harpy”’s target locati
 
 
 Harpy travelling with the customer to the target location. 
-![GUI with assigned customer](img/gui_2.png)
-
-TODO: Put the images in the img folder relative to the file location
+![GUI with assigned customer](img/gui_3.png)
 
 #### 1 Duckietown Map
 
