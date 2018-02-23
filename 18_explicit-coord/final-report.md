@@ -179,40 +179,29 @@ The following assumptions are made about other modules:
 
 Nodes:
 
-1. LED_coordination:
-    * Input: From Parking group “you are at an intersection” (additionally there is a parameter that indicates whether intersections are cleared with explicit or implicit coordination)
+1. coordination_node:
+    * Input: From Finite State Machine group “you are at an intersection”
     * Output: Duckiebot move (“go”/ ”not go”)
     * Subscribed topic:
-        * flag_at_intersection from Parking group, bool message: true/ false
-    * Published topic: move_intersection
-        * string message: go/ no_go
+        * trigger from finite state machine
+    * Published topic: intersection_go
+        * string message: go/no_go
 
-2. LED_emitter:
+2. led_emitter_node:
     * Input: Communication is needed
-    * Output: LED turn on or stay off
+    * Output: LEDs turn on or stay off
     * Subscribed topic:
         * LED_switch from LED-coordination, string message: on/ off
     * Published topics: None
 
-3.
-    1. LED_detection: Depending on the algorithm implemented:
-        * Input: camera_image (possibly after anti-instagram) and message indicating whether detection is needed
-        * Output: LED detected/ LED not detected
-        * Subscribed topic:
-            * LED_to_detect from LED_coordination, string message: yes/ no
-            * camera_image from anti-instragram, CompressedImage
-        * Published topic:
-            * string message: LED_detected/ no_LED_detected
-
-
-2. LED_detection: second option:
-        * Input: camera_image (possibly after anti-instagram)
-        * Output: LED detected/LED not detected with position and/or color and/or frequency
-        * Subscribed topic:
-            * LED_to_detect from LED_coordination, string message: yes/ no
-            * camera_image from anti-instragram, CompressedImage
-        * Published topic:
-            * string message: LED_detected/ no_LED_detected with position and/or color and/or frequency
+3. LED_detection: second option:
+    * Input: camera_image (possibly after anti-instagram) and trigger
+    * Output: LED detected/LED not detected with position 
+    * Subscribed topic:
+         * Trigger from finite state machine
+         * camera_image from anti-instragram, CompressedImage
+    * Published topic:
+         * string message: LED_detected/ no_LED_detected with position
 
 
 A diagram of our nodes is shown below.
@@ -226,12 +215,11 @@ A diagram of our nodes is shown below.
 We subscribe to the following topics:
 
 * Corrected image with maximum assumed latency 1s;
-* Flag at intersection with maximum assumed latency 1s.
+* Trigger with maximum assumed latency 1s.
 
 The following topics are published:
 
 * Flag go/no_go with maximum latency 60s (this is the time needed to make sure that the intersection can be navigated safely).
-
 
 
 ## Formal performance evaluation / Results {#explicit-coord-final-formal}
