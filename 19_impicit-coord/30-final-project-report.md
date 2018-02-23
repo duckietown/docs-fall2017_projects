@@ -161,7 +161,7 @@ This algorithm consists of roughly two parts: The first one is the pose estimati
 We used an OpenCV library blob detector that detects fiducial tags from the camera. From the pixel coordinates of the detected blobs, i.e. the markers of the fiducial tag, the transformation matrix between the tag coordinate frame and the camera coordinate frame is calculated. The OpenCV algorithm gives us the the transformation C_T_CP, which is the homogeneous transformation from camera to tag in the camera frame. We map the this transformation in 3D to the 2D case, where the pose of the Duckiebot will be represented by ρ, ψ and θ. <br />
 First we calculate P_T_PC, via the following two steps: <br />
 P_R_PC = C_R_CP^T = C_R_CP^(-1) <br/>
-P_t_PC = -P_R_PC*C_t_CP, <br/>
+P_t_PC = -P_R_PC&ast;C_t_CP, <br/>
 where we get P_R_PC AND P_t_PC FROM P_T_PC = [P_R_PC, P_t_PC; 0 0 0 1]. <br/>
 _In the following lines A(a,b) will denote the entry at row a, column b of matrix A and a(b) the b-th entry of vector a._ <br />
 We assume that the tag is centered on the Duckiebot’s rear such that the Z-axis of the tag coordinate system is aligned with the X-axis of the Duckiebot and the X-axis of the tag with the Y-axis of the leading Duckiebot. (The view of the image is from above.) <br />
@@ -170,7 +170,7 @@ With these assumptions we can calculate the pose of the leading Duckiebot in the
 ψ is the rotation of the tag around its Y-axis
 And finally θ can be calculated from the calculated ψ.<br />
 ρ = sqrt(P_t_PC(1)²+P_t_PC(3)²)<br />
-D_t_DP = - P_R_PD^T*P_t_PD = [d_1;d_2] <br />
+D_t_DP = - P_R_PD^T&ast;P_t_PD = [d_1;d_2] <br />
 θ = arctan2(d_2, d_1) <br />
 ψ = arctan2(-P_R_PC(3,1), sqrt(P_R_PC(3,2)²+P_R_PC(3,3)²))<br />
 The blob detector outputs the distance ρ between the camera and the tag, the angle θ and finally, the angle ψ of the tag relative to the camera.
@@ -187,15 +187,15 @@ Thus, we get the two ouputs of the black box in the picture, d_Leader and v_Lead
 
 
 #### Velocity Control
-The following calculations are also illustrated in the picture. First, the actual distance between the two Duckiebots is subtracted from the desired distance d*. <br />
-e_d = d* - d_Leader <br />
+The following calculations are also illustrated in the picture. First, the actual distance between the two Duckiebots is subtracted from the desired distance d&ast;. <br />
+e_d = d&ast; - d_Leader <br />
 e_d holds information whether the distance to the leading Duckiebot is too large, too small or just right. From here, we calculate a velocity to adjust this distance to the desired one. <br />
-Δv = K_D/T * e_d <br />
+Δv = K_D/T &ast; e_d <br />
 e_d/T is the velocity required to compensate the missing distance till the (presumed) next measurement. K_D is a design parameter.
 Δv is then added to the estimated velocity of the leader. <br />
 e_v = Δv + v_Leader <br />
 Δv adjusts the distance between the two Duckiebots and by adding it to v_Leader we ensure that the two vehicles drive with roughly the same velocity. The final velocity e_v is then again multiplied with a design parameter K_p. This helps to dampen the the rather noisy pose estimation of the leader. <br />
-v_Duckiebot = K_p*e_v <br />
+v_Duckiebot = K_p&ast;e_v <br />
 The resulting v_Duckiebot is then used as the input for the Duckiebot.
 
 #### Further Details
