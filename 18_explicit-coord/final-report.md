@@ -24,6 +24,7 @@ Duckietowns are complex systems where the traffic situations of a real city shou
 There are two ways of coordinating Duckiebots:
 - Using a traffic light,
 - Using a communication protocol between the vehicles.
+
 Hence, we aim to have both a centralised and a decentralised solution as well as an integration of the two. While the centralised solution boils down to understand the signal emitted by a referee (i.e., a traffic light), the decentralised coordination scheme should allow the Duckiebots to operate on their own, i.e., to communicate between each other and to take decisions without any external help. 
 
 
