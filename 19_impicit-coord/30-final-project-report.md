@@ -10,16 +10,6 @@ General notes:
 
 _Let's start from a teaser._
 
-* Post a video of your best results (e.g., your demo video)
-
-Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
-
-## Mission and Scope {#template-final-scope}
-
-_Now tell your story:_
-
-Define what is your mission here.
-
 <div figure-id="Implicit Coordination Video">
     <figcaption>Implicit Coordination Video</figcaption>
     <dtvideo src="intersection_coordination.mp4"/>
@@ -30,6 +20,13 @@ https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2
     <dtvideo src="Formation_Keeping.mp4"/>
 </div>
 https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2017_projects/19_impicit-coord/Formation_Keeping.mp4
+Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
+
+## Mission and Scope {#template-final-scope}
+
+_Now tell your story:_
+
+Define what is your mission here.
 
 
 ### Motivation {#template-final-result-motivation}
