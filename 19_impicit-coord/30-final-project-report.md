@@ -101,7 +101,7 @@ Make sure you include your:
 
 ### Definition of the Problem Implicit Coordination:
 The final objective for this part was that, when two, three or four Duckiebots arrive at the same time at an intersection, they are able to handle the challange of who is allowed to drive first, autonomously and without any means of explicit communication. They are however allowed to use implicit communication. Which means they are allowed to observe the other Duckiebots and draw conclusions about the intents of the other Duckiebots from these observations. For this, we assumed that:
-Duckiebots do not use explicit communication, e.g. LEDs, WLAN ...
+-Duckiebots do not use explicit communication, e.g. LEDs, WLAN ...
 -Duckiebots have different appearance.
 -All Duckiebots are autonomous, not remote controlled
 -All Duckiebots use the same formation and implicit control algorithm.
