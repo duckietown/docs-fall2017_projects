@@ -107,7 +107,7 @@ The final objective for this part was that, when two, three or four Duckiebots a
 -All Duckiebots use the same formation and implicit control algorithm.
 For evaluating the performance, we decided to test our algorithm at an intersection and judge by how many Duckiebots can be handled and in what time it does so.
 
-####Definition of the Problem Follow the Leader:
+#### Definition of the Problem Follow the Leader:
 The final goal here, was that the Duckiebots can follow another Duckiebot in front of them and adjust their velocity accordingly. Meaning ideally, they slow down if the leading Duckiebot does so and accelerate analogously. The assumptions here were:
 -All Duckiebots use the same algorithm
 -All Duckiebots are equipped with a fiducial tag that allows us to estimate their relative position and pose.
