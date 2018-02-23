@@ -24,6 +24,7 @@ Define what is your mission here.
     <figcaption>Implicit Coordination Video</figcaption>
     <dtvideo src="intersection_coordination.mp4"/>
 </div>
+https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2017_projects/19_impicit-coord/intersection_coordination.mp4
 <div figure-id="Implicit Coordination Video">
     <figcaption>Follow the Leader Video</figcaption>
     <dtvideo src="Formation_Keeping.mp4"/>
