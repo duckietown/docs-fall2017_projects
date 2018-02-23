@@ -81,9 +81,15 @@ For fleet-level behaviour and our MOD service, the solution needed to be scaled 
 Building this infrastructure was a priority to us, since a good software foundation will make future endeavours in the field more productive and will allow to focus on more complex fleet planning concepts. Nevertheless, inspiration for intelligent fleet-level behavior and automatic rebalancing for more efficient request handling were drawn from [1].
 
 
-Critical components such as the request-handling were desired to move away from running on a single duckiebot. The previous solution also had no stack and could thus handle only one request at a time. A new request simply overwrote its predecessor, which led to incomplete jobs. These were unacceptable limitations to a true MOD service and could be overcome through the implementation of a central node dealing with coordination, called the taxi central node. 
+Critical components such as the request-handling were desired to move away from running on a single duckiebot. The previous solution also had no stack and could thus handle only one request at a time. A new request simply overwrote its predecessor, which led to incomplete jobs. These were unacceptable limitations to a true MOD service and could be overcome through the implementation of a central node dealing with coordination, called the taxi central node.
+
+ 
 In coordination with the fleet-communications team, a method of sharing information and sending commands to multiple Duckiebots was introduced. The GUI was also changed so as not to run on the Duckiebot, but rather directly on the customer’s machine to allow multiple customers to utilize the service at the same time.
+
+
 Furthermore, the existing solution had been set up to work with one specific Duckietown layout only. Since a MOD service should be capable of running in every Duckietown, this issue was also addressed. The tile-map and graph are now automatically generated off of a CSV based description, allowing for easy adaptations to an existing Duckietown and the application of our MOD service in new Duckietowns.
+
+
 The GUI was also rewritten to scale well with varying Duckietowns and number of Duckiebots and now allows the MOD customer to issue requests more easily. The GUI workflow was also improved with respect to intuitive usability and faster issuing of customer requests. It also has the capability to show all available Duckiebots and their locations.
 The improved solution is also more flexible with regards to localization. Once this is properly merged with the localization teams’ efforts, the resolution of localization will be dramatically improved.
 
@@ -164,9 +170,6 @@ The (x,y) location information is then mapped to the topological graph represent
 
 Let $x_i \in$ Duckietown map $\subseteq R^2$, the position of red line $i$, and $y \in R^2$, the position of the Duckiebot. $yr$ is the rotation of the Duckiebot, and $xr_i$ the rotation of each red line $i$.  $z_i$ is the node $i$ corresponding to red line $x_i$. $d$ is the length of one tile. 
 Then, the node $z_d$ corresponding to the location of the Duckiebot is:
-\[
-  z_d = argmin {z_i: |xr_i - yr| < $\pi$/4 && ||x_i - y|| < d / 2 } (||x_i - y||)
-\]
 
 
 Once the node has received both location and a mission target, it executes A* path planning and publishes the next intersection instruction, i.e. "left", "right", etc., to be received by the intersection navigation package (implemented by the 2016 team). The path is recomputed at each intersection such that deviations from the original plan do not lead to failure of the entire system; this guarantees a certain robustness to errors of other software components. 
