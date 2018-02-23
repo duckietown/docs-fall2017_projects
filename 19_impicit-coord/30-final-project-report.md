@@ -19,7 +19,7 @@ Add as a caption: see the [operation manual](#demo-template) to reproduce these 
 _Now tell your story:_
 
 Define what is your mission here.
-
+![](Formation_Keeping.mp4)
 <div figure-id="Implicit Coordination Video">
     <figcaption>Implicit Coordination Video</figcaption>
     <dtvideo src="intersection_coordination.mp4"/>
