@@ -4,9 +4,7 @@
 
 _Let's start from a teaser._
 
-* Post a video of your best results (e.g., your demo video)
-
-Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
+[Video](https://drive.google.com/open?id=1WhH7ud3jSfOi5Dj1uhcHmLy2RIP6mQWb)  on Google Drive.
 
 ## Mission and Scope
 
