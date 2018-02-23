@@ -1,4 +1,5 @@
-<div class='final-report' markdown="1">
+
+
 # Fleet Planning: final report
 
 
@@ -10,7 +11,7 @@
 
 
 
-See the operation manual to reproduce these results.
+See the [operation manual](https://github.com/duckietown/duckuments/blob/9e0df2f522f4e6d7f96d45cd22b9d66d87e554bc/docs/atoms_20_setup_and_demo/30_demos/26_fleet_level_planning.md) to reproduce these results.
 
 
 
@@ -164,12 +165,7 @@ This nodes listens to location updates from the april tags localization package 
 
 
 
-The (x,y) location information is then mapped to the topological graph representation. Using the rotation of the Duckiebot and by finding the red line with the minimum distance to the Duckiebot, the location of the Duckiebot is set to the node that best explains this configuration. Thus, stated in more rigorous mathematical manner:
-
-
-
-Let $x_i \in$ Duckietown map $\subseteq R^2$, the position of red line $i$, and $y \in R^2$, the position of the Duckiebot. $yr$ is the rotation of the Duckiebot, and $xr_i$ the rotation of each red line $i$.  $z_i$ is the node $i$ corresponding to red line $x_i$. $d$ is the length of one tile. 
-Then, the node $z_d$ corresponding to the location of the Duckiebot is:
+The (x,y) location information is then mapped to the topological graph representation. Using the rotation of the Duckiebot and by finding the red line with the minimum distance to the Duckiebot, the location of the Duckiebot is set to the node that best explains this configuration. 
 
 
 Once the node has received both location and a mission target, it executes A* path planning and publishes the next intersection instruction, i.e. "left", "right", etc., to be received by the intersection navigation package (implemented by the 2016 team). The path is recomputed at each intersection such that deviations from the original plan do not lead to failure of the entire system; this guarantees a certain robustness to errors of other software components. 
@@ -493,4 +489,3 @@ The Duckiebot classes are extensively documented and designed in a way that allo
 
 [6] Pavone, M., S. L. Smith, E. Frazzoli, and D. Rus, “Robotic load balancing for mobility-on-demand systems.” The International Journal of Robotics Research 31, no. 7
 
-</div>
