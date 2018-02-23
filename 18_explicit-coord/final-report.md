@@ -30,12 +30,12 @@ Hence, we aim to have both a centralised and a decentralised solution as well as
 
 ### Existing solution {#explicit-coord-final-literature}
 
-A prior implementation for intersection coordination was already available from the 2016's MIT class. The principle was simple: when the Duckiebot comes at an intersection, it stops at the red line and is able to detect with the april tags if there is or not a traffic light. In the case with a traffic light, the Duckiebot detects the frequency at which the traffic light is blinking and acts based on the road rules. Otherwise, the Duckiebot detects the frequency at which the other bots are blinking and adjusts its emitted frequency depending on its state.
+A prior implementation for intersection coordination was already available from the 2016's MIT class. The principle was simple: When a Duckiebot comes at an intersection and  stops at the red line. Then, In the case with a traffic light, the Duckiebot detects the frequency at which the traffic light is blinking and acts based on the road rules. In the case without traffic light, the Duckiebot detects the frequency at which the other bots are blinking and adjusts its emitted frequency depending on its state. From an implementation perspective, the distinction was made a priori, i.e., the Duckiebots were not making use of the information coming from the Apriltags detection and therefore not were able to navigate systems with both types of intersection.
 
-Two modules can be distinguished:
+From the description above, we can distinguish two modules:
 
-- LED emission and detection
-- Coordination based on the detected signals
+- LED emission and detection,
+- Coordination based on the detected signals.
 
 
 For the emission, three signals can be produced: each signal is encoded with a specific color and frequency. While Duckiebots are designed to recognise only frequencies, color are used to allow humans to easily understand the signals emitted by the Duckiebots. The signals represent the states: negotiation (and in which phase of the negotiation it is) or navigation of the intersection.
@@ -50,7 +50,7 @@ For the coordination, with the assumption that each vehicle can only see other v
 
 The existing solution had essentially two drawbacks:
 
-- The overall success rate was about 50%: the algorithm for LED-detection, and/or coordination failed, leading to a potential crash of the Duckiebots.
+- The overall success rate was about 50%: The algorithm for LED-detection, and/or coordination failed, leading to a potential crash of the Duckiebots.
 - In case of success, the LED-detection and/or coordination algorithms required an average of four minutes to clear an intersection with four Duckiebots. This results in an extremely slow process, which would block a city with dozens of Duckiebots.
 
 Although the solution was problematic, it still gave us some important intuitions on how to solve the problem.
