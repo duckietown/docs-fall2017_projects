@@ -63,14 +63,6 @@ In the second place, we re-designed the LED-detection/-interpreter to be more ef
 Lastly, we wanted to have a demo that could deal with both intersections, i.e. with and without a traffic light, as opposed to the two available demos from MIT 2016's class.
 
 
-### Preliminaries (optional) {#template-final-preliminaries}
-
-- Is there some particular theorem / "mathy" thing you require your readers to know before delving in the actual problem? Add links here.
-
-Definition of link:
-- could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
-- (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)
-
 ## Definition of the problem {#explicit-coord-final-problem-def}
 
 ### Final objective
@@ -123,8 +115,6 @@ The clearing time should not exceed one minute and the success rate should be hi
 
 ## Contribution / Added functionality {#explicit-coord-final-contribution}
 
-
-_2 subsections 1) detector (Nicolas) 2)coordination (Gioele) 3)demo, 1 sola per il db + modifiche a quella del TL_
 
 ### LEDs Detection
 
