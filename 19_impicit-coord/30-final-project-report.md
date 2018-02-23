@@ -1,12 +1,9 @@
 #  Implicit Coordination: final report {#implicit-coord-final-report status=draft}
 
-<!--
-General notes:
-- REMEMBER to change the "template" in the chapter labels to your group label!
--->
 
 
-## The final result {#template-final-result}
+
+## The final result {#implicit-coord-final-result}
 
 _Let's start from a teaser._
 
@@ -22,20 +19,11 @@ https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2
 https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2017_projects/19_impicit-coord/Formation_Keeping.mp4
 Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
 
-## Mission and Scope {#template-final-scope}
-
-_Now tell your story:_
-
-Define what is your mission here.
 
 
-### Motivation {#template-final-result-motivation}
 
-_Now step back and tell us how you got to that mission._
+## Motivation, Mission and Scope {#implicit-coord-final-result-motivation}{#implicit-coord-final-scope}
 
-- What are we talking about? [Brief introduction / problem in general terms]
-
-- Why is it important? [Relevance]
 
 
 
@@ -52,23 +40,11 @@ A fluid and smooth road traffic is beneficial in many ways: It saves time and le
 
 
 
-### Existing solution {#template-final-literature}
 
-- Was there a baseline implementation in Duckietown which you improved upon, or did you implemented from scratch? Describe the "prior work"
 
-### Opportunity {#template-final-opportunity}
+## Opportunity and Existing solution{#implicit-coord-final-opportunity}{#implicit-coord-final-literature}
 
-- What didn't work out with the existing solution? Why did it need improvement?
 
-Examples:
-- there wasn't a previous implementation
-- the previous performance, evaluated according to some specific metrics, was not satisfactory
-- it was not robust / reliable
-- somebody told me to do so (/s)
-
-* How did you go about improving the existing solution / approaching the problem? [contribution]
-- We used method / algorithm xyz to fix the gap in knowledge (don't go in the details here)
-- Make sure to reference papers you used / took inspiration from
 
 
 
@@ -80,24 +56,9 @@ The idea to use fiducial tags for the follow the leader problem on the other han
 
 
 
-### Preliminaries (optional) {#template-final-preliminaries}
-
-- Is there some particular theorem / "mathy" thing you require your readers to know before delving in the actual problem? Add links here.
-
-Definition of link:
-- could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
-- (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)
-
-## Definition of the problem {#template-final-problem-def}
-
-_Up to now it was all fun and giggles. This is the most important part of your report: a crisp mathematical definition of the problem you tackled. You can use part of the preliminary design document to fill this section._
-
-Make sure you include your:
-- final objective / goal
-- assumptions made (including contracts with "neighbors")
-- quantitative performance metrics to judge the achievement of the goal
 
 
+## Definition of the problem {#implicit-coord-final-problem-def}
 
 
 
@@ -127,17 +88,8 @@ The success can be easily evaluated by how many Duckiebots can follow their resp
 
 
 
-## Contribution / Added functionality {#template-final-contribution}
+## Contribution / Added functionality {#implicit-coord-final-contribution}
 
-Describe here, in technical detail, what you have done. Make sure you include:
-- a theoretical description of the algorithm(s) you implemented
-- logical architecture (refer to [IDD template](#template-int-report) for description)
-- software architecture (refer to [IDD template](#template-int-report) for description)
-- details on the actual implementation where relevant (how does the implementation differ from the theory?)
-- any infrastructure you had to develop in order to implement your algorithm
-- If you have collected a number of logs, add link to where you stored them
-
-_Feel free to create subsections when useful to ease the flow_
 ### Contribution Implicit Coordination:
 Our implicit coordination algorithm is inspired by the  Carrier Sense Multiple Access/Collision Detection (CSMA/CD) algorithm which handles the access of different parties on a shared resource. In our case the Duckiebots represent the parties and the shared resource correlates with the intersection. This CSMA/CD not just guarantees us, that all Duckiebots are crossing the intersection safely, but is also enables us to give insightful estimates of the maximum throughput and the average waiting time at the intersection, given by the rich theory behind CSMA/CD. Our implementation of CSMA/CD for intersection coordination works the following:
 1. Drive towards the intersection and stop at the stopline
@@ -205,7 +157,7 @@ Finally, if the distance d_Leader falls under a certain threshold, an emergency 
 
 
 
-## Results and Performance Evaluation
+## Results and Performance Evaluation {#implicit-coord-final-formal}
 ### Results and Performance Evaluation Implicit Coordination
 Omitting possible errors which might occur in case of the implicit coordination at intersections, one should take the following precautions. <br />
 You need the correct april tags at the intersection, otherwise the Duckiebot won't know what kind of situation (intersection) it is dealing with. When the stopline isn't detected the algorithm doesn't start, so all Duckiebots should stop at the stopline. Furthermore you can get problems with twisted coordination systems for the detected position of other Duckiebots if your extrinsic camera calibration is wrong on the laptop (assuming your running the detection node on your laptop).Sometimes a robot is detected if there isn't actually one, which could slow down the traffic at the intersection. We agreed on this with our Canadian friends who did the detection, since we would otherwise risk to overlook a real Duckiebot which would be fatal. In rare cases the detection does not detect a robot. In order to assure the detection works as good as possible I would suggest relaunching the multivehicle detection node regularly, since it seems to start lagging the longer it is running. If you would like to keep track of the detection you can run rostopic echo /robotname/multivehicle_tracker_node/tracking. <br />
@@ -215,10 +167,11 @@ The algorithm is designed for up 4 robots at the stoplines, but since we depend 
 We tested our follow the leader with up to four Duckiebots in duckietown and there doesn’t seem to be an upper limit on the number of Duckiebots following each other. Regarding the equal distance we are somewhat restricted by the computational power of the Duckiebots and hence the time needed for the detection of the antecedent Duckiebot. The detection time can vary from image frame to image frame however, 0.4 seconds used to be an appropriate upper bound. We found that this delay lead to deviations of maximally 20% from our optimal reference distance. In order to function properly the gain of the wheel calibration should be set to 0.6 as proposed by the Controllers to assure a smooth interplay between our controller and the lane following algorithm. Note that very high gains can dramatically worsen the deviations from the reference distance. Additionally, as always, a correct camera and wheel calibration are crucial for a fluid traffic.
 
 
-## Future Avenues
+## Future Avenues {#implicit-coord-final-next-steps}
 
 ### Future avenues Implicit Coordination
 Here, the detection algorithm could be improved. As described above, it starts to lag after a certain time and needs to be restarted time and again. Otherwise the algorithm is not very robust. Additionally, the tradeoff between false positives and false negatives could be tuned. Right now, the Duckiebots are far more likely to detect vehicles that are not there then to not detect vehicles that are there. While this makes sense in order to avoid collisions, it can also lead to a Duckiebot waiting for a long time at a free intersection. Also, the detection requires a lot of computational power from the Duckiebots that is currently not available other than on a laptop. This leads to the aforementioned lagging. Maybe, there is a different solution?
 
 ### Future Avenues Follow the Leader
 An improvement for the Follow the Leader algorithm could be to git rid of the fiducial tags and try to follow each other solely depending on detecting the other Duckiebots. This could be done with the detection node we used for the imlicit coordination, however the detection is a lot less robust.
+
