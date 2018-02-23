@@ -138,7 +138,7 @@ To increase the robustness of the detection, a sequence of $N$ images in analyze
 - Initialization: Initialize the set of blobs $B$ with the empty set.
 - Recursion: For image $i$ and blob $j$:
    + If $\Vert x_{ij} – x_b\Vert > \mathrm{TOL}$ for all $b\in B$ the blob is added to $B$ with $x=x_{ij}$ and $y=e_i$, where $e_i$ is a vector of dimension $N$ whose $i$ entry is 1 and all other entries are 0. 
-   + If $\Vert x_{ij} – x_b\Vert \leq \mathrm{TOL}$ for some b. Then, we “merge” blob $j$ with the blob it was closest to, i.e., we set $y_i$ = 1 for $\bar b$, where $\bar b=\arg\min_{b\in B}\Vert x_{ij}-x_b\Vert.
+   + If $\Vert x_{ij} – x_b\Vert \leq \mathrm{TOL}$ for some $b\in B$. Then, we “merge” blob $j$ with the blob it was closest to, i.e., we set $y_i$ = 1 for $\bar b$, where $\bar b=\arg\min_{b\in B}\Vert x_{ij}-x_b\Vert$.
    
 After this procedure, the user has full information about the blobs in the image. Then, one may identify the presence of another Duckiebot as follows:
 - Analyzing the frequency spectrum of the signal y of each blob. If the known emission frequency and the detected frequency using the Fast Fourier Transform match, then we can conclude that a car has been detected.
