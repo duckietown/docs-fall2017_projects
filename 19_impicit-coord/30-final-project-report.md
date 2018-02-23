@@ -5,7 +5,6 @@
 
 ## The final result {#implicit-coord-final-result}
 
-_Let's start from a teaser._
 
 <div figure-id="Implicit Coordination Video">
     <figcaption>Implicit Coordination Video</figcaption>
@@ -17,7 +16,8 @@ https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2
     <dtvideo src="Formation_Keeping.mp4"/>
 </div>
 https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2017_projects/19_impicit-coord/Formation_Keeping.mp4
-Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
+
+Demo Instructions: https://github.com/duckietown/duckuments/blob/devel-implicit-coord-jan15/docs/atoms_20_setup_and_demo/30_demos/35_implicit_coordination.md
 
 
 
