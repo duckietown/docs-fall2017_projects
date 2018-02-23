@@ -40,19 +40,19 @@ We need to park N Duckiebots in a designated area in which they are able enter a
 * The robot must move in a car like behaviour, e.g. no side slip and no turning without forward movement is allowed, this is encoded in the equations of motion: 
 
 
-`x_dot(t) = v * cos(theta(t))`
+x'(t) = v * cos(theta(t))
 
-`y_dot(t) = v * sin(theta(t))`
+y'(t) = v * sin(theta(t))
 
-`theta_dot(t) = v / r_turn(t)`
+theta'(t) = v / r<sub>turn</sub>(t)
 
-This results in a discrete time system (time discretisation `Ts`)
+This results in a discrete time system (time discretisation T<sub>s</sub>)
 
-`x[k+1] = x[k] + Ts * v * cos(theta[k])`
+x[k+1] = x[k] + T<sub>s</sub> * v * cos(theta[k])
 
-`y[k+1] = y[k] + Ts * v * sin(theta[k])`
+y[k+1] = y[k] + T<sub>s</sub> * v * sin(theta[k])
 
-`theta[k+1] = theta[k] + Ts * v / r_turn[k]`
+theta[k+1] = theta[k] + T<sub>s</sub> * v / r<sub>turn</sub>[k]
 
 
 ### Performance measurement
