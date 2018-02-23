@@ -24,9 +24,9 @@ The Duckiebot is in a differential-drive configuration. It actuates each wheel w
   <img src="model.PNG" style='width: 30em; height:auto'/>
 </div>
 
-A mathematical model for a differential drive robot is derived in chapter [#duckiebot-modeling](#duckiebot-modeling). This model can be used to provide a simple method of maintaining an individual’s position or velocity estimate in the absence of computationally expensive position updates from external sources such as the mounted camera.
+A mathematical model for a differential drive robot will be derived. This model can be used to provide a simple method of maintaining an individual’s position or velocity estimate in the absence of computationally expensive position updates from external sources such as the mounted camera.
 
-The derived non-linear model describes the expected output of the pose (e.g. position, velocity) w.r.t. a fixed inertial frame for a certain voltage input. The model makes several assumptions, such as rigid body motion, symmetry, pure rolling and no lateral slipping. Most important of all, the model assumes the knowledge of certain constants that characterize the DC motors as well as the robot’s geometry.
+The derived model describes the expected output of the pose (e.g. position, velocity) w.r.t. a fixed inertial frame for a certain voltage input. The model makes several assumptions, such as rigid body motion, symmetry, pure rolling and no lateral slipping. Most important of all, the model assumes the knowledge of certain constants that characterize the DC motors as well as the robot’s geometry.
 
 However, there will never be two duckiebots that show exactly the same behavior. This can be very problematic. 
 You might have noticed that your vehicle doesn’t really go in a straight line when you command it to. 
@@ -424,14 +424,11 @@ The yaw $\theta$ can then be extracted from $R^{I}_{veh}$ with the implemented r
 The resulting translation can be extracted from $t_{I Veh}$
 
 
-
-### Extract Duckiebot pose w.r.t chessboard from successive image recorded in rosbag
-
-
-
-
 ### Fit
 
+Finally the kinematic calibration parameters are found by an optimization. With the recorded commands and the kinematic model of the duckiebot velocities are predicted. A simple forward Euler integration gives us the position x, y and heading. This is compared to the measured positions and headings during all the times the checkerboard was detected. A nonlinear optimizer is used with a least squares objective on the error between the prediction and the measurement. The results are the kinematic calibration parameters gain, baseline and trim which best explain the driven trajectories during the calibration runs.
+
+In order to keep track of missing measurements, the optimization is resampled to a constant sampling time which is equivalent to the frame rate. Keeping track of the timestamps of the control input and the recorded images allows us to "bridge the gap" if in some or even many pictures the checkerboard was not detected. The position prediction is done at every timestep but it is only compared to the measurement at the timesteps where measurements actually exist.
 
 
 
@@ -459,9 +456,21 @@ The two first tests have been made thanks to the following command line : 
 
     duckiebot $ roslaunch calibration test.launch
 
-During this validation test, the Duckiebot should first drive straight for 1m (in 5s) then turn a full circle to the left (in 8s) and then a full circle to the right (in 8s)
+During this validation test, the Duckiebot should first drive straight for 1m (in 5s) then turn a full circle to the left (in 8s) and then a full circle to the right (in 8s). Both circles have a diameter of 50 cm. 
 
-known issue: the baseline is rather overestimated at the moment, thus the duckiebot will probably turn more than a circle
+
+In general, the Duckiebot is able to go straight relatively precisely : on average the Duckiebot stops its 1 meter run with a precision of more or less 6 cm and drifts for approximately 4 cm. 
+
+For the circles, the results are less precise : when the Duckiebot closes the circle, it has an deviation of around 10 cm. This could be due to the limited length and amplitude of the sine steer manouver, which often results in the prediction fitting it better if it assumes less yaw movement, leading to a larger predicted baseline.
+
+This large error also suggest that our kinematic model is not sufficient enough to capture precisely the movement of the Duckiebot. One should build a model that perhaps takes into account some dynamic or develop a more complex model of the wheels. In this project, we have made the assumption that they don’t slip which appear to be not the case especially when the Duckiebot turns. 
+
+An other source of error could come from our measurements : when the Duckiebot runs the sinusoidal maneuvers, its position gets more noisy and hence the position estimation becomes less precise. Other methods of localization should be tried. 
+
+During the calibration, if it is clearly visible in the plots that the predicted movement does not match the measurments or if the duckiebot almost doesn't turn during the sine steer experiment, the amplitude of the sine command can be changed in the launch file for the calibration runs. Otherwise, the baseline can be adjusted manually in order to achieve approximately a full circle during the test.
+
+Nevertheless, the drift when the Duckiebot goes straight is tolerable, and for this movement our model and the measurements taken are sufficient. 
+
 
 
 ** Overall User friendliness ** : 
@@ -477,12 +486,14 @@ Thanks to the odometry calibration, the user has only to place its Duckiebot in 
 
 ## Future avenues of development {#sysid-final-next-steps}
 
-* Simultaneous odometry and camera calibration
-
-* Position estimation based on april tags
+* Dynamic model of the Duckiebot
+    * Since the kinematic model seem to be insufficient for the rotation, a dynamic model should be developed. 
 
 * Caster wheel identification
-    * Initial aim was to include the kinematics of the caster wheel, however due to time constraint, we sticked to the roller wheel
-    
-* Dynamic model of the Duckiebot
+    * The initial aim was to include the kinematics of the caster wheel, however due to time constraint, we sticked to the roller wheel.
 
+* Position estimation based on april tags
+    * Because of noisy position measurements with the chessboard, some other methods could be used, as the april tags. It could even be possible to put several april tags on a track, so that we do not have to replace the Duckietown at the beginning of the track after each movement. 
+
+* Simultaneous odometry and camera calibration
+    * To take even more the human out of the loop, a automatic camera and odometery calibration could be implemented
