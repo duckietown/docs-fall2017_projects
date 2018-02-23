@@ -100,17 +100,17 @@ Make sure you include your:
 
 
 ### Definition of the Problem Implicit Coordination:
-The final objective for this part was that, when two, three or four Duckiebots arrive at the same time at an intersection, they are able to handle the challange of who is allowed to drive first, autonomously and without any means of explicit communication. They are however allowed to use implicit communication. Which means they are allowed to observe the other Duckiebots and draw conclusions about the intents of the other Duckiebots from these observations. For this, we assumed that:
--Duckiebots do not use explicit communication, e.g. LEDs, WLAN etc.
--Duckiebots have different appearance.
--All Duckiebots are autonomous, not remote controlled
--All Duckiebots use the same formation and implicit control algorithm.
+The final objective for this part was that, when two, three or four Duckiebots arrive at the same time at an intersection, they are able to handle the challange of who is allowed to drive first, autonomously and without any means of explicit communication. They are however allowed to use implicit communication. Which means they are allowed to observe the other Duckiebots and draw conclusions about the intents of the other Duckiebots from these observations. For this, we assumed that: 
+- Duckiebots do not use explicit communication, e.g. LEDs, WLAN etc.
+- Duckiebots have different appearance.
+- All Duckiebots are autonomous, not remote controlled
+- All Duckiebots use the same formation and implicit control algorithm.
 For evaluating the performance, we decided to test our algorithm at an intersection and judge by how many Duckiebots can be handled and in what time it does so.
 
 ### Definition of the Problem Follow the Leader:
 The final goal here, was that the Duckiebots can follow another Duckiebot in front of them and adjust their velocity accordingly. Meaning ideally, they slow down if the leading Duckiebot does so and accelerate analogously. The assumptions here were:
--All Duckiebots use the same algorithm
--All Duckiebots are equipped with a fiducial tag that allows us to estimate their relative position and pose.
+- All Duckiebots use the same algorithm
+- All Duckiebots are equipped with a fiducial tag that allows us to estimate their relative position and pose.
 The success can be easily evaluated by how many Duckiebots can follow their respective leader at the same time. Furthermore keeping an equal distance between the Duckiebots performance criterion.
 
 
