@@ -1,9 +1,9 @@
-#  Implicit Coordination: final report {#implicit-coord-final-report status=draft}
+#  Implicit Coordination: final report
 
 
 
 
-## The final result {#implicit-coord-final-result}
+## The final result
 
 
 <div figure-id="Implicit Coordination Video">
@@ -22,7 +22,7 @@ Demo Instructions: https://github.com/duckietown/duckuments/blob/devel-implicit-
 
 
 
-## Motivation, Mission and Scope {#implicit-coord-final-result-motivation}{#implicit-coord-final-scope}
+## Motivation, Mission and Scope
 
 
 
@@ -42,7 +42,7 @@ A fluid and smooth road traffic is beneficial in many ways: It saves time and le
 
 
 
-## Opportunity and Existing solution{#implicit-coord-final-opportunity}{#implicit-coord-final-literature}
+## Opportunity and Existing solution
 
 
 
@@ -58,7 +58,7 @@ The idea to use fiducial tags for the follow the leader problem on the other han
 
 
 
-## Definition of the problem {#implicit-coord-final-problem-def}
+## Definition of the problem
 
 
 
@@ -88,7 +88,7 @@ The success can be easily evaluated by how many Duckiebots can follow their resp
 
 
 
-## Contribution / Added functionality {#implicit-coord-final-contribution}
+## Contribution / Added functionality
 
 ### Contribution Implicit Coordination:
 Our implicit coordination algorithm is inspired by the  Carrier Sense Multiple Access/Collision Detection (CSMA/CD) algorithm which handles the access of different parties on a shared resource. In our case the Duckiebots represent the parties and the shared resource correlates with the intersection. This CSMA/CD not just guarantees us, that all Duckiebots are crossing the intersection safely, but is also enables us to give insightful estimates of the maximum throughput and the average waiting time at the intersection, given by the rich theory behind CSMA/CD. Our implementation of CSMA/CD for intersection coordination works the following:
@@ -157,7 +157,7 @@ Finally, if the distance d_Leader falls under a certain threshold, an emergency 
 
 
 
-## Results and Performance Evaluation {#implicit-coord-final-formal}
+## Results and Performance Evaluation
 ### Results and Performance Evaluation Implicit Coordination
 Omitting possible errors which might occur in case of the implicit coordination at intersections, one should take the following precautions. <br />
 You need the correct april tags at the intersection, otherwise the Duckiebot won't know what kind of situation (intersection) it is dealing with. When the stopline isn't detected the algorithm doesn't start, so all Duckiebots should stop at the stopline. Furthermore you can get problems with twisted coordination systems for the detected position of other Duckiebots if your extrinsic camera calibration is wrong on the laptop (assuming your running the detection node on your laptop).Sometimes a robot is detected if there isn't actually one, which could slow down the traffic at the intersection. We agreed on this with our Canadian friends who did the detection, since we would otherwise risk to overlook a real Duckiebot which would be fatal. In rare cases the detection does not detect a robot. In order to assure the detection works as good as possible I would suggest relaunching the multivehicle detection node regularly, since it seems to start lagging the longer it is running. If you would like to keep track of the detection you can run rostopic echo /robotname/multivehicle_tracker_node/tracking. <br />
@@ -167,7 +167,7 @@ The algorithm is designed for up 4 robots at the stoplines, but since we depend 
 We tested our follow the leader with up to four Duckiebots in duckietown and there doesn’t seem to be an upper limit on the number of Duckiebots following each other. Regarding the equal distance we are somewhat restricted by the computational power of the Duckiebots and hence the time needed for the detection of the antecedent Duckiebot. The detection time can vary from image frame to image frame however, 0.4 seconds used to be an appropriate upper bound. We found that this delay lead to deviations of maximally 20% from our optimal reference distance. In order to function properly the gain of the wheel calibration should be set to 0.6 as proposed by the Controllers to assure a smooth interplay between our controller and the lane following algorithm. Note that very high gains can dramatically worsen the deviations from the reference distance. Additionally, as always, a correct camera and wheel calibration are crucial for a fluid traffic.
 
 
-## Future Avenues {#implicit-coord-final-next-steps}
+## Future Avenues
 
 ### Future avenues Implicit Coordination
 Here, the detection algorithm could be improved. As described above, it starts to lag after a certain time and needs to be restarted time and again. Otherwise the algorithm is not very robust. Additionally, the tradeoff between false positives and false negatives could be tuned. Right now, the Duckiebots are far more likely to detect vehicles that are not there then to not detect vehicles that are there. While this makes sense in order to avoid collisions, it can also lead to a Duckiebot waiting for a long time at a free intersection. Also, the detection requires a lot of computational power from the Duckiebots that is currently not available other than on a laptop. This leads to the aforementioned lagging. Maybe, there is a different solution?
