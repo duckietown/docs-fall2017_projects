@@ -1,4 +1,4 @@
-#  Group name: final report {#controllers-final-report status=draft}
+#  The Controllers: final report {#controllers-final-report status=ready}
 
 <!--
 General notes:
