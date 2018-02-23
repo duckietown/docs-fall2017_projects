@@ -265,7 +265,7 @@ Target values:
 	* from Duckietown_msgs.msg, type: LanePose
 
 
-## Part 5: Formal performance evaluation / Results (TODO: complete)
+## Part 5: Formal performance evaluation / Results
 
 ### Localization and State Propagation
 The localization of the Duckiebot depends on the distance of the camera to the apriltag, as well as the angle between the camera and the AprilTag.
