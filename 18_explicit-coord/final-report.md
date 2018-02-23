@@ -7,9 +7,9 @@ General notes:
 
 ## The final result {#explicit-coord-final-result}
 
-* Post a video of your best results (e.g., your demo video)
+Video of the final result: 
 
-Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
+<iframe width="420" height="315" src="https://www.youtube.com/embed/yB-xzuoe2Cw" frameborder="0" allowfullscreen></iframe> 
 
 ## Mission and Scope {#explicit-coord-final-scope}
 
