@@ -97,7 +97,7 @@ We have to find a path in a predefined parking lot with given objects like other
 
 We implemented a two stage algorithm. The first stage is using Dubins curves where the second stage uses rapidly exploring random trees. 
 
-##### Stage 1: Dubins path
+##### Stage 1: Dubins path
 Given the assumption mentioned above (forward driving for a car like robot with given minimum curvature radius) the optimal path in an unlimited and obstacle free space on a Dubins path. This path is a combination of driving on a circle with minimum curvature radius and straight lines. This means that the Dubins path from start pose to end pose is calculated in the first stage. A collision checker is applied to the found path afterwards. If the path is completely within the parking space and does not enter the non-driveable region then we are done and we found the optimal path. If not, we switch to stage 2. 
 
 ##### Stage 2: RRT*
