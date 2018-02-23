@@ -274,7 +274,7 @@ The following topics are published:
   <span>Two Duckiebots at the intersection</span>
   <span>Clearing time</span>
   <span>60s</span>
-  <span></span>
+  <span>25s</span>
 
   <span>Two Duckiebots at the intersection</span>
   <span>Success rate</span>
