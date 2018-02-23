@@ -136,11 +136,11 @@ LEDs are modeled as blobs in an image: A Blob is a group of connected pixels in 
 
 To increase the robustness of the detection, a sequence of $N$ images in analyzed. Each blob $b$ is characterized with a position vector $x_b\in\mathbb{R}^2$ and a signal $y_b\in\{0,1\}^N$ of dimension, indicating whether the blob was detected in the image (1) or not (0). The blobs found are collected in a set called $B$. The algorithm works as follows:
 - Initialization: Initialize the set of blobs $B$ with the empty set.
-- Recursion: For image $i$ and blob $j$:
+- Recursion: For image $i$ and blob $j$ (with position $x_{ij}$):
    + If $\Vert x_{ij} – x_b\Vert > \mathrm{TOL}$ for all $b\in B$ the blob is added to $B$ with $x=x_{ij}$ and $y=e_i$, where $e_i$ is a vector of dimension $N$ whose $i$ entry is 1 and all other entries are 0. 
-   + If $\Vert x_{ij} – x_b\Vert \leq \mathrm{TOL}$ for some $b\in B$. Then, we “merge” blob $j$ with the blob it was closest to, i.e., we set $y_i$ = 1 for $\bar b$, where $\bar b=\arg\min_{b\in B}\Vert x_{ij}-x_b\Vert$.
+   + If $\Vert x_{ij} – x_b\Vert \leq \mathrm{TOL}$ for some $b\in B$. Then, we “merge” blob $j$ with the blob it was closest to, i.e., we set the $i$-th entry of $y_{\bar b}$ to 1, where $\bar b=\arg\min_{b\in B}\Vert x_{ij}-x_b\Vert$. That is, we store the information that the blob has been observed in the $i$-th image.
    
-After this procedure, the user has full information about the blobs in the image. Then, one may identify the presence of another Duckiebot as follows:
+After this procedure, the user has full information about the blobs in the images. Then, one may identify the presence of another Duckiebot as follows:
 - Analyzing the frequency spectrum of the signal y of each blob. If the known emission frequency and the detected frequency using the Fast Fourier Transform match, then we can conclude that a car has been detected.
 - Using some heuristics. For instance, for each blob one may compute
 \[
