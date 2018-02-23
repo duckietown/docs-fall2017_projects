@@ -77,10 +77,9 @@ The localization is based on the relative transformation of the Duckiebot to the
 
 A rectified images is needed to detect the AprilTags within the image. The used wide angle camera on the Duckiebot provides a distorted barrel image. In a barrel distorted image each pixel is position closer to the optical center as it would be in a rectified image. The distortion is non linear and can be modelled by a polynomial function depending on the pixel distance to the optical center:
 
-TODO Brett: `r^2, ... r^n`
-
-`f(r) = 1 + k_1*r + k_2*r + ... + k_n*r`
-`r² = (u-u_0)² + (v-v_0)²`
+r<sup>2</sup>, ... , r<sup>n</sup>
+f(r) = 1 + k<sub>1</sub>r + k<sub>2</sub>r + ... + k<sub>n</sub>r
+r<sup>2</sup>= (u - u<sub>0</sub>)<sup>2</sup> + (v - v<sub>0</sub>)<sup>2</sup>
 
 The intrinsic camera calibration estimates the distortion parameters k_1 to k_4.
 The rectified image can be computed by positioning each pixel of the distorted image at its actual position using the estimated parameters and the distortion model.
@@ -89,16 +88,16 @@ The rectified image is first converted to a gray scale image and afterwards thre
 
 The relative position of the camera to the each tag can be calculated, after one or multiple AprilTags are detected. The four pixels corresponding to the corners of each AprilTag in the image, as well as the position of the corners in the body frame of each AprilTag are known. Using this information and the intrinsic camera matrix the relative position of the camera and the AprilTag can be computed by using the PnP algorithm.
 
-Once the relative position of the camera to each apriltag is computed, the absolute position of the Duckiebot in the world frame can be calculated. First the position of the Duckiebot in the world frame can be calculated for each single apriltag by combining transformation of the apriltag in the world frame, the relative transformation of the camera and the apriltag and the relative transformation of the Duckiebot and the camera. Next a more reliable state estimate can be computed by taking the average all estimated Duckiebot transformations.
+Once the relative position of the camera to each AprilTag is computed, the absolute position of the Duckiebot in the world frame can be calculated. First the position of the Duckiebot in the world frame can be calculated for each single AprilTag by combining transformation of the AprilTag in the world frame, the relative transformation of the camera and the AprilTag and the relative transformation of the Duckiebot and the camera. Next a more reliable state estimate can be computed by taking the average all estimated Duckiebot transformations.
 
 #### Path Planning (TODO Brett/Nils review, grammar)
 
-We have to find a path in a pre defined parking lot with given objects like other Duckiebots, walls or duckies. The area around those non-driveable objects define the obstacles. To be exact, every object is blown up by the distance of the center point of the robot to the most-distant point. This results in a problem of finding a path from start pose (x, y, theta) to end pose within a map where the information where the robot is allowed to drive is encoded. 
+We have to find a path in a predefined parking lot with given objects like other Duckiebots, walls or duckies. The area around those non-driveable objects define the obstacles. To be exact, every object is blown up by the distance of the center point of the robot to the most-distant point. This results in a problem of finding a path from start pose (x, y, theta) to end pose within a map where the information about where the robot is allowed to drive is encoded. 
 
 We implemented a two stage algorithm. The first stage is using Dubins curves where the second stage uses rapidly exploring random trees. 
 
 ##### Stage 1: Dubins path
-Given the assumption mentioned above (forward driving for a car like robot with given minimum curvature radius) the optimal path in an unlimited and obstacle free space is on a Dubins path. This path is a combination of driving on a circle with minimum curvature radius and straight lines. This means that the Dubins path from start pose to end pose is calculated in the first stage. A collision checker is applied to the found path afterwards. If the path is completely within the parking space and does not enter the non-driveable region then we are done and we found the optimal path. If not, we switch to stage 2. 
+Given the assumption mentioned above (forward driving for a car like robot with given minimum curvature radius) the optimal path in an unlimited and obstacle free space on a Dubins path. This path is a combination of driving on a circle with minimum curvature radius and straight lines. This means that the Dubins path from start pose to end pose is calculated in the first stage. A collision checker is applied to the found path afterwards. If the path is completely within the parking space and does not enter the non-driveable region then we are done and we found the optimal path. If not, we switch to stage 2. 
 
 ##### Stage 2: RRT*
 An alternative way to find a path is the piecewise addition of small path segments with collision check on the fly. A point is randomly sampled within the parking space. The nearest point to the sampled needs to be found. The sampled point is connected to the nearest point using a Dubins curve if and only if the path candidate is collision free. A graph optimization is performed in a local area around the sampled point in the end. This procedure is repeated until a pre-defined number of nodes are sampled. This method is called rapidly exploring random trees with path optimization (RRT*). This method converges to the optimal path with unlimited number of nodes. In practice, we stop earlier and have an approximation to the optimal path. 
