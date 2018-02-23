@@ -24,6 +24,10 @@ Define what is your mission here.
     <figcaption>Implicit Coordination Video</figcaption>
     <dtvideo src="intersection_coordination.mp4"/>
 </div>
+<div figure-id="Implicit Coordination Video">
+    <figcaption>Follow the Leader Video</figcaption>
+    <dtvideo src="Formation_Keeping.mp4"/>
+</div>
 
 ### Motivation {#template-final-result-motivation}
 
