@@ -266,21 +266,14 @@ Target values:
 
 
 ## Part 5: Formal performance evaluation / Results (TODO: complete)
-* state estimation: quantitativ results - ??? - accuracy + precision (success), speed of algorithm (failure)
-* path planning: quantitiativ results - ???
-* closed loop control: qunatitativ results - ??? - (failure) most likely due to speed of state estimation
 
-no previous explaination available
-
-explanation / discusstion of results
-
-path planning - as expected
-state estimation - accuracy + precision as expected, speed worse then expected
-
-biggest challenge 
-speed of state estimation
-It was soon found, however, that with the given hardware a (x,y,theta) Duckiebot state update took several seconds to compute. With the existing lane controller, this time lag proved insufficient: by the time a new state update was calculated and published to the lane controller, the Duckiebot had already deviated substantially from this published state. 
-finding problems in old pipeline
+The localization of the Duckiebot depends on the distance of the camera to the apriltag, as well as the angle that the camera and the apriltag build.
+If the image plane and the apriltag are parallel and the Duckiebot is around 0.3m away from the apriltag, the precision of the distance is 0.5mm and the angle 3 degrees.
+This precision is good enough to localize the Duckiebot reliable within the parking lot. The localization works already well when only a single apriltag is in sight of the camera as long as the apriltag is facing the Duckiebot more or less straight.
+A major problem is that the deteciton of the apriltag takes 3seconds (mean 2.9 sec, std. dev. 0.19 sec, see figure XXX). This is currently the bottleneck of the parking pipeline. To control the duckiebot a real-time state estimate or a reliable state propargation is needed.
+Unfortunately the state estimation is based on the apriltag detection. Updating the state estimate every 3 seconds is too slow to control the robot. The lower velocity of the Duckiebot is limited to 0.1 m/s due to the Adrafruit motor drivers. This causes the Duckiebot to move 0.3m inbetween control updates. If the robot is supposed to do a small left turn it will drive on a full circle instead because the control to drive straight again comes to late.
+To overcome this problem we started to estimate the state of the Duckiebot using a simple mathematical model by integrating the distance that both wheels have traveled. 
+This state propagation proved insufficient, because the amount each wheel rotated based on the control input is not accurate enough. This is caused by the slipage of the wheels and a non-linear and inaccurat relationship between the input voltage and the output momentum of the DC motors. This caused the robot to drive slower or faster then the commaned velocity as well as to turn on a smaller or bigger turning radius. We achived better results using this approach, but were still not able to park the Duckiebot in one of the parking spaces.
 
 ## Part 6: Future avenues of development
 
