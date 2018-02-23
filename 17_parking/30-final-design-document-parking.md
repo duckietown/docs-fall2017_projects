@@ -77,16 +77,10 @@ The localization is based on the relative transformation of the Duckiebot to the
 
 A rectified images is needed to detect the AprilTags within the image. The used wide angle camera on the Duckiebot provides a distorted barrel image. In a barrel distorted image each pixel is position closer to the optical center as it would be in a rectified image. The distortion is non linear and can be modelled by a polynomial function depending on the pixel distance to the optical center:
 
-<<<<<<< HEAD
-TODO Brett: `r², ... r^n`
-
-`f(r) = 1 + k_1*r + k_2*r² + ... + k_n*r^n`
-`r² = (u-u_0)² + (v-v_0)²`
-=======
 r<sup>2</sup>, ... , r<sup>n</sup>
 f(r) = 1 + k<sub>1</sub>r + k<sub>2</sub>r + ... + k<sub>n</sub>r
 r<sup>2</sup>= (u - u<sub>0</sub>)<sup>2</sup> + (v - v<sub>0</sub>)<sup>2</sup>
->>>>>>> 1322a052d57b07a5f7007d32724c8748f5d56bed
+
 
 The intrinsic camera calibration estimates the distortion parameters k_1 to k_4.
 The rectified image can be computed by positioning each pixel of the distorted image at its actual position using the estimated parameters and the distortion model.
