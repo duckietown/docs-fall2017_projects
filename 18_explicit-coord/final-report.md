@@ -88,7 +88,7 @@ An intersection is said to be cleared efficiently if and only if:
 The following assumptions are made:
 
 * The Duckiebot is of type DB17-l, i.e. has LEDs mounted on it.
-* Camera works properly ( frequency 30Hz, resolution 64x48)
+* Camera works properly (frequency 30Hz, resolution 640x480)
 * LEDs work properly and emit the signals with the correct color and frequency.
 * Duckiebots are able to see the vehicles in front and on the right with respect to their position: one cannot assume that the left visual is clear.
 * The Duckiebots do not move while “waiting” at the intersection.
