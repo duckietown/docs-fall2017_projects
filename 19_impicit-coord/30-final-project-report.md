@@ -102,15 +102,15 @@ Make sure you include your:
 ### Definition of the Problem Implicit Coordination:
 The final objective for this part was that, when two, three or four Duckiebots arrive at the same time at an intersection, they are able to handle the challange of who is allowed to drive first, autonomously and without any means of explicit communication. They are however allowed to use implicit communication. Which means they are allowed to observe the other Duckiebots and draw conclusions about the intents of the other Duckiebots from these observations. For this, we assumed that:
 Duckiebots do not use explicit communication, e.g. LEDs, WLAN ...
-Duckiebots have different appearance.
-All Duckiebots are autonomous, not remote controlled
-All Duckiebots use the same formation and implicit control algorithm.
+-Duckiebots have different appearance.
+-All Duckiebots are autonomous, not remote controlled
+-All Duckiebots use the same formation and implicit control algorithm.
 For evaluating the performance, we decided to test our algorithm at an intersection and judge by how many Duckiebots can be handled and in what time it does so.
 
-Definition of the Problem Follow the Leader:
+####Definition of the Problem Follow the Leader:
 The final goal here, was that the Duckiebots can follow another Duckiebot in front of them and adjust their velocity accordingly. Meaning ideally, they slow down if the leading Duckiebot does so and accelerate analogously. The assumptions here were:
-All Duckiebots use the same algorithm
-All Duckiebots are equipped with a fiducial tag that allows us to estimate their relative position and pose.
+-All Duckiebots use the same algorithm
+-All Duckiebots are equipped with a fiducial tag that allows us to estimate their relative position and pose.
 The success can be easily evaluated by how many Duckiebots can follow their respective leader at the same time. Furthermore keeping an equal distance between the Duckiebots performance criterion.
 
 
@@ -151,7 +151,7 @@ The Duckiebots have two steering inputs, the forward velocity and the angular ve
 
 #### Pose Estimation
 This algorithm consists of roughly two parts: The first one is the pose estimation of the leading Duckiebot and the other one is the adjustment of the velocity according to this estimate.
-We used an OpenCV library blob detector that detects fiducial tags from the camera. From the pixel coordinates of the detected blobs, i.e. the markers of the fiducial tag, the transformation matrix between the tag coordinate frame and the camera coordinate frame is calculated. The OpenCV algorithm gives us the the transformation T_CP, which is the homogeneous transformation from camera to tag. We map the this transformation in 3D to the 2D case, where the pose of the Duckiebot will be represented by ρ, ψ and θ..
+We used an OpenCV library blob detector that detects fiducial tags from the camera. From the pixel coordinates of the detected blobs, i.e. the markers of the fiducial tag, the transformation matrix between the tag coordinate frame and the camera coordinate frame is calculated. The OpenCV algorithm gives us the the transformation T_CP, which is the homogeneous transformation from camera to tag. We map the this transformation in 3D to the 2D case, where the pose of the Duckiebot will be represented by ρ, ψ and θ.. <br />
 First T_CP is inverted which results in T_PC. From this transformation we extract the rotation matrix R_PC and the translation vector t_PC.
 From T_CP = [R_CP, t_CP; 0,0,0,1] we extract R_CP and t_CP. From there we can easily obtain R_PC = R_CP⁻1 and t_PC = -t_CP.
 We assume that the tag is centered on the Duckiebot’s rear such that the Z-axis of the tag coordinate system is aligned with the X-axis of the Duckiebot and the X-axis of the tag with the Y-axis of the leading Duckiebot. (The view of the image is from above.)
