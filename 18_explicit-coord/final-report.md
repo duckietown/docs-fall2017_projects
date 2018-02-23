@@ -21,11 +21,11 @@ Our mission is to coordinate the intersection navigation safely and cleverly thr
 
 Duckietowns are complex systems where the traffic situations of a real city should be emulated. These towns contain three- and four-way intersections: the Duckiebots should be able to navigate them without crashing into each other and this requires a clever coordination scheme. Intersections represent a key element of a smooth city navigation.
 
+There are two ways of coordinating Duckiebots:
+- Using a traffic light,
+- Using a communication protocol between the vehicles.
+Hence, we aim to have both a centralised and a decentralised solution as well as an integration of the two. While the centralised solution boils down to understand the signal emitted by a referee (i.e., a traffic light), the decentralised coordination scheme should allow the Duckiebots to operate on their own, i.e., to communicate between each other and to take decisions without any external help. 
 
-In order to guarantee the success in any condition, it makes sense to have a decentralised system, where each Duckiebot can operate on its own, independently. Given an intersection, there are two ways to coordinate Duckiebots:
-
-- Using a traffic light
-- Using a communication protocol between the vehicles
 
 ### Existing solution {#explicit-coord-final-literature}
 
