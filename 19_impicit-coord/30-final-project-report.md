@@ -176,18 +176,19 @@ Thus, we get the two ouputs of the black box in the picture, d_Leader and v_Lead
 
 
 #### Velocity Control
-The following calculations are also illustrated in the picture. First, the actual distance between the two Duckiebots is subtracted from the desired distance d*.
-e_d = d* - d_Leader
-e_d holds information whether the distance to the leading Duckiebot is too large, too small or just right. From here, we calculate a velocity to adjust this distance to the desired one.
-Δv = K_D/T * e_d
+The following calculations are also illustrated in the picture. First, the actual distance between the two Duckiebots is subtracted from the desired distance d*. <br />
+e_d = d* - d_Leader <br />
+e_d holds information whether the distance to the leading Duckiebot is too large, too small or just right. From here, we calculate a velocity to adjust this distance to the desired one. <br />
+Δv = K_D/T * e_d <br />
 e_d/T is the velocity required to compensate the missing distance till the (presumed) next measurement. K_D is a design parameter.
-Δv is then added to the estimated velocity of the leader.
-e_v = Δv + v_Leader
-Δv adjusts the distance between the two Duckiebots and by adding it to v_Leader we ensure that the two vehicles drive with roughly the same velocity. The final velocity e_v is then again multiplied with a design parameter K_p. This helps to dampen the the rather noisy pose estimation of the leader.
-v_Duckiebot = K_p*e_v
+Δv is then added to the estimated velocity of the leader. <br />
+e_v = Δv + v_Leader <br />
+Δv adjusts the distance between the two Duckiebots and by adding it to v_Leader we ensure that the two vehicles drive with roughly the same velocity. The final velocity e_v is then again multiplied with a design parameter K_p. This helps to dampen the the rather noisy pose estimation of the leader. <br />
+v_Duckiebot = K_p*e_v <br />
 The resulting v_Duckiebot is then used as the input for the Duckiebot.
-Further Details
-Lastly, there are some precautions not shown in the picture: If the velocity v_Duckiebot is smaller or equals to 0, both the velocity and omega input of the Duckiebot are set to 0. It is undesirable, that the Duckiebots start to drive backwards, as they cannot follow the lanes or avoid obstacles that way. If omega is not set to 0, the Duckiebots start rotating on the spot which – besides looking bad – causes them to lose track of the fiducial tag of the Duckiebot in front of them which in turn causes them to collide.
+
+#### Further Details
+Lastly, there are some precautions not shown in the picture: If the velocity v_Duckiebot is smaller or equals to 0, both the velocity and omega input of the Duckiebot are set to 0. It is undesirable, that the Duckiebots start to drive backwards, as they cannot follow the lanes or avoid obstacles that way. If omega is not set to 0, the Duckiebots start rotating on the spot which – besides looking bad – causes them to lose track of the fiducial tag of the Duckiebot in front of them which in turn causes them to collide. <br />
 Finally, if the distance d_Leader falls under a certain threshold, an emergency brake is performed.
 <div figure-id="fig:DemoMap" figure-caption="Controller">
      <img src="Controller.png" style='width: 10em'/>
@@ -206,7 +207,7 @@ The algorithm is designed for up 4 robots at the stoplines, but since we depend 
 We tested our follow the leader with up to four Duckiebots in duckietown and there doesn’t seem to be an upper limit on the number of Duckiebots following each other. Regarding the equal distance we are somewhat restricted by the computational power of the Duckiebots and hence the time needed for the detection of the antecedent Duckiebot. The detection time can vary from image frame to image frame however, 0.4 seconds used to be an appropriate upper bound. We found that this delay lead to deviations of maximally 20% from our optimal reference distance. In order to function properly the gain of the wheel calibration should be set to 0.6 as proposed by the Controllers to assure a smooth interplay between our controller and the lane following algorithm. Note that very high gains can dramatically worsen the deviations from the reference distance. Additionally, as always, a correct camera and wheel calibration are crucial for a fluid traffic.
 
 
-
+## Future Avenues
 
 ### Future avenues Implicit Coordination
 Here, the detection algorithm could be improved. As described above, it starts to lag after a certain time and needs to be restarted time and again. Otherwise the algorithm is not very robust. Additionally, the tradeoff between false positives and false negatives could be tuned. Right now, the Duckiebots are far more likely to detect vehicles that are not there then to not detect vehicles that are there. While this makes sense in order to avoid collisions, it can also lead to a Duckiebot waiting for a long time at a free intersection. Also, the detection requires a lot of computational power from the Duckiebots that is currently not available other than on a laptop. This leads to the aforementioned lagging. Maybe, there is a different solution?
