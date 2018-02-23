@@ -91,7 +91,7 @@ The relative position of the camera to the each tag can be calculated, after one
 
 Once the relative position of the camera to each AprilTag is computed, the absolute position of the Duckiebot in the world frame can be calculated. First the position of the Duckiebot in the world frame can be calculated for each single AprilTag by combining transformation of the AprilTag in the world frame, the relative transformation of the camera and the AprilTag and the relative transformation of the Duckiebot and the camera. Next a more reliable state estimate can be computed by taking the average all estimated Duckiebot transformations.
 
-#### Path Planning (TODO Brett/Nils review, grammar)
+#### Path Planning 
 
 We have to find a path in a predefined parking lot with given objects like other Duckiebots, walls or duckies. The area around those non-driveable objects define the obstacles. To be exact, every object is blown up by the distance of the center point of the robot to the most-distant point. This results in a problem of finding a path from start pose (x, y, theta) to end pose within a map where the information about where the robot is allowed to drive is encoded. 
 
@@ -134,7 +134,7 @@ Both problems cause a miss-match between the image and the intrinsic parameters 
 
 * The apriltag detection node outputs all detected apriltag IDs and the corresponding transformation of the camera to each apriltag. We send these information to the previously implemented apriltag post processing node. The post processing node computes the transformation from the Duckiebot to each apriltag by including the static transformation between the duckebot and the camera. Afterwards, the localization node computes the pose of the Duckiebot in world frame for each apriltag and averages the transformations to a more reliable estimate. We are able to calculate the pose of the Duckiebot in world frame, because the position of each apriltag in world frame is known to the robot. We extended the node by another custom message that includes the x and y position, as well as the orientation of the Duckiebot, because only this information are important for the path planning and control of the Duckiebot.
 
-#### Path Planning (TODO review Brett/Nils)
+#### Path Planning
 The path planning algorithm is written in Python. The "PythonRobotics" library from "AtsushiSakai" GitHub account is used as a basic for Dubins Paths and RRT* implementation.
 
 ##### Initialization
@@ -211,7 +211,7 @@ Target values:
 
 * the point of the robot which is the furthest away from the parking mid line should be less than half of the parking space width while the heading of the robot must be less than a constant (20 degrees) relative to the parking space boundary lines.
 
-### Software architecture (TODO update with correct values)
+### Software architecture 
 
 **rosnode list** (note that topic names are often remapped in launch files. Please refer to specific launch files for details): 
 
@@ -240,7 +240,7 @@ Target values:
    	* subscribes: parking\_pose
    	* publishes: car\_cmd, actuator\_limits\_received, radius\_limit
 
-**rostopic list** (TODO: Add a note about the latency):
+**rostopic list** :
 
 * image\_rect
 	* from sensor_msgs.msg, type: Image
@@ -267,13 +267,24 @@ Target values:
 
 ## Part 5: Formal performance evaluation / Results (TODO: complete)
 
-The localization of the Duckiebot depends on the distance of the camera to the apriltag, as well as the angle that the camera and the apriltag build.
-If the image plane and the apriltag are parallel and the Duckiebot is around 0.3m away from the apriltag, the precision of the distance is 0.5mm and the angle 3 degrees.
-This precision is good enough to localize the Duckiebot reliable within the parking lot. The localization works already well when only a single apriltag is in sight of the camera as long as the apriltag is facing the Duckiebot more or less straight.
-A major problem is that the deteciton of the apriltag takes 3seconds (mean 2.9 sec, std. dev. 0.19 sec, see figure XXX). This is currently the bottleneck of the parking pipeline. To control the duckiebot a real-time state estimate or a reliable state propargation is needed.
-Unfortunately the state estimation is based on the apriltag detection. Updating the state estimate every 3 seconds is too slow to control the robot. The lower velocity of the Duckiebot is limited to 0.1 m/s due to the Adrafruit motor drivers. This causes the Duckiebot to move 0.3m inbetween control updates. If the robot is supposed to do a small left turn it will drive on a full circle instead because the control to drive straight again comes to late.
+### Localization and State Propagation
+The localization of the Duckiebot depends on the distance of the camera to the apriltag, as well as the angle between the camera and the AprilTag.
+
+If the camera image plane and the AprilTag are parallel and the Duckiebot is no further than 0.3m away from the AprilTtag, the precision of the distance is +/- 0.5mm and the angle +/- 3 degrees. This precision is sufficient to localize the Duckiebot reliably within the parking lot. The localization performs to the metrics presented earlier (even with a single AprilTag in sight of the camera) as long as the AprilTag is facing the Duckiebot with a relative angle less than 45 degrees. 
+
+A major problem is that the detection of the AprilTag takes 3 seconds (mean 2.9 sec, std. dev. 0.19 sec, see the figure below). 
+
+<center><img figure-caption="AprilTag Detection Time Lag" src="timelag.jpeg" style="width: 500px;"/></center>
+
+This is currently the bottleneck of the parking pipeline. To control the duckiebot, a real-time state estimate or a reliable state propagation is needed.
+
+Unfortunately the state estimation is based on the AprilTag detection. Updating the state estimate every 3 seconds is too slow to control the robot. The lower velocity of the Duckiebot is limited to 0.1 m/s due to the Adrafruit motor drivers. This causes the Duckiebot to move 0.3m between control updates. If the robot is supposed to do a small left turn and then go straight, it will continuously drive in a circle as the controller attempts to correct toward an inaccurate state update (again, due to the time lag). 
+
 To overcome this problem we started to estimate the state of the Duckiebot using a simple mathematical model by integrating the distance that both wheels have traveled. 
-This state propagation proved insufficient, because the amount each wheel rotated based on the control input is not accurate enough. This is caused by the slipage of the wheels and a non-linear and inaccurat relationship between the input voltage and the output momentum of the DC motors. This caused the robot to drive slower or faster then the commaned velocity as well as to turn on a smaller or bigger turning radius. We achived better results using this approach, but were still not able to park the Duckiebot in one of the parking spaces.
+
+This state propagation proved insufficient as the amount each wheel rotates based on the control input is not accurate. This is caused by the slippage of the wheels and a non-linear and inaccurate relationship between the input voltage and the output momentum of the DC motors. This resulted in the robot to driving slower or faster then the commanded velocity as well as to turn on a smaller or bigger turning radius. In order to compensate for this, we introduced calibration factors for the commanded velocity to actual velocity and commanded radius to actual radius. We achieved better results using the state propagation approach, but were still unable to park the Duckiebot in one of the parking spaces.
+
+### Path Planning (TODO Sam)
 
 ## Part 6: Future avenues of development
 
