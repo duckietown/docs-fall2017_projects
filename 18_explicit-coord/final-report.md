@@ -180,9 +180,10 @@ The following assumptions are made about other modules:
 Nodes:
 
 1. coordination_node:
-    * Input: From Finite State Machine group “you are at an intersection”
+    * Input: From Finite State Machine group “you are at an intersection" and apriltags detection
     * Output: Duckiebot move (“go”/ ”not go”)
     * Subscribed topic:
+        * apriltags_detections from apriltags_node
         * trigger from finite state machine
     * Published topic: intersection_go
         * string message: go/no_go
