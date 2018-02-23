@@ -82,7 +82,7 @@ f(r) = 1 + k<sub>1</sub>r + k<sub>2</sub>r<sup>2</sup> + ... + k<sub>n</sub>r<su
 r<sup>2</sup>= (u - u<sub>0</sub>)<sup>2</sup> + (v - v<sub>0</sub>)<sup>2</sup>
 
 
-The intrinsic camera calibration estimates the distortion parameters k<sub>1</sub>r to k<sub>4</sub>r.
+The intrinsic camera calibration estimates the distortion parameters k<sub>1</sub> to k<sub>4</sub>.
 The rectified image can be computed by positioning each pixel of the distorted image at its actual position using the estimated parameters and the distortion model.
 
 The rectified image is first converted to a gray scale image and afterwards thresholded to a binary image. Next the AprilTags in the binary image are detected. 
