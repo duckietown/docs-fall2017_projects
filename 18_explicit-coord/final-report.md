@@ -160,9 +160,6 @@ The Duckiebot arrives at the intersection and recognises its type. Once it stops
 The coordination algorithm in the situation with the traffic light, is simpler. As the Duckiebot arrives to the intersection, it recognises its type and enters the state TL_SENSING. In this state, he checks for the traffic light signal which allows it to navigate the intersection. In this case it enters the state GO, which corresponds to the decision to navigate the intersection. If not, it waits until its turn comes.
 
 
-
-### Implementation
-
 ### Logical architecture
 
 Our job starts when Duckiebots are stationary at the red-line of the intersection (this is communicated to us via controllers/ parking).
