@@ -19,7 +19,7 @@ Add as a caption: see the [operation manual](#demo-template) to reproduce these 
 _Now tell your story:_
 
 Define what is your mission here.
-![](Formation_Keeping.mp4)
+
 <div figure-id="Implicit Coordination Video">
     <figcaption>Implicit Coordination Video</figcaption>
     <dtvideo src="intersection_coordination.mp4"/>
@@ -28,7 +28,11 @@ Define what is your mission here.
     <figcaption>Follow the Leader Video</figcaption>
     <dtvideo src="Formation_Keeping.mp4"/>
 </div>
-
+![](Formation_Keeping.mp4)
+<video controls="controls">
+  <source type="video/mp4" src="Formation_Keeping.mp4"></source>
+  <p>Your browser does not support the video element.</p>
+</video>
 ### Motivation {#template-final-result-motivation}
 
 _Now step back and tell us how you got to that mission._
@@ -203,8 +207,8 @@ Finally, if the distance d_Leader falls under a certain threshold, an emergency 
 
 ## Results and Performance Evaluation
 ### Results and Performance Evaluation Implicit Coordination
-Omitting possible errors which might occur in case of the implicit coordination at intersections, one should take the following precautions.
-You need the correct april tags at the intersection, otherwise the Duckiebot won't know what kind of situation (intersection) it is dealing with. When the stopline isn't detected the algorithm doesn't start, so all Duckiebots should stop at the stopline. Furthermore you can get problems with twisted coordination systems for the detected position of other Duckiebots if your extrinsic camera calibration is wrong on the laptop (assuming your running the detection node on your laptop).Sometimes a robot is detected if there isn't actually one, which could slow down the traffic at the intersection. We agreed on this with our Canadian friends who did the detection, since we would otherwise risk to overlook a real Duckiebot which would be fatal. In rare cases the detection does not detect a robot. In order to assure the detection works as good as possible I would suggest relaunching the multivehicle detection node regularly, since it seems to start lagging the longer it is running. If you would like to keep track of the detection you can run rostopic echo /robotname/multivehicle_tracker_node/tracking.
+Omitting possible errors which might occur in case of the implicit coordination at intersections, one should take the following precautions. <br />
+You need the correct april tags at the intersection, otherwise the Duckiebot won't know what kind of situation (intersection) it is dealing with. When the stopline isn't detected the algorithm doesn't start, so all Duckiebots should stop at the stopline. Furthermore you can get problems with twisted coordination systems for the detected position of other Duckiebots if your extrinsic camera calibration is wrong on the laptop (assuming your running the detection node on your laptop).Sometimes a robot is detected if there isn't actually one, which could slow down the traffic at the intersection. We agreed on this with our Canadian friends who did the detection, since we would otherwise risk to overlook a real Duckiebot which would be fatal. In rare cases the detection does not detect a robot. In order to assure the detection works as good as possible I would suggest relaunching the multivehicle detection node regularly, since it seems to start lagging the longer it is running. If you would like to keep track of the detection you can run rostopic echo /robotname/multivehicle_tracker_node/tracking. <br />
 The algorithm is designed for up 4 robots at the stoplines, but since we depend on the indefinit navigation, we are prone to navigation mistakes. If the tracking and navigation are correct, we are able to coordinate 4 way intersections for up to 4 Duckiebots. Empirical tests showed that our algorithm never needed more than 30 seconds to clear a four way intersection with 4 Duckiebots.
 
 ### Results and Performance Evaluation Follow the Leader
