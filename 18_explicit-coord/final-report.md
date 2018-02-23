@@ -128,7 +128,7 @@ _2 subsections 1) detector (Nicolas) 2)coordination (Gioele) 3)demo, 1 sola per 
 
 ### LEDs Detection
 
-LEDs are modeled as blobs in an image: A Blob is a group of connected pixels in an image that share some common property, which, in the case of LEDs, is the intensity of the pixel. Among the many ways to detect blobs, the one that turned out to be more robust for our purpose was the following algorithm (https://www.learnopencv.com/blob-detection-using-opencv-python-c/):
+LEDs are modeled as blobs in an image: A Blob is a group of connected pixels in an image that share some common properties, which, in the case of LEDs, is the intensity of the pixel. Among the many ways to detect blobs, the one that turned out to be more robust for our purpose was the following algorithm (https://www.learnopencv.com/blob-detection-using-opencv-python-c/):
 - Thresholding: Convert the source images to several binary images by thresholding the source image with thresholds.
 - Grouping: In each binary image, connected white pixels are grouped together.  Let’s call these binary blobs.
 - Merging: The centers of the binary blobs in the binary images are computed, and blobs located closer than a threshold are merged.
@@ -155,7 +155,8 @@ This algorithms is run three times: To detect Duckiebots on the right, to detect
 Our coordination algorithm allows the hybrid management of situations with and without a traffic light. 
 
 In the situation without the traffic light, the algorithm is based on the concept of the exponential backoff, cited above. The basic concept is really simple: a Duckiebot can act on its own and decide wether to enter the intersection or to wait, without the help of a centralised system.
-The Duckiebot arrives at the intersection and recognises its type. Once it stops in enters the state AT_STOP_CLEARING, which represents the action of deciding what to do. When the Duckiebot is in the state AT_STOP_CLEARING, it starts blinking at the specific defined frequency. This makes it recognisable for the potential other Duckiebots waiting in the other lanes. The other task of a Duckiebot in this state, is to check the existence other waiting Duckiebots. Since we assumed that the Duckiebot is only able to see front and right, these are the two regions of its visual where it checks if other Duckiebots are present. In order to check if a Duckiebot stays in the other lanes, we use the defined command SignalsDetection. If the Duckiebot sees other Duckiebots waiting in front or right to it, it sacrifices itself by entering in the state SACRIFICE. This consists in the first place in stopping blinking and looking, allowing other seen Duckiebots to coordinate. This state lasts for a random bounded time, defined with the variable random_delay. Once this random time has passed, the Duckiebot re-enters the state AT_STOP_CLEARING. If instead the Duckiebot does not see any other Duckiebot waiting, it enters in the state KEEP_CALM. This state makes sure that the Duckiebot waits a different random time before deciding to navigate the interection, decreasing the chance of a possible crash due to errors in the navigation. During this period, the Duckiebot checks if other Duckiebots are blinking: if yes, he sacrifices itself and enters the state SACRIFICE; if not, it enters the state GO, which corresponds to the decision to navigate the intersection. 
+The Duckiebot arrives at the intersection and recognises its type. Once it stops in enters the state AT_STOP_CLEARING, which represents the action of deciding what to do. When the Duckiebot is in the state AT_STOP_CLEARING, it starts blinking at the specific defined frequency. This makes it recognisable for the potential other Duckiebots waiting in the other lanes. The other task of a Duckiebot in this state, is to check the existence other waiting Duckiebots. Since we assumed that the Duckiebot is only able to see front and right, these are the two regions of its visual where it checks if other Duckiebots are present. In order to check if a Duckiebot stays in the other lanes, we use the defined command SignalsDetection. If the Duckiebot sees other Duckiebots waiting in front or right to it, it sacrifices itself by entering in the state SACRIFICE. This consists in the first place in stopping blinking and looking, allowing other seen Duckiebots to coordinate. This state lasts for a random bounded time, defined with the variable random_delay. Once this random time has passed, the Duckiebot re-enters the state AT_STOP_CLEARING.
+If instead the Duckiebot does not see any other Duckiebot waiting, it enters in the state KEEP_CALM. This state makes sure that the Duckiebot waits a different random time before deciding to navigate the interection, decreasing the chance of a possible crash due to errors in the navigation. During this period, the Duckiebot checks if other Duckiebots are blinking: if yes, he sacrifices itself and enters the state SACRIFICE; if not, it enters the state GO, which corresponds to the decision to navigate the intersection. 
 
 The coordination algorithm in the situation with the traffic light, is simpler. As the Duckiebot arrives to the intersection, it recognises its type and enters the state TL_SENSING. In this state, he checks for the traffic light signal which allows it to navigate the intersection. In this case it enters the state GO, which corresponds to the decision to navigate the intersection. If not, it waits until its turn comes.
 
@@ -263,42 +264,42 @@ The following topics are published:
   <span>One Duckiebot at the intersection</span>
   <span>Clearing time</span>
   <span>60s</span>
-  <span>!!!!missing </span>
+  <span>12s</span>
 
   <span>One Duckiebot at the intersection</span>
   <span>Success rate</span>
   <span>90%</span>
-  <span>!!!!missing </span>
+  <span>98%</span>
 
   <span>Two Duckiebots at the intersection</span>
   <span>Clearing time</span>
   <span>60s</span>
-  <span>!!!!missing </span>
+  <span></span>
 
   <span>Two Duckiebots at the intersection</span>
   <span>Success rate</span>
   <span>80%</span>
-  <span>!!!missing </span>
+  <span>89%</span>
 
   <span>Three Duckiebots at the intersection</span>
   <span>Clearing time</span>
   <span>60s</span>
-  <span>!!!missing </span>
+  <span>50s</span>
 
   <span>Three Duckiebot at the intersection</span>
   <span>Success rate</span>
   <span>70%</span>
-  <span>!!!!missing </span>
+  <span>89% </span>
 
   <span>One Duckiebot at a traffic light type intersection</span>
   <span>Clearing time</span>
   <span>60s</span>
-  <span>!!!!missing </span>
+  <span>25s </span>
 
   <span>One Duckiebot at a traffic light type intersection</span>
   <span>Success rate</span>
   <span>90%</span>
-  <span>!!!!missing </span>
+  <span>92% </span>
 </col4>
 
 - For each of the tasks you defined in you problem formulation, provide quantitative results (i.e., the evaluation of the previously introduced performance metrics)
