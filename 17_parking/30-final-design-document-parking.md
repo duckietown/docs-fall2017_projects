@@ -77,9 +77,9 @@ The localization is based on the relative transformation of the Duckiebot to the
 
 A rectified images is needed to detect the AprilTags within the image. The used wide angle camera on the Duckiebot provides a distorted barrel image. In a barrel distorted image each pixel is position closer to the optical center as it would be in a rectified image. The distortion is non linear and can be modelled by a polynomial function depending on the pixel distance to the optical center:
 
-TODO Brett: `r^2, ... r^n`
+TODO Brett: `r², ... r^n`
 
-`f(r) = 1 + k_1*r + k_2*r + ... + k_n*r`
+`f(r) = 1 + k_1*r + k_2*r² + ... + k_n*r^n`
 `r² = (u-u_0)² + (v-v_0)²`
 
 The intrinsic camera calibration estimates the distortion parameters k_1 to k_4.
@@ -245,23 +245,23 @@ Target values:
 * image\_rect
 	* from sensor_msgs.msg, type: Image
 	
-* tag\_detections
+* tag\_detections - latency: 3 seconds
 	* from Duckietown_msgs.msg, type: AprilTagDetectionArray
 	* **note**: this is the topic that is published at a frequency of ~ 1 signal/ 2-3 seconds. As such, this topic is the bottle neck of the algorithm. Please see Part 6 for potential remedies for this issue. 
 	
-* apriltags\_in
+* apriltags\_in - latency: remapping of tag\_detections
 	* from Duckietown_msgs.msg, type: AprilTagDetectionArray
 
-* apriltags\_out
+* apriltags\_out - latency: few milliseconds
 	* from Duckietown_msgs.msg, type: AprilTagsWithInfos
 
-* apriltags
+* apriltags - latency: few milliseconds
 	* from Duckietown_msgs.msg, type: AprilTagsWithInfos
 
-* pose\_Duckiebot
+* pose\_Duckiebot - latency: few milliseconds
 	* from Duckietown_msgs.msg, type: Pose2DStamped
 
-* parking\_pose
+* parking\_pose - latency: few milliseconds
 	* from Duckietown_msgs.msg, type: LanePose
 
 
