@@ -128,10 +128,10 @@ The velocity of the leader is calculated according to the difference in distance
 Thus, we get the two ouputs of the black box in the picture, d_Leader and v_Leader.
 
 <div figure-id="fig:DemoMap" figure-caption="Coordination Trafo1">
-     <img src="CoordTrafo1.png" style='width: 10em'/>
+     <img src="CoordTrafo1.png" style='width: 20em'/>
 </div>
 <div figure-id="fig:DemoMap" figure-caption="Coordination Trafo2">
-     <img src="CoordTrafo2.png" style='width: 10em'/>
+     <img src="CoordTrafo2.png" style='width: 20em'/>
 </div>
 
 
