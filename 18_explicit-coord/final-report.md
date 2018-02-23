@@ -292,10 +292,10 @@ The following topics are published:
   <span>92% </span>
 </col4>
 
-- For each of the tasks you defined in you problem formulation, provide quantitative results (i.e., the evaluation of the previously introduced performance metrics)
-- Compare your results to the success targets. Explain successes or failures.
-- Compare your results to the "state of the art" / previous implementation where relevant. Explain failure / success.
-- Include an explanation / discussion of the results. Where things (as / better than / worst than) you expected? What were the biggest challenges?
+Failures were mainly caused by the following reasons:
+ - Duckiebots detecting the wrong sign (i.e., expecting a traffic light instead of a normal intersection).
+ - Blobs not properly detected. This is mainly due of failures in the parameters and in the camera calibration.
+ - Duckiebots crashing because of poor intersection navigation.
 
 ## Future avenues of development {#explicit-coord-final-next-steps}
 
