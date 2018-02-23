@@ -22,7 +22,7 @@ Our mission is to coordinate the intersection navigation safely and cleverly thr
 Duckietowns are complex systems where the traffic situations of a real city should be emulated. These towns contain three- and four-way intersections: the Duckiebots should be able to navigate them without crashing into each other and this requires a clever coordination scheme. Intersections represent a key element of a smooth city navigation.
 
 
-In order to guarantee the success in any condition, it makes sense to have a decentralised system, where each Duckiebot can operate on its own, independently. The ways one can coordinate Duckiebots in an intersection are two:
+In order to guarantee the success in any condition, it makes sense to have a decentralised system, where each Duckiebot can operate on its own, independently. Given an intersection, there are two ways to coordinate Duckiebots:
 
 - Using a traffic light
 - Using a communication protocol between the vehicles
@@ -37,7 +37,7 @@ Two modules can be distinguished:
 - Coordination based on the detected signals
 
 
-For the emission, three signals can be produced: red, yellow and green light, blinking at different frequencies to distinguish whether the Duckiebot is negotiating (and in which phase of the negotiation it is) or navigating the intersection.
+For the emission, three signals can be produced: each signal is encoded with a specific color and frequency. While Duckiebots are designed to recognise only frequencies, color are used to allow humans to easily understand the signals emitted by the Duckiebots. The signals represent the states: negotiation (and in which phase of the negotiation it is) or navigation of the intersection.
 
 For the detection, the position and frequency of blinking LEDs are registered.
 
@@ -54,11 +54,12 @@ The existing solution had essentially two drawbacks:
 
 Although the solution was problematic, it still gave us some important intuitions on how to solve the problem.
 
-First of all, using a LED-communication protocol is a brilliant idea to let the Duckiebots communicate with each other. Since the previous communication algorithm had the only disadvantage of being slow, we started by re-thinking the coordination algorithm, which contained some bugs. The existing implementation for the coordination was rather complex and articulated, resulting in confused strategies which led to the failure rate of 50%. In order to develop a simpler and lighter algorithm we took inspiration from an existing media access control protocol (MAC): the so called Carrier Sense Multiple Access (CSMA, https://en.wikipedia.org/wiki/Carrier-sense_multiple_access). This algorithm gave us the basic idea behind our strategy and allowed us to have a lighter protocol.
+First of all, using a LED-communication protocol is a brilliant idea to let the Duckiebots communicate with each other. Since the previous communication algorithm had the only disadvantage of being slow (also because of several bugs), we started by re-thinking the coordination algorithm.
+The existing implementation for the coordination was rather complex and articulated, resulting in confused strategies which led to the failure rate of 50%. In order to develop a simpler and lighter algorithm we took inspiration from an existing media access control protocol (MAC): the so called Carrier Sense Multiple Access (CSMA, https://en.wikipedia.org/wiki/Carrier-sense_multiple_access). This algorithm gave us the basic idea behind our strategy and allowed us to have a lighter protocol.
 
 In the second place, we re-designed the LED-detection/-interpreter to be faster and more efficient based on the detection of blobs rather than frequencies.
 
-Lastly, we wanted to have a demo that could deal with both cases with and without a traffic light, as opposed to the two available demos from MIT 2016's class
+Lastly, we wanted to have a demo that could deal with both intersections, i.e. with and without a traffic light, as opposed to the two available demos from MIT 2016's class.
 
 
 ### Preliminaries (optional) {#template-final-preliminaries}
@@ -97,12 +98,12 @@ The following assumptions are made:
 
 The following assumptions are made:
 
-* The Controllers: one to four Duckiebots are at the intersection with a certain position and orientation with respect to the stop line. Responsible for this assumption are The Controllers, which should guide the Duckiebot towards the intersection based on the following measures, based on the projection of the Duckiebot on the 2D lane of the road. The Duckiebot should be
+* The Controllers: one to four Duckiebots are at the intersection with a certain position and orientation with respect to the stop line. Responsible for this assumption are The Controllers, which should guide the Duckiebot at intersection and make it stops with following pose:
     - Min. 0 cm behind the stop red line;
     - Max. 6 cm behind the stop red line;
     - Max. +/- (left/right deviations) 2 cm from the center of the line;
     +/- 10° of rotation with respect to the perpendicular line of the red line.
-* Navigators: Intersection navigation is taken care by them and it is assumed that navigation is done safely.
+* Navigators: as soon as coordination is decided, Duckiebots have to navigate through the intersection. This task is accomplished by The Navigators.
 * Implicit coordination: it is assumed that explicit and implicit coordination are never running at the same time.
 
 
@@ -115,8 +116,8 @@ The metrics that are going to be used to judge the achievement of the goal are t
 
 2. Success rate
 
-Our goal is to make the Duckiebots cross an intersection efficiently, therefore the performance metrics follow naturally.
-The clearing time should not exceed one minute and the success rate should be higher than 70% in all intersection configurations (1,2,3 vehicles, with or without a traffic light)
+Our goal is to work out a procedure so that the Duckiebots cross an intersection efficiently, therefore the performance metrics follow naturally.
+The clearing time should not exceed one minute and the success rate should be higher than 70% in all intersection configurations (1, 2, 3 vehicles, with or without a traffic light).
 
 
 ## Contribution / Added functionality {#explicit-coord-final-contribution}
