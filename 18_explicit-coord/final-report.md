@@ -5,8 +5,6 @@ General notes:
 - REMEMBER to change the "template" in the chapter labels to your group label!
 -->
 
-_The objective of this report is to bring justice to your hard work during the semester and make so that future generations of Duckietown students may take full advantage of it. Some of the sections of this report are repetitions from the preliminary and intermediate design document (PDD, IDD respectively)._
-
 ## The final result {#explicit-coord-final-result}
 
 * Post a video of your best results (e.g., your demo video)
@@ -25,7 +23,7 @@ There are two ways of coordinating Duckiebots:
 - Using a traffic light,
 - Using a communication protocol between the vehicles.
 
-Hence, we aim to have both a centralised and a decentralised solution as well as an integration of the two. While the centralised solution boils down to understand the signal emitted by a referee (i.e., a traffic light), the decentralised coordination scheme should allow the Duckiebots to operate on their own, i.e., to communicate between each other and to take decisions without any external help. 
+Hence, we aim to have both a centralised and a decentralised solution as well as an integration of the two. While the centralised solution boils down to understand the signal emitted by a referee (i.e., a traffic light), the decentralised coordination scheme should allow the Duckiebots to operate on their own, i.e., to communicate between each other and to take decisions without any external help.
 
 
 ### Existing solution {#explicit-coord-final-literature}
@@ -62,14 +60,6 @@ In the second place, we re-designed the LED-detection/-interpreter to be more ef
 
 Lastly, we wanted to have a demo that could deal with both intersections, i.e. with and without a traffic light, as opposed to the two available demos from MIT 2016's class.
 
-
-### Preliminaries (optional) {#template-final-preliminaries}
-
-- Is there some particular theorem / "mathy" thing you require your readers to know before delving in the actual problem? Add links here.
-
-Definition of link:
-- could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
-- (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)
 
 ## Definition of the problem {#explicit-coord-final-problem-def}
 
@@ -124,8 +114,6 @@ The clearing time should not exceed one minute and the success rate should be hi
 ## Contribution / Added functionality {#explicit-coord-final-contribution}
 
 
-_2 subsections 1) detector (Nicolas) 2)coordination (Gioele) 3)demo, 1 sola per il db + modifiche a quella del TL_
-
 ### LEDs Detection
 
 LEDs are modeled as blobs in an image: A Blob is a group of connected pixels in an image that share some common properties, which, in the case of LEDs, is the intensity of the pixel. Among the many ways to detect blobs, the one that turned out to be more robust for our purpose was the following algorithm (https://www.learnopencv.com/blob-detection-using-opencv-python-c/):
@@ -138,25 +126,26 @@ LEDs are modeled as blobs in an image: A Blob is a group of connected pixels in 
 To increase the robustness of the detection, a sequence of $N$ images in analyzed. Each blob $b$ is characterized with a position vector $x_b\in\mathbb{R}^2$ and a signal $y_b\in\{0,1\}^N$ of dimension, indicating whether the blob was detected in the image (1) or not (0). The blobs found are collected in a set called $B$. The algorithm works as follows:
 - Initialization: Initialize the set of blobs $B$ with the empty set.
 - Recursion: For image $i$ and blob $j$ (with position $x_{ij}$):
-   + If $\Vert x_{ij} – x_b\Vert > \mathrm{TOL}$ for all $b\in B$ the blob is added to $B$ with $x=x_{ij}$ and $y=e_i$, where $e_i$ is a vector of dimension $N$ whose $i$ entry is 1 and all other entries are 0. 
+   + If $\Vert x_{ij} – x_b\Vert > \mathrm{TOL}$ for all $b\in B$ the blob is added to $B$ with $x=x_{ij}$ and $y=e_i$, where $e_i$ is a vector of dimension $N$ whose $i$ entry is 1 and all other entries are 0.
    + If $\Vert x_{ij} – x_b\Vert \leq \mathrm{TOL}$ for some $b\in B$. Then, we “merge” blob $j$ with the blob it was closest to, i.e., we set the $i$-th entry of $y_{\bar b}$ to 1, where $\bar b=\arg\min_{b\in B}\Vert x_{ij}-x_b\Vert$. That is, we store the information that the blob has been observed in the $i$-th image.
-   
+
 After this procedure, the user has full information about the blobs in the images. Then, one may identify the presence of another Duckiebot as follows:
 - Analyzing the frequency spectrum of the signal y of each blob. If the known emission frequency and the detected frequency using the Fast Fourier Transform match, then we can conclude that a car has been detected.
 - Using some heuristics. For instance, for each blob one may compute
 \[
 m_b=\frac{1}{N}\sum_{i=1}^N [y_b]_i
 \]
+
 and act upon this number.
 This algorithms is run three times: To detect Duckiebots on the right, to detect Duckietbots on the left, and to detect traffic lights. To increase the robustness and reduce the computational demand, the image is cut accordingly. Hence, the output of the algorithm are three Booleans indicating the detection on the right, on the front, and for the traffic light respectively.  
 
 ### Coordination
 
-Our coordination algorithm allows the hybrid management of situations with and without a traffic light. 
+Our coordination algorithm allows the hybrid management of situations with and without a traffic light.
 
 In the situation without the traffic light, the algorithm is based on the concept of the exponential backoff, cited above. The basic concept is really simple: a Duckiebot can act on its own and decide wether to enter the intersection or to wait, without the help of a centralised system.
 The Duckiebot arrives at the intersection and recognises its type. Once it stops in enters the state AT_STOP_CLEARING, which represents the action of deciding what to do. When the Duckiebot is in the state AT_STOP_CLEARING, it starts blinking at the specific defined frequency. This makes it recognisable for the potential other Duckiebots waiting in the other lanes. The other task of a Duckiebot in this state, is to check the existence other waiting Duckiebots. Since we assumed that the Duckiebot is only able to see front and right, these are the two regions of its visual where it checks if other Duckiebots are present. In order to check if a Duckiebot stays in the other lanes, we use the defined command SignalsDetection. If the Duckiebot sees other Duckiebots waiting in front or right to it, it sacrifices itself by entering in the state SACRIFICE. This consists in the first place in stopping blinking and looking, allowing other seen Duckiebots to coordinate. This state lasts for a random bounded time, defined with the variable random_delay. Once this random time has passed, the Duckiebot re-enters the state AT_STOP_CLEARING.
-If instead the Duckiebot does not see any other Duckiebot waiting, it enters in the state KEEP_CALM. This state makes sure that the Duckiebot waits a different random time before deciding to navigate the interection, decreasing the chance of a possible crash due to errors in the navigation. During this period, the Duckiebot checks if other Duckiebots are blinking: if yes, he sacrifices itself and enters the state SACRIFICE; if not, it enters the state GO, which corresponds to the decision to navigate the intersection. 
+If instead the Duckiebot does not see any other Duckiebot waiting, it enters in the state KEEP_CALM. This state makes sure that the Duckiebot waits a different random time before deciding to navigate the interection, decreasing the chance of a possible crash due to errors in the navigation. During this period, the Duckiebot checks if other Duckiebots are blinking: if yes, he sacrifices itself and enters the state SACRIFICE; if not, it enters the state GO, which corresponds to the decision to navigate the intersection.
 
 The coordination algorithm in the situation with the traffic light, is simpler. As the Duckiebot arrives to the intersection, it recognises its type and enters the state TL_SENSING. In this state, he checks for the traffic light signal which allows it to navigate the intersection. In this case it enters the state GO, which corresponds to the decision to navigate the intersection. If not, it waits until its turn comes.
 
@@ -186,12 +175,6 @@ The following assumptions are made about other modules:
 6. Explicit coordination and implicit coordination will never run at the same time on a Duckiebot.
 
 
-<!--
-The above must have a check-off by the software architect:
-
-System architect check-off: I, XXX, (agree / do not agree) that the above is compatible with system-level constraints.
--->
-
 ### Software architecture
 
 Nodes:
@@ -211,7 +194,7 @@ Nodes:
         * LED_switch from LED-coordination, string message: on/ off
     * Published topics: None
 
-3. 
+3.
     1. LED_detection: Depending on the algorithm implemented:
         * Input: camera_image (possibly after anti-instagram) and message indicating whether detection is needed
         * Output: LED detected/ LED not detected
@@ -221,7 +204,8 @@ Nodes:
         * Published topic:
             * string message: LED_detected/ no_LED_detected
 
-    2. LED_detection: second option:
+
+2. LED_detection: second option:
         * Input: camera_image (possibly after anti-instagram)
         * Output: LED detected/LED not detected with position and/or color and/or frequency
         * Subscribed topic:
