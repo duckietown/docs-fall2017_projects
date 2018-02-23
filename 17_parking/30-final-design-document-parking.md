@@ -299,7 +299,8 @@ To overcome this problem we started to estimate the state of the Duckiebot using
 
 This state propagation proved insufficient as the amount each wheel rotates based on the control input is not accurate. This is caused by the slippage of the wheels and a non-linear and inaccurate relationship between the input voltage and the output momentum of the DC motors. This resulted in the robot to driving slower or faster then the commanded velocity as well as to turn on a smaller or bigger turning radius. In order to compensate for this, we introduced calibration factors for the commanded velocity to actual velocity and commanded radius to actual radius. We achieved better results using the state propagation approach, but were still unable to park the Duckiebot in one of the parking spaces.
 
-### Path Planning (TODO Sam)
+### Path Planning 
+The simulation works smoth and almost always finds a path. It is fast if a solution with dubins path is found. The computation time is under 0.2 seconds. It needs much more time if RRT* is used, a solution is eventually found after 20 seconds for hundert iterations.  
 
 ## Part 6: Future avenues of development
 
