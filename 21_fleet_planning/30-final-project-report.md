@@ -1,4 +1,4 @@
-
+<div class='final-report' markdown="1">
 # Fleet Planning: final report
 
 
@@ -493,13 +493,4 @@ The Duckiebot classes are extensively documented and designed in a way that allo
 
 [6] Pavone, M., S. L. Smith, E. Frazzoli, and D. Rus, “Robotic load balancing for mobility-on-demand systems.” The International Journal of Robotics Research 31, no. 7
 
-              
-
-        
-
-
-
-
-
-
-
+</div>
