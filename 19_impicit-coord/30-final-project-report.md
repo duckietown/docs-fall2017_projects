@@ -159,7 +159,6 @@ The Duckiebots have two steering inputs, the forward velocity and the angular ve
 #### Pose Estimation
 This algorithm consists of roughly two parts: The first one is the pose estimation of the leading Duckiebot and the other one is the adjustment of the velocity according to this estimate.
 We used an OpenCV library blob detector that detects fiducial tags from the camera. From the pixel coordinates of the detected blobs, i.e. the markers of the fiducial tag, the transformation matrix between the tag coordinate frame and the camera coordinate frame is calculated. The OpenCV algorithm gives us the the transformation C_T_CP, which is the homogeneous transformation from camera to tag in the camera frame. We map the this transformation in 3D to the 2D case, where the pose of the Duckiebot will be represented by ρ, ψ and θ. <br />
- sqrt(x²+y²) 
 First we calculate P_T_PC, via the following two steps: <br />
 P_R_PC = C_R_CP^T = C_R_CP^(-1) <br/>
 P_t_PC = -P_R_PC*C_t_CP, <br/>
