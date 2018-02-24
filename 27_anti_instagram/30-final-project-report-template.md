@@ -2,9 +2,14 @@
 
 ## The final result
 
-_Let's start from a teaser._
+_Video about anti instagram:_
 
-[Video](https://drive.google.com/open?id=1WhH7ud3jSfOi5Dj1uhcHmLy2RIP6mQWb)  on Google Drive.
+
+<div figure-id="fig:example-embed">
+    <figcaption>Anti instagram video</figcaption>
+    <dtvideo src="vimeo:257258742"/>
+</div>
+
 
 ## Mission and Scope
 
@@ -42,16 +47,52 @@ Often other image transformations focus on white balance. But we are concerned t
 1. The k-Means clustering was initialized only with 3 centers. This is a very rough guess. By analyzing several sample images one sees that there are distinct white, red and yellow clusters. They can indeed be represented by three distinct centers. But the problem is that all the other pixels have to assigned to a cluster as well. This distorts the color transformation.
 2. The existing solution was not online. The color transformation had to estimated explicitly by pressing a button on the joystick. Firstly the system is not fully autonomous anymore since it needs user input (pressing the button). And secondly the user doesn't or cannot really know when the optimal moment is for a color transformation.
 
+We sampled several pictures and tested the old implementation. Following a table with the sample pictures and the outputs.
+The  
+
+Example 1:
+
+<div>
+  <center>
+      <img src="/images/ad1_orig.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/ad1_corr.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;">
+    </center>
+</div>
+This was a good working example. The euclidean error of "true" centers compared to the centers which are estimated in the picture decreased from 175.541 to 43.724.  
+
+Example 2:
+
+<div>
+  <center>
+      <img src="/images/disad1_original.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad1_corr.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;">
+    </center>
+</div>
+
+
+This was a medium working example. The euclidean error of "true" centers compared to the centers which are estimated in the picture increased from 115.267 to 56.646
+
+Example 3:
+
+<div>
+  <center>
+      <img src="/images/disad2_orig.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad2_corr.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;">
+    </center>
+</div>
+
+A bad example. The error increased 78.114 to 146.192.
+
 
 ### Preliminaries
 
-We thought that a clustering approach is a very promising approach because of the following points:
-- clustering algorithms are able to focus on our road marking colors since these colors are distinct.
-- clustering can be done unsupervised and can learn. (?)
-- clustering is stable (?)
-
-
-_Links to Preliminaries will be added._
+Preliminaries to the following topics would be good to have:
+- [Clustering methods](#preliminaries-clustering-methods)
+- [Convex optimization](#preliminaries-convex-optimization)
+- [Histogram equalization](##preliminaries-histogram-equalization)
 
 ## Definition of the problem
 
@@ -145,7 +186,8 @@ This color transform would correct the image such that the colors are best to be
 As a first idea we wanted to improve the current implementation. So we further investigated the k-Means approach.
 
 ### k-Means Approach
-
+_Implemented in the kMeansClass found in the kmeans_rebuild.py file._
+_This is set with the parameter lin for the trafomode in the ContAntiInstagramNode._
 #### Idea {#k-means-idea}
 The core idea of the clustering approach is to define some "true" colors for the colors to be transformed. In the Duckiebot case these are yellow, white, black and red. These "true" colors can be defined differently if wished. It is just important that the definition is coherent with the color classification of the line detection. To determine the color transformation which would ideally map all the red line colors on the "true" red, the yellow line colors on the "true" yellow we have to find out what the error is. This is dependent obviously on the current environment illumination. So depending on the illumination the yellow of the dashed middle line is more or less "wrong" or away compared to the "true" center.  
 The approach is now to determine the so called real centers of the colors of the lines by using a clustering method. In this case it is k-Means.  
@@ -164,14 +206,36 @@ We were convinced that k-Means is a good solution since it is fairly simple to i
 
 We decided to use the RGB space for the clustering approach and therefore as well as the reference space for the transformation described in [the chapter above](#mathematical-general-transform).
 
-The following pictures show how sample images look in different color spaces.
+The following pictures show how sample images look in different color spaces.  
+The far left is the original image where we got the data from. The second from left is the pixel values plotted in RGB space, the third in HSV space and the far right the pixel values in LAB space.
 
-_insert images_
+<div>
+    <div>
+        <img src="/images/comparison_colorspace/original.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+        <img src="/images/comparison_colorspace/rgb.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="/images/comparison_colorspace/hsv.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="/images/comparison_colorspace/lab.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+        <p style="clear: both;">
+    </div>
+</div>
+
+<div>
+    <div>
+        <img src="/images/comparison_colorspace/original2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="/images/comparison_colorspace/rgb2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="/images/comparison_colorspace/hsv2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="/images/comparison_colorspace/lab2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+        <p style="clear: both;">
+    </div>
+</div>
 
 One sees that the color clusters of red, yellow, white and black are nicely distinct in the RGB space. So RGB is a good space to do clustering.
 As stated in [disadvantages](#disadvantages-existing) we used more than 3 cluster centers. So we tried it with 10 clusters. But now one has the problem that we don't know anymore which cluster is which. That's why we implemented a function which can determine which color is which.
 
 #### Color determination
+
+_Implemented in the determineColor function found in the kmeans_rebuild.py file._  
+
 If we do k-Means in an unsupervised way we don't know in the end which cluster and therefore which center belongs to which color. We made the assumption that the nearest cluster center is of the same color as the nearest true center.  
 We thought this assumption is reasonable because looking at some data in the RGB space one sees that if we would want to interchange clusters we need a massive distortion. Such a distortion is in our opinion almost impossible.  
 So to determine which cluster belongs to which "true" center we do the following steps:  
@@ -179,11 +243,14 @@ So to determine which cluster belongs to which "true" center we do the following
 2. We iterate through the "true" centers and look which determined center has the lowest value. This center would be assigned to the color of the "true" center. If a "true" center would've been assigned already we would take the determined center with the second lowest error.
 3. Now we have a list of centers which we know what colors they are.
 
-Using the least squares apprach we can fit with these four centers an optimal color transformation.
+Using the least squares approach we can fit with these four centers an optimal color transformation.
 The very alert fan of Duckietown will already have realized that in this whole color discussion there is one mistake: We don't have always the red stopping line in an image of the camera. There exist sections where you have a simple straight road without any intersections. Therefore you won't find any red color. So we need a solution for that.  
 That's where color elimination comes into play.
 
 #### Color elimination
+
+_Implemented in the detectOutlier function found in the outlierEstimation file._  
+
 The use of all four colors red, yellow, white and black can lead to wrong results. You just have to think of a situation where you don't find any red stopping line in the picture.
 That's why we came up with the following "color elimination" procedure:
 1. Pick three colors out of the four colors and do a least squares fit to find the color transformation.
@@ -194,6 +261,10 @@ If there are all the four colors in the picture we observed that most of the tim
 Something we observed was that sometimes the procedure gave unreasonably high parameters as an output. So we came up with a convex optimization approach.
 
 #### Convex optimization
+
+_Implemented in the calcBoundedTrafo found in the calcLstsqTransform.py file._  
+
+
 The idea here is to limit the parameter values of the color transform. We observed that for example a scale factor for a channel of 240 is unreasonably high. So we stated the following:
 \[ 1/3 \leq k_i \leq 3\]
 \[ -100 \leq s_i \leq 100\]
@@ -202,23 +273,58 @@ where $k_i$ and $s_i$ are the scale and the shift of each channel.
 We used then convex optimization to limit the scale and shift values.
 
 #### Online Approach
+
+_Implemented in the ContAntiInstagramNode found in the cont_anti_instagram_node.py file._  
+_This is set with the parameter ai_interval in the ContAntiInstagramNode._
+
 We set the goal for our project to implement an online solution. So we decided to repeat the procedure described before every 30 seconds. This time interval is quite arbitrary and the lower would be the better.
 
 #### Results
 
 All in all the k-Means approach gives good results but it is too slow for an online approach. If we ran the algorithm on the Duckiebot it consumed almost all the processing power and other computational complex functions were limited.
 
-A second thing we
 
 ### Histogram Equalization
+_Implemented in the simpleColorBalanceClass found in the simpleColorBalanceClass file._
+_This is trafomode cb for the ContAntiInstagramNode._
 
 After implementing the k-Means approach we saw that there was need for something else. A very simple white balance would help us a lot to correct the picture to a certain extent and being very fast.
 
 #### Idea
 Doing research we found a promising approach for a very simple color balance.  
+Actually the analysis in the [disadvatages chapter](#disadvantages-existing) led us to this idea. Experimenting with gimp we found out that the automatic white balace leads to quite good results:  
+
+Example 1:
+
+<div>
+  <center>
+      <img src="/images/disad1_original.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad1_corr_gimp.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;">
+    </center>
+</div>
+
+
+This was a medium working example. The euclidean error of "true" centers compared to the centers which are estimated in the picture increased from 115.267 to 31.2.
+
+Example 2:
+
+<div>
+  <center>
+      <img src="/images/disad2_orig.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad2_corr_gimp.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;">
+    </center>
+</div>
+
+
+This was a medium working example. The euclidean error of "true" centers compared to the centers which are estimated in the picture increased from 115.267 to 30.35.
+
+This were very promising results comparing to the results of the [disadvatages chapter](#disadvantages-existing).
+
 The idea works as following:  
 1. Create a sorted list for every channel of the image.
-2. Remove a certain predefined percentage of this list from the top and the bottom.
+2. Remove a certain predefined percentage of this list from the top and the bottom. The percentage serves as a parameter for the anti instagram node.
 3. After removing the highest and the lowest value of this list serve as the thresholds($Th_{low}$, $Th_{high}$) for the frames afterwards.  
 4. Do this for every channel.
 
@@ -231,6 +337,28 @@ This transform is applied as follows:
 #### Results
 
 This procedure is way faster than k-Means. That's why it is our proposed solution in the end.
+
+## General architecture
+
+<center>
+<figure>
+<img src="/images/flow2.svg" alt="kMeans approach" style="width: 400px;"/>
+<figcaption> General architecture </figcaption>
+</figure>
+</center>
+
+As seen in the picture the most important piece in our code is the Anti_Instagram node. It has the ability to get a raw image from the camera and calculate transform parameters out of it. So the core piece is the ContAntiInstagramNode.
+### Anti Instagram node
+Input parameters for the Anti instagram node:
+1. _~ai_interval_: This sets the time in seconds between each computation of the color transformation. Default: 10
+
+2. _~fancyGeom_: States what mask should be used to remove the background. If it is set to _false_, just one third from above is cut away to do the color transformation. If it is set to _true_, the flood fill approach is used. [Attention: Very time consuming and not stable results.] Default: false.
+3. _~n_centers_: Indicates how many centers for k-Means should be used. Default: 6
+4. _~blur_: Indicates what type of blur should be used. Options are _'median'_ or _'gaussian'_. Default: _'median'_
+5. _~resize_: Defines by what factor the picture should be resized before computing the transformation. Default: 0.2
+6. _~blur_kernel_: Defines the kernel size of the blur. Default: 5
+7. _~cb_percentage_: Defines the percentage of data points that should be cut away by the histogram equalization. Default: 2
+8. _trafo_mode_: Defines the transformation mode of the color transformation. Options are _'both'_ for histogram equalization first and kMeans after, _'lin'_ for kMeans only and _'cb'_ for histogram equalization only. Default: _'both'_
 
 ## Formal performance evaluation / Results
 
@@ -249,13 +377,21 @@ Following you find computational time on the Duckiebot:
 
 
 ## Future avenues of development
-
 ### Annotated Data
 This failed horribly. We didn't manage to get any annotated data since something didn't work with the website.
-For further improvement of the algortihm and a proper performace evaluation this would be crucial.
+For further improvement of the algorithm and a proper performance evaluation this would be crucial.
 
 ### Remove unwanted background
+
+_Implemented in the geom.py file._
+
+#### Idea
 In order to make the k-Means approach faster one could try to remove unwanted background/irrelevant pixels. Since all the information except the road is of no use for the color transformation algorithm it can be remove. Up to now it just consumes more time and makes the algorithm incorrect. So if one could remove the unwanted background we could speed up k-Means because we don't have so many pixels anymore and because probably we don't need this many centers anymore. Since k-Means computational complexity is linear in both parameters this would definitively impact the computational time.
+
+#### Existing code
+There exists already some code for this idea. The basic concept is to use the flood fill concept. The output would be a mask which can be applied to every picture. But so far the generalization is difficult to make since the road geometry can easily change (e.g. in curves). And secondly this approach is quite time consuming as well.  
+A simple workaround is the following:  
+In general one can cut away the upper third of the picture to compute the color transform. One only need the road and its color for this procedure. So everything above the road is uninteresting for computing the color transform. The heuristic approach is cutting away the upper third. This is the default approach!
 
 ### Two step k-Means
 Do the first transformation with n iterations and k centers. Then remember the k centers. For the next 2, ..., z images only start from the previous centers from image \(z_{i-1}\) to compute the next centers from image $z_{i}$.  
@@ -263,9 +399,13 @@ Do the first transformation with n iterations and k centers. Then remember the k
 ### Other clustering method
 Another clustering method like expectation maximization based on Gaussian mixture models would have more accurate results since some of the color clusters are not really spherical and definitively not of the same size.
 
-### white paper reference
-To determine when exactly the moment for the color transformation is a white paper reference would help. So an idea would be to have a small white hardware piece in camera sight which is always exposed to the enviroment lighting conditions. There you could see when the best moment for a recomputation of a color transformation would be.
+### White paper reference
+To determine when exactly the moment for the color transformation is a white paper reference would help. So an idea would be to have a small white hardware piece in camera sight which is always exposed to the environment lighting conditions. There you could see when the best moment for a re-computation of a color transformation would be.
 
 ### Polarization filter
 
-If you would put a polarisation filter in front of the camera we would get rid of the reflections of the tape. This was a big problem we heard of several teams.
+If you would put a polarization filter in front of the camera we would get rid of the reflections of the tape. This was a big problem we heard of several teams.
+
+
+#### Troubleshooting
+Contact: czuidema@ethz.ch
