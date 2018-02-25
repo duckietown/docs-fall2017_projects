@@ -86,7 +86,7 @@ A bad example. The error increased 78.114 to 146.192.
 Preliminaries to the following topics would be good to have:
 - [Clustering methods](#preliminaries-clustering-methods)
 - [Convex optimization](#preliminaries-convex-optimization)
-- [Histogram equalization](##preliminaries-histogram-equalization)
+- [Histogram equalization](#preliminaries-histogram-equalization)
 
 ## Definition of the problem
 
