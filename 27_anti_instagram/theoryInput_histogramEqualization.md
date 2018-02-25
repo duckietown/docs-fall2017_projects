@@ -1,4 +1,4 @@
-# Histogram Equalization
+# Histogram Equalization {#preliminaries-histogram-equalization status=draft}
 This text will talk about histograms used for image analysis.
 ## Motivation
 Histogram Equalization can be used for contrast adjustment. For example when a gray scale picture has all values around one value the contrast mathematical difference between different pixels is in general really low. But with histogram equalization the colors are kind of normalized such that the difference and the therefore the contrast of a gray scale picture is increased.
@@ -56,4 +56,4 @@ Histogram equalization is rather unproblematic in single channel images like gra
 This can lead to unexpected and unwanted behavior.  
 A good idea to solve this problem is to use for example HSL instead of RGB space since you could equalize only luminance there. This would not change any hue or saturation value and provide a good white balance. HSV or LAB could be considered as well.
 
-[ [source] ](http://ieeexplore.ieee.org/document/1257395/?reload=true&arnumber=1257395)
+[ [source] ](http://ieeexplore.ieee.org/document/1257395/?reload=true&amp;arnumber=1257395)

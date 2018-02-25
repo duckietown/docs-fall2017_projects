@@ -1,4 +1,4 @@
-# Clustering methods
+# Clustering methods {#preliminaries-clustering-methods status=draft}
 Clustering is the process of grouping some objects such that similar objects belong to the same group. In the sense of colors it could be that similar colors are grouped together e.g. bright red, ruby and pink belong to the group of red colors where as azure blue, copenhagen blue and dark blue would be grouped to the blue colors.  
 Various algorithm can solve such a task. They differ in how they define what is a cluster (e.g. the members are within a certain distance) and how efficiently these algorithms can find these clusters.  
 Following some algorithms for determining clusters are presented.

@@ -1,4 +1,4 @@
-#  Anti Instagram: final report {#anti-instagram-final-report}
+#  Anti Instagram: final report {#anti-instagram-final-report status=draft}
 
 ## The final result
 
@@ -53,22 +53,18 @@ The
 Example 1:
 
 <div>
-  <center>
-      <img src="/images/ad1_orig.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/ad1_corr.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
-      <p style="clear: both;">
-    </center>
+      <img src="/images/ad1_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/ad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;"></p>
 </div>
 This was a good working example. The euclidean error of "true" centers compared to the centers which are estimated in the picture decreased from 175.541 to 43.724.  
 
 Example 2:
 
 <div>
-  <center>
-      <img src="/images/disad1_original.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad1_corr.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
-      <p style="clear: both;">
-    </center>
+      <img src="/images/disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;"></p>
 </div>
 
 
@@ -77,11 +73,9 @@ This was a medium working example. The euclidean error of "true" centers compare
 Example 3:
 
 <div>
-  <center>
-      <img src="/images/disad2_orig.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad2_corr.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
-      <p style="clear: both;">
-    </center>
+      <img src="/images/disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad2_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;"></p>
 </div>
 
 A bad example. The error increased 78.114 to 146.192.
@@ -215,7 +209,7 @@ The far left is the original image where we got the data from. The second from l
         <img src="/images/comparison_colorspace/rgb.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
         <img src="/images/comparison_colorspace/hsv.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
         <img src="/images/comparison_colorspace/lab.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
-        <p style="clear: both;">
+        <p style="clear: both;"></p>
     </div>
 </div>
 
@@ -225,7 +219,7 @@ The far left is the original image where we got the data from. The second from l
         <img src="/images/comparison_colorspace/rgb2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
         <img src="/images/comparison_colorspace/hsv2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
         <img src="/images/comparison_colorspace/lab2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
-        <p style="clear: both;">
+        <p style="clear: both;"></p>
     </div>
 </div>
 
@@ -297,11 +291,9 @@ Actually the analysis in the [disadvatages chapter](#disadvantages-existing) led
 Example 1:
 
 <div>
-  <center>
-      <img src="/images/disad1_original.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad1_corr_gimp.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
-      <p style="clear: both;">
-    </center>
+      <img src="/images/disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad1_corr_gimp.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;"></p>
 </div>
 
 
@@ -310,11 +302,9 @@ This was a medium working example. The euclidean error of "true" centers compare
 Example 2:
 
 <div>
-  <center>
-      <img src="/images/disad2_orig.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad2_corr_gimp.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
-      <p style="clear: both;">
-    </center>
+      <img src="/images/disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad2_corr_gimp.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <p style="clear: both;"></p>
 </div>
 
 
@@ -387,6 +377,78 @@ _Implemented in the geom.py file._
 
 #### Idea
 In order to make the k-Means approach faster one could try to remove unwanted background/irrelevant pixels. Since all the information except the road is of no use for the color transformation algorithm it can be remove. Up to now it just consumes more time and makes the algorithm incorrect. So if one could remove the unwanted background we could speed up k-Means because we don't have so many pixels anymore and because probably we don't need this many centers anymore. Since k-Means computational complexity is linear in both parameters this would definitively impact the computational time.
+
+#### Lane Surface Identification
+
+* Prior knowledge:
+    * Assumption: Bottom ⅖ is lane, top ⅓ is not lane.
+    * Pixels within a lane element have low gradient.
+    * Pixels crossing boundaries, i.e. line edges, have high gradient.
+* Detailed steps:
+    1. Compute gradient
+
+        Compute the image gradient with Sobel operator. The result turns out to be better when done in RGB rather than HSV space.
+
+        <img src="images/grad.png" style="width: 400px"/>
+    2. Threshold gradient
+
+        This makes a binary image out of the gradient.
+
+        <img src="images/grad_th.png" style="width: 400px"/>
+    3. Dilate gradient
+
+        This continues broken lines in the gradient, due to noise (e.g. from motion blur).
+
+        <img src="images/grad_th_dilated.png" style="width: 400px"/>
+    4. Zero fill bottom ⅖
+
+        This part is assumed to be lane surface. See next step for explanation.
+
+        <img src="images/grad_th_dilated_zeroed.png" style="width: 400px"/>
+    5. Floodfill to get mask
+
+        This yield the single connected component of low gradient part. The seed is chosen from the bottom ⅖.
+
+        <img src="images/ff.png" style="width: 400px"/>
+    6. Close narrow openings
+
+        Regions inside narrow openings are probably high gradient part within the lane, and thus should be kept. We close it first, which is equivalent to dilation followed by errosion.
+
+        <img src="images/ff_closed.png" style="width: 400px"/>
+    7. Fill the holes
+
+        Then fill the resulting holes by floodfilling from the top, and take the complement.
+
+        <img src="images/ff_closed_ff.png" style="width: 400px"/>
+    8. Clip off top ⅓
+
+        This part are assumed to be not lane surface, so it gets clipped off from the mask.
+
+        <img src="images/ff_closed_ff_clipped.png" style="width: 400px"/>
+
+#### Boundary Region Detection
+
+* Intuitions:
+    * We observed that regions of boundaries between lane lines already contain sufficient color information. This is because the line detector only cares about the edges of lane lines, which is the entire reason we are performing anti-instagram.
+    * In addition, restricting to boundary areas will further remove irrelevant portions of the image while substantially accelerating k-means computation.
+* Detailed steps:
+    1. Compute, threshold and dilate gradient
+
+        High gradient part corresponds to boundaries. Dilation is meant to cover more of the bordering pixels to get sufficient information.
+
+        <img src="images/grad_cnt.png" style="width: 400px"/>
+    2. Find contours as masks
+
+        We want to capture the boundary areas, which can be found as contours in the gradient map above. This is done via the algorithm described in Suzuki, S. and Abe, K., Topological Structural Analysis of Digitized Binary Images by Border Following. CVGIP 30 1, pp 32-46 (1985) (implemented in OpenCV).
+
+        <img src="images/grad_cnt_masked.png" style="width: 400px"/>
+    3. Remove small contours and fill in
+
+        Contours that have small size are probably noise. Fill in the holes turn out to provide more information than noise.
+
+        <img src="images/grad_cnt_masked_th.png" style="width: 400px"/>
+
+        The pixels under this mask then get fed into the k-means algorithm.
 
 #### Existing code
 There exists already some code for this idea. The basic concept is to use the flood fill concept. The output would be a mask which can be applied to every picture. But so far the generalization is difficult to make since the road geometry can easily change (e.g. in curves). And secondly this approach is quite time consuming as well.  

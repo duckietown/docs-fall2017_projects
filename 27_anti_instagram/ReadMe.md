@@ -1,4 +1,4 @@
-# Anti Instagram ReadMe {#anti-instagram-readME}
+# Anti Instagram ReadMe {#anti-instagram-readME status=draft}
 
 This is the short description of anti-instagram software.
 
@@ -41,25 +41,25 @@ Input parameters for the Anti instagram node:
 
 
 ### How to start the lane following
-Step 0: On duckiebot, change to /$DUCKIETOWN_ROOT/ directory and checkout the lastest version of devel-anti-instagram branch.
+Step 0: On duckiebot, change to /&#36;DUCKIETOWN_ROOT/ directory and checkout the lastest version of devel-anti-instagram branch.
 
 Step 1: Run command:
 
-    duckiebot $ source environment.sh && source set_ros_master.sh && source set_vehicle_name.sh
+    duckiebot &#36; source environment.sh &amp;&amp; source set_ros_master.sh &amp;&amp; source set_vehicle_name.sh
 
-    duckiebot $ roslaunch duckietown_demos lane_following.launch
+    duckiebot &#36; roslaunch duckietown_demos lane_following.launch
 
 Wait a while so that everything has been launched.
 
 If you accidentally press R1 which starts autonomous lane following, press L1 to switch back to joystick control.
 
-Step 2: On laptop, change to /$DUCKIETOWN_ROOT/ directory and perform the following steps:
+Step 2: On laptop, change to /&#36;DUCKIETOWN_ROOT/ directory and perform the following steps:
 
-    laptop $ source environment.sh
+    laptop &#36; source environment.sh
 
-    laptop $ export ROS_MASTER_URI=http://robot_name.local:11311/
+    laptop &#36; export ROS_MASTER_URI=http://robot_name.local:11311/
 
-    laptop $ rqt_image_view
+    laptop &#36; rqt_image_view
 
 which opens a window to preview image messages. Select the /robot name/camera_node/image/compressed to view camera image stream. Place the duckiebot somewhere in duckietown.
 
