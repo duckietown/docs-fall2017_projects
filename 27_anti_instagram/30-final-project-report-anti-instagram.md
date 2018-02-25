@@ -42,7 +42,7 @@ The k-Means algorithm now tries to detect clusters in this RGB space and estimat
 Often other image transformations focus on white balance. But we are concerned the most of the colors. So this clustering approach is a good idea here.
 2. k-Means is a fairly simple approach and can be used for unsupervised learning. This is very interesting for a future online implementation.
 
-#### Disadvantages of existing solution {#disadvantages-existing}
+#### Disadvantages of existing solution {#anti-instagram-disadvantages-existing}
 
 1. The k-Means clustering was initialized only with 3 centers. This is a very rough guess. By analyzing several sample images one sees that there are distinct white, red and yellow clusters. They can indeed be represented by three distinct centers. But the problem is that all the other pixels have to assigned to a cluster as well. This distorts the color transformation.
 2. The existing solution was not online. The color transformation had to estimated explicitly by pressing a button on the joystick. Firstly the system is not fully autonomous anymore since it needs user input (pressing the button). And secondly the user doesn't or cannot really know when the optimal moment is for a color transformation.
@@ -54,8 +54,8 @@ Example 1:
 
 <div>
   <center>
-      <img src="/images/ad1_orig.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/ad1_corr.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="/images/ad1_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/ad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;">
     </center>
 </div>
@@ -65,8 +65,8 @@ Example 2:
 
 <div>
   <center>
-      <img src="/images/disad1_original.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad1_corr.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="/images/disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;">
     </center>
 </div>
@@ -78,8 +78,8 @@ Example 3:
 
 <div>
   <center>
-      <img src="/images/disad2_orig.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad2_corr.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="/images/disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad2_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;">
     </center>
 </div>
@@ -100,7 +100,7 @@ The general idea is to find a transformation matrix $T$ which converts the origi
 
 ### Mathematical definition
 
-#### General color transform {#mathematical-general-transform}
+#### General color transform {#anti-instagram-mathematical-general-transform}
 A general color transformation is stated as follows:
 
 \[
@@ -188,7 +188,9 @@ As a first idea we wanted to improve the current implementation. So we further i
 ### k-Means Approach
 _Implemented in the kMeansClass found in the kmeans_rebuild.py file._
 _This is set with the parameter lin for the trafomode in the ContAntiInstagramNode._
-#### Idea {#k-means-idea}
+
+#### Idea {#anti-instagram-k-means-idea}
+
 The core idea of the clustering approach is to define some "true" colors for the colors to be transformed. In the Duckiebot case these are yellow, white, black and red. These "true" colors can be defined differently if wished. It is just important that the definition is coherent with the color classification of the line detection. To determine the color transformation which would ideally map all the red line colors on the "true" red, the yellow line colors on the "true" yellow we have to find out what the error is. This is dependent obviously on the current environment illumination. So depending on the illumination the yellow of the dashed middle line is more or less "wrong" or away compared to the "true" center.  
 The approach is now to determine the so called real centers of the colors of the lines by using a clustering method. In this case it is k-Means.  
 We're going to cluster all the pixels of the input image and try to find the red, yellow, white and black cluster. By calculating the center of each of those clusters we are able to compute the color transform.
@@ -285,12 +287,14 @@ All in all the k-Means approach gives good results but it is too slow for an onl
 
 
 ### Histogram Equalization
+
 _Implemented in the simpleColorBalanceClass found in the simpleColorBalanceClass file._
 _This is trafomode cb for the ContAntiInstagramNode._
 
 After implementing the k-Means approach we saw that there was need for something else. A very simple white balance would help us a lot to correct the picture to a certain extent and being very fast.
 
 #### Idea
+
 Doing research we found a promising approach for a very simple color balance.  
 Actually the analysis in the [disadvatages chapter](#disadvantages-existing) led us to this idea. Experimenting with gimp we found out that the automatic white balace leads to quite good results:  
 
@@ -298,8 +302,8 @@ Example 1:
 
 <div>
   <center>
-      <img src="/images/disad1_original.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad1_corr_gimp.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="/images/disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad1_corr_gimp.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;">
     </center>
 </div>
@@ -311,8 +315,8 @@ Example 2:
 
 <div>
   <center>
-      <img src="/images/disad2_orig.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad2_corr_gimp.jpeg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="/images/disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="/images/disad2_corr_gimp.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;">
     </center>
 </div>
@@ -348,7 +352,9 @@ This procedure is way faster than k-Means. That's why it is our proposed solutio
 </center>
 
 As seen in the picture the most important piece in our code is the Anti_Instagram node. It has the ability to get a raw image from the camera and calculate transform parameters out of it. So the core piece is the ContAntiInstagramNode.
+
 ### Anti Instagram node
+
 Input parameters for the Anti instagram node:
 1. _~ai_interval_: This sets the time in seconds between each computation of the color transformation. Default: 10
 
@@ -377,7 +383,9 @@ Following you find computational time on the Duckiebot:
 
 
 ## Future avenues of development
+
 ### Annotated Data
+
 This failed horribly. We didn't manage to get any annotated data since something didn't work with the website.
 For further improvement of the algorithm and a proper performance evaluation this would be crucial.
 
@@ -386,20 +394,25 @@ For further improvement of the algorithm and a proper performance evaluation thi
 _Implemented in the geom.py file._
 
 #### Idea
+
 In order to make the k-Means approach faster one could try to remove unwanted background/irrelevant pixels. Since all the information except the road is of no use for the color transformation algorithm it can be remove. Up to now it just consumes more time and makes the algorithm incorrect. So if one could remove the unwanted background we could speed up k-Means because we don't have so many pixels anymore and because probably we don't need this many centers anymore. Since k-Means computational complexity is linear in both parameters this would definitively impact the computational time.
 
 #### Existing code
+
 There exists already some code for this idea. The basic concept is to use the flood fill concept. The output would be a mask which can be applied to every picture. But so far the generalization is difficult to make since the road geometry can easily change (e.g. in curves). And secondly this approach is quite time consuming as well.  
 A simple workaround is the following:  
 In general one can cut away the upper third of the picture to compute the color transform. One only need the road and its color for this procedure. So everything above the road is uninteresting for computing the color transform. The heuristic approach is cutting away the upper third. This is the default approach!
 
 ### Two step k-Means
+
 Do the first transformation with n iterations and k centers. Then remember the k centers. For the next 2, ..., z images only start from the previous centers from image \(z_{i-1}\) to compute the next centers from image $z_{i}$.  
 
 ### Other clustering method
+
 Another clustering method like expectation maximization based on Gaussian mixture models would have more accurate results since some of the color clusters are not really spherical and definitively not of the same size.
 
 ### White paper reference
+
 To determine when exactly the moment for the color transformation is a white paper reference would help. So an idea would be to have a small white hardware piece in camera sight which is always exposed to the environment lighting conditions. There you could see when the best moment for a re-computation of a color transformation would be.
 
 ### Polarization filter
@@ -408,4 +421,5 @@ If you would put a polarization filter in front of the camera we would get rid o
 
 
 #### Troubleshooting
+
 Contact: czuidema@ethz.ch
