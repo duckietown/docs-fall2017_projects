@@ -1,4 +1,4 @@
-# Anti Instagram ReadMe {#anti-instagram-readME status=beta}
+# Anti Instagram ReadMe {#anti-instagram-readME status=draft}
 
 This is the short description of anti-instagram software.
 
