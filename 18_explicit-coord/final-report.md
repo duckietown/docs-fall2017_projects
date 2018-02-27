@@ -7,9 +7,12 @@ General notes:
 
 ## The final result {#explicit-coord-final-result}
 
-Video of the final result: 
+Video of the final result:
 
-<iframe width="420" height="315" src="https://www.youtube.com/embed/yB-xzuoe2Cw" frameborder="0" allowfullscreen></iframe> 
+<div figure-id="fig:example-embed">
+    <figcaption> Explicit coordination's video </figcaption>
+    <dtvideo src="vimeo:257762830"/>
+</div>
 
 ## Mission and Scope {#explicit-coord-final-scope}
 
@@ -197,7 +200,7 @@ Nodes:
 
 3. LED_detection: second option:
     * Input: camera_image (possibly after anti-instagram) and trigger
-    * Output: LED detected/LED not detected with position 
+    * Output: LED detected/LED not detected with position
     * Subscribed topic:
          * Trigger from finite state machine
          * camera_image from anti-instragram, CompressedImage
