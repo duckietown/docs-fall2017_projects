@@ -8,18 +8,19 @@
 
 <div figure-id="Implicit Coordination Video">
     <figcaption>Implicit Coordination Video</figcaption>
-    <dtvideo src="intersection_coordination.mp4"/>
+    <dtvideo src="vimeo:257734756"/>
 </div>
+
 https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2017_projects/19_impicit-coord/intersection_coordination.mp4
+
 <div figure-id="Implicit Coordination Video">
     <figcaption>Follow the Leader Video</figcaption>
-    <dtvideo src="Formation_Keeping.mp4"/>
+    <dtvideo src="vimeo:257734415"/>
 </div>
+
 https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2017_projects/19_impicit-coord/Formation_Keeping.mp4
 
 Demo Instructions: https://github.com/duckietown/duckuments/blob/devel-implicit-coord-jan15/docs/atoms_20_setup_and_demo/30_demos/35_implicit_coordination.md
-
-
 
 
 ## Motivation, Mission and Scope
@@ -65,7 +66,7 @@ The idea to use fiducial tags for the follow the leader problem on the other han
 
 
 ### Definition of the Problem Implicit Coordination:
-The final objective for this part was that, when two, three or four Duckiebots arrive at the same time at an intersection, they are able to handle the challange of who is allowed to drive first, autonomously and without any means of explicit communication. They are however allowed to use implicit communication. Which means they are allowed to observe the other Duckiebots and draw conclusions about the intents of the other Duckiebots from these observations. For this, we assumed that: 
+The final objective for this part was that, when two, three or four Duckiebots arrive at the same time at an intersection, they are able to handle the challange of who is allowed to drive first, autonomously and without any means of explicit communication. They are however allowed to use implicit communication. Which means they are allowed to observe the other Duckiebots and draw conclusions about the intents of the other Duckiebots from these observations. For this, we assumed that:
 - Duckiebots do not use explicit communication, e.g. LEDs, WLAN etc.
 - Duckiebots have different appearance.
 - All Duckiebots are autonomous, not remote controlled
@@ -174,4 +175,3 @@ Here, the detection algorithm could be improved. As described above, it starts t
 
 ### Future Avenues Follow the Leader
 An improvement for the Follow the Leader algorithm could be to git rid of the fiducial tags and try to follow each other solely depending on detecting the other Duckiebots. This could be done with the detection node we used for the imlicit coordination, however the detection is a lot less robust.
-
