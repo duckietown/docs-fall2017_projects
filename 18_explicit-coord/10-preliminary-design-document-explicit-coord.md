@@ -1,4 +1,4 @@
-# PDD - Explicit Coordination {#explicit-coordination-pdd status=beta}
+# Explicit Coordination: preliminary report {#explicit-coordination-pdd status=beta}
 
 
 ## Part 1: Mission and scope
@@ -174,7 +174,7 @@ In the following, let you be a Duckiebot.
     * If there is at least one vehicle with yellow lights, you turn green (you need to negotiate with yellow), go to 2 b).
 
 
-2. 
+2.
     1. You are currently red. Wait until yellows and/or greens are gone (assuming we also know their spots: opposite, left, right), check if there are any other reds:
         * If no reds are present, turn yellow and enter the intersection (you can execute immediately because you were red in the beginning of this step so if there are no reds when you checked, Duckiebots should be waiting for you o turn yellow or green so that they can turn red, therefore there cannot be a synchronization problem here).
         * If reds, turn green and go to 2 b) (if some reds turned green too quickly so that one red was unable to catch the red color, it still knew the spots of greens/yellow that existed in the beginning of 2 a), so if you see greens in the new spots can, you can still turn green and go to 2b).
