@@ -1,4 +1,4 @@
-#  The Controllers: final report {#controllers-final-report status=ready}
+#  The Controllers: final report {#controllers-final-report status=beta}
 
 <!--
 General notes:
