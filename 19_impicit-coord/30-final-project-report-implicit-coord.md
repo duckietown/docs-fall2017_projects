@@ -1,4 +1,5 @@
-#  Implicit Coordination: final report
+#  Implicit Coordination: final report {#implicit-coord-final-report status=draft}
+
 
 
 
@@ -6,21 +7,19 @@
 ## The final result
 
 
-<div figure-id="Implicit Coordination Video">
+<div figure-id="fig:implicit-intersection-navigation">
     <figcaption>Implicit Coordination Video</figcaption>
     <dtvideo src="vimeo:257734756"/>
 </div>
 
-https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2017_projects/19_impicit-coord/intersection_coordination.mp4
 
-<div figure-id="Implicit Coordination Video">
+
+<div figure-id="fig:follow-the-leader">
     <figcaption>Follow the Leader Video</figcaption>
     <dtvideo src="vimeo:257734415"/>
 </div>
 
-https://github.com/duckietown/duckuments/blob/schminic-final/docs/atoms_85_fall2017_projects/19_impicit-coord/Formation_Keeping.mp4
-
-Demo Instructions: https://github.com/duckietown/duckuments/blob/devel-implicit-coord-jan15/docs/atoms_20_setup_and_demo/30_demos/35_implicit_coordination.md
+The [operation manual](https://github.com/duckietown/duckuments/blob/devel-implicit-coord-jan15/docs/atoms_20_setup_and_demo/30_demos/35_implicit_coordination.md) can be found here.
 
 
 ## Motivation, Mission and Scope
@@ -128,15 +127,16 @@ The velocity of the leader is calculated according to the difference in distance
 (ρ_1 – ρ_2)/ΔT <br />
 Thus, we get the two ouputs of the black box in the picture, d_Leader and v_Leader.
 
-<div figure-id="fig:DemoMap" figure-caption="Coordination Trafo1">
+<div figure-id="fig:DemoMap1" figure-caption="Coordination Trafo1">
      <img src="CoordTrafo1.png" style='width: 20em'/>
 </div>
-<div figure-id="fig:DemoMap" figure-caption="Coordination Trafo2">
+<div figure-id="fig:DemoMap2" figure-caption="Coordination Trafo2">
      <img src="CoordTrafo2.png" style='width: 20em'/>
 </div>
 
 
 #### Velocity Control
+
 The following calculations are also illustrated in the picture. First, the actual distance between the two Duckiebots is subtracted from the desired distance d&ast;. <br />
 e_d = d&ast; - d_Leader <br />
 e_d holds information whether the distance to the leading Duckiebot is too large, too small or just right. From here, we calculate a velocity to adjust this distance to the desired one. <br />
@@ -151,7 +151,7 @@ The resulting v_Duckiebot is then used as the input for the Duckiebot.
 #### Further Details
 Lastly, there are some precautions not shown in the picture: If the velocity v_Duckiebot is smaller or equals to 0, both the velocity and omega input of the Duckiebot are set to 0. It is undesirable, that the Duckiebots start to drive backwards, as they cannot follow the lanes or avoid obstacles that way. If omega is not set to 0, the Duckiebots start rotating on the spot which – besides looking bad – causes them to lose track of the fiducial tag of the Duckiebot in front of them which in turn causes them to collide. <br />
 Finally, if the distance d_Leader falls under a certain threshold, an emergency brake is performed.
-<div figure-id="fig:DemoMap" figure-caption="Controller">
+<div figure-id="fig:DemoMap3" figure-caption="Controller">
      <img src="Controller.png" style='width: 10em'/>
 </div>
 
