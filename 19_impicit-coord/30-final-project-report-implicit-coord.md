@@ -149,6 +149,7 @@ v_Duckiebot = K_p&ast;e_v <br />
 The resulting v_Duckiebot is then used as the input for the Duckiebot.
 
 #### Further Details
+
 Lastly, there are some precautions not shown in the picture: If the velocity v_Duckiebot is smaller or equals to 0, both the velocity and omega input of the Duckiebot are set to 0. It is undesirable, that the Duckiebots start to drive backwards, as they cannot follow the lanes or avoid obstacles that way. If omega is not set to 0, the Duckiebots start rotating on the spot which – besides looking bad – causes them to lose track of the fiducial tag of the Duckiebot in front of them which in turn causes them to collide. <br />
 Finally, if the distance d_Leader falls under a certain threshold, an emergency brake is performed.
 <div figure-id="fig:DemoMap3" figure-caption="Controller">
@@ -159,19 +160,24 @@ Finally, if the distance d_Leader falls under a certain threshold, an emergency 
 
 
 ## Results and Performance Evaluation
+
 ### Results and Performance Evaluation Implicit Coordination
+
 Omitting possible errors which might occur in case of the implicit coordination at intersections, one should take the following precautions. <br />
 You need the correct april tags at the intersection, otherwise the Duckiebot won't know what kind of situation (intersection) it is dealing with. When the stopline isn't detected the algorithm doesn't start, so all Duckiebots should stop at the stopline. Furthermore you can get problems with twisted coordination systems for the detected position of other Duckiebots if your extrinsic camera calibration is wrong on the laptop (assuming your running the detection node on your laptop).Sometimes a robot is detected if there isn't actually one, which could slow down the traffic at the intersection. We agreed on this with our Canadian friends who did the detection, since we would otherwise risk to overlook a real Duckiebot which would be fatal. In rare cases the detection does not detect a robot. In order to assure the detection works as good as possible I would suggest relaunching the multivehicle detection node regularly, since it seems to start lagging the longer it is running. If you would like to keep track of the detection you can run rostopic echo /robotname/multivehicle_tracker_node/tracking. <br />
 The algorithm is designed for up 4 robots at the stoplines, but since we depend on the indefinit navigation, we are prone to navigation mistakes. If the tracking and navigation are correct, we are able to coordinate 4 way intersections for up to 4 Duckiebots. Empirical tests showed that our algorithm never needed more than 30 seconds to clear a four way intersection with 4 Duckiebots.
 
 ### Results and Performance Evaluation Follow the Leader
+
 We tested our follow the leader with up to four Duckiebots in duckietown and there doesn’t seem to be an upper limit on the number of Duckiebots following each other. Regarding the equal distance we are somewhat restricted by the computational power of the Duckiebots and hence the time needed for the detection of the antecedent Duckiebot. The detection time can vary from image frame to image frame however, 0.4 seconds used to be an appropriate upper bound. We found that this delay lead to deviations of maximally 20% from our optimal reference distance. In order to function properly the gain of the wheel calibration should be set to 0.6 as proposed by the Controllers to assure a smooth interplay between our controller and the lane following algorithm. Note that very high gains can dramatically worsen the deviations from the reference distance. Additionally, as always, a correct camera and wheel calibration are crucial for a fluid traffic.
 
 
 ## Future Avenues
 
 ### Future avenues Implicit Coordination
+
 Here, the detection algorithm could be improved. As described above, it starts to lag after a certain time and needs to be restarted time and again. Otherwise the algorithm is not very robust. Additionally, the tradeoff between false positives and false negatives could be tuned. Right now, the Duckiebots are far more likely to detect vehicles that are not there then to not detect vehicles that are there. While this makes sense in order to avoid collisions, it can also lead to a Duckiebot waiting for a long time at a free intersection. Also, the detection requires a lot of computational power from the Duckiebots that is currently not available other than on a laptop. This leads to the aforementioned lagging. Maybe, there is a different solution?
 
 ### Future Avenues Follow the Leader
+
 An improvement for the Follow the Leader algorithm could be to git rid of the fiducial tags and try to follow each other solely depending on detecting the other Duckiebots. This could be done with the detection node we used for the imlicit coordination, however the detection is a lot less robust.
