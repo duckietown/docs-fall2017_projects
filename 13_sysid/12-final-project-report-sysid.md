@@ -21,7 +21,7 @@ The mission is to make the controller more robust to different configurations of
 The Duckiebot is in a differential-drive configuration. It actuates each wheel with a separate DC Motor. By applying the same torque on both wheels one can go straight, and by applying different torques the Duckiebot turns. A schematic overview of the model can be seen in Figure [](#fig:model) [](#bib:Modeling).
 
 <div figure-id="fig:model" figure-caption="Model of differential drive robot">
-  <img src="model.PNG" style='width: 30em; height:auto'/>
+  <img src="model.png" style='width: 30em; height:auto'/>
 </div>
 
 A mathematical model for a differential drive robot will be derived. This model can be used to provide a simple method of maintaining an individual’s position or velocity estimate in the absence of computationally expensive position updates from external sources such as the mounted camera.
