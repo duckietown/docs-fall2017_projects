@@ -65,7 +65,7 @@ It was important to define how the new projects will interact with the old syste
 A dedicated System Architecture meeting was held in class to resolve any further conflicts and to conclude discussion on the interfaces between projects. More information on the `fsm` package at ...
 
 ### Documentation of FSM package
-The previous FSM did not have a README, therefore the documentation was improved greatly. 
+The previous FSM did not have a README, therefore the documentation was improved greatly.
 
 ## Formal performance evaluation / Results {#heroes-final-formal}
 

@@ -14,8 +14,6 @@ Requires: A laptop.
 
 </div>
 
-> JT: remove points for
-
 ## Duckietown setup notes {#demo-fleetcom-duckietown-setup}
 
 For this Demo, no Duckietown is needed.
