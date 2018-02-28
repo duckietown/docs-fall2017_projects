@@ -1,4 +1,4 @@
-# PDD - Implicit Coordination  {#formation-and-implicit-control-pdd status=beta}
+# Implicit Coordination: preliminary report  {#formation-and-implicit-control-pdd status=beta}
 
 
 ## Part 1: Mission and scope
