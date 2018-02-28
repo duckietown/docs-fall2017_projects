@@ -63,23 +63,22 @@ theta[k+1] = theta[k] + T<sub>s</sub> * v / r<sub>turn</sub>[k]
 #### Localization
 
 * Localization involves computing a state estimate of the Duckiebot's position (x, y, theta)
-    * **Quantitative performance metric**
-        * accuracy of state estimate in x[mm], y[mm] and theta [degree]
+* **Quantitative performance metric**
+* accuracy of state estimate in x[mm], y[mm] and theta [degree]
 
 #### Path Planning
 
 * Path planning consists of planning a collision free path from the current state estimate into or out of a parking space given a static map (no actively parking Duckiebots)
-	* **Quantitative performance metric**
-		* Percentage of collision free paths (# of collision free path / # of total paths)[%]
+* **Quantitative performance metric**
+* Percentage of collision free paths (# of collision free path / # of total paths)[%]
 
 #### Control
 
 * Once a state estimate is computed and a path is planned, the Duckiebot must be controlled to the computed collision free path with a sufficiently high frequency of state updates.
-	* **Quantitative performance metric**
-		* Starting at parking lot entrance, measure the number of parking manoeuvres completed within boundaries of designated parking spot (over N attempts)[%]
-		* Starting in designated parking space, measure the number of Duckiebots able to arrive at the exit of the parking lot (over N attempts)[%]
-		* Average time (for N vehicles) to enter and exit parking lot[seconds]
-
+* **Quantitative performance metric**
+* Starting at parking lot entrance, measure the number of parking manoeuvres completed within boundaries of designated parking spot (over N attempts)[%]
+* Starting in designated parking space, measure the number of Duckiebots able to arrive at the exit of the parking lot (over N attempts)[%]
+* Average time (for N vehicles) to enter and exit parking lot[seconds]
 
 ## Part 4: Contribution / Added functionality
 
@@ -91,7 +90,7 @@ Following these descriptions, the logical architecture and software architecture
 
 #### Localization
 
-The localization is based on the relative transformation of the Duckiebot to the apriltags within the parking lot and their known position in the world frame.
+The localization is based on the relative transformation of the Duckiebot to the Apriltags within the parking lot and their known position in the world frame.
 
 A rectified images is needed to detect the AprilTags within the image. The used wide angle camera on the Duckiebot provides a distorted barrel image. In a barrel distorted image each pixel is position closer to the optical center as it would be in a rectified image. The distortion is non linear and can be modelled by a polynomial function depending on the pixel distance to the optical center:
 
@@ -116,11 +115,12 @@ We have to find a path in a predefined parking lot with given objects like other
 We implemented a two stage algorithm. The first stage is using Dubins curves where the second stage uses rapidly exploring random trees.
 
 ##### Stage 1: Dubins path
+
 Given the assumption mentioned above (forward driving for a car like robot with given minimum curvature radius) the optimal path in an unlimited and obstacle free space on a Dubins path. This path is a combination of driving on a circle with minimum curvature radius and straight lines. This means that the Dubins path from start pose to end pose is calculated in the first stage. A collision checker is applied to the found path afterwards. If the path is completely within the parking space and does not enter the non-driveable region then we are done and we found the optimal path. If not, we switch to stage 2.
 
 ##### Stage 2: RRT*
-An alternative way to find a path is the piecewise addition of small path segments with collision check on the fly. A point is randomly sampled within the parking space. The nearest point to the sampled needs to be found. The sampled point is connected to the nearest point using a Dubins curve if and only if the path candidate is collision free. A graph optimization is performed in a local area around the sampled point in the end. This procedure is repeated until a pre-defined number of nodes are sampled. This method is called rapidly exploring random trees with path optimization (RRT*). This method converges to the optimal path with unlimited number of nodes. In practice, we stop earlier and have an approximation to the optimal path.
 
+An alternative way to find a path is the piecewise addition of small path segments with collision check on the fly. A point is randomly sampled within the parking space. The nearest point to the sampled needs to be found. The sampled point is connected to the nearest point using a Dubins curve if and only if the path candidate is collision free. A graph optimization is performed in a local area around the sampled point in the end. This procedure is repeated until a pre-defined number of nodes are sampled. This method is called rapidly exploring random trees with path optimization (RRT*). This method converges to the optimal path with unlimited number of nodes. In practice, we stop earlier and have an approximation to the optimal path.
 
 #### State Propagation
 
@@ -179,7 +179,6 @@ For the local graph optimization we need to define the area, this can be changed
 ##### Path variation
 The robot can only be controlled on a path when forward driving. When backing up we run the robot in an open loop fashion and only straight backwards driving is allowed. The distance travelled back can be adjusted with the variable `distance_backwards`.
 
-
 ##### Generate necessary control output
 
 To provide all necessary control signals, the pose of the robot and the path are combined to define an estimated distance from the path (`d_est`) and a reference distance (`d_ref`). The differential heading between the robot pose and the of the point on the path with lowest distance is calculated (`theta_est`). Furthermore, the reference velocity (`v_ref`) and curvature (`c_ref`) are given to the controller.
@@ -234,29 +233,29 @@ Target values:
 **rosnode list** (note that topic names are often remapped in launch files. Please refer to specific launch files for details):
 
 * image\_proc\_proportional\_node.py
-	* subscribes: /camera_node/image/raw, /camera_node/raw_camera_info
-	* publishes: image\_rect
+  * subscribes: /camera_node/image/raw, /camera_node/raw_camera_info
+  * publishes: image\_rect
 
 * apriltag\_detector.cpp
-	* subscribes: image\_rect
-	* publishes: tag\_detections\_image, tag\_detections, tag\_detections\_pose
+  * subscribes: image\_rect
+  * publishes: tag\_detections\_image, tag\_detections, tag\_detections\_pose
 
 * apriltags\_postprocessing\_node.py
-	* subscribes: apriltags\_in
-	* publishes: apriltags\_out , tag\_pose, apriltags\_parking, apriltags\_intersection
+  * subscribes: apriltags\_in
+  * publishes: apriltags\_out , tag\_pose, apriltags\_parking, apriltags\_intersection
 
 * localization\_node
-	* subscribes: apriltags
-	* publishes: /tf, pose\_Duckiebot
+  * subscribes: apriltags
+  * publishes: /tf, pose\_Duckiebot
 
 * path\_planning\_node
-	* subscribes: pose\_Duckiebot
-	* publishes: parking\_pose, parking\_active
+  * subscribes: pose\_Duckiebot
+  * publishes: parking\_pose, parking\_active
 
 * lane\_controller\_node
-   	* **note**: we copy this node from 'the controllers'
-   	* subscribes: parking\_pose
-   	* publishes: car\_cmd, actuator\_limits\_received, radius\_limit
+    * **note**: we copy this node from 'the controllers'
+    * subscribes: parking\_pose
+    * publishes: car\_cmd, actuator\_limits\_received, radius\_limit
 
 **rostopic list** :
 
@@ -264,24 +263,23 @@ Target values:
 	* from sensor_msgs.msg, type: Image
 
 * tag\_detections - latency: 3 seconds
-	* from Duckietown_msgs.msg, type: AprilTagDetectionArray
-	* **note**: this is the topic that is published at a frequency of ~ 1 signal/ 2-3 seconds. As such, this topic is the bottle neck of the algorithm. Please see Part 6 for potential remedies for this issue.
+  * from Duckietown_msgs.msg, type: AprilTagDetectionArray
+  * **note**: this is the topic that is published at a frequency of ~ 1 signal/ 2-3 seconds. As such, this topic is the bottle neck of the algorithm. Please see Part 6 for potential remedies for this issue.
 
 * apriltags\_in - remapping of tag\_detections
-	* from Duckietown_msgs.msg, type: AprilTagDetectionArray
+  * from Duckietown_msgs.msg, type: AprilTagDetectionArray
 
 * apriltags\_out - latency: few milliseconds
-	* from Duckietown_msgs.msg, type: AprilTagsWithInfos
+  * from Duckietown_msgs.msg, type: AprilTagsWithInfos
 
 * apriltags - latency: few milliseconds
-	* from Duckietown_msgs.msg, type: AprilTagsWithInfos
+  * from Duckietown_msgs.msg, type: AprilTagsWithInfos
 
 * pose\_Duckiebot - latency: few milliseconds
-	* from Duckietown_msgs.msg, type: Pose2DStamped
+  * from Duckietown_msgs.msg, type: Pose2DStamped
 
 * parking\_pose - latency: few milliseconds
-	* from Duckietown_msgs.msg, type: LanePose
-
+  * from Duckietown_msgs.msg, type: LanePose
 
 ## Part 5: Formal performance evaluation / Results
 
@@ -303,6 +301,7 @@ To overcome this problem we started to estimate the state of the Duckiebot using
 This state propagation proved insufficient as the amount each wheel rotates based on the control input is not accurate. This is caused by the slippage of the wheels and a non-linear and inaccurate relationship between the input voltage and the output momentum of the DC motors. This resulted in the robot to driving slower or faster then the commanded velocity as well as to turn on a smaller or bigger turning radius. In order to compensate for this, we introduced calibration factors for the commanded velocity to actual velocity and commanded radius to actual radius. We achieved better results using the state propagation approach, but were still unable to park the Duckiebot in one of the parking spaces.
 
 ### Path Planning
+
 The simulation works smoth and almost always finds a path. We successfully implemented Dubins pathes and RRT\*. The simulation is fast if a solution with dubins path is found. The computation time is under 0.2 seconds. It needs much more time if RRT* is used, a solution is eventually found after 20 seconds for hundert iterations.  
 
 <center><img figure-caption="Path from entrance to space 2" src="path_0_2.png" style="width: 500px;"/></center>
