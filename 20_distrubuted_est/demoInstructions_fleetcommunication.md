@@ -1,5 +1,7 @@
 # Demo instructions Fleet Communications {#demo-instruction-fleet-com status=draft}
 
+TODO: fix spelling and grammar
+
 This is the description of a communication setup between multiple Duckiebots.
 
 <div class='requirements' markdown="1">
@@ -12,17 +14,16 @@ Requires: A laptop.
 
 </div>
 
+> JT: remove points for
 
-## Duckietown setup notes {#demo-template-duckietown-setup}
+## Duckietown setup notes {#demo-fleetcom-duckietown-setup}
 
 For this Demo, no Duckietown is needed.
 
 
-## Duckiebot setup notes {#demo-template-duckiebot-setup}
-
 For this demo, additional wireless adapters are needed that allow mesh networking (e.g. TP-Link TL-WN822N or TL-WN821N).
 
-## Pre-flight checklist {#demo-template-pre-flight}
+## Pre-flight checklist {#demo-fleetcom-pre-flight}
 
 This pre-flight checklist describes the steps that ensure that the installation and demo will run correctly:
 
@@ -35,7 +36,7 @@ Check: The additional Wifi adapter is installed and works.
 
 Check: Duckiebots have sufficient battery charge.
 
-## Demo setup {#demo-template-run}
+## Demo setup {#demo-fleetcom-setup}
 Some packages are needed to enable the communication beween the Duckiebots, namely Protobuf, ZeroMQ and B.A.T.M.A.N.
 
 To install them, ssh into the Duckiebots and source the environment
@@ -68,7 +69,7 @@ Change all four instances of wlan0 to wlan1.
 After a reboot you are ready to make your Duckiebots talk to each other.
 
 
-## Demo instructions {#demo-template-run}
+## Demo instructions {sec:demo-fleetcom-instructions}
 
 To run the demo ssh into the bots, then in your duckietown repository run:
 
@@ -78,10 +79,10 @@ To run the demo ssh into the bots, then in your duckietown repository run:
 
 and enjoy the show!
 
-## Troubleshooting {#demo-template-troubleshooting}
+## Troubleshooting {#demo-fleetcom-troubleshooting}
 
 It's networking. If it doesn't work try reinstalling while letting 99 duckies swim in the bathtub and lighting magic candles.
 
-## Demo failure demonstration {#demo-template-failure}
+## Demo failure demonstration {#demo-fleetcom-failure}
 
 [terminal_full_of_errors.avi](https://youtu.be/rlpgaGqIupg?t=350s)

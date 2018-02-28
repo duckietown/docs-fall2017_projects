@@ -1,8 +1,7 @@
-# Fleet Planning: Final Report {#fleet-planning-final-report status=draft}
+# Fleet Planning: final Report {#fleet-planning-final-report  status=draft}
 
 
-## 3.1 The final result
-
+## The final result
 
 <div figure-id="fig:demo_video_fleetplanning">
     <figcaption>The Fleet Planning Demo Video</figcaption>
@@ -13,10 +12,10 @@
 
 
 
-## 3.2 Mission and scope
+## Mission and scope
 
 
-### 1 Motivation
+### Motivation
 
 
 As cities such as Duckietown grow, their inhabitants can no longer walk from each point of the city to the next; especially after a long night out. With the tremendous growth of Duckietown, the need for a mobility-on-demand (MOD) service became unbearable and was addressed in this project.
@@ -24,7 +23,7 @@ Duckietown being a city in which autonomous Duckiebots roam the streets, it make
 The development of a multi-duckiebot MOD service is thus reliant on many other Duckietown components such as localization, mapping, navigation, collision-avoidance and communication.
 
 
-### 2 Existing solution
+### Existing solution
 
 
 The existing codebase was set up to support localization, navigation and visualization for a single Duckiebot in a fixed, hard-coded Duckietown, represented as a tile-map image; see the [specification](http://book.duckietown.org/master/duckiebook/duckietown_specs.html#sec:duckietown-specs) for the available tile-types.
@@ -67,7 +66,7 @@ When the user hit the start button, a request was sent to the navigation ROS nod
 
 
 
-### 3 Opportunity
+### Opportunity
 
 
 The existing solution could benefit from scalability, adaptability and localization. It has been set-up, and often hard-coded, to work only with a single Duckiebot in a completely open loop manner. Without human interaction the Duckiebot would not move.
@@ -99,10 +98,10 @@ To verify our work, a test environment and virtual Duckiebots were introduced. T
 
 
 
-## 3.3 Definition of the problem
+## Definition of the problem
 
 
-### 1 Problem Statement
+### Problem Statement
 
 
   Integrate expectations of different stakeholders to achieve planning
@@ -120,7 +119,7 @@ To verify our work, a test environment and virtual Duckiebots were introduced. T
    - Local path planning and execution on Duckiebots
 
 
-### 2 Assumptions
+### Assumptions
 
 
 Per the preliminary and intermediate design documents, we assume that the Duckietown is large enough to accommodate all Duckiebots and that collision avoidance, line-detection etc. function reasonably well.
@@ -129,7 +128,7 @@ We further assume that the system has a CSV map representation of Duckietown con
 The communication between Duckiebots and the central planning node relies on the communication team of the distributed estimation project. To exchange messages on a fleet level we need this system to work reliably (i.e. without message loss) and with sufficiently small latencies, i.e. less than roughly a second.
 
 
-### 3 Contracts {#fleet-planning-final-report-contracts}
+### Contracts {#fleet-planning-final-report-contracts}
 
 #### Distributed estimation and communication team:
 
@@ -143,17 +142,17 @@ The fleet communication team provides a means of transporting arbitrary data as 
 Initially the idea was for the Architects to design a Duckietown sufficiently large to accommodate a large number of Duckiebots. Closer to the demo day, it emerged that several smaller Duckietowns would be used so this was no longer needed.
 
 
-### 4 Performance Evaluation and Metrics
+### Performance Evaluation and Metrics
 The performance of our project was primarily evaluated qualitatively, since the focus of the project was on providing a working framework to easily implement further fleet planning strategies. The results are discussed in 3.5.
 
 
 
-## 3.4 Contribution / Added functionality
+## Contribution / Added functionality
 
 The work on the 2017 fleet planning project was distributed in the following manner: 80% software infrastructure, 10% algorithms and 10% package integration of other teams. The final software can be divided into five parts:
 
 
-### 3.4.1 Path planning and execution
+### Path planning and execution
 
 
 Main component can be found [here](https://github.com/duckietown/Software/blob/devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/src/actions_dispatcher_node.py).
@@ -172,7 +171,7 @@ The calculated path and current location is then reported to the central plannin
 This node runs locally on each duckiebot
 
 
-### 3.4.2 Fleet planning aka taxi central node
+### Fleet planning aka taxi central node
 
 
 Core component can be found [here](https://github.com/duckietown/Software/blob/devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/src/taxi_central_node.py).
@@ -209,7 +208,7 @@ For each customer in pending_customer_requests:
 Although this approach is not fully optimal, it is a reasonable approximation for the 2017 Duckietown setup with a low frequency of new customer requests and a small number of operating Duckiebots. Our software is designed in a way that makes it easy to add more sophisticated approaches. This could include strategies that take into account expected distributions of customers and send Duckiebots to anticipated hotspots ahead of time (e.g. dealing with rush hour customer spikes).
 
 
-### 3.4.3 GUI
+### GUI
 
 
 The code can be found [here](https://github.com/duckietown/Software/blob/devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/include/rqt_fleet_planning/rqt_fleet_planning.py).
@@ -262,7 +261,7 @@ Please note that components (2) through (5) are re-positioned depending on the D
 </div>
 
 
-#### 1 Duckietown Map
+#### Duckietown Map
 
 
 
@@ -278,7 +277,7 @@ Please note that components (2) through (5) are re-positioned depending on the D
 
 
 
-#### 2 Display of start and target location
+#### Display of start and target location
 
 
 Serves to provide the user with feedback on the state that the GUI is in
@@ -286,7 +285,7 @@ Also provides a way to check correctness of the start/target location before iss
 
 
 
-#### 3 List of active Duckiebots
+#### List of active Duckiebots
 
 
 The selected Duckiebot’s location is displayed on the map (1)
@@ -295,7 +294,7 @@ List received as ROS message from the taxi central node
 
 
 
-#### 4 Start button
+#### Start button
 
 
 Triggers a customer request to the taxi central node
@@ -303,14 +302,14 @@ Only triggered if start and target location are set
 
 
 
-#### 5 Clear button
+#### Clear button
 
 
 Clears the start and target locations, which are then removed from the map (1) as well as the numerical display (2)
 
 
 
-### 3.4.4 Map drawing
+### Map drawing
 
 
 >Code can be found [here](https://github.com/duckietown/Software/blob/devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/src/map_draw_node.py).
@@ -324,7 +323,7 @@ When a customer request is assigned to a Duckiebot, a customer icon is drawn at 
 
 
 
-### 3.4.5 Messaging / Serialization
+### Messaging / Serialization
 
 
 As described in a previous section, the existing system runs completely on the Duckiebot, including the user GUI. To make the system scalable we needed to have communication between multiple Duckiebots as well as a central planning node. This change in the architecture requires a communication system for reliable communication. We acquired this functionality by setting up a contract with the fleet communication team. See [here](#fleet-planning-final-report-contracts).
@@ -339,7 +338,7 @@ To send data such as target locations and localization results a way to serializ
 
 
 
-### 3.4.6 Virtual Duckiebot / Simulation
+### Virtual Duckiebot / Simulation
 
 
 Only at the very end of the project all projects we depend on reached a state where we could integrate them all to have a functional system. Therefore we needed a way to test the system, especially the central dispatcher node, without relying on physical Duckiebots. We solved this by implementing a virtual Duckiebot ROS node that acts as if it were a real Duckiebot.
@@ -366,7 +365,7 @@ In this mode, the user only adds a Duckiebot at a desired node. The virtual Duck
 
 
 
-## 3.5 Formal performance evaluation / Results
+## Formal performance evaluation / Results
 
 
 As mentioned previously, the largest portion of the work that needed to be done involved implementing an operational infrastructure that supports actual fleet planning functionality. In summary, this included:
@@ -410,21 +409,21 @@ Quantitative evaluation of the sort initially planned and described in the PDD d
 
 
 
-## 3.6 Future avenues of development
+## Future avenues of development
 
 
 As seen in the previous sections we were able to provide a framework for a fleet level planning system within Duckietown which can serve as a basis for interesting research questions. However, it goes without saying that the current state of the system has some of room for improvement. This sections lists possible extensions and improvements.
 
 
 
-### 3.6.1 Integration with other improvements from 2017
+### Integration with other improvements from 2017
 
 
 As all the teams were working on their projects in the same time frame with unclear finishing dates we made the decision in mid-January to use lane following and intersection maneuvering from the duckietown class of 2016. Therefore the performance of the system is not as good as it could be with the improved implementation of these two components. Integrating these two improved components into the system to replace the old ones would be a low effort, high gain development.
 
 
 
-### 3.6.2 Distributed fleet planning
+### Distributed fleet planning
 
 
 The fleet planning system currently requires the taxi central node to run on a computer in the same network as all the Duckiebots. This is a single point of failure. If either communication between the Duckiebots and that computer breaks down or the computer itself fails the whole system fails. This is a very undesirable property.
@@ -440,14 +439,14 @@ Under the assumption of a connected network (i.e. no partitions) such a system i
 
 
 
-### 3.6.3 Switch to Mesh Network Communication
+### Switch to Mesh Network Communication
 
 
 The system as is requires a router for passing the messages in the network around. This can be a standard wifi router or a mobile phone used as a hotspot. This is additional hardware that is required to run the system and needs to be setup the right way. I.e. further points of a possible error while running the system. The library from the fleet communication team which we already use for communication also supports a mesh network configuration. In this configuration each Duckiebot uses its wifi stick to create the same Wifi network. The duckiebots can then communicate using this network. Therefore, no additional hardware is needed. The change to enable this kind of network communication is rather small. However, it has not yet been tested. So further development could include the inclusion and testing of the mesh network configuration.
 
 
 
-### 3.6.4 Parking of unused Duckiebots
+### Parking of unused Duckiebots
 
 
 In a real world scenario of an autonomous taxi system, the demand for vehicles changes over the course of a day, i.e. there are peaks around the morning commute time as well as the evening. One kind of optimality is to only have as many vehicles on the road as needed based on the current demand. Obviously this should be combined with a prediction of the future demand to minimize waiting time for the customer. (The interested reader is referred to [5] and [6] for a more thorough analysis of fleet size and rebalancing strategies).
@@ -458,27 +457,27 @@ The current implementation of the system forces all Duckiebots to continuously d
 
 
 
-### 3.6.5 Implementation and evaluation of rebalancing strategies
+### Implementation and evaluation of rebalancing strategies
 
 
 Unused vehicles drive to locations according to a rebalancing strategy. The default rebalancing strategy is “random” and sends the vehicles to random locations. The software architecture allows to easily implement further strategies and use them within the system. As a further development more rebalancing strategies can be implemented and evaluated for their performance in Duckietowns of different sizes. The reader is referred to [6] for a list of possible rebalancing strategies that can be implemented.
 
 
 
-### 3.6.6 Location estimation and visualization between intersections
+###  Location estimation and visualization between intersections
 
 
 The current implementation updates the location of the Duckiebots only at intersections. Using wheel encoder information the locations could be estimated in between intersections and thus deliver a more fluid user interface and allow customer pick up in between intersections. A more high powered version might use SLAM to localize Duckiebots at any given point in time, allowing for more fine-grained localization and consequently better fleet planning.
 
 
 
-### 3.6.6 Online Map Generation
+### Online Map Generation
 
 
 The current implementation of the MOD system depends on a map of the Duckietown generated a priori. It can be extended with the SLAM functionality implemented by the team in Montreal. Using the map that’s generated while traversing the map would remove the step of manually creating the map and thus make the system more user friendly.
 
 
-# 4 Conclusion {#fleet-planning-report-conclusion}
+# Conclusion {sec:fleet-planning-report-conclusion}
 
 In summary, the fleet planning project at current allows for the high-level control of a large number of Duckiebots, the visualization of the duckiebots on the map in a GUI, the assignment of customer requests an the execution of taxi services. The system works but relies heavily on smooth functioning of other components and is only as robust as these components are.
 The Duckiebot classes are extensively documented and designed in a way that allows easy extension with different fleet planning and rebalancing algorithms. This paves the way for future updates, some of which were discussed in the previous section.

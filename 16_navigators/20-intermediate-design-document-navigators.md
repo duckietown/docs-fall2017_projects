@@ -11,8 +11,6 @@
     <img src="logicaldiagram2.png" style="width: 60%"/>
 </div>
 
-
-
 The intersection navigation is started as soon as the Duckiebot is told that it is in front of an intersection. The following functions are then executed (in chronological order):
 
 * The Duckiebot localizes itself with respect to the intersection.
@@ -86,7 +84,7 @@ The *“intersection_localization”*-node is responsible for localizing the Duc
 
 * “~image/compressed”: The compressed camera image is used to localize the Duckiebot within the intersection. No assumption about the latency of this topic is made. In order to compensate for the expected latency, the timestamp of the camera frame will be also be used to indicate the time for which the pose is estimated.
 
-* "intersection_pose_pred_inertial": The predicted pose of the Duckiebot at the time when the camera image was taken. This information will be used to initialize the localization problem this node solves. Since the Duckiebot’s pose is predicted for the time the camera image was taken, delays are irrelevant. 
+* "intersection_pose_pred_inertial": The predicted pose of the Duckiebot at the time when the camera image was taken. This information will be used to initialize the localization problem this node solves. Since the Duckiebot’s pose is predicted for the time the camera image was taken, delays are irrelevant.
 
 
 The *"intersection_localization"*-node publishes the following topic:
@@ -131,7 +129,7 @@ The performance of the intersection navigation is evaluated experimentally using
 
 ### Collection
 
-The use of the provided platform for data collection, annotation and analysis is not needed since we are using logs and recordings of the camera feed of Duckiebots navigating intersections. 
+The use of the provided platform for data collection, annotation and analysis is not needed since we are using logs and recordings of the camera feed of Duckiebots navigating intersections.
 
 ### Annotation
 
@@ -139,4 +137,4 @@ No data will be annotated.
 
 ### Analysis
 
-No dataneeds to be analyzed. 
+No dataneeds to be analyzed.
