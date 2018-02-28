@@ -1,4 +1,4 @@
-# Demo template {#demo-template status=beta}
+# Demo instructions Fleet Communications {#demo-instruction-fleet-com status=draft}
 
 This is the description of a communication setup between multiple Duckiebots.
 
@@ -54,15 +54,15 @@ Next specify a static IP adress and subnet and write it on a piece of paper, be 
 Change to dependecie directory
 
     $ cd ~/duckietown/catkin_ws/src/30-localization-and-planning/fleet_messaging/dependencies
-    
+
 and install everything with one handy script!
-  
+
     $ ./install_fleet_messaging <wifi-iface> <ipaddr>
-    
+
 Now you need to alter your network config, for this open the interfaces file:
 
     $ sudo vim /etc/network/interfaces
-    
+
 Change all four instances of wlan0 to wlan1.
 
 After a reboot you are ready to make your Duckiebots talk to each other.
@@ -73,9 +73,9 @@ After a reboot you are ready to make your Duckiebots talk to each other.
 To run the demo ssh into the bots, then in your duckietown repository run:
 
     $ source environment.sh
-    
+
     $ roslaunch fleet_messaging tester.launch
-    
+
 and enjoy the show!
 
 ## Troubleshooting {#demo-template-troubleshooting}

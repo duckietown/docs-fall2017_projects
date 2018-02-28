@@ -1,4 +1,4 @@
-#  Distributed Estimation: intermediate report
+#  Distributed Estimation: intermediate report {fleet-messaging-int-report status=draft}
 
 ## Part 1: System interfaces
 
@@ -12,7 +12,7 @@ We will measure the latencies and other performance metrics but do not plan on o
 
 Fleet communication:
 1. Assume modules that need to use the communication capabilities e.g. multi-robot SLAM, fleet planning are able to publish and subscribe to ROS topics.
-2. Assume modules sends data of serializable type and reasonable size 
+2. Assume modules sends data of serializable type and reasonable size
 3. Assume communication is not time critical on sub second scale
 4. Assume modules self synchronize  (if applicable)
 
@@ -26,7 +26,7 @@ System architect check-off: I, XXX, (agree / do not agree) that the above is com
 
 messaging node:
 
-**subscribed topics:** individual outgoing communication (and by outgoing communication, we mean messages we send over wifi) topics published by: 
+**subscribed topics:** individual outgoing communication (and by outgoing communication, we mean messages we send over wifi) topics published by:
 - fleet planning (TBD)
 - Multi-Robot SLAM (TBD).
 
@@ -92,7 +92,7 @@ At least three Duckiebots (configured for mesh networking i.e. with additional w
 
 There are three main criterias that have to be evaluated:
 1. Message transport:
-    1. Centralized Network: test if a simple message e.g. a string can be sent from one duckiebot to another reliably. 
+    1. Centralized Network: test if a simple message e.g. a string can be sent from one duckiebot to another reliably.
     2. Decentralized Network: test message propagation. In a mesh network two Duckiebots (nodes) may not be directly connected, therefore we must test if a message can be propagated through the network to the correct receiver.
     3. Check of dropped messages
 2. Network traffic: accurately monitor network traffic
@@ -118,7 +118,7 @@ _Please note that for this part it is necessary for the Data Czars to check off 
 ### Collection
 
 Initially a set of compiled dummy messages is used to build the fleet-communication.
-For further implementation and evaluation one ROS-bag of broadcasted messages is needed from the fleet-planning team and from the multi-robot-SLAM product each. 
+For further implementation and evaluation one ROS-bag of broadcasted messages is needed from the fleet-planning team and from the multi-robot-SLAM product each.
 
 ### Annotation
 
