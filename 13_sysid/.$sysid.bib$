@@ -10,7 +10,6 @@
   Number                   = {3},
   Pages                    = {163--173},
   Volume                   = {3},
-
   Publisher                = {Springer}
 }
 
@@ -22,7 +21,6 @@
   Number                   = {5},
   Pages                    = {994--1004},
   Volume                   = {21},
-
   Publisher                = {IEEE}
 }
 
@@ -34,8 +32,6 @@
   Number                   = {6},
   Pages                    = {869--880},
   Volume                   = {12},
-
-  __markedentry            = {[romeo:6]},
   Publisher                = {IEEE}
 }
 
@@ -47,7 +43,6 @@
   Number                   = {4},
   Pages                    = {401--410},
   Volume                   = {13},
-
   Owner                    = {romeo},
   Publisher                = {Cambridge University Press},
   Timestamp                = {2018.02.14}
@@ -61,7 +56,6 @@
   Number                   = {2},
   Pages                    = {1--7},
   Volume                   = {2},
-
   Owner                    = {romeo},
   Timestamp                = {2018.02.14}
 }
@@ -71,7 +65,6 @@
   Author                   = {Gregory Dudek and Michael Jenkin},
   Publisher                = {Cambridge university press},
   Year                     = {2010},
-
   Owner                    = {romeo},
   Timestamp                = {2018.02.14}
 }
@@ -91,8 +84,6 @@
   Number                   = {1},
   Pages                    = {53--61},
   Volume                   = {15},
-
-  __markedentry            = {[romeo:]},
   Publisher                = {Springer}
 }
 
@@ -104,26 +95,19 @@
   Number                   = {6},
   Pages                    = {1029--1039},
   Volume                   = {30},
-
   Publisher                = {Cambridge University Press}
 }
 
 @Misc{Modeling,
-  Title                    = {Lecture: Modeling of a differential drive vehicle},
-
-  Author                   = {Jacobi Tani},
+  Title                    = {{ETHZ AMOD 2017} Lecture: Modeling of a differential drive vehicle},
+  Author                   = {Jacopo Tani},
   Year                     = {2017},
-
   Owner                    = {romeo},
   Timestamp                = {2018.02.14}
 }
 
 @Misc{OdometryCalibration,
-  Title                    = {Lecture: Odometry Calibration},
-
-  Author                   = {Jacobi Tani},
+  Title                    = {{ETHZ AMOD 2017} Lecture: Odometry Calibration},
+  Author                   = {Jacopo Tani},
   Year                     = {2017}
 }
-
-@comment{jabref-meta: databaseType:bibtex;}
-
