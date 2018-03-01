@@ -64,21 +64,21 @@ theta[k+1] = theta[k] + T<sub>s</sub> * v / r<sub>turn</sub>[k]
 
 * Localization involves computing a state estimate of the Duckiebot's position (x, y, theta)
 * **Quantitative performance metric**
-* accuracy of state estimate in x[mm], y[mm] and theta [degree]
+    * accuracy of state estimate in x[mm], y[mm] and theta [degree]
 
 #### Path Planning
 
 * Path planning consists of planning a collision free path from the current state estimate into or out of a parking space given a static map (no actively parking Duckiebots)
 * **Quantitative performance metric**
-* Percentage of collision free paths (# of collision free path / # of total paths)[%]
+    * Percentage of collision free paths (# of collision free path / # of total paths)[%]
 
 #### Control
 
 * Once a state estimate is computed and a path is planned, the Duckiebot must be controlled to the computed collision free path with a sufficiently high frequency of state updates.
 * **Quantitative performance metric**
-* Starting at parking lot entrance, measure the number of parking manoeuvres completed within boundaries of designated parking spot (over N attempts)[%]
-* Starting in designated parking space, measure the number of Duckiebots able to arrive at the exit of the parking lot (over N attempts)[%]
-* Average time (for N vehicles) to enter and exit parking lot[seconds]
+    * Starting at parking lot entrance, measure the number of parking manoeuvres completed within boundaries of designated parking spot (over N attempts)[%]
+    * Starting in designated parking space, measure the number of Duckiebots able to arrive at the exit of the parking lot (over N attempts)[%]
+    * Average time (for N vehicles) to enter and exit parking lot[seconds]
 
 ## Part 4: Contribution / Added functionality
 
@@ -96,7 +96,10 @@ A rectified images is needed to detect the AprilTags within the image. The used 
 
 f(r) = 1 + k<sub>1</sub>r + k<sub>2</sub>r<sup>2</sup> + ... + k<sub>n</sub>r<sup>n</sup>
 
-r<sup>2</sup>= (u - u<sub>0</sub>)<sup>2</sup> + (v - v<sub>0</sub>)<sup>2</sup>
+r<sup>2</sup> = (u - u<sub>0</sub>)<sup>2</sup> + (v - v<sub>0</sub>)<sup>2</sup>
+
+
+
 
 
 The intrinsic camera calibration estimates the distortion parameters k<sub>1</sub> to k<sub>4</sub>.
@@ -260,26 +263,26 @@ Target values:
 **rostopic list** :
 
 * image\_rect
-	* from sensor_msgs.msg, type: Image
+    * from sensor_msgs.msg, type: Image
 
 * tag\_detections - latency: 3 seconds
-  * from Duckietown_msgs.msg, type: AprilTagDetectionArray
-  * **note**: this is the topic that is published at a frequency of ~ 1 signal/ 2-3 seconds. As such, this topic is the bottle neck of the algorithm. Please see Part 6 for potential remedies for this issue.
+    * from Duckietown_msgs.msg, type: AprilTagDetectionArray
+    * **note**: this is the topic that is published at a frequency of ~ 1 signal/ 2-3 seconds. As such, this topic is the bottle neck of the algorithm. Please see Part 6 for potential remedies for this issue.
 
 * apriltags\_in - remapping of tag\_detections
-  * from Duckietown_msgs.msg, type: AprilTagDetectionArray
+    * from Duckietown_msgs.msg, type: AprilTagDetectionArray
 
 * apriltags\_out - latency: few milliseconds
-  * from Duckietown_msgs.msg, type: AprilTagsWithInfos
+    * from Duckietown_msgs.msg, type: AprilTagsWithInfos
 
 * apriltags - latency: few milliseconds
-  * from Duckietown_msgs.msg, type: AprilTagsWithInfos
+    * from Duckietown_msgs.msg, type: AprilTagsWithInfos
 
 * pose\_Duckiebot - latency: few milliseconds
-  * from Duckietown_msgs.msg, type: Pose2DStamped
+    * from Duckietown_msgs.msg, type: Pose2DStamped
 
 * parking\_pose - latency: few milliseconds
-  * from Duckietown_msgs.msg, type: LanePose
+    * from Duckietown_msgs.msg, type: LanePose
 
 ## Part 5: Formal performance evaluation / Results
 
