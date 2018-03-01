@@ -1,4 +1,4 @@
-#  System identification: final report {#sysid-final-report status=draft}
+#  System identification: final report {#sysid-final-report status=beta}
 
 
 ## The final result {#sysid-final-result}
@@ -222,7 +222,7 @@ The model of the system [](#bib:OdometryCalibration) with the notations explaine
 
 
 <div markdown="1">
- <col2 id='sysid-notations1' figure-id="tab:sysid-notations1" figure-caption="Notations for odometry calibration a differential drive robot">
+ <col2 id='sysid-notations1' figure-id="tab:sysid-notations" figure-caption="Notations for odometry calibration a differential drive robot">
     <s>$p$</s>  <s>Calibration Parameters</s>
     <s>$f(\cdot)$</s>  <s>Model </s>
     <s>$g(\cdot)$</s>  <s>Pose </s>

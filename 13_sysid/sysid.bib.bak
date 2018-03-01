@@ -35,8 +35,44 @@
   Pages                    = {869--880},
   Volume                   = {12},
 
-  __markedentry            = {[romeo:6]},
   Publisher                = {IEEE}
+}
+
+@Article{desantis1995modeling,
+  Title                    = {Modeling and path-tracking control of a mobile wheeled robot with a differential drive},
+  Author                   = {DeSantis, Romano M},
+  Journal                  = {Robotica},
+  Year                     = {1995},
+  Number                   = {4},
+  Pages                    = {401--410},
+  Volume                   = {13},
+
+  Owner                    = {romeo},
+  Publisher                = {Cambridge University Press},
+  Timestamp                = {2018.02.14}
+}
+
+@Article{dhaouadi2013dynamic,
+  Title                    = {Dynamic modeling of differential-drive mobile robots using lagrange and newton-euler methodologies: A unified framework},
+  Author                   = {Rached Dhaouadi and A. Abu Hatab},
+  Journal                  = {Advances in Robotics \& Automation},
+  Year                     = {2013},
+  Number                   = {2},
+  Pages                    = {1--7},
+  Volume                   = {2},
+
+  Owner                    = {romeo},
+  Timestamp                = {2018.02.14}
+}
+
+@Book{Dudek10,
+  Title                    = {Computational principles of mobile robotics},
+  Author                   = {Gregory Dudek and Michael Jenkin},
+  Publisher                = {Cambridge university press},
+  Year                     = {2010},
+
+  Owner                    = {romeo},
+  Timestamp                = {2018.02.14}
 }
 
 @Article{Garcia-Saura2015,
@@ -55,7 +91,6 @@
   Pages                    = {53--61},
   Volume                   = {15},
 
-  __markedentry            = {[romeo:]},
   Publisher                = {Springer}
 }
 
@@ -72,9 +107,9 @@
 }
 
 @Misc{Modeling,
-  Title                    = {Lecture: Modeling of a differential drive vehicle},
+  Title                    = {{ETHZ AMOD 2017} Lecture: Modeling of a differential drive vehicle},
 
-  Author                   = {Jacobi Tani},
+  Author                   = {Jacopo Tani},
   Year                     = {2017},
 
   Owner                    = {romeo},
@@ -82,11 +117,9 @@
 }
 
 @Misc{OdometryCalibration,
-  Title                    = {Lecture: Odometry Calibration},
+  Title                    = {{ETHZ AMOD 2017} Lecture: Odometry Calibration},
 
-  Author                   = {Jacobi Tani},
+  Author                   = {Jacopo Tani},
   Year                     = {2017}
 }
-
-@comment{jabref-meta: databaseType:bibtex;}
 
