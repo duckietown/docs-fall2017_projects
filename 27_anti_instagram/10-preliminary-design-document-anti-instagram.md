@@ -1,4 +1,4 @@
-# Anti-Instagram" preliminary design {#anti-instagram-pdd status=beta}
+# Anti-Instagram: preliminary design {#anti-instagram-pdd status=beta}
 
 ## Part 1: Mission and scope
 

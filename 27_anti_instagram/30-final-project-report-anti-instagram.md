@@ -477,7 +477,7 @@ In general one can cut away the upper third of the picture to compute the color 
 
 ### Two step k-Means
 
-Do the first transformation with n iterations and k centers. Then remember the k centers. For the next $2, \dots, z$ images only start from the previous centers from image \(z_{i-1}\) to compute the next centers from image $z_{i}$.  
+Do the first transformation with n iterations and k centers. Then remember the k centers. For the next $2, \dots, z$ images only start from the previous centers from image $z_{i-1}$ to compute the next centers from image $z_{i}$.  
 
 ### Other clustering method
 
