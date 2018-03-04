@@ -362,7 +362,7 @@ Input parameters for the Anti instagram node:
 In the end we have to admit that k-Means is probably too time consuming for an online approach. Or at least for an online approach with a fixed interval.
 Following you find computational time on the Duckiebot:
 
->| Algorithm:                           | Running Time [s]     |
+| Algorithm:                           | Running Time [s]     |
 |----------------------------------    |------------------    |
 | Color Balance                        |      0.0054          |
 | Linear 2 iterations, 10 centers      |      1.9725          |
@@ -372,7 +372,7 @@ Following you find computational time on the Duckiebot:
 | Linear 20 iterations, 10 centers     |      5.1680          |
 | Old Anti Instagram                  |      3.1517          |
 
-TODO:fix table (commented)
+
 
 ## Future avenues of development
 
@@ -490,6 +490,7 @@ To determine when exactly the moment for the color transformation is a white pap
 ### Polarization filter
 
 If you would put a polarization filter in front of the camera we would get rid of the reflections of the tape. This was a big problem we heard of several teams.
+
 
 ### Troubleshooting
 
