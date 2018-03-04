@@ -21,7 +21,7 @@ So the algorithm can be described as follows:
 
 <center>
 <figure>
-<img src="kmeans_working.png" alt="kMeans working" style="width: 500px;"/>
+<img src="images_anti_instagram/kmeans_working.png" alt="kMeans working" style="width: 500px;"/>
 <figcaption> Example of a k-Means clustering [1] </figcaption>
 </figure>
 </center>
@@ -45,7 +45,7 @@ So the algorithm can be described as follows:
 
 <center>
 <figure>
-<img src="kmeans_notworking.png" alt="kMeans working" style="width: 500px;"/>
+<img src="images_anti_instagram/kmeans_notworking.png" alt="kMeans working" style="width: 500px;"/>
 <figcaption> Different examples of a k-Means clustering which are not working. </figcaption>
 </figure>
 </center>
@@ -81,7 +81,7 @@ Simply speaking Gaussian mixture models are a more general version of k-Means as
 
 <center>
 <figure>
-<img src="kmeans_vs_gmm.png" alt="kMeans working" style="width: 700px;"/>
+<img src="images_anti_instagram/kmeans_vs_gmm.png" alt="kMeans working" style="width: 700px;"/>
 <figcaption> K-Means in comparison with EM algorithm </figcaption>
 </figure>
 </center>

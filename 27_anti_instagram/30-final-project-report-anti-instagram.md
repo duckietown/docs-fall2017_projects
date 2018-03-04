@@ -50,22 +50,21 @@ Often other image transformations focus on white balance. But we are concerned t
 
 We sampled several pictures and tested the old implementation. Following a table with the sample pictures and the outputs.
 
->The  
-
 Example 1:
 
 <div>
-      <img src="ad1_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="ad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+      <img src="images_anti_instagram/ad1_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="images_anti_instagram/ad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
       <p style="clear: both;"></p>
+</div>
 
 This was a good working example. The euclidean error of "true" centers compared to the centers which are estimated in the picture decreased from 175.541 to 43.724.  
 
 Example 2:
 
 <div>
-      <img src="disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="disad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="images_anti_instagram/disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="images_anti_instagram/disad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;"></p>
 </div>
 
@@ -75,8 +74,8 @@ This was a medium working example. The euclidean error of "true" centers compare
 Example 3:
 
 <div>
-      <img src="disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="disad2_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="images_anti_instagram/disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="images_anti_instagram/disad2_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;"></p>
 </div>
 
@@ -192,7 +191,7 @@ We're going to cluster all the pixels of the input image and try to find the red
 
 <center>
 <figure>
-<img src="distance.svg" alt="kMeans approach" style="width: 250px;"/>
+<img src="images_anti_instagram/distance.svg" alt="kMeans approach" style="width: 250px;"/>
 <figcaption> Basic idea of the k-Means transform </figcaption>
 </figure>
 </center>
@@ -208,20 +207,20 @@ The far left is the original image where we got the data from. The second from l
 
 <div>
     <div>
-        <img src="comparison_colorspace/original.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-        <img src="comparison_colorspace/rgb.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="comparison_colorspace/hsv.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="comparison_colorspace/lab.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+        <img src="images_anti_instagram/comparison_colorspace/original.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+        <img src="images_anti_instagram/comparison_colorspace/rgb.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="images_anti_instagram/comparison_colorspace/hsv.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="images_anti_instagram/comparison_colorspace/lab.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
         <p style="clear: both;"></p>
     </div>
 </div>
 
 <div>
     <div>
-        <img src="comparison_colorspace/original2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="comparison_colorspace/rgb2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="comparison_colorspace/hsv2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="comparison_colorspace/lab2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+        <img src="images_anti_instagram/comparison_colorspace/original2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="images_anti_instagram/comparison_colorspace/rgb2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="images_anti_instagram/comparison_colorspace/hsv2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="images_anti_instagram/comparison_colorspace/lab2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
         <p style="clear: both;"></p>
     </div>
 </div>
@@ -400,48 +399,48 @@ In order to make the k-Means approach faster one could try to remove unwanted ba
 
         Compute the image gradient with Sobel operator. The result turns out to be better when done in RGB rather than HSV space.
 
-        <img src="images/grad.png" style="width: 400px"/>
+        <img src="images_anti_instagram/grad.png" style="width: 400px"/>
 
     2. Threshold gradient
 
         This makes a binary image out of the gradient.
 
-        <img src="images/grad_th.png" style="width: 400px"/>
+        <img src="images_anti_instagram/grad_th.png" style="width: 400px"/>
     3. Dilate gradient
 
         This continues broken lines in the gradient, due to noise (e.g. from motion blur).
 
-        <img src="images/grad_th_dilated.png" style="width: 400px"/>
+        <img src="images_anti_instagram/grad_th_dilated.png" style="width: 400px"/>
 
     4. Zero fill bottom ⅖
 
         This part is assumed to be lane surface. See next step for explanation.
 
-        <img src="images/grad_th_dilated_zeroed.png" style="width: 400px"/>
+        <img src="images_anti_instagram/grad_th_dilated_zeroed.png" style="width: 400px"/>
 
     5. Floodfill to get mask
 
         This yield the single connected component of low gradient part. The seed is chosen from the bottom ⅖.
 
-        <img src="images/ff.png" style="width: 400px"/>
+        <img src="images_anti_instagram/ff.png" style="width: 400px"/>
 
     6. Close narrow openings
 
         Regions inside narrow openings are probably high gradient part within the lane, and thus should be kept. We close it first, which is equivalent to dilation followed by errosion.
 
-        <img src="images/ff_closed.png" style="width: 400px"/>
+        <img src="images_anti_instagram/ff_closed.png" style="width: 400px"/>
 
     7. Fill the holes
 
         Then fill the resulting holes by floodfilling from the top, and take the complement.
 
-        <img src="images/ff_closed_ff.png" style="width: 400px"/>
+        <img src="images_anti_instagram/ff_closed_ff.png" style="width: 400px"/>
 
     8. Clip off top $\frac{1}{3}$
 
         This part are assumed to be not lane surface, so it gets clipped off from the mask.
 
-        <img src="images/ff_closed_ff_clipped.png" style="width: 400px"/>
+        <img src="images_anti_instagram/ff_closed_ff_clipped.png" style="width: 400px"/>
 
 #### Boundary Region Detection
 
@@ -453,19 +452,19 @@ In order to make the k-Means approach faster one could try to remove unwanted ba
 
         High gradient part corresponds to boundaries. Dilation is meant to cover more of the bordering pixels to get sufficient information.
 
-        <img src="images/grad_cnt.png" style="width: 400px"/>
+        <img src="images_anti_instagram/grad_cnt.png" style="width: 400px"/>
 
     2. Find contours as masks
 
         We want to capture the boundary areas, which can be found as contours in the gradient map above. This is done via the algorithm described in Suzuki, S. and Abe, K., Topological Structural Analysis of Digitized Binary Images by Border Following. CVGIP 30 1, pp 32-46 (1985) (implemented in OpenCV).
 
-        <img src="images/grad_cnt_masked.png" style="width: 400px"/>
+        <img src="images_anti_instagram/grad_cnt_masked.png" style="width: 400px"/>
 
     3. Remove small contours and fill in
 
         Contours that have small size are probably noise. Fill in the holes turn out to provide more information than noise.
 
-        <img src="images/grad_cnt_masked_th.png" style="width: 400px"/>
+        <img src="images_anti_instagram/grad_cnt_masked_th.png" style="width: 400px"/>
 
         The pixels under this mask then get fed into the k-means algorithm.
 
@@ -493,5 +492,4 @@ If you would put a polarization filter in front of the camera we would get rid o
 
 
 ### Troubleshooting
-
 Contact: [Christoph Zuidema](mailto:czuidema@ethz.ch)
