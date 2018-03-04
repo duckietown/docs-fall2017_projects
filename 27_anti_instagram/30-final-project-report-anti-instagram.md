@@ -1,9 +1,8 @@
-#  Anti Instagram: final report {#anti-instagram-final-report status=beta}
+# Anti Instagram: final report {#anti-instagram-final-report status=beta}
 
 ## The final result
 
 _Video about anti instagram:_
-
 
 <div figure-id="fig:example-embed">
     <figcaption>Anti instagram video</figcaption>
@@ -14,6 +13,7 @@ _Video about anti instagram:_
 ## Mission and Scope
 
 ### Motivation
+
 During the process of autonomous driving the Duckiebot has to know where to drive and where not. For example the road marking or obstacles on the road give constraints where the allowable area to drive is.  
 Let's take the road marking example. For Duckietown it is true that the road is rather black, the stopping lines are red, the side lines are white and the dashed middle lines are yellow.  
 Knowing about this color information the Duckiebot is theoretically able to know whether it is on the correct lane position or not. By detecting the lines and estimating the position the Duckiebot can know whether it should drive more left or right or stay in the same position.  
@@ -45,33 +45,27 @@ Often other image transformations focus on white balance. But we are concerned t
 #### Disadvantages of existing solution {#anti-instagram-disadvantages-existing}
 
 1. The k-Means clustering was initialized only with 3 centers. This is a very rough guess. By analyzing several sample images one sees that there are distinct white, red and yellow clusters. They can indeed be represented by three distinct centers. But the problem is that all the other pixels have to assigned to a cluster as well. This distorts the color transformation.
+
 2. The existing solution was not online. The color transformation had to estimated explicitly by pressing a button on the joystick. Firstly the system is not fully autonomous anymore since it needs user input (pressing the button). And secondly the user doesn't or cannot really know when the optimal moment is for a color transformation.
 
 We sampled several pictures and tested the old implementation. Following a table with the sample pictures and the outputs.
-The  
+
+>The  
 
 Example 1:
 
 <div>
-<<<<<<< HEAD:docs/atoms_85_fall2017_projects/27_anti_instagram/30-final-project-report-anti-instagram.md
-      <img src="/images/ad1_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/ad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="ad1_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="ad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
       <p style="clear: both;"></p>
-=======
-  <center>
-      <img src="/images/ad1_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/ad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
-      <p style="clear: both;">
-    </center>
->>>>>>> 775e91f98691f9a219f1cc1e7065f8b6e25fa34b:docs/atoms_85_fall2017_projects/27_anti_instagram/30-final-project-report-anti-instagram.md
-</div>
+
 This was a good working example. The euclidean error of "true" centers compared to the centers which are estimated in the picture decreased from 175.541 to 43.724.  
 
 Example 2:
 
 <div>
-      <img src="/images/disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="disad1_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;"></p>
 </div>
 
@@ -81,13 +75,12 @@ This was a medium working example. The euclidean error of "true" centers compare
 Example 3:
 
 <div>
-      <img src="/images/disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad2_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="disad2_corr.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;"></p>
 </div>
 
 A bad example. The error increased 78.114 to 146.192.
-
 
 ### Preliminaries
 
@@ -199,7 +192,7 @@ We're going to cluster all the pixels of the input image and try to find the red
 
 <center>
 <figure>
-<img src="/images/distance.svg" alt="kMeans approach" style="width: 250px;"/>
+<img src="distance.svg" alt="kMeans approach" style="width: 250px;"/>
 <figcaption> Basic idea of the k-Means transform </figcaption>
 </figure>
 </center>
@@ -215,20 +208,20 @@ The far left is the original image where we got the data from. The second from l
 
 <div>
     <div>
-        <img src="/images/comparison_colorspace/original.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-        <img src="/images/comparison_colorspace/rgb.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="/images/comparison_colorspace/hsv.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="/images/comparison_colorspace/lab.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+        <img src="comparison_colorspace/original.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+        <img src="comparison_colorspace/rgb.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="comparison_colorspace/hsv.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="comparison_colorspace/lab.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
         <p style="clear: both;"></p>
     </div>
 </div>
 
 <div>
     <div>
-        <img src="/images/comparison_colorspace/original2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="/images/comparison_colorspace/rgb2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="/images/comparison_colorspace/hsv2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
-        <img src="/images/comparison_colorspace/lab2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+        <img src="comparison_colorspace/original2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="comparison_colorspace/rgb2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="comparison_colorspace/hsv2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="comparison_colorspace/lab2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
         <p style="clear: both;"></p>
     </div>
 </div>
@@ -303,8 +296,8 @@ Actually the analysis in the [disadvatages chapter](#disadvantages-existing) led
 Example 1:
 
 <div>
-      <img src="/images/disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad1_corr_gimp.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="disad1_original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="disad1_corr_gimp.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;"></p>
 </div>
 
@@ -314,8 +307,8 @@ This was a medium working example. The euclidean error of "true" centers compare
 Example 2:
 
 <div>
-      <img src="/images/disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
-      <img src="/images/disad2_corr_gimp.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
+      <img src="disad2_orig.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+      <img src="disad2_corr_gimp.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
       <p style="clear: both;"></p>
 </div>
 
@@ -344,7 +337,7 @@ This procedure is way faster than k-Means. That's why it is our proposed solutio
 
 <center>
 <figure>
-<img src="/images/flow2.svg" alt="kMeans approach" style="width: 400px;"/>
+<img src="flow2.svg" alt="kMeans approach" style="width: 400px;"/>
 <figcaption> General architecture </figcaption>
 </figure>
 </center>
@@ -369,7 +362,7 @@ Input parameters for the Anti instagram node:
 In the end we have to admit that k-Means is probably too time consuming for an online approach. Or at least for an online approach with a fixed interval.
 Following you find computational time on the Duckiebot:
 
-| Algorithm:                           | Running Time [s]     |
+>| Algorithm:                           | Running Time [s]     |
 |----------------------------------    |------------------    |
 | Color Balance                        |      0.0054          |
 | Linear 2 iterations, 10 centers      |      1.9725          |
@@ -379,6 +372,7 @@ Following you find computational time on the Duckiebot:
 | Linear 20 iterations, 10 centers     |      5.1680          |
 | Old Anti Instagram                  |      3.1517          |
 
+TODO:fix table (commented)
 
 ## Future avenues of development
 
@@ -407,6 +401,7 @@ In order to make the k-Means approach faster one could try to remove unwanted ba
         Compute the image gradient with Sobel operator. The result turns out to be better when done in RGB rather than HSV space.
 
         <img src="images/grad.png" style="width: 400px"/>
+
     2. Threshold gradient
 
         This makes a binary image out of the gradient.
@@ -417,27 +412,32 @@ In order to make the k-Means approach faster one could try to remove unwanted ba
         This continues broken lines in the gradient, due to noise (e.g. from motion blur).
 
         <img src="images/grad_th_dilated.png" style="width: 400px"/>
+
     4. Zero fill bottom ⅖
 
         This part is assumed to be lane surface. See next step for explanation.
 
         <img src="images/grad_th_dilated_zeroed.png" style="width: 400px"/>
+
     5. Floodfill to get mask
 
         This yield the single connected component of low gradient part. The seed is chosen from the bottom ⅖.
 
         <img src="images/ff.png" style="width: 400px"/>
+
     6. Close narrow openings
 
         Regions inside narrow openings are probably high gradient part within the lane, and thus should be kept. We close it first, which is equivalent to dilation followed by errosion.
 
         <img src="images/ff_closed.png" style="width: 400px"/>
+
     7. Fill the holes
 
         Then fill the resulting holes by floodfilling from the top, and take the complement.
 
         <img src="images/ff_closed_ff.png" style="width: 400px"/>
-    8. Clip off top ⅓
+
+    8. Clip off top $\frac{1}{3}$
 
         This part are assumed to be not lane surface, so it gets clipped off from the mask.
 
@@ -454,11 +454,13 @@ In order to make the k-Means approach faster one could try to remove unwanted ba
         High gradient part corresponds to boundaries. Dilation is meant to cover more of the bordering pixels to get sufficient information.
 
         <img src="images/grad_cnt.png" style="width: 400px"/>
+
     2. Find contours as masks
 
         We want to capture the boundary areas, which can be found as contours in the gradient map above. This is done via the algorithm described in Suzuki, S. and Abe, K., Topological Structural Analysis of Digitized Binary Images by Border Following. CVGIP 30 1, pp 32-46 (1985) (implemented in OpenCV).
 
         <img src="images/grad_cnt_masked.png" style="width: 400px"/>
+
     3. Remove small contours and fill in
 
         Contours that have small size are probably noise. Fill in the holes turn out to provide more information than noise.
@@ -475,7 +477,7 @@ In general one can cut away the upper third of the picture to compute the color 
 
 ### Two step k-Means
 
-Do the first transformation with n iterations and k centers. Then remember the k centers. For the next 2, ..., z images only start from the previous centers from image \(z_{i-1}\) to compute the next centers from image $z_{i}$.  
+Do the first transformation with n iterations and k centers. Then remember the k centers. For the next $2, \dots, z$ images only start from the previous centers from image \(z_{i-1}\) to compute the next centers from image $z_{i}$.  
 
 ### Other clustering method
 
@@ -489,7 +491,6 @@ To determine when exactly the moment for the color transformation is a white pap
 
 If you would put a polarization filter in front of the camera we would get rid of the reflections of the tape. This was a big problem we heard of several teams.
 
+### Troubleshooting
 
-#### Troubleshooting
-
-Contact: czuidema@ethz.ch
+Contact: [Christoph Zuidema](mailto:czuidema@ethz.ch)

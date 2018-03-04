@@ -1,4 +1,4 @@
-# PDD - Anti-Instagram {#anti-instagram-pdd status=beta}
+# Anti-Instagram" preliminary design {#anti-instagram-pdd status=beta}
 
 ## Part 1: Mission and scope
 
@@ -114,7 +114,7 @@ There are several reasons why the current implementation fails:
 
 We are assuming to have ground truth pictures. Then it is possible by processing the same picture with our algorithm and compare it to the ground truth to calculate an error.
 
-We are assuming to have ground truth pictures. Then it is possible by processing the same picture with our algorithm and compare it to the ground truth to calculate an error. 
+We are assuming to have ground truth pictures. Then it is possible by processing the same picture with our algorithm and compare it to the ground truth to calculate an error.
 
 We are going to consider true positives, true negatives, false positives and false negatives. This can be done either for only one color/one feature (dashed lines, continuous lines…) or for the whole process at once which means everything should be classified properly. In addition, we would like to measure the accuracy of the lane pose estimation for our algorithm vs. a ground truth, this can be a Euclidean distance.
 
@@ -162,7 +162,7 @@ The performance measurement procedure for the algorithm is described in the sect
 
 ### Preliminary plan of deliverables
 
-1. Take the current algorithm and find best color space for it, estimate the errors and accuracies discussed previously. 
+1. Take the current algorithm and find best color space for it, estimate the errors and accuracies discussed previously.
 2. Search for other clustering method and optimize current version. (Without considering geometry)
 3. Consider geometry (as a first step indicate considerable areas by hand) and see what difference it makes compared to the current optimal implementation (Maybe after 1.) and 2.) are done).
 4. Distinguish relevant and non-relevant areas (street surface vs. rest of world).

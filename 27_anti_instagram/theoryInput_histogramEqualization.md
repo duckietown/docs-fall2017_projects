@@ -15,7 +15,7 @@ Since through the red light every pixel is distorted by a certain added red ligh
 
 <center>
 <figure>
-<img src="/images/histogram1.png" alt="kMeans working" style="width: 350px;"/>
+<img src="histogram1.png" alt="kMeans working" style="width: 350px;"/>
 <figcaption> Distorted histogram </figcaption>
 </figure>
 </center>
@@ -29,7 +29,7 @@ So if we want to fix that problem we could equalize this histogram.
 The optimal idea is illustrated in the following picture:
 <center>
 <figure>
-<img src="/images/histogramequalization.png" alt="kMeans working" style="width: 250px;"/>
+<img src="histogramequalization.png" alt="kMeans working" style="width: 250px;"/>
 <figcaption> Basic idea </figcaption>
 </figure>
 </center>
@@ -44,7 +44,7 @@ To get to this flat shaped histogram one can follow the algorithm described here
 
 <center>
 <figure>
-<img src="/images/histogram2.png" alt="kMeans working" style="width: 350px;"/>
+<img src="histogram2.png" alt="kMeans working" style="width: 350px;"/>
 <figcaption> Equalized histogram </figcaption>
 </figure>
 </center>

@@ -1,4 +1,4 @@
-# Anti-Instagram {#anti-instagram-intermediate status=draft}
+# Anti-Instagram: intermediate report {#anti-instagram-intermediate status=draft}
 
 
 ## Part 1: System interfaces
@@ -6,7 +6,7 @@
 ### Logical architecture
 It is worth mentioning that our main task will be to improve the color correction. But many groups have declared us to be the experts for line detection. So we'll include that in our document as well even though we don't plan to change anything in that line detection algorithm.
 
-![Image](https://github.com/duckietown/duckuments/blob/devel-anti-instagram/docs/atoms_85_fall2017_projects/27_anti_instagram/images/flow2.svg?raw=true)
+![Image](https://github.com/duckietown/duckuments/blob/devel-anti-instagram/docs/atoms_85_fall2017_projects/27_anti_instagramflow2.svg?raw=true)
 *In this schematic you can see the flow of topics in relation to the Anti-Instagram algorithm.*
 
 #### Color correction
@@ -166,7 +166,7 @@ By turns we want to show on the same screen the video output of the general demo
 
 In order to be able to evaluate our algorithm, we need a metric which gives us an estimation of the quality of the color transformation. As a metric we chose the distances between the color centers of every of the four possible colors for the lines in the Duckietown after the transformation and the 'true' colors. In the image shown below you can see a vizualisation of the color distances. To obtain the average color centers for these colors, we need annotated images, which give us the location of the different lines on the street.
 
-![Image](https://github.com/duckietown/duckuments/blob/devel-anti-instagram/docs/atoms_85_fall2017_projects/27_anti_instagram/images/distance.svg?raw=true)
+![Image](https://github.com/duckietown/duckuments/blob/devel-anti-instagram/docs/atoms_85_fall2017_projects/27_anti_instagramdistance.svg?raw=true)
 *Color distances: In this schematic you can see the clusters of the four colored lines in the RGB space how they appear after the Anti Instagram algorithm. Each cluster is assigned to the appropriate 'true' color. The distances from the cluster centers to their correspondent 'true' colors (shown as arrows) are defined by the Euclidean distance.*
 
 
