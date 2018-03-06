@@ -77,7 +77,9 @@ To run the demo ssh into the bots, then in your duckietown repository run:
 
 and enjoy the show!
 
-## Troubleshooting {#demo-fleetcom-troubleshooting}
+[Demo video](https://drive.google.com/file/d/1zbOqEXugNF9p6Ln8f2nk8CakFrZYiSbp/preview)
+
+## Troubleshooting {#demo-template-troubleshooting}
 
 It's networking. If it doesn't work try reinstalling while letting 99 duckies swim in the bathtub and lighting magic candles.
 
