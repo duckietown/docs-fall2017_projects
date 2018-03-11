@@ -1,7 +1,7 @@
 # Navigators: final report {#navigators-final-report status=ready}
 
 
-TODO: JT: add operation manual, fix bibliographic references, 
+TODO: JT: add operation manual, fix bibliographic references, math formatting, various typos
 
 ## The final result {sec:navigators-final-result}
 
