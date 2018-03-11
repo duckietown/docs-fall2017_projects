@@ -1,6 +1,8 @@
 #  System identification: final report {#sysid-final-report status=beta}
 
 
+TODO: JT: switch intermediate and first videos
+
 ## The final result {#sysid-final-result}
 
 <div figure-id="fig:demo_succeeded-sysid">
