@@ -12,10 +12,8 @@ The System Architecture project helped to ensure that the Fall 2018 projects int
 
 In Duckietown, the Finite State Machine (FSM) diagram plays an important role in determining how the higher-level system behaves in different scenarios. The FSM defines which states the system can be in, and which functionalities must be active in which states. During the project, the need for development on the FSM arose. Below is the resulting updated Finite State Machine (FSM) diagram.
 
->![FSM diagram](fsm_default.png)
-
 <div figure-id="fig:fsm-diagram" figure-caption="The Finite State Machine">
-     <img src="fsm_default.png" style='width: 10em'/>
+     <img src="fsm_default.png" style='width: 30em'/>
 </div>
 
 ## Mission and Scope {#heroes-final-scope}
