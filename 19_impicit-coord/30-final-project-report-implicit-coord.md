@@ -29,42 +29,28 @@ The [operation manual](https://github.com/duckietown/duckuments/blob/devel-impli
 
 
 ### Implicit  Coordination Motivation:
+
 Intersection coordination is a crucial task when it comes to safety and avoiding congestions, since it is a bottleneck in road traffic. We built a system for implicit coordination which is able to function without traffic lights and explicit communication e.g. communicating over WLAN or LEDs with other vehicles.
 The advantage of our coordination algorithm is that it doesn’t rely on the latter. Hence we can still guarantee a fluid and save road traffic at intersections, even if the communication or coordination hardware is perturbed or dead.
 
 ### Follow the Leader Motivation:
+
 A fluid and smooth road traffic is beneficial in many ways: It saves time and leads to better energy efficiency and more safety.  Therefore wavelike road traffic behaviour has to be omitted. Our idea was to create an algorithm that tries to homogenize the road traffic by forcing the vehicles to keep a certain distance to each other.
-
-
-
-
-
-
-
 
 ## Opportunity and Existing solution
 
-
-
-
-
 ### Existing Solution and Opportunity Implicit Coordination
+
 There was no previously existing solution for the implicit coordination problem. As stated in the paragraph above, a solution for this problem is very desirable if not absolutely necessary for an autonomous driving system. Since implicit coordination at intersections was rather a tabula rasa for us, we gathered our ideas from various fields including game, communication and network theory.
 
 ### Existing Solution and Opportunity Follow the Leader
+
 The idea to use fiducial tags for the follow the leader problem on the other hand already existed. However, this task was implemented in a rather crude way. The Duckiebots were just ought to perform a full stop, whenever they detected another Duckiebot. We added a pose estimation of the leader and thus were able to create a much more sophisticated controller.
-
-
-
-
 
 ## Definition of the problem
 
-
-
-
-
 ### Definition of the Problem Implicit Coordination:
+
 The final objective for this part was that, when two, three or four Duckiebots arrive at the same time at an intersection, they are able to handle the challange of who is allowed to drive first, autonomously and without any means of explicit communication. They are however allowed to use implicit communication. Which means they are allowed to observe the other Duckiebots and draw conclusions about the intents of the other Duckiebots from these observations. For this, we assumed that:
 
 - Duckiebots do not use explicit communication, e.g. LEDs, WLAN etc.
@@ -78,27 +64,24 @@ The final objective for this part was that, when two, three or four Duckiebots a
 For evaluating the performance, we decided to test our algorithm at an intersection and judge by how many Duckiebots can be handled and in what time it does so.
 
 ### Definition of the Problem Follow the Leader:
+
 The final goal here, was that the Duckiebots can follow another Duckiebot in front of them and adjust their velocity accordingly. Meaning ideally, they slow down if the leading Duckiebot does so and accelerate analogously. The assumptions here were:
-- All Duckiebots use the same algorithm
+
+- All Duckiebots use the same algorithm.
+
 - All Duckiebots are equipped with a fiducial tag that allows us to estimate their relative position and pose.
+
 The success can be easily evaluated by how many Duckiebots can follow their respective leader at the same time. Furthermore keeping an equal distance between the Duckiebots performance criterion.
-
-
-
-
-
-
-
-
-
-
 
 ## Contribution / Added functionality
 
 ### Contribution Implicit Coordination:
 Our implicit coordination algorithm is inspired by the  Carrier Sense Multiple Access/Collision Detection (CSMA/CD) algorithm which handles the access of different parties on a shared resource. In our case the Duckiebots represent the parties and the shared resource correlates with the intersection. This CSMA/CD not just guarantees us, that all Duckiebots are crossing the intersection safely, but is also enables us to give insightful estimates of the maximum throughput and the average waiting time at the intersection, given by the rich theory behind CSMA/CD. Our implementation of CSMA/CD for intersection coordination works the following:
+
 1. Drive towards the intersection and stop at the stopline
+
 2. Wait a random timespan and check if a Duckiebot in your field of view is driving using the Duckiebot detection algorithm
+
 3. If no  other Duckiebot is driving cross the intersection. Else repeat Step 2.
 
 Additionally we have implemented rigth priority option in order to accelerate the traffic at the intersection. Rigth priority doesn't allow a Duckiebot to drive and as lang as another Duckiebot is standing right to them at an intersection.
