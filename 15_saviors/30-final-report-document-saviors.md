@@ -1,4 +1,6 @@
-#  The Saviors: Final Report {#saviors-final-report status=draft}
+#  The Saviors: Final Report {#saviors-final-report status=beta}
+
+TODO: JT: fix math formatting, video aspect ratio, standardize apperance 
 
 <!--
 General notes:
