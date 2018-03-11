@@ -35,6 +35,8 @@ Duckietown already had an existing system architecture. As metioned before, the 
 #### ROS `fsm` package
 The `fsm` package consists of two nodes, namely the `fsm_node` and the `logic_gate_node`. The `fsm_node` is in charge of determining the current state and computing state transitions, and the `logic_gate_node` acts as a helper node to the `fsm_node`. For more information, see the README of the `fsm` package, found at `20-indefinite-navigation/fsm/README.md`.
 
+Comment: JT: README for fsm in indefinite navigation seems out of place
+
 #### Configuration of the FSM
 While the `fsm` package handles the computation of state transitions, the FSM states and transitions can be configured using the supplied `.yaml` files. The `fsm` package then reads the configuration in order to know which states and transitions are available in the system. This allows for separation of the computation and configuration of the FSM.
 
