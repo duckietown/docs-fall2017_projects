@@ -15,7 +15,7 @@ In Duckietown, the Finite State Machine (FSM) diagram plays an important role in
 >![FSM diagram](fsm_default.png)
 
 <div figure-id="fig:fsm-diagram" figure-caption="The Finite State Machine">
-     <img src="fsm_default.png" style='width: 15em'/>
+     <img src="fsm_default.png" style='width: 10em'/>
 </div>
 
 ## Mission and Scope {#heroes-final-scope}
