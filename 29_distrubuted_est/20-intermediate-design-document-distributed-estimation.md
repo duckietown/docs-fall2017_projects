@@ -1,4 +1,6 @@
-#  Distributed Estimation: intermediate report {fleet-messaging-int-report status=draft}
+#  Distributed Estimation: intermediate report {fleet-messaging-int-report status=beta}
+
+TODO: JT: fix formatting, add figures?
 
 ## Part 1: System interfaces
 
