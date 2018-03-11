@@ -1,4 +1,4 @@
-# The Heroes quests {#heroes-pdd status=beta}
+# The Heroes quests: preliminary report {#heroes-pdd status=ready}
 
 The “Heroes” team is a special task force with the responsibility to make sure that “everything works” and create a smooth experience for the rest of the teams, in terms of developing own projects, integration with other teams and documentation. Apart from that, each of the heroes will also have their own individual quest...
 

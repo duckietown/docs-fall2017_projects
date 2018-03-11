@@ -1,4 +1,4 @@
-#  Explicit Coordination: Intermediate Report {#explicit-coordination-int-report status=ready}
+#  Explicit Coordination: intermediate report {#explicit-coordination-int-report status=ready}
 
 
 ## Part 1: System interfaces
@@ -54,7 +54,7 @@ Nodes:
         * LED_switch from LED-coordination, string message: on/ off
     * Published topics: None
 
-3. 
+3.
     1. LED_detection: Depending on the algorithm implemented:
         * Input: camera_image (possibly after anti-instagram) and message indicating whether detection is needed
         * Output: LED detected/ LED not detected
