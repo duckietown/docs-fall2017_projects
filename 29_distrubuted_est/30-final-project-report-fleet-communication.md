@@ -2,7 +2,10 @@
 
 ## The final result {#fleet-messaging-final-result}
 
-[Demo Video](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Demo%20Video.ogv)
+<div figure-id="fig:demo_video">
+    <figcaption>The Distributed estimation, a.k.a. Fleet messaging, Demo Video</figcaption>
+    <dtvideo src="vimeo:259547632"/>
+</div>
 
 see the [operation manual](#demo-instruction-fleet-com) to reproduce these results.
 
