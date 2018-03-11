@@ -1,9 +1,11 @@
-#  The Heroes - System Architecture: final report {#heroes-final-report status=draft}
+#  The Heroes - System Architecture: final report {#heroes-final-report status=beta}
 
 <!--
 General notes:
 - REMEMBER to change the "heroes" in the chapter labels to your group label!
 -->
+
+TODO: links to relevant files
 
 System Architecture refers to the high-level conceptual model that defines the structure and behaviour of a system. There are different ways to get an insight into the architecture of a system, for example functional decomposition diagrams, package composition, or a Finite State Machine diagram.
 
