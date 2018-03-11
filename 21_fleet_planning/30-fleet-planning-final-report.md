@@ -172,6 +172,8 @@ This node runs locally on each duckiebot
 
 
 Core component can be found [here](https://github.com/duckietown/Software/blob/devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/src/taxi_central_node.py).
+
+
 Duckiebot and Customer logic is defined [here](https://github.com/duckietown/Software/blob/devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/include/fleet_planning/duckiebot.py).
 
 
@@ -216,10 +218,6 @@ Since the existing GUI was running directly on the Duckiebot and was laid out fo
 
 
 To keep the GUI scalable and extensible along with the rest of our solution, it is able to run on multiple devices at the same time, as long as each device can communicate with the ROS master that the taxi central node is running on. The GUI communicates with other modules through ROS messages and topic listeners/subscribers and runs largely independently of all other components of the fleet planning module.
-
-
-
->The source code is located in this following [folder](https://github.com/duckietown/Software/tree/devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/include).
 
 The source code is located in this following [folder](github:org=duckietown,repo=Software,path=devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/include).
 
@@ -294,9 +292,6 @@ Clears the start and target locations, which are then removed from the map (1) a
 
 
 ### Map drawing
-
-
->Code can be found [here](https://github.com/duckietown/Software/blob/devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/src/map_draw_node.py).
 
 Code can be found [here](github:org=duckietown,repo=Software,path=20-indefinite-navigation/fleet_planning/src/map_draw_node.py).
 
