@@ -1,5 +1,8 @@
 # Transfer Learning in Robotics {#transfer-learning status=ready}
 
+TODO: JT: move file to appropriate location / rename
+
+
 <div class='requirements' markdown='1'>
 
 Results: Understanding transfer learning and the domain randomization technique for transfer learning.

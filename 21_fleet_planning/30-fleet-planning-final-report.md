@@ -439,7 +439,7 @@ The current implementation updates the location of the Duckiebots only at inters
 The current implementation of the MOD system depends on a map of the Duckietown generated a priori. It can be extended with the SLAM functionality implemented by the team in Montreal. Using the map that’s generated while traversing the map would remove the step of manually creating the map and thus make the system more user friendly.
 
 
-# Conclusion {#fleet-planning-report-conclusion}
+## Conclusion {#fleet-planning-report-conclusion}
 
 In summary, the fleet planning project at current allows for the high-level control of a large number of Duckiebots, the visualization of the duckiebots on the map in a GUI, the assignment of customer requests an the execution of taxi services. The system works but relies heavily on smooth functioning of other components and is only as robust as these components are.
 The Duckiebot classes are extensively documented and designed in a way that allows easy extension with different fleet planning and rebalancing algorithms. This paves the way for future updates, some of which were discussed in the previous section.

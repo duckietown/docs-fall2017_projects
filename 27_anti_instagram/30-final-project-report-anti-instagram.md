@@ -1,14 +1,13 @@
-# Anti Instagram: final report {#anti-instagram-final-report status=beta}
+# Anti-Instagram: final report {#anti-instagram-final-report status=beta}
 
 ## The final result
-
-_Video about anti instagram:_
 
 <div figure-id="fig:example-embed">
     <figcaption>Anti instagram video</figcaption>
     <dtvideo src="vimeo:257258742"/>
 </div>
 
+TODO: add link to operation manually, add link to README / code sections
 
 ## Mission and Scope
 
@@ -32,14 +31,13 @@ Maybe you can better imagine the procedure as follows:
 You take all the pixels and their RGB values. Then you plot each pixel in your imaginary R,G,B coordinate system.  
 The k-Means algorithm now tries to detect clusters in this RGB space and estimates the center of these clusters. The centers of these clusters are now compared to the "true centers" which is the location of the optimal red for example in the RGB space. This leads to a transformation which is applied to every image from the camera of the Duckiebot.
 
-
-
 ### Opportunity
 
 #### Advantages of existing solution
 
 1. The idea of estimating a color transformation from a captured image based on estimated and true centers is very promising since it really focuses on transforming the colors.  
 Often other image transformations focus on white balance. But we are concerned the most of the colors. So this clustering approach is a good idea here.
+
 2. k-Means is a fairly simple approach and can be used for unsupervised learning. This is very interesting for a future online implementation.
 
 #### Disadvantages of existing solution {#anti-instagram-disadvantages-existing}

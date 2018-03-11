@@ -1,5 +1,7 @@
 # Transferred Lane following {#demo-transfer-lane-following status=beta}
 
+TODO: JT: move to operation manual section of teh book
+
 This is the description of transferred lane following demo.
 
 <div class='requirements' markdown="1">
