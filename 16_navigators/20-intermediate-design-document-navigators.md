@@ -1,5 +1,6 @@
 #  Navigators: intermediate report {#navigators-int-report status=ready}
 
+TODO: JT: fix intra-duckiebook links
 
 ## Part 1: System interfaces
 
