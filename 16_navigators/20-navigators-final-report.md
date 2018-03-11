@@ -1,6 +1,8 @@
 # Navigators: final report {#navigators-final-report status=ready}
 
 
+TODO: JT: add operation manual, fix bibliographic references, 
+
 ## The final result {sec:navigators-final-result}
 
 Video of the final result:
@@ -10,9 +12,9 @@ Video of the final result:
     <dtvideo src="vimeo:257911020"/>
 </div>
 
-TODO: add operation manual
 
-## Mission and Scope {sec:navigators-final-scope}
+
+## Mission and Scope {#navigators-final-scope}
 
 The objective of this project was to implement a method that allows Duckiebots to reliably navigate any kind of intersection they may encounter when driving through a regular Duckietown.
 
@@ -29,17 +31,17 @@ What is in scope:
 * Detecting when the Duckiebot successfully navigates across the intersection and finds itself in a regular lane.
 * Limiting travel time across intersection.
 
-### Motivation {sec:navigators-final-result-motivation}
+### Motivation {#navigators-final-result-motivation}
 
 We seek to find a method that allows a Duckiebot to safely navigate an intersection. Duckiebots navigate through regular streets in Duckietown using a lane following method. It includes a localization method but also a position control method. Based on this scheme, the need for a controlled crossing of intersection emerged. The main motivation is therefore based on the safety and the reliability of intersection navigation. Ideally, the vehicle should be able to not only go from exit 1 to exit 2, but also recognize where it is relative to those 2 points (localization). Once the Duckiebot receives information about its current position, it will be able to correct any mistake relative to a precalculated path.
 
-### Existing solution {sec:navigators-final-literature}
+### Existing solution {#navigators-final-literature}
 
 The project starts from the current solution, in which the Duckiebot navigates the intersections in open loop. In this solution, after arriving at an intersection, the Duckiebot uses the AprilTags to know the kind of intersection and the feasible exits. Then it randomly chooses one of them and executes standard commands to navigate. This solution did not include localization implying that the current position of the vehicle was not known during the intersection navigation. Since one of the objectives of the project was to use the controller, that the Controllers group designed, the open loop implementation could not be used any further. For practical reasons, we almost started from scratch, and the new solution would have very few common points with the previous implementation.
 
 So our main improvement to the current solution is the use of the camera to introduce vision during navigation. This allow us to introduce feedback into the system with all the benefits that closed loop control has with respect to open loop, and so regulating the control inputs based on the information of the system state.
 
-### Opportunity {sec:navigators-final-opportunity}
+### Opportunity {#navigators-final-opportunity}
 
 As mentioned previously, the drawback of the existing solution is the missing information about the Duckiebot’s position during the navigation. The result is that the system inputs, linear and angular velocities are independent of the system state so that the navigation is not robust and the percentage of failures is high (around 50% for some group members’ Duckiebots for short right turns).
 
@@ -49,7 +51,7 @@ The localization is done by comparing the images from the camera with a template
 
 Reference paper, from which we took inspiration is J. Barandiaran, D.Borro, “Edge-Based Markerless 3D Tracking of Rigid Objects”, IEEE Conference on Artificial Reality and Telexistence, 2007.
 
-## Definition of the problem {sec:navigators-final-problem-def}
+## Definition of the problem {#navigators-final-problem-def}
 
 ### Problem Statement
 
@@ -82,7 +84,7 @@ Success rate, i.e. the percentage of trials for which the Duckiebot ends up in t
 Accuracy and precision of final state, i.e. how close is the Duckiebot’s state relative to the desired final state and how repeatable is this. The accuracy and precision of the final state is estimated using the existing lane detection method, and is measured for different initial conditions.
 Duration, i.e. the average time required for the Duckiebot to cross an intersection and an upper limit (worst-case) on the time required. The average duration is computed by running a series of N experiments.
 
-## 4 Contribution / Added functionality {sec:navigators-final-contribution}
+## 4 Contribution / Added functionality {#navigators-final-contribution}
 
 <div figure-id="fig:2" figure-caption="Logical architecture diagramm">
     <img src="logical_architecture_diagram.png" style="width: 100%"/>
@@ -171,11 +173,11 @@ Then we obtain the new pose from W, which tells us the relative position and ori
 
 The path planned to traverse an intersection is a polynomial of order three. The polynomial coefficients are chosen such that the path starts at the Duckiebot’s current pose (i.e. position and orientation) and ends at a desired pose. However, this only defines the coefficients partially. In particular, the orientation of the Duckiebot only determines the direction of the velocity at the initial and final position, but not its magnitude. The magnitude of the initial and final velocity are thus optimized to minimize the curvature of the path. During the optimization, it is also verified that path does not contain any loops and that it satisfies the Duckiebot’s maximum curvature, i.e. only feasible paths are planned.
 
-## Formal performance evaluation / Results {sec:navigation-final-formal}
+## Formal performance evaluation / Results {#navigation-final-formal}
 
 ### Performance evaluation
 
-All the experiments are taken in a duckietown with appearence in accord to [appearance specifications](http://book.duckietown.org/master/duckiebook/duckietown_specs.html#sec:duckietown-specs).
+All the experiments are taken in a duckietown with appearence in accord to [appearance specifications](#duckietown-specs).
 It is a Duckietown with 3 and 4-ways intersections and intersection April Tags well visible.
 We consider an experiment is valid, when the Duckiebot correctly stops at the red line. The term correctly refers to the thresholds defined in section 8 Logical Architecture.
 We let the Duckiebot navigate Duckietown for 2 runs of 30 minutes randomly choosing the exit to take.
@@ -196,7 +198,7 @@ The time between when the Duckiebot stops at the red line and when it is ready t
 
 In the next section, we give some insights about a possible ways of improvement.
 
-## Future avenues of development {sec:navigators-final-next-steps}
+## Future avenues of development {#navigators-final-next-steps}
 
 The main improvements can be done about the accuracy of the localization, which will also have a positive impact on the computation time.
 
