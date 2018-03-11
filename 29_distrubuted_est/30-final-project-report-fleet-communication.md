@@ -1,6 +1,6 @@
-#  Fleet Messaging: final report {fleet-messaging-final-report status=draft}
+#  Distributed Estimation: final report {#distributed-est-final-report status=draft}
 
-## The final result {fleet-messaging-final-result}
+## The final result {#fleet-messaging-final-result}
 
 [Demo Video](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Demo%20Video.ogv)
 
@@ -8,11 +8,11 @@ see the [operation manual](#demofleet-messaging) to reproduce these results.
 
 [README](https://github.com/duckietown/Software/blob/devel-distributed-est-master/catkin_ws/src/30-localization-and-planning/fleet_messaging/README.md)
 
-## Mission and Scope {fleet-messaging-final-scope}
+## Mission and Scope {#fleet-messaging-final-scope}
 
 With this project we enable Duckiebots to communicate with each other on centralized and decentralized wireless networks.
 
-### Motivation {fleet-messaging-final-result-motivation}
+### Motivation {#fleet-messaging-final-result-motivation}
 
 In the previous state of Duckietown, Duckiebots were individual, autonomous agents, roaming around Duckietown with no way to communicate with each other explicitly (the only method in existence is with the help of LED patterns, resulting in long interpretation times). Since the ultimate goal being an automated taxi system: Duckiebots working together picking up and dropping off customers in the optimal way; the Duckiebots need to be able to communicate with each other efficiently.
 
@@ -20,19 +20,19 @@ One important part of this communication setup is that it can be decentralized, 
 
 Due to the current state of Duckietown, the communication is needed, but not limited to, fleet planning control to coordinate the fleet in a town with a predefined map.
 
-### Existing solution {fleet-messaging-final-literature}
+### Existing solution {#fleet-messaging-final-literature}
 There was no prior work to build a communication system upon. Everything was implemented from scratch.
 
-### Opportunity {fleet-messaging-final-opportunity}
+### Opportunity {#fleet-messaging-final-opportunity}
 Without any existing work on wireless communication, we came up and built a whole new addition to Duckietown. We implemented a fleet-messaging package that builds an ad-hoc mesh network and lets other teams send messages
 
-### Preliminaries {fleet-messaging-final-preliminaries}
+### Preliminaries {#fleet-messaging-final-preliminaries}
 We specifically picked libraries and modules that encapsulates their respective functionalities well. Therefore to fully understand what is going on under the hood, you simply need to read up on the documentation of each package used:
 - [batman-adv](https://www.open-mesh.org/projects/batman-adv/wiki/Wiki)
 - [zeroMQ](http://zeromq.org/)
 - [protobuf](https://developers.google.com/protocol-buffers/)
 
-## Definition of the problem {fleet-messaging-final-problem-def}
+## Definition of the problem {#fleet-messaging-final-problem-def}
 
 The final goals of the project were to:
 1. Create a robust wireless network that can easily be scaled to a larger fleet size and to a bigger Duckietown.
@@ -50,7 +50,7 @@ To evaluate the new framework we:
 2. Tested the range of the wifi adapters to see if it is able to cover the size of a demo-sized Duckietown.
 3. Test the robustness of the network by taking a Duckiebot out of range of the network and back and restarting the Duckiebot in to see if it would reconnect.
 
-## Contribution / Added functionality {fleet-messaging-final-contribution}
+## Contribution / Added functionality {#fleet-messaging-final-contribution}
 
 ### Added Functionailities
 Added Functionalities are as follow:
@@ -92,7 +92,7 @@ To use the framework, one simply has to publish to the ROS topic outbox_topic (s
 The complete structure of the fleet-messaging package is illustrated below.
 ![System Infrustructure](https://github.com/duckietown/duckuments/blob/devel-distribution-est-fleet-wireless-communication/docs/atoms_85_fall2017_projects/16_distrubuted_est/Simple%20Fleet%20Messaging%20Flow%20Diagram.png "System Infrustructure")
 
-## Formal performance evaluation / Results {fleet-messaging-final-formal}
+## Formal performance evaluation / Results {#fleet-messaging-final-formal}
 
 There are three main criterion that have to be evaluated:
 1. Message transport:
