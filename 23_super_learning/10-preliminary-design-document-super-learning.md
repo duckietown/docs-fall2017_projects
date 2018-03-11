@@ -1,4 +1,4 @@
-# PDD - Supervised-learning {#super-learning-pdd status=beta}
+# Supervised learning: preliminary report {#super-learning-pdd status=beta}
 
 ## Part 1: Mission and scope
 
