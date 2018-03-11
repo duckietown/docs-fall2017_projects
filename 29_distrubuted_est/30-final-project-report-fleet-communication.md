@@ -1,4 +1,6 @@
-#  Distributed Estimation: final report {#distributed-est-final-report status=draft}
+#  Distributed Estimation: final report {#distributed-est-final-report status=beta}
+
+TODO: JT: fix images, formatting
 
 ## The final result {#fleet-messaging-final-result}
 
