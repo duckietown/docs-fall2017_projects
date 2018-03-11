@@ -1,6 +1,6 @@
 # Demo instructions Fleet Communications {#demo-instruction-fleet-com status=draft}
 
-TODO: fix spelling and grammar
+TODO: JT: fix spelling and grammar, move to operation manual section
 
 This is the description of a communication setup between multiple Duckiebots.
 
