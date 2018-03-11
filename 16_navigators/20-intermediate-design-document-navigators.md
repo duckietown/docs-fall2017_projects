@@ -1,4 +1,4 @@
-#  The Navigators: intermediate report {#navigators-int-report status=ready}
+#  Navigators: intermediate report {#navigators-int-report status=ready}
 
 
 ## Part 1: System interfaces
