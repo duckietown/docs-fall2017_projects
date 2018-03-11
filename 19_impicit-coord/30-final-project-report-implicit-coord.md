@@ -1,7 +1,7 @@
 #  Implicit Coordination: final report {#implicit-coord-final-report status=draft}
 
 
-
+TODO: grammar review, math formatting
 
 
 ## The final result
