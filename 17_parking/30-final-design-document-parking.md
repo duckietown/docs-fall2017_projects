@@ -1,6 +1,6 @@
 #  Parking: final report {#parking-final-report status=draft}
 
-TODO: JT: fix math and put it in latex environment
+TODO: JT: fix math and put it in latex environment, link video properly, link operation manual properly
 
 ## Part 1: The final result
 
