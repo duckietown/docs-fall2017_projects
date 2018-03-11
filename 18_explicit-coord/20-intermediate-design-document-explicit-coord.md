@@ -1,4 +1,4 @@
-#  Explicit Coordination: intermediate Report {#explicit-coordination-int-report status=ready}
+#  Explicit Coordination: intermediate report {#explicit-coordination-int-report status=ready}
 
 
 ## Part 1: System interfaces
