@@ -11,7 +11,7 @@ so that the vast volumes of the data in the real world can be made useful.
 
 ### Motto
 
-Motto: In Rete Tuo videbimus lumen <br/> (Anything that is said in Latin sounds important)
+Motto: In rete tuo videbimus lumen <br/> (In your net we see the light)
 
 
 ### Project scope
