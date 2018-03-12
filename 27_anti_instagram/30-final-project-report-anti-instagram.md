@@ -7,7 +7,7 @@
     <dtvideo src="vimeo:257258742"/>
 </div>
 
-TODO: add link to operation manually, add link to README / code sections
+TODO: add link to operation manually, add link to README / code sections (README.txt is in this folder - move to appropriate code section)
 
 ## Mission and Scope
 
