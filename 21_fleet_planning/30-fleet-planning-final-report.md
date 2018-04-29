@@ -44,7 +44,8 @@ The codebase can be found [here](https://github.com/duckietown/Software/tree/mas
 
 
 Localization was performed by placing AprilTags at each intersection and having the Duckiebot identify each unique AprilTag through image analysis. The AprilTags are defined in the duckiebook [signage section](#sec:signage).
-A Duckiebot could thus compute at which (x,y) coordinate of the map it was and estimate its rotation. The position on the topographic map was not mapped to the corresponding topological graph representation which is required for path planning.
+
+A Duckiebot could thus compute at which $(x,y)$ coordinate of the map it was and estimate its rotation. The position on the topographic map was not mapped to the corresponding topological graph representation which is required for path planning.
 
 
 #### Navigation
@@ -155,7 +156,6 @@ The work on the 2017 fleet planning project was distributed in the following man
 Main component can be found [here](https://github.com/duckietown/Software/blob/devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/src/actions_dispatcher_node.py).
 
 
-
 This nodes listens to location updates from the april tags localization package and target destinations from the taxi central node.
 
 
@@ -164,8 +164,10 @@ The (x,y) location information is then mapped to the topological graph represent
 
 
 Once the node has received both location and a mission target, it executes A* path planning and publishes the next intersection instruction, i.e. "left", "right", etc., to be received by the intersection navigation package (implemented by the 2016 team). The path is recomputed at each intersection such that deviations from the original plan do not lead to failure of the entire system; this guarantees a certain robustness to errors of other software components.
+
 The calculated path and current location is then reported to the central planning node, called taxi central.
-This node runs locally on each duckiebot
+
+This node runs locally on each Duckiebot.
 
 
 ### Fleet planning aka taxi central node
@@ -298,6 +300,7 @@ Code can be found [here](github:org=duckietown,repo=Software,path=20-indefinite-
 
 
 The map drawing node deals with drawing the Duckietown map according to the specifications in the csv file, overlaying the graph on top of the map and drawing the active Duckiebots at the correct locations. As localization only occurs at intersections where Apriltags are located, Duckiebots are only ever drawn at intersections. The Duckiebot is identified by it’s name, displayed below the Duckiebot icon.
+
 When a customer request is assigned to a Duckiebot, a customer icon is drawn at the specified location and an icon is displayed at the target location as well. Once the customer is picked up, his or her icon is drawn alongside the Duckiebot acting as a taxi. See screenshots above for the different states.
 
 
@@ -311,8 +314,6 @@ As described in a previous section, the existing system runs completely on the D
 
 The outcome was a system which consists of one ROS node on each participant in the network. Via a configuration file you can define which node communicates with which other node. The interface the fleet communication team provides accepts a byte array and transfers this byte array to the endpoint of the communication channel. For a more detailed explanation of how this is transferred we refer readers to their final report
 
-
-
 To send data such as target locations and localization results a way to serialize this data to a byte array was needed. A general framework was setup to serialize the basic data types using python’s pickle [3] module. Based on this we implemented serializer and deserializer classes specifically for the messages we needed to send over the network.
 
 
@@ -322,11 +323,7 @@ To send data such as target locations and localization results a way to serializ
 
 Only at the very end of the project all projects we depend on reached a state where we could integrate them all to have a functional system. Therefore we needed a way to test the system, especially the central dispatcher node, without relying on physical Duckiebots. We solved this by implementing a virtual Duckiebot ROS node that acts as if it were a real Duckiebot.
 
-
-
 Duckiebots mainly perform two actions, they report their location to the central dispatcher node and they receive commands (customer pickup, target location, …). The virtual Duckiebot node mimics this behaviour by regularly sending a message with the current position. Additionally it prints all the information it receives and sends to the console for easier debugging. To the central dispatcher node it looks as if it were interacting with a real Duckiebot.
-
-
 
 The virtual Duckiebot node can be run in one of two ways:
 
@@ -347,7 +344,9 @@ In this mode, the user only adds a Duckiebot at a desired node. The virtual Duck
 ## Formal performance evaluation / Results
 
 
-As mentioned previously, the largest portion of the work that needed to be done involved implementing an operational infrastructure that supports actual fleet planning functionality. In summary, this included:
+As mentioned previously, the largest portion of the work that needed to be done involved implementing an operational infrastructure that supports actual fleet planning functionality. 
+
+In summary, this included:
 
 
 

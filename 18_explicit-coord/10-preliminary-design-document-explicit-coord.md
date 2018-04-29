@@ -1,3 +1,5 @@
+# Explicit Coordination {#part:explicit-coordination status=ready}
+
 # Explicit Coordination: preliminary report {#explicit-coordination-pdd status=beta}
 
 

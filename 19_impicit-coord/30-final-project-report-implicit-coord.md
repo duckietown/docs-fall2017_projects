@@ -86,7 +86,7 @@ Our implicit coordination algorithm is inspired by the  Carrier Sense Multiple A
 
 Additionally we have implemented rigth priority option in order to accelerate the traffic at the intersection. Rigth priority doesn't allow a Duckiebot to drive and as lang as another Duckiebot is standing right to them at an intersection.
 
-<div figure-id="fig:DemoMap" figure-caption="Process Flow Chart Implicit Coordination">
+<div figure-id="fig:FlowChartImplicit" figure-caption="Process Flow Chart Implicit Coordination">
      <img src="FlowChartImplicit.png" style='width: 10em'/>
 </div>
 

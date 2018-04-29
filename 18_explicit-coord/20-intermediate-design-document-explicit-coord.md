@@ -74,10 +74,10 @@ Nodes:
             * string message: LED_detected/ no_LED_detected with position and/or color and/or frequency
 
 
-A diagram of our nodes is shown below.
+A diagram of our nodes is shown in [](#fig:nodes-coord).
 
 
-<div figure-id="fig:Nodes" figure-caption="Nodes">
+<div figure-id="fig:nodes-coord" figure-caption="Nodes">
      <img src="nodes.png" style='width: 80ex; height: auto'/>
 </div>
 
@@ -125,7 +125,7 @@ A four way intersection tile (see image below, center), four three-way intersect
 
 Performance will be evaluated with 3 tests:
 
-<col5 figure-id="tab:Performance" figure-caption="Performance Evaluation">
+<col5 figure-id="tab:Performance-eval" figure-caption="Performance Evaluation">
 
 <span>What is evaluated </span>
 <span>How</span>

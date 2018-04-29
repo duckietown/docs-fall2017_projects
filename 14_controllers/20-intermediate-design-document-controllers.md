@@ -15,7 +15,7 @@ This consists of 3 parts:
 
 
 
- <col2 align='center' style="text-align:left" id='checkoff-people-intermediate-report' figure-id="tab:checkoff-people-intermediate-report" figure-caption="Intermediate Report Supervisors">
+ <col2 align='center' style="text-align:left"  figure-id="tab:checkoff-people-intermediate-report-controllers" figure-caption="Intermediate Report Supervisors">
     <span>System Architects</span>                         <span>Sonja Brits, Andrea Censi</span>
     <span>Software Architects</span>                       <span>Breandan Considine, Liam Paull</span>
     <span>Vice President of Safety</span>                  <span>Miguel de la Iglesia, Jacopo Tani</span>

@@ -1,3 +1,5 @@
+# Distributed Estimation {#part:fleetcomms}
+
 #  PDD - Distributed Estimation {#fleetcomms-pdd status=beta}
 
 ## Part 1: Mission and scope

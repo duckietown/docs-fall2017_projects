@@ -8,7 +8,7 @@ TODO: JT: fix intra-duckiebook links
 ### Logical architecture
 
 
-<div figure-id="fig:1" figure-caption="Simple step diagram">
+<div figure-id="fig:simple-step-diagram" figure-caption="Simple step diagram">
     <img src="logicaldiagram2.png" style="width: 60%"/>
 </div>
 
@@ -29,16 +29,16 @@ It is assumed that
 
 * the Duckiebot stops between 0.10m and 0.16m in front of the center of the red stop line, i.e. $d_x \in \lbrack 0.1m,0.16m\rbrack$, has an error of no more than 0.03m with respect to the center of its lane, i.e. $d_y \in \lbrack-0.03m,0.03m\rbrack$, and that the orientation error is smaller than 0.17rad, i.e. $\theta\in\lbrack-0.17rad,0.17rad\rbrack$ (see Fig. 1.2 for details, all values are with respect to the origin of the Duckiebot’s axle-fixed coordinate frame).
 
-* a lane following controller exists that takes as inputs the distance from desired path $d$ and and the orientation error with respect to the path tangent $\theta$ (see Fig. 1.3 for details).
+* a lane following controller exists that takes as inputs the distance from desired path $d$ and and the orientation error with respect to the path tangent $\theta$ (see Fig. 1.3 for details). XXX
 
 
-<div figure-id="fig:2" figure-caption="Pose of the duckiebot in front of an intersection">
+<div figure-id="fig:duckiebot_red_line1" figure-caption="Pose of the duckiebot in front of an intersection">
     <img src="duckiebot_red_line.png" style="width: 100%"/>
 </div>
 
 
 
-<div figure-id="fig:3" figure-caption="Pose of the duckiebot relative to the desired path">
+<div figure-id="fig:duckiebot_path1" figure-caption="Pose of the duckiebot relative to the desired path">
     <img src="duckiebot_path.png" style="width: 100%"/>
 </div>
 
@@ -96,7 +96,7 @@ The *"intersection_localization"*-node publishes the following topic:
 It is estimated that it will take approximately 15ms to estimate the Duckiebot's pose once the camera image is received, hence about 15ms of delay can be expected on the published topics. However, the delay will be compensated for by the *"intersection_navigation"*-node.
 
 
-<div figure-id="fig:4" figure-caption="Pose of the duckiebot inside a four way intersection">
+<div figure-id="fig:bot_in_intersection" figure-caption="Pose of the duckiebot inside a four way intersection">
     <img src="bot_in_intersection.png" style="width: 100%"/>
 </div>
 

@@ -3,7 +3,7 @@
 
 TODO: JT: add operation manual, fix bibliographic references, math formatting, various typos
 
-## The final result {sec:navigators-final-result}
+## The final result {#navigators-final-result}
 
 Video of the final result:
 
@@ -74,7 +74,7 @@ We seek to find a method that allows a Duckiebot to safely navigate an intersect
 * Fleet planning
 * Coordinators
 
-<div figure-id="fig:1" figure-caption="Stakeholders Diagramm">
+<div figure-id="fig:stakeholders" figure-caption="Stakeholders Diagramm">
     <img src="stakeholders_diagram.png" style="width: 60%"/>
 </div>
 
@@ -86,7 +86,7 @@ Duration, i.e. the average time required for the Duckiebot to cross an intersect
 
 ## 4 Contribution / Added functionality {#navigators-final-contribution}
 
-<div figure-id="fig:2" figure-caption="Logical architecture diagramm">
+<div figure-id="fig:logical-architecture-diagram" figure-caption="Logical architecture diagramm">
     <img src="logical_architecture_diagram.png" style="width: 100%"/>
 </div>
 
@@ -103,11 +103,11 @@ It is assumed that:
 This is done by the new lane following controller. However, we needed to slightly modify
 the controller to account for thresholds wheels’ speed.
 
-<div figure-id="fig:3" figure-caption="Duckiebot's position relative to the red line.">
+<div figure-id="fig:duckiebot_red_line" figure-caption="Duckiebot's position relative to the red line.">
     <img src="duckiebot_red_line.png" style="width: 100%"/>
 </div>
 
-<div figure-id="fig:4" figure-caption="Duckiebot's pose relative to the desired path.">
+<div figure-id="fig:duckiebot_path" figure-caption="Duckiebot's pose relative to the desired path.">
     <img src="duckiebot_path.png" style="width: 100%"/>
 </div>
 

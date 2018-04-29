@@ -10,13 +10,9 @@ _The objective of this report is to bring justice to your hard work during the s
 -->
 
 ## The final result {#controllers-final-result}
+ 
 
-<!--
-_Let's start from a teaser._
-* Post a video of your best results (e.g., your demo video)
--->
-
-<div figure-id="fig:demo_video">
+<div figure-id="fig:demo_video_controllers">
     <figcaption>The Controllers Demo Video</figcaption>
     <dtvideo src="vimeo:250511342"/>
 </div>
@@ -47,7 +43,7 @@ The overall goal of our project is to stay in the lane while driving and stoppin
 <!--
 - Was there a baseline implementation in Duckietown which you improved upon, or did you implemented from scratch? Describe the "prior work"
 -->
-<center><img figure-id="fig:curve_plot" figure-caption="Pose of Duckiebot in a curve element." src="curve_plot.png" alt="Curve plot" style="width: 200px;"/></center>
+<center><img figure-id="fig:curve_plot2" figure-caption="Pose of Duckiebot in a curve element." src="curve_plot.png" alt="Curve plot" style="width: 200px;"/></center>
 
 From last year’s project, the baseline implementation of a pose estimator and a controller were provided to us for further improvement. The prior pose estimator was designed to deliver the pose for a Duckiebot on straight lanes only. If the Duckiebot was in or before a curve and in the middle of the lane, the estimated pose showed an offset **d**, see definition of **d** in figure below. The existing controller worked reasonably on straight lines. Although, due to the inputs from the pose estimator to the controller, the Duckiebot overshot in the curves and crossed the left/right line during or after the curve.
 

@@ -2,7 +2,7 @@
 
 ## The final result
 
-<div figure-id="fig:example-embed">
+<div figure-id="fig:anti-instagram-video">
     <figcaption>Anti instagram video</figcaption>
     <dtvideo src="vimeo:257258742"/>
 </div>
@@ -198,14 +198,14 @@ We were convinced that a clustering approach is a good solution because of the f
 2. Clustering can be implemented unsupervised
 We were convinced that k-Means is a good solution since it is fairly simple to implement.  
 
-We decided to use the RGB space for the clustering approach and therefore as well as the reference space for the transformation described in [the chapter above](#mathematical-general-transform).
+We decided to use the RGB space for the clustering approach and therefore as well as the reference space for the transformation described in [the chapter above](#anti-instagram-mathematical-general-transform).
 
 The following pictures show how sample images look in different color spaces.  
 The far left is the original image where we got the data from. The second from left is the pixel values plotted in RGB space, the third in HSV space and the far right the pixel values in LAB space.
 
 <div>
     <div>
-        <img src="original.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
+        <img src="original.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;" />
         <img src="rgb.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
         <img src="hsv.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
         <img src="lab.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
@@ -215,7 +215,7 @@ The far left is the original image where we got the data from. The second from l
 
 <div>
     <div>
-        <img src="original2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
+        <img src="original2.jpg" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
         <img src="rgb2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
         <img src="hsv2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>
         <img src="lab2.png" style="float: left; width: 23%; margin-right: 1%; margin-bottom: 0.5em;"/>        
@@ -224,7 +224,7 @@ The far left is the original image where we got the data from. The second from l
 </div>
 
 One sees that the color clusters of red, yellow, white and black are nicely distinct in the RGB space. So RGB is a good space to do clustering.
-As stated in [disadvantages](#disadvantages-existing) we used more than 3 cluster centers. So we tried it with 10 clusters. But now one has the problem that we don't know anymore which cluster is which. That's why we implemented a function which can determine which color is which.
+As stated in [disadvantages](#anti-instagram-disadvantages-existing) we used more than 3 cluster centers. So we tried it with 10 clusters. But now one has the problem that we don't know anymore which cluster is which. That's why we implemented a function which can determine which color is which.
 
 #### Color determination
 
@@ -250,7 +250,7 @@ That's why we came up with the following "color elimination" procedure:
 1. Pick three colors out of the four colors and do a least squares fit to find the color transformation.
 2. Estimate the error of the least squares fit.
 3. Repeat steps 1 and 2 for all color combinations and keep the three colors which give the lowest error. So this least squares fit would be the one without the outlier. So in the case you don't have any red in the image you would just use white, black and yellow since wrong red cluster would distort the color correction.
-If there are all the four colors in the picture we observed that most of the time the black cluster is thrown away. This makes quite sense since in the [chapter](#k-means-idea) above we saw that the black center doesn't really fulfill the assumptions for k-Means since the black cluster is quite elliptical shaped.
+If there are all the four colors in the picture we observed that most of the time the black cluster is thrown away. This makes quite sense since in the [chapter](#anti-instagram-k-means-idea) above we saw that the black center doesn't really fulfill the assumptions for k-Means since the black cluster is quite elliptical shaped.
 
 Something we observed was that sometimes the procedure gave unreasonably high parameters as an output. So we came up with a convex optimization approach.
 
@@ -288,7 +288,7 @@ After implementing the k-Means approach we saw that there was need for something
 #### Idea
 
 Doing research we found a promising approach for a very simple color balance.  
-Actually the analysis in the [disadvatages chapter](#disadvantages-existing) led us to this idea. Experimenting with gimp we found out that the automatic white balace leads to quite good results:  
+Actually the analysis in the [disadvatages chapter](#anti-instagram-disadvantages-existing) led us to this idea. Experimenting with gimp we found out that the automatic white balace leads to quite good results:  
 
 Example 1:
 
@@ -312,7 +312,7 @@ Example 2:
 
 This was a medium working example. The euclidean error of "true" centers compared to the centers which are estimated in the picture increased from 115.267 to 30.35.
 
-This were very promising results comparing to the results of the [disadvatages chapter](#disadvantages-existing).
+This were very promising results comparing to the results of the [disadvantages chapter](#anti-instagram-disadvantages-existing).
 
 The idea works as following:  
 1. Create a sorted list for every channel of the image.
