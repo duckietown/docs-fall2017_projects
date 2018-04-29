@@ -80,8 +80,6 @@ Software architect check-off: I, XXX, (agree / do not agree) that the above is c
 
 ## Part 2: Demo and evaluation plan
 
-_Please note that for this part it is necessary for the VPs for Safety to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time._
-
 ### Demo plan
 
 Multi-Robot SLAM and fleet planning relies on communication to work, therefore the communication demo is implicit in the SLAM and fleet planning demo.
