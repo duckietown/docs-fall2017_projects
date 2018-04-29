@@ -71,13 +71,6 @@ Perpetually (as long as message structure doesn't change:
 
 - Team A other bots can retrieve message from teamAin
 
-
-<!--
-The above must have a check-off by the software architect:
-
-Software architect check-off: I, XXX, (agree / do not agree) that the above is compatible with system-level constraints.
--->
-
 ## Part 2: Demo and evaluation plan
 
 ### Demo plan
@@ -105,15 +98,7 @@ There are three main criterias that have to be evaluated:
 |Network Traffic|No traffic monitored|Can see traffic on the network but no useful information extracted|Able to isolate duckiebot traffic|Able to identify specific packets|Able to visualize routing of specific packages|
 |Network Topology (centralized and decentralized)|Network cannot be established|Initial Network can be established, but no new nodes can connect to the network, not robust to connection loses|Initial Network can be established, new nodes can connect but not reliably, not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, but not robust to connection loses|Initial Network can be established, new nodes can connect/leave dynamically, and robust to connection loses|
 
-
-<!--
-Check-off by Duckietown Vice-President of Safety:
-
-Duckietown Vice-President of Safety: I, (believe / do not believe) that the performance evaluation above is
--->
 ## Part 3: Data collection, annotation, and analysis
-
-_Please note that for this part it is necessary for the Data Czars to check off before you submit it. Also note that they are busy people, so it's up to you to coordinate to make sure you get this part right and in time._
 
 ### Collection
 
@@ -126,8 +111,3 @@ For the fleet-communication no data annotation is needed.
 
 ### Analysis
 
-<!--
-Check-off by Data Zars:
-
-Data czars check-off: We, XXX and YYY, (believe / do not believe) that the plan above is well structured, and that we can provide the level of support requested.
--->
