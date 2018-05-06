@@ -1,4 +1,4 @@
-#  Implicit Coordination: final report {#implicit-coord-final-report status=draft}
+#  Implicit Coordination: final report {#implicit-coord-final-report status=beta}
 
 
 TODO: grammar review, math formatting

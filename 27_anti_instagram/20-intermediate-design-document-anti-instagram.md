@@ -1,4 +1,4 @@
-# Anti-Instagram: intermediate report {#anti-instagram-intermediate status=draft}
+# Anti-Instagram: intermediate report {#anti-instagram-intermediate status=beta}
 
 
 ## Part 1: System interfaces

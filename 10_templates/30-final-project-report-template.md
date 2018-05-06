@@ -1,4 +1,4 @@
-#  Group name: final report {#template-final-report status=draft}
+#  Group name: final report {#template-final-report status=ready}
 
 <!--
 General notes:

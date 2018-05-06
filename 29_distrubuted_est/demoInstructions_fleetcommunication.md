@@ -1,4 +1,4 @@
-# Demo instructions Fleet Communications {#demo-instruction-fleet-com status=draft}
+# Demo instructions Fleet Communications {#demo-instruction-fleet-com status=beta}
 
 TODO: JT: fix spelling and grammar, move to operation manual section
 
