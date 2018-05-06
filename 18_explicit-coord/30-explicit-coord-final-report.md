@@ -1,4 +1,4 @@
-#  Explicit coordination: final report {#explicit-coord-final-report status=draft}
+#  Explicit coordination: final report {#explicit-coord-final-report status=ready}
 
 <!--
 General notes:
