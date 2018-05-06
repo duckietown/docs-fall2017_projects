@@ -221,7 +221,9 @@ Since the existing GUI was running directly on the Duckiebot and was laid out fo
 
 To keep the GUI scalable and extensible along with the rest of our solution, it is able to run on multiple devices at the same time, as long as each device can communicate with the ROS master that the taxi central node is running on. The GUI communicates with other modules through ROS messages and topic listeners/subscribers and runs largely independently of all other components of the fleet planning module.
 
-The source code is located in this following [folder](github:org=duckietown,repo=Software,path=devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/include).
+The source code is located in the folder `catkin_ws/src/20-indefinite-navigation/`.
+ 
+ <!--following [folder](github:org=duckietown,repo=Software,path=devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/include).-->
 
 In this section, the GUI components and their interactions with the other modules are described. The overall layout follows design principles outlined in Galitz’ “The essential guide to user interface design: an introduction to GUI design principles and techniques” [2].
 
@@ -230,21 +232,21 @@ Please note that components (2) through (5) are re-positioned depending on the D
 [GUI without customer](#fig:fleet-planning-gui-without-customer).
 
 <div figure-id="fig:fleet-planning-gui-without-customer">
-   <img src="gui_1.png" width="25em"/>
+   <img src="gui_1.png" style="width: 25em"/>
    <figcaption>Map of Duckietown in GUI showing Duckiebot _Harpy’s_ current location.</figcaption>
 </div>
 
 [GUI with assigned customer](#fig:fleet-planning-map-with-icons).
 
 <div figure-id="fig:fleet-planning-map-with-icons">
-   <img src="gui_2.png" width="25em"/>
+   <img src="gui_2.png" style="width: 25em"/>
    <figcaption>Map with icons for a customer at node 7. Duckiebot “Harpy”’s target location is also at node 7 to pickup the customer.</figcaption>
 </div>
 
 [GUI with assigned customer](#fig:fleet-planning-happy-travelling).
 
 <div figure-id="fig:fleet-planning-happy-travelling">
-   <img src="gui_3.png" width="25em"/>
+   <img src="gui_3.png" style="width: 25em"/>
    <figcaption>Harpy travelling with the customer to the target location.</figcaption>
 </div>
 
@@ -295,7 +297,9 @@ Clears the start and target locations, which are then removed from the map (1) a
 
 ### Map drawing
 
-Code can be found [here](github:org=duckietown,repo=Software,path=20-indefinite-navigation/fleet_planning/src/map_draw_node.py).
+Code can be found at `20-indefinite-navigation/fleet_planning/src/map_draw_node.py`.
+ 
+<!-- [here](github:org=duckietown,repo=Software,path=20-indefinite-navigation/fleet_planning/src/map_draw_node.py).-->
 
 
 
