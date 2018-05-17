@@ -1,6 +1,6 @@
 # Fleet Planning: Final Report {#fleet-planning-final-report status=beta}
 
-TODO: JT: fix image sizes
+TODO for Jacopo: fix image sizes
 
 ## The final result
 

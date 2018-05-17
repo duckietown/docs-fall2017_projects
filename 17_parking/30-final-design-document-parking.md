@@ -1,6 +1,6 @@
 #  Parking: final report {#parking-final-report status=beta}
 
-TODO: JT: fix math and put it in latex environment, link video properly, link operation manual properly, format everything
+TODO for Jacopo: fix math and put it in latex environment, link video properly, link operation manual properly, format everything
 
 ## Part 1: The final result
 
