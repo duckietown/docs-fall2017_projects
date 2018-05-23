@@ -1,6 +1,6 @@
 # Demo instructions Fleet Communications {#demo-instruction-fleet-com status=beta}
 
-TODO for Jacopo: fix spelling and grammar, move to operation manual section
+TODO for Jacopo Tani: fix spelling and grammar, move to operation manual section
 
 This is the description of a communication setup between multiple Duckiebots.
 

@@ -1,6 +1,6 @@
 # Fleet Planning: Final Report {#fleet-planning-final-report status=beta}
 
-TODO for Jacopo: fix image sizes
+TODO for Jacopo Tani: fix image sizes
 
 ## The final result
 

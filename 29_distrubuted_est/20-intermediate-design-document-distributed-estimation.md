@@ -1,6 +1,6 @@
 #  Distributed Estimation: intermediate report {fleet-messaging-int-report status=beta}
 
-TODO for Jacopo: fix formatting, add figures?
+TODO for Jacopo Tani: fix formatting, add figures?
 
 ## Part 1: System interfaces
 

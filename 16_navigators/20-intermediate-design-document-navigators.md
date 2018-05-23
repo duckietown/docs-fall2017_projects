@@ -1,6 +1,6 @@
 #  Navigators: intermediate report {#navigators-int-report status=ready}
 
-TODO for Jacopo: fix intra-duckiebook links
+TODO for Jacopo Tani: fix intra-duckiebook links
 
 ## Part 1: System interfaces
 

@@ -2,7 +2,7 @@
 
 # Supervised learning: preliminary report {#super-learning-pdd status=beta}
 
-TODO for Jacopo: adapt links to book style
+TODO for Jacopo Tani: adapt links to book style
 
 
 ## Part 1: Mission and scope
