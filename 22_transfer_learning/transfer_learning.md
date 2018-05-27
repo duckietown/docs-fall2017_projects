@@ -1,6 +1,6 @@
 # Transfer Learning in Robotics {#transfer-learning-in-robotics status=ready}
 
-TODO for Jacopo: move file to appropriate location / rename
+TODO for Jacopo Tani: move file to appropriate location / rename
 
 
 <div class='requirements' markdown='1'>

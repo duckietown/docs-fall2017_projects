@@ -8,7 +8,7 @@ The final results are shown in the attached video. See the following link.
 
 [Recorded video](https://youtu.be/FCP8Ndoxae0)
 
-TODO for Jacopo: add link to operation manual, add link to readme
+TODO for Jacopo Tani: add link to operation manual, add link to readme
 
 ## Mission and Scope {#supervised-learning-final-scope}
 

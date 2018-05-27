@@ -1,6 +1,6 @@
 #  Fleet Planning: Intermediate Report {#fleet-level-planning-int-report status=ready}
 
-TODO for Jacopo: math formatting
+TODO for Jacopo Tani: math formatting
 
 This document describes system that the Fleet-planning team is planning to implement. Part 1 describes the interfaces to other parts of the system. I.e. How it communicates with all of them. In Part 2 a plan for the demo and evaluation is presented. And finally part 3 focuses on data collection, annotation and analysis. As for this project not much annotated data is used, part 3 is rather short.
 

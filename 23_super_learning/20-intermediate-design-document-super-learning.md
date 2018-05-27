@@ -1,6 +1,6 @@
 #  Supervised learning: intermediate report {#super-learning-int-report status=beta}
 
-TODO for Jacopo: fix image sizes, bullet points hierarchy
+TODO for Jacopo Tani: fix image sizes, bullet points hierarchy
 
 ## Part 1: System interfaces
 

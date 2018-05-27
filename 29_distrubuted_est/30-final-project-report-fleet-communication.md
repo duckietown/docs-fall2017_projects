@@ -1,6 +1,6 @@
 #  Distributed Estimation: final report {#distributed-est-final-report status=beta}
 
-TODO for Jacopo: fix images, formatting
+TODO for Jacopo Tani: fix images, formatting
 
 ## The final result {#fleet-messaging-final-result}
 
