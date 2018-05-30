@@ -1,4 +1,4 @@
-#  System Identification: Intermediate Report {#sysid-int-report status=ready}
+#  System Identification: intermediate Report {#sysid-int-report status=ready}
 <!--
 _It's time to commit on what you are building, and to make sure that it fits with everything else._
 
@@ -33,7 +33,7 @@ In a first step we measure manually the longitudinal and angular velocity for gi
 \left\{  \begin{array}{l} \dot x_A^R &= (c_r V_r+c_l V_l)/2  \\
                           \dot y_A^R &= 0 \\
                           \dot \theta &= \omega = (c_r V_r-c_l V_l)/(2L) \end{array} \right.,
-\end{align} 
+\end{align}
 
 This  “linear” velocity to voltage function can be used for testing by the controller group.
 If we manage the first step, we will move on to a second step. Here we will aim to get a “non-linear” velocity to voltage map. There will be a calibration procedure that creates a custom velocity to voltage map for each Duckiebot that should be independent for different hardware configurations.
@@ -141,11 +141,11 @@ and compare the improvements
 
 We will let the Duckiebot drive straight in open loop and measure its offset after X tiles of straight lane in Duckietown. The performance metric will be the absolute position offset of the expected to the actual terminal position after the run, measured with a ruler.
 
-** Circle test ** : 
+** Circle test ** :
 
 We will will drive the Duckiebot with a constant velocity $ v_a $ and constant angular velocity $ \dot \omega $ in open loop on a Duckietown corner tile. We will compare the actual path with the desired path. This is done both clock and counterclockwise. The performance metric will be the absolute position offset of the expected to the actual terminal position after the run, measured with a ruler.
 
-** Integration test ** : 
+** Integration test ** :
 
 We want to test how the improved calibration affects the line following mode. Compare different behaviors in line-following mode.
 
@@ -209,10 +209,3 @@ We already did a basic analysis of the system by running control commands and me
 <div figure-id="fig:yaw" figure-caption="Estimated yaw rate">
   <img src="omega_fit.jpg" style='width: 30em; height:auto'/>
 </div>
-
-
-
-
-
-
-

@@ -1,4 +1,7 @@
-# Transfer Learning in Robotics {#transfer-learning status=ready}
+# Transfer Learning in Robotics {#transfer-learning-in-robotics status=ready}
+
+TODO for Jacopo Tani: move file to appropriate location / rename
+
 
 <div class='requirements' markdown='1'>
 
@@ -9,7 +12,7 @@ Results: Understanding transfer learning and the domain randomization technique 
 This unit introduces the concept of Transfer Learning and how it can be applied to Robotics.
 
 
-## Transfer Learning Definition {#basic-blocks}
+## Transfer Learning Definition 
 
 Transfer learning is a subfield of machine learning that focuses on using knowledge gained while solving one problem to solve a related problem.
 
@@ -27,7 +30,7 @@ In our case, the simulator has clean background and rooftop, but real duckietown
     <div figure-id="subfig:sim" figure-caption="Simulator image">
         <img src="sim_img.png" style='width: 20em; height: auto'/>
     </div>
-    <div figure-id="subfig:velo" figure-caption="Real Image">
+    <div figure-id="subfig:real-image" figure-caption="Real Image">
         <img src="real_img.png" style='width: 20em; height: auto'/>
     </div>
 </div>

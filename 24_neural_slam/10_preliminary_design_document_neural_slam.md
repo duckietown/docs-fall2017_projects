@@ -1,3 +1,5 @@
+# Neural SLAM {#part:neural-SLAM}
+
 # PDD Neural Slam {#pdd-neural-slam status=beta}
 
 
