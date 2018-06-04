@@ -1,4 +1,6 @@
-#  PDD - Parking {#parking-pdd status=ready}
+# Parking {#part:parking status=ready}
+
+#  Parking: preliminary report {#parking-pdd status=ready}
 
 
 ## Part 1: Mission and scope
@@ -10,11 +12,11 @@ Implement parking feature and design specifications (feature and physical)
 ### Motto
 
 
-<!-- Duck Ex Machina -->
+<!-- Duck Ex Machina
 
-Motto: Quidquid latine dictum sit, altum videtur (anything that is said in Latin sounds important)
+Motto: Quidquid latine dictum sit, altum videtur (anything that is said in Latin sounds important) -->
 
-TODO: Change template motto to group motto.
+<!-- TODO: Change template motto to group motto. -->
 
 ### Project scope
 
@@ -82,6 +84,7 @@ We need to park N Duckiebots in a designated area in which they are able enter a
 
 
 ### Functionality provided
+aims to address: "how is the functionality of this feature measured"
 
 * Probability of a successful parking maneuver per parking maneuver attempt
 * Number of Duckiebots within the parking lot boundary per hour

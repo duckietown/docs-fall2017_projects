@@ -1,0 +1,125 @@
+% This file was created with JabRef 2.10.
+% Encoding: UTF-8
+
+
+@Article{Antonelli2010,
+  Title                    = {A non-iterative and effective procedure for simultaneous odometry and camera calibration for a differential drive mobile robot based on the singular value decomposition},
+  Author                   = {Antonelli, Gianluca and Caccavale, Fabrizio and Grossi, Flavio and Marino, Alessandro},
+  Journal                  = {Intelligent Service Robotics},
+  Year                     = {2010},
+  Number                   = {3},
+  Pages                    = {163--173},
+  Volume                   = {3},
+
+  Publisher                = {Springer}
+}
+
+@Article{Antonelli2005,
+  Title                    = {A calibration method for odometry of mobile robots based on the least-squares technique: theory and experimental validation},
+  Author                   = {Antonelli, Gianluca and Chiaverini, Stefano and Fusco, Giuseppe},
+  Journal                  = {IEEE Transactions on Robotics},
+  Year                     = {2005},
+  Number                   = {5},
+  Pages                    = {994--1004},
+  Volume                   = {21},
+
+  Publisher                = {IEEE}
+}
+
+@Article{Borenstein1996,
+  Title                    = {Measurement and correction of systematic odometry errors in mobile robots},
+  Author                   = {Borenstein, Johann and Feng, Liqiang},
+  Journal                  = {IEEE Transactions on robotics and automation},
+  Year                     = {1996},
+  Number                   = {6},
+  Pages                    = {869--880},
+  Volume                   = {12},
+
+  Publisher                = {IEEE}
+}
+
+@Article{desantis1995modeling,
+  Title                    = {Modeling and path-tracking control of a mobile wheeled robot with a differential drive},
+  Author                   = {DeSantis, Romano M},
+  Journal                  = {Robotica},
+  Year                     = {1995},
+  Number                   = {4},
+  Pages                    = {401--410},
+  Volume                   = {13},
+
+  Owner                    = {romeo},
+  Publisher                = {Cambridge University Press},
+  Timestamp                = {2018.02.14}
+}
+
+@Article{dhaouadi2013dynamic,
+  Title                    = {Dynamic modeling of differential-drive mobile robots using lagrange and newton-euler methodologies: A unified framework},
+  Author                   = {Rached Dhaouadi and A. Abu Hatab},
+  Journal                  = {Advances in Robotics \& Automation},
+  Year                     = {2013},
+  Number                   = {2},
+  Pages                    = {1--7},
+  Volume                   = {2},
+
+  Owner                    = {romeo},
+  Timestamp                = {2018.02.14}
+}
+
+@Book{Dudek10,
+  Title                    = {Computational principles of mobile robotics},
+  Author                   = {Gregory Dudek and Michael Jenkin},
+  Publisher                = {Cambridge university press},
+  Year                     = {2010},
+
+  Owner                    = {romeo},
+  Timestamp                = {2018.02.14}
+}
+
+@Article{Garcia-Saura2015,
+  Title                    = {Self-calibration of a differential wheeled robot using only a gyroscope and a distance sensor},
+  Author                   = {Garcia-Saura, Carlos},
+  Journal                  = {arXiv preprint arXiv:1509.02154},
+  Year                     = {2015}
+}
+
+@Article{Jung2014,
+  Title                    = {Design of test track for accurate calibration of two wheel differential mobile robots},
+  Author                   = {Jung, Changbae and Moon, Chang-bae and Jung, Daun and Choi, JongSuk and Chung, Woojin},
+  Journal                  = {International journal of precision engineering and manufacturing},
+  Year                     = {2014},
+  Number                   = {1},
+  Pages                    = {53--61},
+  Volume                   = {15},
+
+  Publisher                = {Springer}
+}
+
+@Article{Maddahi2012,
+  Title                    = {Calibration of wheeled mobile robots with differential drive mechanisms: an experimental approach},
+  Author                   = {Maddahi, Yaser and Sepehri, Nariman and Maddahi, Ali and Abdolmohammadi, M},
+  Journal                  = {Robotica},
+  Year                     = {2012},
+  Number                   = {6},
+  Pages                    = {1029--1039},
+  Volume                   = {30},
+
+  Publisher                = {Cambridge University Press}
+}
+
+@Misc{Modeling,
+  Title                    = {{ETHZ AMOD 2017} Lecture: Modeling of a differential drive vehicle},
+
+  Author                   = {Jacopo Tani},
+  Year                     = {2017},
+
+  Owner                    = {romeo},
+  Timestamp                = {2018.02.14}
+}
+
+@Misc{OdometryCalibration,
+  Title                    = {{ETHZ AMOD 2017} Lecture: Odometry Calibration},
+
+  Author                   = {Jacopo Tani},
+  Year                     = {2017}
+}
+

@@ -1,4 +1,6 @@
-#  PDD - The Controllers {#controllers-pdd status=ready}
+# The Controllers {#part:controllers status=ready}
+
+# The Controllers: preliminary report {#controllers-pdd status=ready}
 
 
 ## Part 1: Mission and scope
@@ -13,7 +15,6 @@ Motto: IMPERIUM ET POTESTAS EST <br/> (With control comes power)
 
 
 ### Project scope
-
 
 #### What is in scope
 

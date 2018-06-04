@@ -1,4 +1,6 @@
-#  PDD - Navigators {#navigators-pdd status=beta}
+# The Controllers {#part:navigators status=ready}
+
+# Navigators: preliminary report {#navigators-pdd status=beta}
 
 
 ## Part 1: Mission and Scope
@@ -9,7 +11,7 @@ The objective of this project is to implement a method that allows Duckiebots to
 
 ### Motto
 
- 
+
 Motto: TRANSIBITIS <br/>(You shall pass)
 
 

@@ -1,10 +1,10 @@
-# PDD - Anti-Instagram {#devel-anti-instagram status=beta}
+# Anti-Instagram {#part:anti-instagram}
+
+# Anti-Instagram: preliminary design {#anti-instagram-pdd status=beta}
 
 ## Part 1: Mission and scope
 
-
 ### Mission statement
-
 
 Make the Duckiebot robust to illumination variation.
 
@@ -18,7 +18,6 @@ Motto: SEMPER VIGILANS <br/> (Always vigilant)
 
 #### What is in scope
 
-
 * Improve software (anti instagram, line detection, ...) such that the line detection is robust to illumination variation
 * Sample ground truth pictures
 * Influence future changes on Duckietown (e.g. color of parking spots)
@@ -28,7 +27,6 @@ Motto: SEMPER VIGILANS <br/> (Always vigilant)
 * Geometric interpretation of the line detection (e.g. where is the middle of the road, distance to certain objects, …)
 * Hardware modifications of the Duckiebot
 * Hardware modifications of the current Duckietown set up (colors of lanes, stop line, …)
-
 
 #### Stakeholders
 
@@ -58,6 +56,7 @@ table#anti-instagram-stakeholders td {
 ## Part 2: Definition of the problem
 
 ### Problem statement
+
 One of the central problems in autonomous mode of the duckiebot is the line detection. Line detection though is very sensitive to illumination variation. This problem has been solved by a color transformation called “Anti-Instagram”. The current illumination correction algorithm, however, is not working well enough. This affects the extraction of the line segments since the extract-line-segments algorithm is very sensitive to illumination changes (e.g. shadow, bright light, specular reflections).
 There are several reasons why the current implementation fails:
 
@@ -67,7 +66,6 @@ There are several reasons why the current implementation fails:
 4. No geometric information is considered in differentiating colors of lines. The color information is completely decoupled from the place it's actually coming from, thus a red Duckiebot may be detected like a stop line, even though their shapes are quite different. (We also don't know whether a pixel is coming from the “street level” or the “sky level”)
 5. It is a linear transformation (shift, scale) instead of a possible non-linear transformation, but there is nothing indicating this should be true.
 6. Any previous anti-instagram transformation parameters are not taken into account when a new transformation is performed, thus no prior knowledge is leveraged.
-
 
 ### Assumptions
 
@@ -89,7 +87,6 @@ There are several reasons why the current implementation fails:
 
 4. We also assume the current method of extracting lane pose from segments is accurate.
 
-
 ### Approach
 
 1. Understand current system
@@ -97,7 +94,6 @@ There are several reasons why the current implementation fails:
     - Determine false positives, false negatives, true positives, true negatives of current line detection
     - Determine latency
     - Compare other color spaces than RGB to see how it affects performance (e.g. HSV or LAB).
-
 
 2. Use geometric information to better determine the actual existing colors.
 
@@ -120,9 +116,9 @@ There are several reasons why the current implementation fails:
 
 We are assuming to have ground truth pictures. Then it is possible by processing the same picture with our algorithm and compare it to the ground truth to calculate an error.
 
-We are going to consider true positives, true negatives, false positives and false negatives.
-This can be done either for only one color/one feature (dashed lines, continuous lines…) or for the whole process at once which means everything should be classified properly. In addition, we would like to measure the accuracy of the lane pose estimation for our algorithm vs. a ground truth, this can be a Euclidean distance.
+We are assuming to have ground truth pictures. Then it is possible by processing the same picture with our algorithm and compare it to the ground truth to calculate an error.
 
+We are going to consider true positives, true negatives, false positives and false negatives. This can be done either for only one color/one feature (dashed lines, continuous lines…) or for the whole process at once which means everything should be classified properly. In addition, we would like to measure the accuracy of the lane pose estimation for our algorithm vs. a ground truth, this can be a Euclidean distance.
 
 ### Resources required / dependencies / costs
 
@@ -144,28 +140,30 @@ Dependencies:
 1. Ground truth images
 2. Lane pose estimator
 
-
 ### Performance measurement
+
 1. Identify current run times of algorithms implemented at the moment and compare the algorithms intended to implement with the current ones. If the new ones are way more costly than the current ones and the current ones already use the Raspberry Pi to capacity it is probably not a good idea to implement ours. To sum up: Estimate run time of new implementation and compare to old. See whether implementation is feasible.
 2. We can compute percentage of success of identification of a line segment, as well as correct color classification.
 3. Measure euclidean distance of lane pose estimation using our algorithm and lane pose estimation without to the ground truth.
+
 The performance measurement procedure for the algorithm is described in the section *Functionality provided*.
 
 ## Part 3: Preliminary design
 
 ### Modules
+
 1. Anti-Instagram module: Takes raw picture from camera and estimates a color transformation. The transformation details are returned.
 2. Module to classify geometries (e.g., distinguish between dashed lines, continuous lines and stop lines): This could be a standalone routine, which gets called by the Anti-Instagram, we could also combine this with the anti-instagram as described in Approach point 4.
 3. Online learning: Takes picture from camera, does Anti-Instagram procedure and transformation. The error (e.g. cluster error of k-means) is estimated and the procedure is repeated until the optimal transformation parameters are found (transformation with the lowest error). The procedure returns the optimal parameters. They are saved and used for the future image processing.
 
-
 ### Interfaces
+
 1. Anti-Instragram: input: Raw camera image. Output: Transformation parameters
 2. Geometry Classifier: Input: Raw camera image. Output: List of the different line segments.
 3. Online learning module: input: Multiple camera images/continuous stream. Output: Optimal transformation parameters
 
-
 ### Preliminary plan of deliverables
+
 1. Take the current algorithm and find best color space for it, estimate the errors and accuracies discussed previously.
 2. Search for other clustering method and optimize current version. (Without considering geometry)
 3. Consider geometry (as a first step indicate considerable areas by hand) and see what difference it makes compared to the current optimal implementation (Maybe after 1.) and 2.) are done).
@@ -173,29 +171,30 @@ The performance measurement procedure for the algorithm is described in the sect
 5. Distinguish dashed and continuous lines.
 6. Implement and test a online learning system.
 
-
 ### Specifications
+
 As stated above we are only involved in determining the best fitting color of the (not yet installed) parking lot lines. All the other colors and the environment are assumed to be given.
 
 ### Software modules
+
 1. Anti-Instagram Node: Already exists, will most likely be updated or even changed completely according to our approach. The online-learning (if accomplished) will be folded into this node.
 2. Geometry Classifier Node: Needs to be written according to the approach.
 
-
 ### Infrastructure modules
-NO
+
+None.
 
 ## Part 4: Project planning
 
-|  Date [MM/DD/YYYY] |  Task | Who | Target Deliverables |
-|---|:--|---|:--|
-|11/20/2017|Finish the Preliminary Document, Peer Reading of other team members |Milan, Christoph|Preliminary Document|
-|11/27/2017|Investigate why current algorithm fails.|Milan, Christoph|Create detailed description when the algorithm fails and when it works. Make it understandable why for everyone|
-|11/27/2017|Create data annotation, check how website works|David, Shengjie|Get 1000 annotated pictures or have a specific date when these images are delivered.|
-|12/1/2017|Find out what colorspace is the best for the current algorithm||best color space, performance analysis|
-|12/4/2017|Find out what's the best clustering method based on best color space, is the best color space still the best?||Best clustering method, best color space, performance analysis|
-|12/4/2017|Include geometry in the current color transformation algorithm||Performance analysis|
-|1/8/2018|Implement an online system||Performance analysis of supervised system|
+|Date [MM/DD/YYYY]|Task|Target Deliverables|
+|-|-|-|
+|11/20/2017|Finish the Preliminary Document, Peer Reading of other team members|Preliminary Document|
+|11/27/2017|Investigate why current algorithm fails.|Create detailed description when the algorithm fails and when it works. Make it understandable why for everyone|
+|11/27/2017|Create data annotation, check how website works|Get 1000 annotated pictures or have a specific date when these images are delivered.|
+|12/1/2017|Find out what colorspace is the best for the current algorithm|best color space, performance analysis|
+|12/4/2017|Find out what's the best clustering method based on best color space, is the best color space still the best?|Best clustering method, best color space, performance analysis|
+|12/4/2017|Include geometry in the current color transformation algorithm|Performance analysis|
+|1/8/2018|Implement an online system|Performance analysis of supervised system|
 
 ### Data collection
 
@@ -211,10 +210,9 @@ The data collected above has to be annotated. The annotations should state what 
 4. Street: Black
 5. (Parking Lot: TBD)
 
-
 #### Relevant Duckietown resources to investigate
 
-The whole sum of nodes within the ‘10-lane-control' folder will be within the scope of this project. This is:
+The whole sum of nodes within the ‘10-lane-control' folder will be within the scope of this project. They are:
 
 - `anti_instagram`
 - `ground_projection`
@@ -223,13 +221,11 @@ The whole sum of nodes within the ‘10-lane-control' folder will be within the 
 - `line_detector`
 - `complete_image_pipeline`
 
-
 #### Other relevant resources to investigate
 
 1. Color differentiation, [like this](https://arxiv.org/pdf/1506.01472.pdf).
 2. Properties of different color spaces
 3. OpenCV
-
 
 ### Risk analysis
 
