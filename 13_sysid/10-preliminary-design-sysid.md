@@ -221,6 +221,8 @@ Performances of the current implementation
 
 #### Other relevant resources to investigate
 
+TODO Jacopo Tani: fix links
+
 [Handbook of robotics](https://www.dropbox.com/s/0lwdwyt1a61jh0k/handbook%20of%20robotics.pdf?dl=0)
 
 the above contains a number of interesting sections of relevance to the work of this group:
@@ -236,9 +238,6 @@ the above contains a number of interesting sections of relevance to the work of 
 - Adaptive control (pg. 147): another approach is implementing an adaptive controller. It is  meant to work with plant uncertainty.
 
 [Caster wheel literature](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/0FB474602C01DDB0FAA1B5C68DB8245E/S026357470001883Xa.pdf/div-class-title-modeling-and-path-tracking-control-of-a-mobile-wheeled-robot-with-a-differential-drive-div.pdf)
-
-
-
 
 ### Risk analysis
 
