@@ -1,3 +1,5 @@
+# Implicit Coordination {#part:implicit-coordination status=ready}
+
 # Implicit Coordination: preliminary report  {#formation-and-implicit-control-pdd status=beta}
 
 

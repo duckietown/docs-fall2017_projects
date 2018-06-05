@@ -1,41 +1,72 @@
-# Coordination with Implicit Communication 
+# Coordination with Implicit Communication {#implicit-coord-final-report-udem status=beta}
 
 Implicit coordination of traffic at an intersection comprises the orchestration without any form of explicit communication of the entities involved, such as traffic lights or signs, in-vehicle signalization or vehicle-to-vehicle (to-infrastructure) communication systems. Thus,  the outcome of such mechanism is to produce an accurate inference of when it is safe to progress with a crossing maneuver.
 
-As of today, Duckietown exhibits a less complex environment -compared to real-life situations- where the only mobile entities are duckiebots.  This simplification provides a favorable scenario to explore techniques at different levels of complexity which could be incrementally built to produce algorithms and heuristics applicable to more convoluted scenarios. 
+As of today, Duckietown exhibits a less complex environment -compared to real-life situations- where the only mobile entities are Duckiebots.  This simplification provides a favorable scenario to explore techniques at different levels of complexity which could be incrementally built to produce algorithms and heuristics applicable to more convoluted scenarios.
 
-Predicting traffic behavior at an intersection depends on accurately detect and track the position of each object as the preamble of applying prior information (traffic rules) for predicting the sequence of expected actions of each element. Hence, the conception of a mechanism that implicitly coordinates the individual behavior of a duckiebot under such circumstances comprises the research, design, and implementation of components capable of producing the required data for this outcome.
+Predicting traffic behavior at an intersection depends on accurately detect and track the position of each object as the preamble of applying prior information (traffic rules) for predicting the sequence of expected actions of each element. Hence, the conception of a mechanism that implicitly coordinates the individual behavior of a Duckiebot under such circumstances comprises the research, design, and implementation of components capable of producing the required data for this outcome.
 
 ## Detection
 
 Object localization and detection tasks haven been extensively reviewed in the area of Computer Vision for more than 30 years [REF]. With the creation of large corpora of semantically annotated images and a surge of devices' computing power, machine learning techniques have achieved notable results in most visual perception tasks in detriment of purely computer vision-based methods. Most, if not all, state-of-the-art results on these large datasets (ImageNet, PASCAL VOC, MSCOCO, KITTI, and others) have been obtained with the implementation of neural network architectures (Convolutional Neural Networks) trained under a supervised learning regime.
 
-Therefore,  the examination of deep learning-based object detectors deems appropriate to obtain highly reliable information of the entities present in the field of view of a duckiebot. A state of the art CNN-based object detector is regularly composed two elements: a CNN for pre-trained on ImageNet object classification challenge (usually named "backbone") and a meta-architecture that transforms the features extracted from the CNN into proposed object regions (bounding boxes).
+Therefore,  the examination of deep learning-based object detectors deems appropriate to obtain highly reliable information of the entities present in the field of view of a Duckiebot. A state of the art CNN-based object detector is regularly composed two elements: a CNN for pre-trained on ImageNet object classification challenge (usually named "backbone") and a meta-architecture that transforms the features extracted from the CNN into proposed object regions (bounding boxes).
 
+<!--
 ![Object Detection](dl_object_detection.png)
+-->
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  .fit {
+    max-width: 100%;
+  }
+  .center {
+    display: block;
+    margin: auto;
+  }
+  .group-photo {
+      max-width: 80%;
+  }
+</style>
+
+<div figure-id="fig:implicit-coord-object-detection-udem">
+   <img src="dl_object_detection.png" class='center fit'/>
+   <figcaption>Implicit coordination object detection</figcaption>
+</div>
 
 ### Object Detection in Duckietown
 
-A recent paper produced by a group at Google Research [[link](https://arxiv.org/pdf/1611.10012.pdf)] reproduces an apples-to-apples comparison of the speed/memory/accuracy trade-off among the object detection algorithms that have currently obtained the best result in different visual challenges. Figure below  depicts the speed vs. accuracy the result of their research, and represents the basis for a selection of an object detection algorithm in the context of the implicit coordination mechanism.
+A recent paper produced by a group at [Google Research](https://arxiv.org/pdf/1611.10012.pdf) reproduces an apples-to-apples comparison of the speed/memory/accuracy trade-off among the object detection algorithms that have currently obtained the best result in different visual challenges. Figure below  depicts the speed vs. accuracy the result of their research, and represents the basis for a selection of an object detection algorithm in the context of the implicit coordination mechanism.
 
+<!--
 ![Speed vs Accuracy Trade-Off on Object Detectors](tradeoff.png)
+-->
 
-As explained before, Duckietown presents a diminished environment when contrasted with real-life scenarios while the only entities that constitute the traffic at its intersections are duckiebots. Consequently, the object detection task is reduced to the retrieval of the bounding box of duckiebots.  Also, the current Duckiebot platform based on a Raspberry Pi 3 board poses a challenging constraint regarding the computational resources available. This low performant environment creates a requirement for the careful selection of a model that balances speed, memory consumption, and accuracy.  
+<div figure-id="fig:implicit-coord-speed-vs-accuracy-obj-det-udem">
+   <img src="tradeoff.png" class='center fit'/>
+   <figcaption>Speed vs Accuracy Trade-Off on Object Detectors</figcaption>
+</div>
+
+As explained before, Duckietown presents a diminished environment when contrasted with real-life scenarios while the only entities that constitute the traffic at its intersections are Duckiebots. Consequently, the object detection task is reduced to the retrieval of the bounding box of Duckiebots.  Also, the current Duckiebot platform based on a Raspberry Pi 3 board poses a challenging constraint regarding the computational resources available. This low performant environment creates a requirement for the careful selection of a model that balances speed, memory consumption, and accuracy.  
 
 The analysis of the trade-off presented on this comparison leads to a combination of Residual Networks + Faster-R-CNN as the most balanced solution. However, it must be taken into account that the GPU Time reported was obtained on a machine with 32GB RAM, an Intel Xeon E5-1650 v2 processor, and a Nvidia GeForce GTX Titan X discrete GPU. This specification is several times superior to a Raspberry Pi 3 capabilities, even with the presence of external processing devices (e.g.: Movidius Neural Compute Stick).
 
-Worth noting that while conducting similar research on the constraints imposed by a duckiebot design would be relevant,  an architecture based on  MobileNets [[link](https://arxiv.org/pdf/1704.04861.pdf)] and Single-Shot Detector (SSD) [[link](https://arxiv.org/pdf/1512.02325.pdf)] seemed the most appropriate -best accuracy among the fastest solutions. Also, as these models are constructed to deal with hundreds of object classes and to have our problem reduced to only duckiebots, accuracy it is not as significant as it would be in other applications.
+Worth noting that while conducting similar research on the constraints imposed by a Duckiebot design would be relevant,  an architecture based on  [MobileNets](https://arxiv.org/pdf/1704.04861.pdf) and [Single-Shot Detector (SSD)](https://arxiv.org/pdf/1512.02325.pdf) seemed the most appropriate -best accuracy among the fastest solutions. Also, as these models are constructed to deal with hundreds of object classes and to have our problem reduced to only Duckiebots, accuracy it is not as significant as it would be in other applications.
 
 ### Duckiebot Detection Dataset
 
-All the aforementioned deep learning models obtain their results while training in a supervised learning regime. Thus, as part of the effort of bringing deep learning-based duckiebot detection to the Duckietown infrastructure, there exists today a dataset composed of approximately 6000 images collected at University of Montreal duckietown instance.  This non-rectified images (640x480 pixels) collected from `~/image_node/camera/compressed/` topic mainly depict the scenario of a duckiebot parked at a 4-way intersection and capture different traffic patterns and behaviors. Also, in an attempt to make this detection procedure invariant to duckiebots' aspect, the dataset includes duckiebots in different poses, sizes, distances and portraying duckiebots wearing a shell with color variations.
+All the aforementioned deep learning models obtain their results while training in a supervised learning regime. Thus, as part of the effort of bringing deep learning-based Duckiebot detection to the Duckietown infrastructure, there exists today a dataset composed of approximately 6000 images collected at University of Montreal duckietown instance.  This non-rectified images (640x480 pixels) collected from `~/image_node/camera/compressed/` topic mainly depict the scenario of a Duckiebot parked at a 4-way intersection and capture different traffic patterns and behaviors. Also, in an attempt to make this detection procedure invariant to Duckiebots' aspect, the dataset includes Duckiebots in different poses, sizes, distances and portraying Duckiebots wearing a shell with color variations.
 
-Unfortunately, due to time and human resources constraints, there are currently only 612 densely annotated instances with bounding box coordinates for all duckiebots in the frame. 
+Unfortunately, due to time and human resources constraints, there are currently only 612 densely annotated instances with bounding box coordinates for all Duckiebots in the frame.
 
 ### Object Detector Training
+
 Another interesting result of the Google Research paper mentioned above is the creation of the [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection), which makes available a configurable Tensorflow-based library to train from scratch or to fine-tune object detection models. Commonly, training deep neural networks from scratch requires an amount of annotated data for which 612 frames is notably insufficient. In this case, the training of the object detector fine-tuned a MobileNets+SSD architecture pre-trained on the Microsoft COCO dataset, thus relying on the notion of transfer learning.
 
-Below, is the configuration of the Tensorflow Object Detection API used during training. Although it reflects conventional hyper-parameters values selection for these tasks, some assumptions made were explicitly tailored for duckiebots detection. Firstly, as discussed before, only duckiebots are detected `num_classes: 1`. Also, the dataset images were downsized to a dimension of 300x300 pixels `fixed_shape_resizer { height: 300 width: 300 }`, as a data augmentation technique each image produced a synthetic frame when applied random horizontal flip `data_augmentation_options {    random_horizontal_flip { } }`.  Another significant factor in object detection meta-architectures is the number of maximum detections per class, and the maximum number of detection per image assumed to be no than 15 `max_detections_per_class: 15   max_total_detections: 15`.
+Below, is the configuration of the Tensorflow Object Detection API used during training. Although it reflects conventional hyper-parameters values selection for these tasks, some assumptions made were explicitly tailored for Duckiebots detection. Firstly, as discussed before, only Duckiebots are detected `num_classes: 1`. Also, the dataset images were downsized to a dimension of 300x300 pixels `fixed_shape_resizer { height: 300 width: 300 }`, as a data augmentation technique each image produced a synthetic frame when applied random horizontal flip `data_augmentation_options {    random_horizontal_flip { } }`.  Another significant factor in object detection meta-architectures is the number of maximum detections per class, and the maximum number of detection per image assumed to be no than 15 `max_detections_per_class: 15   max_total_detections: 15`.
 
 ```
 model {
@@ -235,13 +266,13 @@ eval_input_reader: {
 
 ## Tracking
 
-The detection algorithm provides the coordinates of the vertices of bounding box in the camera frame, along with a measure of confidence in the detection. In the context of coordination, this information is only meaningful if the bounding boxes can be tracked from frame to frame, ultimately allowing the duckiebot to predict the movement of any duckiebot within its field of view. In the context of this document, the duckiebot performing the tracking operation is called the tracker, whereas the duckiebots being tracked are referred to as the targets. It is assumed in this project that tracker is stationary at an intersection. 
+The detection algorithm provides the coordinates of the vertices of bounding box in the camera frame, along with a measure of confidence in the detection. In the context of coordination, this information is only meaningful if the bounding boxes can be tracked from frame to frame, ultimately allowing the Duckiebot to predict the movement of any Duckiebot within its field of view. In the context of this document, the Duckiebot performing the tracking operation is called the tracker, whereas the Duckiebots being tracked are referred to as the targets. It is assumed in this project that tracker is stationary at an intersection.
 
-The tracking algorithm requires solving two main problems. First, a data association problem must be solved. This is required to match the bouding boxes in the previous frame with the bounding boxes in the current frame. Second, a state estimation problem must be solved to smooth out the measurements and increase the robustness of the detection algorithm. A Kalman Filter is used to do this. The Kalman Filter will use the kinematics of each target duckiebot to propagate the state estimate through time. Then, using the measurements from the detection algorithm, the estimate will be corrected. 
+The tracking algorithm requires solving two main problems. First, a data association problem must be solved. This is required to match the bouding boxes in the previous frame with the bounding boxes in the current frame. Second, a state estimation problem must be solved to smooth out the measurements and increase the robustness of the detection algorithm. A Kalman Filter is used to do this. The Kalman Filter will use the kinematics of each target Duckiebot to propagate the state estimate through time. Then, using the measurements from the detection algorithm, the estimate will be corrected.
 
 ### Time Propagation
 
-Denoting the state of target $i$ at time $t_k$ as $\boldsymbol{\mu}^i_k = [x_k^i,y_k^i,v_{x_{k}}^i,v_{y_{k}}^i]^\textsf{T}$  the discrete time kinematics of each target are 
+Denoting the state of target $i$ at time $t_k$ as $\boldsymbol{\mu}^i_k = [x_k^i,y_k^i,v_{x_{k}}^i,v_{y_{k}}^i]^\textsf{T}$  the discrete time kinematics of each target are
 
 \begin{align*}
     x_k^i = x_{k-1}^i + Tv_{x_{k-1}}^i \\
@@ -273,7 +304,7 @@ In order to propagate the state estimate through time, it is assumed that a meas
     \mathbf{u}_k^i = \mathbf{a}_k^i + \mathbf{w}_k^i,
 \end{align*}
 
-where $\mathbf{w}_k^i$ is defined as a Gaussian random variable with mean $\mathbf{0}$ and covariance $\mathbf{Q}$. From the assumptions, we can then write this as 
+where $\mathbf{w}_k^i$ is defined as a Gaussian random variable with mean $\mathbf{0}$ and covariance $\mathbf{Q}$. From the assumptions, we can then write this as
 
 \begin{align*}
     \mathbf{u}_k^i = \mathbf{w}_k^i.
@@ -297,7 +328,7 @@ where
     \end{bmatrix}
 \end{align*}
 
-and 
+and
 
 \begin{align*}
     \mathbf{L}_{k-1} =
@@ -335,15 +366,15 @@ where
 
 ### Measurement Acquisition
 
-Until this point, it was simply assumed that a measured position is available. However, obtaining this measurement is not trivial. In order to be useful, the coordinates of the bounding boxes must be converted to a position in the robot frame. Then, each measurement must be associated to a measurement in the previous frame, in order to allow for proper tracking. Lastly, the cases of the amount of detections increasing or decreasing from frame to frame must be dealt with. 
+Until this point, it was simply assumed that a measured position is available. However, obtaining this measurement is not trivial. In order to be useful, the coordinates of the bounding boxes must be converted to a position in the robot frame. Then, each measurement must be associated to a measurement in the previous frame, in order to allow for proper tracking. Lastly, the cases of the amount of detections increasing or decreasing from frame to frame must be dealt with.
 
-In theory, the bottom of each bounding box should lie along the ground plane. Thus, using the homography matrix, the coordinates of two points $\mathbf{p}_1^i$ and $\mathbf{p}_2^i$ (corresponding to the bottom of bounding box $i$) can be found in the ground plane. The midpoint of this line, defined by 
+In theory, the bottom of each bounding box should lie along the ground plane. Thus, using the homography matrix, the coordinates of two points $\mathbf{p}_1^i$ and $\mathbf{p}_2^i$ (corresponding to the bottom of bounding box $i$) can be found in the ground plane. The midpoint of this line, defined by
 
 \begin{align*}
     \mathbf{p} = (x,y) = (\frac{\mathbf{p}_{1_x} + \mathbf{p}_{2_x}}{2}, \frac{\mathbf{p}_{1_y} + \mathbf{p}_{2_y}}{2}),
 \end{align*}
 
-is chosen as an estimate of the position of target $i$. This was found to be robust to changes in pose, providing a smooth estimate of the position. 
+is chosen as an estimate of the position of target $i$. This was found to be robust to changes in pose, providing a smooth estimate of the position.
 
 The core task of this tracking algorithm is to associate bounding boxes in the current frame with a previous estimate of the state of the targets. Assuming a state estimate $\hat{\boldsymbol{\mu}}_k^i$, where $i = 1, \ldots,  n$, and a measurement $\mathbf{z}_k^j$, where $j = 1, \ldots, m$, there are three possible cases. Either $n = m$, meaning there are the same number of tracked targets as detected targets, $n < m$, meaning there are fewer tracked targets than detected targets, $n > m$, meaning there are more tracked targets than detected targets. In the first case, each state estimate is corrected based on its corresponding measurement. In the second case, a new target has been detected and a Kalman Filter must be initialized to track it. All other targets are treated as in the first case. The final case occurs when a target is no longer detected. In this case, the correction step is simply skipped and the estimate is simply propagated through time until TODO.
 
@@ -353,23 +384,23 @@ In each of these cases, the measurement must be associated with its correspondin
     || \hat{\mathbf{p}}_k^i - \mathbf{z}_k^j || < d_{min},
 \end{align*}
 
-where $d_{min}$ is a tunable parameter. In other words, if the norm of the vector from a state estimate to a measurement is less than a threshold distance, they are associated. Following this procedure, along with the described method to deal with new targets and targets that no longer detected, the output of the Kalman Filter described below should be a consistent state estimate of each target from the moment they enter the tracker's field of view until they leave it, thus yielding an estimate of the trajectory of each target in the ground plane. 
+where $d_{min}$ is a tunable parameter. In other words, if the norm of the vector from a state estimate to a measurement is less than a threshold distance, they are associated. Following this procedure, along with the described method to deal with new targets and targets that no longer detected, the output of the Kalman Filter described below should be a consistent state estimate of each target from the moment they enter the tracker's field of view until they leave it, thus yielding an estimate of the trajectory of each target in the ground plane.
 
 ### Kalman Filter Implementation
 
-When a new target is detected, a new Kalman Filter is initialized to track it. The state is initialized to $\hat{\boldsymbol{\mu}}_k^i = [\mathbf{z}_k^i \ \mathbf{0}]^\textsf{T}$. The covariance matrix $\boldsymbol{\Sigma}_k^i$ is initialized to TODO. At a constant rate of 20Hz, the kinematics are integrated and covariance is propagated. The equations governing these steps are 
+When a new target is detected, a new Kalman Filter is initialized to track it. The state is initialized to $\hat{\boldsymbol{\mu}}_k^i = [\mathbf{z}_k^i \ \mathbf{0}]^\textsf{T}$. The covariance matrix $\boldsymbol{\Sigma}_k^i$ is initialized to TODO. At a constant rate of 20Hz, the kinematics are integrated and covariance is propagated. The equations governing these steps are
 
 \begin{align*}
     \hat{\boldsymbol{\mu}}_k^i = \mathbf{F}_{k-1}\boldsymbol{\mu}_{k-1}^i
 \end{align*}
 
-and 
+and
 
 \begin{align*}
     \boldsymbol{\Sigma}_k^i = \mathbf{F}_{k-1} \boldsymbol{\Sigma}_{k-1}^i \mathbf{F}_{k-1}^\textsf{T} +  \mathbf{L}_{k-1} \mathbf{Q} \mathbf{L}_{k-1}^\textsf{T}.
 \end{align*}
 
-When a measurement is available, the state estimate is corrected. The Kalman gain is 
+When a measurement is available, the state estimate is corrected. The Kalman gain is
 
 \begin{align*}
     \mathbf{K}_k = \boldsymbol{\Sigma}_k^i  \mathbf{H}_{k}^\textsf{T} (\mathbf{H}_{k}\boldsymbol{\Sigma}_k^i\mathbf{H}_{k}^\textsf{T} + \mathbf{R})^{-1}.
@@ -389,3 +420,6 @@ and
 
 
 ## Prediction
+
+
+Question: Incomplete?

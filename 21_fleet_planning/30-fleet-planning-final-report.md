@@ -43,7 +43,7 @@ The codebase can be found [here](https://github.com/duckietown/Software/tree/mas
 #### Localization
 
 
-Localization was performed by placing AprilTags at each intersection and having the Duckiebot identify each unique AprilTag through image analysis. The AprilTags are defined in the duckiebook [signage section](#sec:signage).
+Localization was performed by placing AprilTags at each intersection and having the Duckiebot identify each unique AprilTag through image analysis. The AprilTags are defined in the duckiebook [signage section](#signage).
 
 A Duckiebot could thus compute at which $(x,y)$ coordinate of the map it was and estimate its rotation. The position on the topographic map was not mapped to the corresponding topological graph representation which is required for path planning.
 
@@ -222,7 +222,7 @@ Since the existing GUI was running directly on the Duckiebot and was laid out fo
 To keep the GUI scalable and extensible along with the rest of our solution, it is able to run on multiple devices at the same time, as long as each device can communicate with the ROS master that the taxi central node is running on. The GUI communicates with other modules through ROS messages and topic listeners/subscribers and runs largely independently of all other components of the fleet planning module.
 
 The source code is located in the folder `catkin_ws/src/20-indefinite-navigation/`.
- 
+
  <!--following [folder](github:org=duckietown,repo=Software,path=devel-fleet-planning/catkin_ws/src/20-indefinite-navigation/fleet_planning/include).-->
 
 In this section, the GUI components and their interactions with the other modules are described. The overall layout follows design principles outlined in Galitz’ “The essential guide to user interface design: an introduction to GUI design principles and techniques” [2].
@@ -298,7 +298,7 @@ Clears the start and target locations, which are then removed from the map (1) a
 ### Map drawing
 
 Code can be found at `20-indefinite-navigation/fleet_planning/src/map_draw_node.py`.
- 
+
 <!-- [here](github:org=duckietown,repo=Software,path=20-indefinite-navigation/fleet_planning/src/map_draw_node.py).-->
 
 
@@ -348,7 +348,7 @@ In this mode, the user only adds a Duckiebot at a desired node. The virtual Duck
 ## Formal performance evaluation / Results
 
 
-As mentioned previously, the largest portion of the work that needed to be done involved implementing an operational infrastructure that supports actual fleet planning functionality. 
+As mentioned previously, the largest portion of the work that needed to be done involved implementing an operational infrastructure that supports actual fleet planning functionality.
 
 In summary, this included:
 

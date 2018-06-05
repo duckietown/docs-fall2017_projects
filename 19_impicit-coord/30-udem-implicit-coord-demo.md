@@ -1,8 +1,34 @@
-# Demo Instructions
+# Implicit Coordination Demo Instructions {#implicit-coord-demo-udem status=beta}
 
 As part of our work in the Implicit Coordination project, we have added three new nodes for the Duckietown infrastructure and their relationship is shown in the figure below.
 
+<!--
 ![](nodes.png)
+-->
+
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  .fit {
+    max-width: 100%;
+  }
+  .center {
+    display: block;
+    margin: auto;
+  }
+  .group-photo {
+      max-width: 80%;
+  }
+</style>
+
+<div figure-id="fig:implicit-coord-fsm-udem">
+   <img src="nodes.png" class='center fit'/>
+   <figcaption>Software architecture of the implicit coordination behavior</figcaption>
+</div>
+
+
 
 ## Object Detection Node
 
@@ -26,6 +52,7 @@ object_detector:
 ```
 
 Parameters Documentation
+
 ```
 object_detector:
   inference_graph_path: path to pb file containing the Tensorflow model.
@@ -60,4 +87,3 @@ Detection[] detections
 #### Subscribed
 
 `~camera_node/image/compressed : CompressedImage`
-
