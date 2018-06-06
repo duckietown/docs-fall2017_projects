@@ -76,13 +76,9 @@ Step 1: On duckiebot, in `/DUCKIERTOWN_ROOT/` directory, run command:
     duckiebot $ roslaunch imitation_learning lane_following.launch
 
 * Wait a while so that everything has been launched.
-<<<<<<< HEAD
 
 * Press R1 to start autonomous lane following using the imitation learning algorithm.
 
-=======
-* Press R1 to start autonomous lane following using the imitation learning algorithm.
->>>>>>> 36e946516536870ed7af9c46a53d1f8d955b9df9
 * Press L1 to switch to joystick control.
 
 NOTE: Ensure wheel calibration is correct. Parameter tuning is a must. The only two parameters that can be modify are the gain and trim. The parameter pair which makes your bot go straight will unlikely work for the lane following due to the current controller design. Facts show that a gain ranging from 0.5 to 0.9, as long as paired with a suitable trim, will all work on this demo. Start with your parameter pair obtained from wheel calibration. Increase gain for higher speed. Increase trim to horizontally move the bot to the center of the lane. Decrease will do the inverse.
