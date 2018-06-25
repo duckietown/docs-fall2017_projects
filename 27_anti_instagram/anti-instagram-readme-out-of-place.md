@@ -6,7 +6,7 @@ This is the short description of anti-instagram software.
 
 <div class='requirements' markdown="1">
 
-Requires: Camera calibration completed. [Camera calibration](#camera-calib)
+Requires: Camera calibration completed. [Camera calibration](+opmanual_duckiebot#camera-calib)
 
 </div>
 

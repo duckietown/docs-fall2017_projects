@@ -14,7 +14,7 @@ Video of the final result:
     <dtvideo src="vimeo:257762830"/>
 </div>
 
-To reproduce the results please see the [operation manual](#demo-coordination2017) .
+To reproduce the results please see the [operation manual](+opmanual_duckiebot#demo-coordination2017) .
 
 ## Mission and Scope {#explicit-coord-final-scope}
 

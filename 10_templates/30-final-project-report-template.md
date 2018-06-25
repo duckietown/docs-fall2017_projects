@@ -13,7 +13,7 @@ _Let's start from a teaser._
 
 * Post a video of your best results (e.g., your demo video)
 
-Add as a caption: see the [operation manual](#demo-template) to reproduce these results.
+Add as a caption: see the [operation manual](+opmanual_duckiebot#demo-template) to reproduce these results.
 
 ## Mission and Scope {#template-final-scope}
 
@@ -52,7 +52,7 @@ Examples:
 - Is there some particular theorem / "mathy" thing you require your readers to know before delving in the actual problem? Add links here.
 
 Definition of link:
-- could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
+- could be the reference to a paper / textbook (check [here](+duckumentation#demo-template) how to add citations)
 - (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)
 
 ## Definition of the problem {#template-final-problem-def}

@@ -8,11 +8,11 @@ This is the description of transferred lane following demo.
 
 <div class='requirements' markdown="1">
 
-Requires: Wheels calibration completed.[wheel calibration](#wheel-calibration)
+Requires: Wheels calibration completed.[wheel calibration](+opmanual_duckiebot#wheel-calibration)
 
 Requires: Camera installed in the right position.
 
-Requires: Joystick demo has been successfully launched.[Joystick demo](#rc-control)
+Requires: Joystick demo has been successfully launched.[Joystick demo](+opmanual_duckiebot#rc-control))
 
 Requires: PyTorch installed on duckiebot and laptop. (On duckiebot, you can either build from source([link](http://book.duckietown.org/fall2017/duckiebook/pytorch_install.html#sec:pytorch-install)), or download the [pytorch-0.2 wheel file](https://drive.google.com/open?id=1LhQNIoHLU1cpSEpf_Vpd3jjLDDWUZEOr) we built)
 

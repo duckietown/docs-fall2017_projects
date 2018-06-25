@@ -73,7 +73,7 @@ Every Duckiebot is different in configuration.
 
 
 
-We make use of the no lateral slipping motion hypothesis and the pure rolling constrain as shown in the [#duckiebot-modeling](#duckiebot-modeling), to write the following equation:
+We make use of the no lateral slipping motion hypothesis and the pure rolling constrain as shown in the [#duckiebot-modeling](+learning_materials#duckiebot-modeling), to write the following equation:
 
 
 \begin{align} \label{eq:mod-kin-3}

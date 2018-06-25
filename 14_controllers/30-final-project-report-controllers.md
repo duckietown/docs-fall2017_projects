@@ -17,7 +17,7 @@ _The objective of this report is to bring justice to your hard work during the s
     <dtvideo src="vimeo:250511342"/>
 </div>
 
-See the [operation manual](#demo-lane-following) to reproduce these results.
+See the [operation manual](+opmanual_duckiebot#demo-lane-following) to reproduce these results.
 
 
 ## Mission and Scope {#controllers-final-scope}
@@ -63,7 +63,7 @@ In the **previous** implementation, the lane following was not guaranteed on cur
 
 Further, the previous lane controller was not benchmarked for robustness nor for performance, therefore we defined various tests to benchmark the previous controller and our updated solution. During the project, we continuously tested our code with the entire lane following pipeline for best practice and compared our implemented solution to the existing one to record the improvement.
 
-Our **Scope** was first of all to enable controlled autonomous driving of the Duckiebot on straight lane segments and curved lane segments which are in compliance with the geometry defined in [Duckietown Appearance Specifications](#duckietown-specs). Further, we wanted to enhance the robustness to arbitrary geometry of lane width or curvature of the lane to ensure the autonomous driving of the Duckiebot in an individual Duckietown setup.
+Our **Scope** was first of all to enable controlled autonomous driving of the Duckiebot on straight lane segments and curved lane segments which are in compliance with the geometry defined in [Duckietown Appearance Specifications](+opmanual_duckietown#duckietown-specs). Further, we wanted to enhance the robustness to arbitrary geometry of lane width or curvature of the lane to ensure the autonomous driving of the Duckiebot in an individual Duckietown setup.
 We also tackled the detection and stopping at red (stop) lines. With the previous implementation, the Duckiebot stopped rather at random points in front of the red line. We wanted to improve the implementation, to ensure a stop in the middle of the lane, in a predefined range and at a straight angle to the red line.
 As the Duckietown framework is a complex system involving various functionalities such as obstacle avoidance and intersection navigation, our lane following pipeline provides the basic function for those functionalities and it has to be able to interact with the modules of other teams. Hence, it was also our duty to design an interface which can receive and apply information from other modules.  For example, our controller can take reference **d** from obstacle avoidance, intersection crossing and parking. For intersection navigation and parking, our controller needs additionally the pose estimation and a curvature from the navigators and the parking team respectively.
 
@@ -83,7 +83,7 @@ Out of scope was:
 - Is there some particular theorem / "mathy" thing you require your readers to know before delving in the actual problem? Add links here.
 
 Definition of link:
-- could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
+- could be the reference to a paper / textbook (check [here](+duckumentation#demo-template) how to add citations)
 - (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)
 -->
 
@@ -190,7 +190,7 @@ In the existing implementation, the controller has taken the output of the estim
 
 In some cases, the controller won’t need the real time pose input of the pose estimator but a given path from other teams for example during intersection navigation. For this task, we had to define a more general ‘Lane Pose‘ message, communicate and coordinate the integration with other teams and subscribe to the topic of their nodes (see [Subscribed topics by Lane Controller Node](#controllers-int-report)). To decide about the input source, we have to subscribe to flags passed by the other teams and create a prioritization logic.
 
-Regarding performance, the Duckiebot should have a small steady state error within a tile and never leave the lane given the [Duckietown appearance specifications](#duckietown-specs).
+Regarding performance, the Duckiebot should have a small steady state error within a tile and never leave the lane given the [Duckietown appearance specifications](+opmanual_duckietown#duckietown-specs).
 
 
 <!--

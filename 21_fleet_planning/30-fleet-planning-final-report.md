@@ -43,7 +43,7 @@ The codebase can be found [here](https://github.com/duckietown/Software/tree/mas
 #### Localization
 
 
-Localization was performed by placing AprilTags at each intersection and having the Duckiebot identify each unique AprilTag through image analysis. The AprilTags are defined in the duckiebook [signage section](#signage).
+Localization was performed by placing AprilTags at each intersection and having the Duckiebot identify each unique AprilTag through image analysis. The AprilTags are defined in the duckiebook [signage section](+opmanual_duckietown#signage).
 
 A Duckiebot could thus compute at which $(x,y)$ coordinate of the map it was and estimate its rotation. The position on the topographic map was not mapped to the corresponding topological graph representation which is required for path planning.
 

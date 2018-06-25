@@ -10,7 +10,7 @@ TODO for Jacopo Tani: switch intermediate and first videos
     <dtvideo src='vimeo:251027149'/>
 </div>
 
-To reproduce the results see the  [operation manual](#demo-sysid) which includes detailed instructions for a demo.
+To reproduce the results see the  [operation manual](+opmanual_duckiebot#demo-sysid) which includes detailed instructions for a demo.
 
 
 ## Mission and Scope {#sysid-final-scope}
@@ -77,7 +77,7 @@ The parameters $g$ and $t$ were to be set manually during the wheels calibration
 
 #### Calibration Procedure
 
-The current implementation of the calibration procedure can be found in the [#wheel-calibration](#wheel-calibration) section.
+The current implementation of the calibration procedure can be found in the [#wheel-calibration](+opmanual_duckiebot#wheel-calibration) section.
 
 Hereby, the Duckiebot is placed on a line (e.g. tape). Afterwards the joystick demo is launched with the following command:
 
@@ -146,9 +146,9 @@ Hence, if the results do not meet our expectations or if the Duckiebot's configu
 
 ### Preliminaries {#sysid-final-preliminaries}
 
-* Differential-drive model [#duckiebot-modeling](#duckiebot-modeling)
+* [Differential-drive model](+learning_materials#duckiebot-modeling)
 
-* Pinhole-camera model [#camera-geometry](#camera-geometry)
+* [Pinhole-camera model](+learning_materials#camera-geometry)
 
 
 ## Definition of the problem {#sysid-final-problem-def}
@@ -212,7 +212,7 @@ These three parameters will be calculated with odometry calibration.
 
 ### Odometry formulation {#sysid-final-odometry}
 
-The general problem definition for the odometry is to find the most likely calibration parameters given the duckiebot model [#duckiebot-modeling](#duckiebot-modeling) and a set of discrete measurement from which the output can be estimated. [](#bib:OdometryCalibration)
+The general problem definition for the odometry is to find the most likely calibration parameters given the duckiebot model [#duckiebot-modeling](+learning_materials#duckiebot-modeling) and a set of discrete measurement from which the output can be estimated. [](#bib:OdometryCalibration)
 The model of the system [](#bib:OdometryCalibration) with the notations explained in Table [](#tab:sysid-notations) can be described as :
 
 \begin{align}
@@ -298,7 +298,7 @@ The calibration procedure consists of two parts:
 
 * Offline processing of rosbag to find odometry parameters with fit
 
-To reproduce the results see the  [operation manual](#demo-sysid) which includes detailed instructions for a demo.
+To reproduce the results see the  [operation manual](+opmanual_duckiebot#demo-sysid) which includes detailed instructions for a demo.
 
 ### Recording rosbag log of Duckiebot maneuvers
 

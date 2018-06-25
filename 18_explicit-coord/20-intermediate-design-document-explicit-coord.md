@@ -9,7 +9,7 @@
 Our job starts when Duckiebots are stationary at the red-line of the intersection (this is communicated to us via controllers/ parking).
 By clicking “start” the LED-coordination-node tells the LED-emitter-node to turn the LEDs white for all Duckiebots.
 Afterwards, the LED-detector-node checks for each Duckiebot if other LEDs are seen  and tells it to the LED-coordination-node. Note that here there is, at least in a first approach to the problem, no turning, i.e., LEDs of Duckiebots on the left are not identified.
-The LED-coordination-node estimates the coordination move (either “hold on” or “go”) for each Duckiebot. The final output is a signal, named move_intersection, that will be used by the Navigators to start the procedure to navigate the intersection. Thereafter, we are not going to intervene until the Duckiebot finds itself at another intersection. Should the explicit coordination fail (for instance, because of Duckiebots not equipped with LEDs), the task of coordinating the intersection is given to the implicit coordination.
+The LED-coordination-node estimates the coordination move (either "hold on" or "go") for each Duckiebot. The final output is a signal, named move_intersection, that will be used by the Navigators to start the procedure to navigate the intersection. Thereafter, we are not going to intervene until the Duckiebot finds itself at another intersection. Should the explicit coordination fail (for instance, because of Duckiebots not equipped with LEDs), the task of coordinating the intersection is given to the implicit coordination.
 
 Our LED-detection, LED-emission and LED-coordination nodes affect only the Duckiebots behavior at intersection. Surely, our LED-signal could be seen from other Duckiebots in Duckietown but, at least for now, no group (except for the fleet planning group, see below) needs LEDs-based communication in other situations. A LED-signal will be used by fleet-planning to indicate the status of each vehicle (free, occupied, waiting, etc.). The Fleet planning will be using one LED for implementing this functionality (back-right one) while the other LEDs remain available for coordination purposes.
 
@@ -105,7 +105,7 @@ Software architect check-off: I, XXX, (agree / do not agree) that the above is c
 
 ### Demo plan
 
-Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year [](#demo-coordination2016). The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
+Our demo will be conceptually similar to the MIT2016 “openhouse-dp5”,  available from last year [](+opmanual_duckiebot#demo-coordination2016). The Duckiebots that are navigating in Duckietown, will stop at the red line and LED-communication and coordination will be performed leading to the eventual clearing of the intersection.
 
 From testing last year’s code we realized that the coordination does not seem to work with the mentioned demo. Duckiebots stop at the red line but they do not communicate so that they never leave the intersection or decide to go independently of the presence and decision of the other Duckiebots. Although we investigated the problem by looking at separate nodes, no solution has been found yet.
 

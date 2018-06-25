@@ -177,7 +177,7 @@ The path planned to traverse an intersection is a polynomial of order three. The
 
 ### Performance evaluation
 
-All the experiments are taken in a duckietown with appearence in accord to [appearance specifications](#duckietown-specs).
+All the experiments are taken in a duckietown with appearence in accord to [appearance specifications](+opmanual_duckietown#duckietown-specs).
 It is a Duckietown with 3 and 4-ways intersections and intersection April Tags well visible.
 We consider an experiment is valid, when the Duckiebot correctly stops at the red line. The term correctly refers to the thresholds defined in section 8 Logical Architecture.
 We let the Duckiebot navigate Duckietown for 2 runs of 30 minutes randomly choosing the exit to take.

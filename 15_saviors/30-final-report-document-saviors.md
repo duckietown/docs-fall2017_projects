@@ -33,7 +33,7 @@ The Saviors Teaser:
 
 [![Vimeo](vimeo_screenshot.png){:height="50%" width="50%"}](https://player.vimeo.com/video/251523150 "The Saviors Teaser - Click to Watch!")
 
-Note: See the [operation manual](#demo-saviors) to reproduce these results. 
+Note: See the [operation manual](+opmanual_duckiebot#demo-saviors) to reproduce these results. 
 
 The code description can be found here in the [Readme](https://github.com/duckietown/Software/blob/devel-saviors-23feb/catkin_ws/src/25-devel-saviors/obst_avoid/README.md).
 
@@ -89,7 +89,7 @@ We also tried to start their software but we couldn't make it run after a signif
 ### Preliminaries {#saviors-final-preliminaries}
 <!--- Is there some particular theorem / "mathy" thing you require your readers to know before delving in the actual problem? Add links here.
 Definition of link:
-- could be the reference to a paper / textbook (check [here](#bibliography-support) how to add citations)
+- could be the reference to a paper / textbook (check [here](+duckumentation#demo-template) how to add citations)
 - (bonus points) it is best if it is a link to Duckiebook chapter (in the dedicated "Preliminaries" section)-->
 
 Since our task was to reliably detect obstacles using a monocular camera only, we mainly dealt with processing the camera image, extracting the needed information, visualizing the results and to act accordingly in the real world. 
