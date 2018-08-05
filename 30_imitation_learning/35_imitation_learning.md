@@ -1,6 +1,6 @@
 # Imitation Learning {#part:imitation-learning}
 
-# Imitation Learning {#imitation_learning status=beta}
+# Imitation Learning Demo {#imitation-learning-demo status=beta}
 
 This is the description of imitation learning project demo.
 
