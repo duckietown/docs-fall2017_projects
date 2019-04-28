@@ -1,4 +1,4 @@
-#  The Heroes - System Architecture: final report {#heroes-final-report status=beta}
+#  The Heroes - System Architecture: final report {#heroes-final-report status=ready}
 
 <!--
 General notes:

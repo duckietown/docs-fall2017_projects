@@ -1,6 +1,6 @@
 # System Identification {#part:fall2017-sysid-city status=ready}
 
-# System Identification: preliminary report {#sysid-pdd status=beta}
+# System Identification: preliminary report {#sysid-pdd status=ready}
 
 
 ## Part 1: Mission and scope

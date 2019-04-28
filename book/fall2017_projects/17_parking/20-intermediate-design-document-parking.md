@@ -80,7 +80,7 @@ Assumptions about other modules:
 
 - /vehicle/reference\_for\_control
     - d (orthogonal distance to path), c (curvature), phi (differential heading path and Duckiebot)
-    - frequency: first step (path generation) uses a lot of time ~ 10 s, afterwards fast (~ 30 Hz) 
+    - frequency: first step (path generation) uses a lot of time ~ 10 s, afterwards fast (~ 30 Hz)
 
 - /vehicle/motor\_voltage
     - two values for the two motors

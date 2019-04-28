@@ -1,6 +1,6 @@
 # The Controllers {#part:navigators status=ready}
 
-# Navigators: preliminary report {#navigators-pdd status=beta}
+# Navigators: preliminary report {#navigators-pdd status=ready}
 
 
 ## Part 1: Mission and Scope
