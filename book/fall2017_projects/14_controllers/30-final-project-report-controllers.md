@@ -1,4 +1,4 @@
-#  The Controllers: final report {#controllers-final-report status=beta}
+#  The Controllers: final report {#controllers-final-report status=ready}
 
 <!--
 General notes:
@@ -10,7 +10,7 @@ _The objective of this report is to bring justice to your hard work during the s
 -->
 
 ## The final result {#controllers-final-result}
- 
+
 
 <div figure-id="fig:demo_video_controllers">
     <figcaption>The Controllers Demo Video</figcaption>

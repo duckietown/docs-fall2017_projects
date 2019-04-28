@@ -1,6 +1,4 @@
-# Smart city {#part:smart-city}
-
-#  PDD - Smart City {#smartcity-pdd status=beta}
+#  Preliminary Design Document - Smart City {#smartcity-pdd status=ready}
 
 
 ## Part 1: Mission and scope

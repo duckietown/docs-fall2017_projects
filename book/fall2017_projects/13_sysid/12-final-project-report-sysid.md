@@ -1,4 +1,4 @@
-#  System identification: final report {#sysid-final-report status=beta}
+#  System identification: final report {#sysid-final-report status=ready}
 
 TODO for Jacopo Tani: switch intermediate and first videos
 

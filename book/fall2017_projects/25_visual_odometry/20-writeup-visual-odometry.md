@@ -71,9 +71,3 @@ Our depth prediction node could be used for a variety of tasks, including point-
 [Unsupervised Learning of Depth and Ego-motion from Video](https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/)
 
 [Depth Image-Based Rendering](http://www.apsipa.org/proceedings_2010/pdf/APSIPA197.pdf)
-
-Author: Igor
-
-Maintainer: Igor
-
-Point of Contact: Igor

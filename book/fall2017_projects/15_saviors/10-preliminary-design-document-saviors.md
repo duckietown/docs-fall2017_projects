@@ -1,6 +1,6 @@
 # The Saviors {#part:saviors status=ready}
 
-#  The Saviors: preliminary report  {#saviors-pdd status=beta}
+#  The Saviors: preliminary report  {#saviors-pdd status=ready}
 
 
 ## Part 1: Mission and scope
